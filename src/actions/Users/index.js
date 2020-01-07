@@ -2,58 +2,67 @@ import isEmpty from "lodash/isEmpty";
 import * as types from "~types";
 
 /**
- * ~function createUser - attempts to create a new user in DB.
- * ~param {object} props - contain user props
- * ~returns {object}
+ * Sign in user via a session.
+ *
+ * @function authenticateUser
+ * @returns {object}
  */
-export const createUser = ({ props }) => ({
-	type: types.USERS_CREATE,
+export const authenticateUser = () => ({
+	type: types.USER_SIGNIN_SESSION,
+});
+
+/**
+ * Sets current signed in user (can be guest) to redux state
+ *
+ * @function signin
+ * @param {object} data - contains user session data (id, email, first/last name, and role).
+ * @returns {object}
+ */
+export const signin = data => ({
+	type: types.USER_SIGNIN,
+	payload: !isEmpty(data) ? data : { role: "guest" },
+});
+
+/**
+ * Attempts to sign user into a new session via login form.
+ *
+ * @function signinUser
+ * @param {object} props - contains user session data (email, password).
+ * @returns {object}
+ */
+export const signinUser = props => ({
+	type: types.USER_SIGNIN_ATTEMPT,
 	props,
 });
 
 /**
- * ~function deleteUser - attempts to delete a user from DB.
- * ~param {string} id
- * ~returns {object}
+ * Attempts to signs user out of current session.
+ *
+ * @function signoutUser
+ * @returns {object}
  */
-export const deleteUser = id => ({
-	type: types.USERS_DELETE,
-	id,
+export const signoutUser = () => ({
+	type: types.USER_SIGNOUT_SESSION,
 });
 
 /**
- * ~function fetchUsers - attempts to fetchUsers users from DB.
- * ~returns {object}
+ * Signs user out of current session.
+ *
+ * @function signout
+ * @returns {object}
  */
-export const fetchUsers = () => ({
-	type: types.USERS_FETCH,
+export const signout = () => ({
+	type: types.USER_SIGNOUT,
 });
 
 /**
- * ~function seedDB - attempts to seed the DB with data.
- * ~returns {object}
+ * Sign up user via signup form.
+ *
+ * @function signupUser
+ * @param {object} props - contains a token, an email, first/last name, and a password.
+ * @returns {object}
  */
-export const seedDB = () => ({
-	type: types.USERS_SEED,
-});
-
-/**
- * ~function setUsers - sets user data to state.
- * ~param {array} data - contains user data: [{ address: { street, suite, city, state, zipCode }, _id, email, firstName, lastName, userName, backgroundInfo }]
- * ~returns {object}
- */
-export const setUsers = data => ({
-	type: types.USERS_SET_DATA,
-	payload: !isEmpty(data) ? data : [],
-});
-
-/**
- * ~function updateUser - attempts to update a current user in DB.
- * ~params {object} - props contain user data and id is user id.
- * ~returns {object}
- */
-export const updateUser = ({ props, id }) => ({
-	type: types.USERS_UPDATE,
+export const signupUser = props => ({
+	type: types.USER_SIGNUP,
 	props,
-	id,
 });

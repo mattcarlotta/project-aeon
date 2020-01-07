@@ -6,6 +6,7 @@ const { baseURL } = process.env;
 
 export const app = axios.create({
 	baseURL,
+	withCredentials: true,
 });
 
 app.interceptors.response.use(

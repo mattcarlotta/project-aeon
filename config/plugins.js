@@ -15,6 +15,7 @@ const {
 const {
 	analyze,
 	baseURL,
+	cookieSecret,
 	DATABASE,
 	inDevelopment,
 	inTesting,
@@ -41,6 +42,7 @@ module.exports = isServer => {
 			new DefinePlugin({
 				"process.env": {
 					DATABASE: JSON.stringify(DATABASE),
+					cookieSecret: JSON.stringify(cookieSecret),
 					inDevelopment: inDev,
 					inTesting: JSON.stringify(inTesting),
 					baseURL: JSON.stringify(baseURL),

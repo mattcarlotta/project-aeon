@@ -1,8 +1,11 @@
 import * as types from "~types";
 
 export const initialState = {
-	data: [],
-	isLoading: true,
+	id: "",
+	email: "",
+	firstName: "",
+	lastName: "",
+	role: "",
 };
 
 /**
@@ -13,15 +16,11 @@ export const initialState = {
  */
 const userReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
-		case types.USERS_FETCH: {
-			return initialState;
+		case types.USER_SIGNIN: {
+			return { ...state, ...payload };
 		}
-		case types.USERS_SET_DATA: {
-			return {
-				...state,
-				data: payload.users,
-				isLoading: false,
-			};
+		case types.USER_SIGNOUT: {
+			return initialState;
 		}
 		default: {
 			return state;

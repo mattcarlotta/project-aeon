@@ -1,27 +1,28 @@
 import { all, put, call, takeLatest } from "redux-saga/effects";
+import Router from "next/router";
 import app from "~utils/axiosConfig";
 import { parseData, parseMessage } from "~utils/parseResponse";
 import * as types from "~types";
-import { setUsers } from "~actions/Users";
-import { setError, setMessage } from "~actions/Server";
-import toast from "~components/Toast";
+import * as actions from "~actions/Users";
+import { setError, setMessage, resetMessage } from "~actions/Server";
+import toast from "~components/Body/Toast";
 
 /**
- * Attempts to fetch users from DB.
+ * Removes the current user from a express and redux session.
  *
  * @generator
- * @function fetchUsers
- * @yields {object} - A response from a call to the API.
- * @function parseData - returns a parsed res.data.
- * @yields {action} -  A redux action to set users to redux state.
+ * @function signoutUserSession
+ * @yields {object} - A redux action to remove the current user from state.
+ * @yields {action} - A redux action to push to a URL.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* fetchUsers() {
+export function* signoutUserSession() {
 	try {
-		const res = yield call(app.get, "users");
-		const data = yield call(parseData, res);
+		yield call(app.get, "users/signout");
 
-		yield put(setUsers(data));
+		yield put(actions.signout());
+
+		yield put(Router.push("/login"));
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -29,79 +30,21 @@ export function* fetchUsers() {
 }
 
 /**
- * Creates a new user.
+ * Attempts to automatically sign user in via a session.
  *
  * @generator
- * @function createUser
- * @param {object} props - props contain new user data.
- * @yields {object} - A response from a call to the API.
- * @function parseMessage - returns a parsed res.data.message.
- * @yields {action} - A toast success message.
- * @yields {action} - A redux action to set server message state.
- * @yields {action} - A redux action to refetch users.
- * @throws {action} - A toast error message.
- */
-export function* createUser({ props }) {
-	try {
-		const res = yield call(app.post, "users/create", props);
-		const message = yield call(parseMessage, res);
-
-		yield call(toast, { type: "success", message });
-
-		yield put(setMessage(message));
-
-		yield call(fetchUsers);
-	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
-	}
-}
-
-/**
- * Attempts to delete a user.
- *
- * @generator
- * @function deleteUser
- * @param id
- * @yields {object} - A response from a call to the API.
- * @function parseMessage - returns a parsed res.data.message.
- * @yields {action} - A toast success message.
- * @yields {action} - A redux action to set server message state.
- * @yields {action} - A redux action to refetch users.
- * @throws {action} - A toast error message.
- */
-export function* deleteUser({ id }) {
-	try {
-		const res = yield call(app.delete, `users/delete/${id}`);
-		const message = yield call(parseMessage, res);
-
-		yield call(toast, { type: "success", message });
-
-		yield put(setMessage(message));
-
-		yield call(fetchUsers);
-	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
-	}
-}
-
-/**
- * Attempts to seed DB with fake users.
- *
- * @generator
- * @function seedDB
+ * @function authenticateUser
  * @yields {object} - A response from a call to the API.
  * @function parseData - returns a parsed res.data.
- * @yields {action} -  A redux action to set users to redux state.
- * @throws {action} - A toast error message.
+ * @yields {action} - A redux action to set the current user.
+ * @throws {action} - A redux action to display a server message by type.
  */
-export function* seedDB() {
+export function* authenticateUser() {
 	try {
-		const res = yield call(app.post, "users/seed");
+		const res = yield call(app.get, "users/signedin");
 		const data = yield call(parseData, res);
 
-		yield put(setUsers(data));
+		yield put(actions.signin(data));
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -109,28 +52,54 @@ export function* seedDB() {
 }
 
 /**
- * Attempts to update a new user.
+ * Attempts to sign user in to a new session.
  *
  * @generator
- * @function updateUser
- * @param {object} - props contain user data and id is user id.
+ * @function signinUser
+ * @param {object} props - contains user credentials (email and password).
+ * @yields {object} - A response from a call to the API.
+ * @function parseData - returns a parsed res.data.
+ * @yields {action} -  A redux action to set the current user to redux state.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+export function* signinUser({ props }) {
+	try {
+		yield put(resetMessage());
+
+		const res = yield call(app.post, "users/signin", { ...props });
+		const data = yield call(parseData, res);
+
+		yield put(actions.signin(data));
+		yield put(Router.push("/"));
+	} catch (e) {
+		yield put(setError(e.toString()));
+		yield call(toast, { type: "error", message: e.toString() });
+	}
+}
+
+/**
+ * Attempts to sign up a new user.
+ *
+ * @generator
+ * @function signupUser
+ * @param {object} props - props contain a token, an email, first/last name, and a password.
  * @yields {object} - A response from a call to the API.
  * @function parseMessage - returns a parsed res.data.message.
  * @yields {action} - A redux action to display a server message by type.
- * @yields {action} - A redux action to set server message state.
- * @yields {action} - A redux action to fetch users.
+ * @yields {action} - A redux action to push to a URL.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* updateUser({ props, id }) {
+export function* signupUser({ props }) {
 	try {
-		const res = yield call(app.put, `users/update/${id}`, { ...props });
+		yield put(resetMessage());
+
+		const res = yield call(app.post, "users/signup", { ...props });
 		const message = yield call(parseMessage, res);
 
-		yield call(toast, { type: "info", message });
-
+		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		yield call(fetchUsers);
+		yield put(Router.push("/login"));
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -146,10 +115,9 @@ export function* updateUser({ props, id }) {
  */
 export default function* authSagas() {
 	yield all([
-		takeLatest(types.USERS_CREATE, createUser),
-		takeLatest(types.USERS_DELETE, deleteUser),
-		takeLatest(types.USERS_FETCH, fetchUsers),
-		takeLatest(types.USERS_SEED, seedDB),
-		takeLatest(types.USERS_UPDATE, updateUser),
+		takeLatest(types.USER_SIGNIN_SESSION, authenticateUser),
+		takeLatest(types.USER_SIGNIN_ATTEMPT, signinUser),
+		takeLatest(types.USER_SIGNOUT_SESSION, signoutUserSession),
+		takeLatest(types.USER_SIGNUP, signupUser),
 	]);
 }

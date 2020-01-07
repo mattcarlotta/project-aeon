@@ -6,7 +6,9 @@ import withReduxSaga from "next-redux-saga";
 import { ToastContainer } from "react-toastify";
 import configureStore from "~store";
 import GlobalStylesheet from "~styles/globalStylesheet";
-import toast from "~components/Toast";
+import Wrapper from "~components/Body/Wrapper";
+import toast from "~components/Body/Toast";
+import NavBar from "~components/Containers/NavBar";
 import "~styles/empty.css";
 
 export class MyApp extends App {
@@ -28,7 +30,10 @@ export class MyApp extends App {
 		const { Component, pageProps, store } = this.props;
 		return (
 			<Provider store={store}>
-				<Component {...pageProps} />
+				<NavBar />
+				<Wrapper>
+					<Component {...pageProps} />
+				</Wrapper>
 				<GlobalStylesheet />
 				<ToastContainer
 					position="top-right"
