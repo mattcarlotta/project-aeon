@@ -7,15 +7,10 @@ import { ToastContainer } from "react-toastify";
 import configureStore from "~store";
 import GlobalStylesheet from "~styles/globalStylesheet";
 import Wrapper from "~components/Body/Wrapper";
-import toast from "~components/Body/Toast";
 import NavBar from "~components/Containers/NavBar";
 import "~styles/empty.css";
 
 export class MyApp extends App {
-	componentDidMount() {
-		toast({ type: "info", message: "Welcome to the NextJS SSR Kit!" });
-	}
-
 	static async getInitialProps({ Component, ctx }) {
 		return {
 			pageProps: {

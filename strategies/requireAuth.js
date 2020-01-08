@@ -10,7 +10,7 @@ import { sendError } from "~shared/helpers";
  */
 export default next => async (req, res) => {
 	try {
-		const _id = get(req, ["session", "user", "_id"]);
+		const _id = get(req, ["session", "id"]);
 		if (!_id) throw badCredentials;
 
 		const existingUser = await User.findOne({ _id });

@@ -3,7 +3,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { User } from "~models/instances";
 import { sendError } from "~shared/helpers";
-import { badCredentials } from "~shared/errors";
+import { badCredentials, missingSigninCredentials } from "~shared/errors";
 
 passport.use(
 	"local-login",
@@ -43,7 +43,7 @@ passport.use(
 export const localLogin = next => async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		if (!email || !password) throw badCredentials;
+		if (!email || !password) throw missingSigninCredentials;
 
 		const existingUser = await new Promise((resolve, reject) => {
 			passport.authenticate("local-login", (err, user) =>
@@ -52,10 +52,11 @@ export const localLogin = next => async (req, res) => {
 		});
 
 		req.session = {
-			_id: existingUser._id,
+			id: existingUser._id.toString(),
 			email: existingUser.email,
 			firstName: existingUser.firstName,
 			lastName: existingUser.lastName,
+			role: existingUser.role,
 		};
 
 		next(req, res);

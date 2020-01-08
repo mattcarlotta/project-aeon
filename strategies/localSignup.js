@@ -56,10 +56,7 @@ export const localSignup = next => async (req, res) => {
 		});
 
 		req.user = {
-			_id: newUser._id,
-			email: newUser.email,
 			firstName: newUser.firstName,
-			lastName: newUser.lastName,
 		};
 
 		next(req, res);

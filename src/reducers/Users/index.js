@@ -6,6 +6,7 @@ export const initialState = {
 	firstName: "",
 	lastName: "",
 	role: "",
+	isLoading: true,
 };
 
 /**
@@ -17,10 +18,10 @@ export const initialState = {
 const userReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
 		case types.USER_SIGNIN: {
-			return { ...state, ...payload };
+			return { ...state, ...payload, isLoading: false };
 		}
 		case types.USER_SIGNOUT: {
-			return initialState;
+			return { ...initialState, isLoading: false };
 		}
 		default: {
 			return state;

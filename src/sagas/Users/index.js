@@ -22,7 +22,7 @@ export function* signoutUserSession() {
 
 		yield put(actions.signout());
 
-		yield put(Router.push("/login"));
+		yield call(Router.push, "/");
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -64,13 +64,13 @@ export function* authenticateUser() {
  */
 export function* signinUser({ props }) {
 	try {
-		yield put(resetMessage());
+		yield call(resetMessage);
 
 		const res = yield call(app.post, "users/signin", { ...props });
 		const data = yield call(parseData, res);
 
 		yield put(actions.signin(data));
-		yield put(Router.push("/"));
+		yield call(Router.push, "/");
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -91,7 +91,7 @@ export function* signinUser({ props }) {
  */
 export function* signupUser({ props }) {
 	try {
-		yield put(resetMessage());
+		yield call(resetMessage);
 
 		const res = yield call(app.post, "users/signup", { ...props });
 		const message = yield call(parseMessage, res);
@@ -99,7 +99,7 @@ export function* signupUser({ props }) {
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		yield put(Router.push("/login"));
+		yield call(Router.push, "/login");
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });

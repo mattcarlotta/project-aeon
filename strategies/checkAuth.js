@@ -9,7 +9,7 @@ import { clearSession } from "~shared/helpers";
  * @returns {function}
  */
 export default next => async (req, res) => {
-	const _id = get(req, ["session", "user", "_id"]);
+	const _id = get(req, ["session", "id"]);
 	if (!_id) return clearSession(req, res, 200);
 
 	const existingUser = await User.findOne({ _id });

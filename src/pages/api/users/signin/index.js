@@ -7,6 +7,6 @@ import { localLogin } from "~strategies";
  * @function signin
  * @returns {object}
  */
-const signin = (req, res) => res.status(201).json({ ...req.session.user });
+const signin = (req, res) => res.status(201).send(req.session);
 
 export default withMiddleware(localLogin(signin));

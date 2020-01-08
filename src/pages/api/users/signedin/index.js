@@ -7,6 +7,6 @@ import { checkAuth } from "~strategies";
  * @function signedin
  * @returns {object}
  */
-const signedin = (req, res) => res.status(201).json({ ...req.session.user });
+const signedin = (req, res) => res.status(201).send(req.session);
 
 export default withMiddleware(checkAuth(signedin));
