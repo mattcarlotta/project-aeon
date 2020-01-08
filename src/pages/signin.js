@@ -5,13 +5,32 @@ import { connect } from "react-redux";
 import { signinUser } from "~actions/Users";
 import Button from "~components/Body/Button";
 import Input from "~components/Forms/Input";
+import FormContainer from "~components/Forms/FormContainer";
 import StyledLink from "~components/Navigation/StyledLink";
-import FlexCenter from "~components/Body/FlexCenter";
+import fieldValidator from "~utils/fieldValidator";
+import fieldUpdater from "~utils/fieldUpdater";
+import parseFields from "~utils/parseFields";
 
 export class LoginForm extends Component {
 	state = {
-		email: "",
-		password: "",
+		fields: [
+			{
+				name: "email",
+				type: "email",
+				label: "Email",
+				value: "",
+				errors: "",
+				required: true,
+			},
+			{
+				name: "password",
+				type: "password",
+				label: "Password",
+				value: "",
+				errors: "",
+				required: true,
+			},
+		],
 		isSubmitting: false,
 	};
 
@@ -21,60 +40,52 @@ export class LoginForm extends Component {
 		return null;
 	}
 
-	handleChange = ({ target: { name, value } }) =>
-		this.setState({ [name]: value });
+	handleChange = ({ target: { name, value } }) => {
+		this.setState(prevState => ({
+			...prevState,
+			fields: fieldUpdater(prevState.fields, name, value),
+		}));
+	};
 
 	handleSubmit = e => {
 		e.preventDefault();
 
-		const { email, password } = this.state;
+		const { validatedFields, errors } = fieldValidator(this.state.fields);
 
-		this.props.signinUser({ email, password });
+		this.setState({ fields: validatedFields, isSubmitting: !errors }, () => {
+			if (!errors) this.props.signinUser(parseFields(validatedFields));
+		});
 	};
 
 	render = () => (
-		<FlexCenter>
-			<div css="width: 350px;margin: 0 auto;box-shadow: 0 2px 4px 0 rgba(181,181,181,.7);padding: 10px;background: #fff;">
-				<Head>
-					<title>NextJS SSR Kit - Sign In</title>
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
-				<h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
-				<p css="text-align: center;margin-top: 0px;">to your account</p>
-				<form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
-					<Input
-						label="Email"
-						name="email"
-						type="email"
-						placeholder="Account Email Address"
-						onChange={this.handleChange}
-						value={this.state.email}
-					/>
-					<Input
-						label="Password"
-						name="password"
-						type="password"
-						placeholder="Account Password"
-						onChange={this.handleChange}
-						value={this.state.password}
-					/>
-					<Button
-						primary
-						type="submit"
-						width="100%"
-						disabled={this.state.isSubmitting}
-					>
-						Submit
-					</Button>
-					<div css="text-align: center;margin-top: 40px;">
-						<p>Don&#39;t have an account?</p>
-						<StyledLink href="/register">
-							<Button type="button">Register</Button>
-						</StyledLink>
-					</div>
-				</form>
-			</div>
-		</FlexCenter>
+		<FormContainer>
+			<Head>
+				<title>NextJS SSR Kit - Sign In</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
+			<p css="text-align: center;margin-top: 0px;">to your account below.</p>
+			<form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
+				{this.state.fields.map(props => (
+					<Input key={props.name} onChange={this.handleChange} {...props} />
+				))}
+				<Button
+					primary
+					type="submit"
+					width="100%"
+					style={{ marginTop: 10 }}
+					disabled={this.state.isSubmitting}
+				>
+					Submit
+				</Button>
+				<div css="text-align: center;margin-top: 40px;">
+					<p>Don&#39;t have an account?</p>
+					<StyledLink href="/register">
+						<Button type="button">Register</Button>
+					</StyledLink>
+				</div>
+			</form>
+		</FormContainer>
 	);
 }
 

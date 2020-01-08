@@ -99,7 +99,7 @@ export function* signupUser({ props }) {
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		yield call(Router.push, "/login");
+		yield call(Router.push, "/signin");
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });

@@ -2,8 +2,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Button = ({ id, className, children, onClick, style, type }) => (
+const Button = ({
+	disabled,
+	id,
+	className,
+	children,
+	onClick,
+	style,
+	type,
+}) => (
 	<button
+		disabled={disabled}
 		id={id}
 		type={type}
 		className={className}
@@ -15,6 +24,7 @@ const Button = ({ id, className, children, onClick, style, type }) => (
 );
 
 Button.propTypes = {
+	disabled: PropTypes.bool,
 	id: PropTypes.string,
 	className: PropTypes.string.isRequired,
 	children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),

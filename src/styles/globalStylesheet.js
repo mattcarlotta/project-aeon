@@ -1,13 +1,13 @@
 /* istanbul ignore file */
 import { createGlobalStyle } from "styled-components";
-import PoppinsLight from "./assets/fonts/Poppins-Light.ttf";
+import VarelaRound from "./assets/fonts/VarelaRound-Regular.ttf";
 
 export default createGlobalStyle`
   @font-face {
-    font-family: 'Poppins Light';
+    font-family: 'Valera Round';
     font-style: normal;
     font-weight: normal;
-    src: url(${PoppinsLight}) format('truetype');
+    src: url(${VarelaRound}) format('truetype');
   }
   #__next, body, html {
     height: 100%;
@@ -22,7 +22,7 @@ export default createGlobalStyle`
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: "Poppins Light", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: #ebebeb;
     min-height: 100vh;
     font-size: 15px;
