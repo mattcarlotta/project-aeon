@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { authenticateUser, signoutUser } from "~actions/Users";
-import Flex from "~components/Body/Flex";
 import FlexEnd from "~components/Body/FlexEnd";
 import List from "~components/Body/List";
 import ListItem from "~components/Body/ListItem";
-import StyledLink from "~components/Body/StyledLink";
-import LoadingNav from "~components/Body/LoadingNav";
+import Button from "~components/Body/Button";
+import NavContainer from "~components/Navigation/NavContainer";
+import LoadingNav from "~components/Navigation/LoadingNav";
+import StyledLink from "~components/Navigation/StyledLink";
 
 class NavBar extends Component {
 	componentDidMount() {
@@ -19,25 +20,40 @@ class NavBar extends Component {
 		const notLoggedin = !role || role === "guest";
 
 		return (
-			<Flex style={{ width: "100%", background: "#fff", height: 50 }}>
+			<NavContainer>
 				<FlexEnd>
 					{!isLoading ? (
 						<List>
-							<ListItem>Welcome, {notLoggedin ? "guest" : firstName}!</ListItem>
+							<ListItem style={{ fontSize: 16 }}>
+								Welcome, {notLoggedin ? "guest" : firstName}!
+							</ListItem>
 							{notLoggedin ? (
 								<>
 									<ListItem>
-										<StyledLink href="/login">Sign In</StyledLink>
+										<StyledLink href="/signin">
+											<Button radius="4px" type="button">
+												Sign In
+											</Button>
+										</StyledLink>
 									</ListItem>
 									<ListItem>
-										<StyledLink href="/register">Register</StyledLink>
+										<StyledLink href="/register">
+											<Button primary radius="4px" type="button">
+												Register
+											</Button>
+										</StyledLink>
 									</ListItem>
 								</>
 							) : (
 								<ListItem>
-									<button type="button" onClick={signoutUser}>
+									<Button
+										danger
+										radius="4px"
+										type="button"
+										onClick={signoutUser}
+									>
 										Sign Out
-									</button>
+									</Button>
 								</ListItem>
 							)}
 						</List>
@@ -45,7 +61,7 @@ class NavBar extends Component {
 						<LoadingNav />
 					)}
 				</FlexEnd>
-			</Flex>
+			</NavContainer>
 		);
 	};
 }

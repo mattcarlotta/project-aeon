@@ -4,39 +4,48 @@ import Button from "./Button";
 export default styled(Button)`
 	cursor: pointer;
 	color: ${props => {
-		if (props.primary) return "#03a9f3";
-		if (props.danger) return "#f0506e";
-		return "#828282";
+		if (props.primary) return "#fff";
+		if (props.danger) return "#fff";
+		return "#03a9f3";
 	}};
-	background-color: transparent;
+	background-color: ${props => {
+		if (props.primary) return "#188fff";
+		if (props.danger) return "#f0506e";
+		return "transparent";
+	}};
 	border: 1px solid
 		${props => {
-			if (props.primary) return "#03a9f3";
+			if (props.primary) return "#188fff";
 			if (props.danger) return "#f0506e";
-			return "#828282";
+			return "#03a9f3";
 		}};
 	font-size: 16px;
-	line-height: 38px;
-	padding: 10px;
-	padding: 8px 16px;
+	font-weight: ${({ weight }) => weight || "normal"};
+	line-height: 26px;
+	padding: ${({ padding }) => padding || "4px 16px"};
+	width: ${({ width }) => width || "100%"};
 	text-align: center;
 	transition: all 0.2s ease-in-out;
 	text-decoration: none;
-	text-transform: uppercase;
 	outline: none;
-	border-radius: 4px;
+	border-radius: ${({ radius }) => radius || "50px"};
 
 	&:hover {
 		text-decoration: none;
 		color: ${props => {
+			if (props.primary) return "#fff";
+			if (props.danger) return "#fff";
+			return "#0f7ae5";
+		}};
+		background-color: ${props => {
 			if (props.primary) return "#0f7ae5";
 			if (props.danger) return "#be391c";
-			return "#6f6f6f";
+			return "transparent";
 		}};
 		border-color: ${props => {
 			if (props.primary) return "#0f7ae5";
 			if (props.danger) return "#be391c";
-			return "#6f6f6f";
+			return "#0f7ae5";
 		}};
 	}
 `;

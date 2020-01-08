@@ -2,15 +2,19 @@
 import styled from "styled-components";
 
 export default styled.div`
-	flex-direction: ${({ direction }) => direction || "row"};
+	flex-direction: row;
 	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
 	-webkit-box-align: center;
+	-moz-box-align: center;
 	-ms-flex-align: center;
+	justify-content: center;
 	align-items: center;
-	height: 100%;
+	width: 100%;
+	background: #fff;
+	height: 55px;
+	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 `;

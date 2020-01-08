@@ -25,6 +25,7 @@ export default createGlobalStyle`
     font-family: "Poppins Light", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: #ebebeb;
     min-height: 100vh;
+    font-size: 15px;
   }
   @-webkit-keyframes wave {
     0% {
