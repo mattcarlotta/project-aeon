@@ -127,10 +127,9 @@ export default createGlobalStyle`
     text-align: center;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    text-transform: uppercase;
   }
   .link:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
   .Toastify__toast-container {
     z-index: 9999;

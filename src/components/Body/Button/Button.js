@@ -10,14 +10,28 @@ const Button = ({
 	onClick,
 	style,
 	type,
+	onContextMenu,
+	onMouseDown,
+	onTouchStart,
+	onMouseEnter,
+	onMouseLeave,
+	onFocus,
+	onBlur,
 }) => (
 	<button
 		disabled={disabled}
 		id={id}
-		type={type}
+		type={type || "button"}
 		className={className}
 		onClick={onClick}
 		style={style}
+		onContextMenu={onContextMenu}
+		onMouseDown={onMouseDown}
+		onTouchStart={onTouchStart}
+		onMouseEnter={onMouseEnter}
+		onMouseLeave={onMouseLeave}
+		onFocus={onFocus}
+		onBlur={onBlur}
 	>
 		{children}
 	</button>
@@ -29,10 +43,17 @@ Button.propTypes = {
 	className: PropTypes.string.isRequired,
 	children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 	onClick: PropTypes.func,
-	type: PropTypes.string.isRequired,
+	type: PropTypes.string,
 	style: PropTypes.objectOf(
 		PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	),
+	onContextMenu: PropTypes.func,
+	onMouseDown: PropTypes.func,
+	onTouchStart: PropTypes.func,
+	onMouseEnter: PropTypes.func,
+	onMouseLeave: PropTypes.func,
+	onFocus: PropTypes.func,
+	onBlur: PropTypes.func,
 };
 
 export default Button;

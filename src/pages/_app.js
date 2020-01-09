@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import App from "next/app";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
+
 import { ToastContainer } from "react-toastify";
 import configureStore from "~store";
 import GlobalStylesheet from "~styles/globalStylesheet";

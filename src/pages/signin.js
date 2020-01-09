@@ -35,9 +35,7 @@ export class LoginForm extends Component {
 	};
 
 	static getDerivedStateFromProps(props) {
-		if (props.serverError) return { isSubmitting: false };
-
-		return null;
+		return props.serverError ? { isSubmitting: false } : null;
 	}
 
 	handleChange = ({ target: { name, value } }) => {

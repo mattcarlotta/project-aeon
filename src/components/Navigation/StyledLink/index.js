@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 class StyledLink extends PureComponent {
 	render = () => (
 		<Link href={this.props.href} prefetch={false}>
-			<a {...this.props} className="link">
+			<a css="height: 100%;width:100%;" {...this.props} className="link">
 				{this.props.children}
 			</a>
 		</Link>

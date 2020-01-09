@@ -27,7 +27,6 @@ const NotFound = () => (
 				Uh Oh! Page not found!
 			</div>
 			<StyledLink href="/">
-				{" "}
 				<HomeIcon />
 				<span>Go Back</span>
 			</StyledLink>

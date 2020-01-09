@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Popover } from "antd";
+import { FaCogs } from "react-icons/fa";
 import { authenticateUser, signoutUser } from "~actions/Users";
 import FlexEnd from "~components/Body/FlexEnd";
 import List from "~components/Body/List";
@@ -16,7 +18,7 @@ class NavBar extends Component {
 	}
 
 	render = () => {
-		const { isLoading, firstName, role, signoutUser } = this.props;
+		const { isLoading, firstName, role } = this.props;
 		const notLoggedin = !role || role === "guest";
 
 		return (
@@ -46,14 +48,41 @@ class NavBar extends Component {
 								</>
 							) : (
 								<ListItem>
-									<Button
-										danger
-										radius="4px"
-										type="button"
-										onClick={signoutUser}
+									<Popover
+										placement="bottomRight"
+										content={
+											<>
+												<Button
+													style={{ margin: "5px 0", display: "block" }}
+													radius="4px"
+													width="105px"
+												>
+													<StyledLink href="/help">Help</StyledLink>
+												</Button>
+												<Button
+													style={{ margin: "5px 0", display: "block" }}
+													radius="4px"
+													width="105px"
+												>
+													<StyledLink href="/profile">Profile</StyledLink>
+												</Button>
+												<Button
+													danger
+													radius="4px"
+													style={{ margin: "5px 0", display: "block" }}
+													width="105px"
+													onClick={this.props.signoutUser}
+												>
+													Sign Out
+												</Button>
+											</>
+										}
+										trigger="hover"
 									>
-										Sign Out
-									</Button>
+										<Button radius="4px">
+											<FaCogs style={{ position: "relative", top: 3 }} />
+										</Button>
+									</Popover>
 								</ListItem>
 							)}
 						</List>

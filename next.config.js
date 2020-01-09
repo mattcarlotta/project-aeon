@@ -2,7 +2,7 @@ require("./env");
 require("./database");
 require("./models");
 const openBrowser = require("react-dev-utils/openBrowser");
-const { optimizations, plugins, rules } = require("./config");
+const { antConfig, optimizations, plugins, rules } = require("./config");
 
 const { inDevelopment, LOCALHOST } = process.env;
 
@@ -16,6 +16,9 @@ module.exports = {
 
 		/* adds custom rules to client and server */
 		config.module.rules.push(...rules(isServer));
+
+		/* adds custom rules to handle ant's css imports */
+		antConfig(config, isServer);
 
 		/* adds custom plugins to client and server */
 		config.plugins.push(...plugins(isServer));

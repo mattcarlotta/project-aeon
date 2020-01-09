@@ -33,6 +33,7 @@ module.exports = api => {
 					alias,
 				},
 			],
+			["import", { libraryName: "antd", style: "css" }],
 			[
 				"styled-components",
 				{
