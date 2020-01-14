@@ -1,7 +1,5 @@
 import React, { PureComponent } from "react";
 import isEmpty from "lodash/isEmpty";
-import get from "lodash/get";
-import Router from "next/router";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import { connect } from "react-redux";
@@ -9,15 +7,8 @@ import { getProfile } from "~actions/Users";
 import RequireAuth from "~components/Containers/RequireAuth";
 
 class Profile extends PureComponent {
-	componentDidMount() {
-		if (isEmpty(this.props.settings)) Router.push("/signin");
-	}
-
-	static getInitialProps({ store, req }) {
-		const cookie = get(req, ["headers", "cookie"]);
-		const headers = cookie ? { headers: { cookie } } : undefined;
-
-		store.dispatch(getProfile(headers));
+	static getInitialProps({ store, req, res }) {
+		store.dispatch(getProfile({ req, res }));
 	}
 
 	render = () => (

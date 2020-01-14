@@ -1,7 +1,8 @@
 import { all, put, call, takeLatest } from "redux-saga/effects";
 import Router from "next/router";
 import app from "~utils/axiosConfig";
-import { parseData, parseMessage } from "~utils/parseResponse";
+import { parseCookie, parseData, parseMessage } from "~utils/parseResponse";
+import Redirect from "~utils/redirect";
 import * as types from "~types";
 import * as actions from "~actions/Users";
 import { setError, setMessage, resetMessage } from "~actions/Server";
@@ -61,14 +62,15 @@ export function* authenticateUser({ headers = {} }) {
  * @yields {action} - A redux action to set the current user.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* getProfile({ headers = {} }) {
+export function* getProfile({ req, res }) {
 	try {
-		const res = yield call(app.get, "users/profile", headers);
-		const data = yield call(parseData, res);
+		const headers = yield call(parseCookie, req);
+		const response = yield call(app.get, "users/profile", headers);
+		const data = yield call(parseData, response);
 
 		yield put(actions.setProfile(data));
 	} catch (e) {
-		// yield call(Router.push, "/signin");
+		yield call(Redirect, res);
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
 	}

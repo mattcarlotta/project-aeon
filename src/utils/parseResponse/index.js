@@ -1,6 +1,18 @@
 import get from "lodash/get";
 
 /**
+ * Helper function to parse a cookie from an API request.
+ *
+ * @function parseCookie
+ * @param {array} req - an API request.
+ * @returns {string} - a string cookie from req.headers.cookie.
+ */
+export function parseCookie(req) {
+	const cookie = get(req, ["headers", "cookie"]);
+	return cookie ? { headers: { cookie } } : undefined;
+}
+
+/**
  * Helper function to parse a message from an API response.
  *
  * @function

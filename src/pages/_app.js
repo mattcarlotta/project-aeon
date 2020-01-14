@@ -15,12 +15,13 @@ import "~styles/empty.css";
 export class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
 		const cookie = get(ctx, ["req", "headers", "cookie"]);
-		const { isLoading } = ctx.store.getState().users;
+		const { email } = ctx.store.getState().users;
 
-		if (isLoading)
-			ctx.store.dispatch(
+		if (!email) {
+			await ctx.store.dispatch(
 				authenticateUser(cookie ? { headers: { cookie } } : undefined),
 			);
+		}
 
 		return {
 			pageProps: {

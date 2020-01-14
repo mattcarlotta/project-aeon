@@ -18,9 +18,10 @@ export const authenticateUser = headers => ({
  * @function getProfile
  * @returns {object}
  */
-export const getProfile = headers => ({
+export const getProfile = ({ req, res }) => ({
 	type: types.USER_FETCH_PROFILE,
-	headers,
+	req,
+	res,
 });
 
 /**
