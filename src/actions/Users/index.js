@@ -7,8 +7,9 @@ import * as types from "~types";
  * @function authenticateUser
  * @returns {object}
  */
-export const authenticateUser = () => ({
+export const authenticateUser = headers => ({
 	type: types.USER_SIGNIN_SESSION,
+	headers,
 });
 
 /**
@@ -17,8 +18,9 @@ export const authenticateUser = () => ({
  * @function getProfile
  * @returns {object}
  */
-export const getProfile = () => ({
+export const getProfile = headers => ({
 	type: types.USER_FETCH_PROFILE,
+	headers,
 });
 
 /**

@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import isEmpty from "lodash/isEmpty";
+import get from "lodash/get";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import { connect } from "react-redux";
@@ -7,8 +8,11 @@ import { getProfile } from "~actions/Users";
 import RequireAuth from "~components/Containers/RequireAuth";
 
 class Profile extends PureComponent {
-	componentDidMount() {
-		this.props.getProfile();
+	static getInitialProps({ store, req }) {
+		const cookie = get(req, ["headers", "cookie"]);
+		const headers = cookie ? { headers: { cookie } } : undefined;
+
+		store.dispatch(getProfile(headers));
 	}
 
 	render = () => (
@@ -36,7 +40,6 @@ Profile.propTypes = {
 		lastName: PropTypes.string,
 		registered: PropTypes.string,
 	}),
-	getProfile: PropTypes.func.isRequired,
 };
 
 /* istanbul ignore next */
@@ -44,9 +47,4 @@ const mapStateToProps = ({ users }) => ({
 	settings: users.settings,
 });
 
-/* istanbul ignore next */
-const mapDispatchToProps = {
-	getProfile,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps)(Profile);

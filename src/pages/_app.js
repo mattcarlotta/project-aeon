@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import App from "next/app";
+import get from "lodash/get";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import { ToastContainer } from "react-toastify";
@@ -12,11 +13,15 @@ import { authenticateUser } from "~actions/Users";
 import "~styles/empty.css";
 
 export class MyApp extends App {
-	componentDidMount() {
-		this.props.store.dispatch(authenticateUser());
-	}
-
 	static async getInitialProps({ Component, ctx }) {
+		const cookie = get(ctx, ["req", "headers", "cookie"]);
+		const { isLoading } = ctx.store.getState().users;
+
+		if (isLoading)
+			ctx.store.dispatch(
+				authenticateUser(cookie ? { headers: { cookie } } : undefined),
+			);
+
 		return {
 			pageProps: {
 				...(Component.getInitialProps

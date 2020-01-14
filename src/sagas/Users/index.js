@@ -39,9 +39,9 @@ export function* signoutUserSession() {
  * @yields {action} - A redux action to set the current user.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* authenticateUser() {
+export function* authenticateUser({ headers = {} }) {
 	try {
-		const res = yield call(app.get, "users/signedin");
+		const res = yield call(app.get, "users/signedin", headers);
 		const data = yield call(parseData, res);
 
 		yield put(actions.signin(data));
@@ -61,14 +61,14 @@ export function* authenticateUser() {
  * @yields {action} - A redux action to set the current user.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* getProfile() {
+export function* getProfile({ headers = {} }) {
 	try {
-		const res = yield call(app.get, "users/profile");
+		const res = yield call(app.get, "users/profile", headers);
 		const data = yield call(parseData, res);
 
 		yield put(actions.setProfile(data));
 	} catch (e) {
-		yield call(Router.push, "/signin");
+		// yield call(Router.push, "/signin");
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
 	}
