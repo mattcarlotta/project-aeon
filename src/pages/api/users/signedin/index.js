@@ -1,5 +1,5 @@
 import withMiddleware from "~middlewares";
-import { checkAuth } from "~strategies";
+import checkAuth from "~strategies/checkAuth";
 
 /**
  * Allows a user to log in to the application on refresh.

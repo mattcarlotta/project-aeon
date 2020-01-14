@@ -4,7 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import rootReducer from "~reducers";
 import rootSaga from "~sagas";
 
-export default (initialState, { isServer, req = null }) => {
+const makeStore = initialState => {
 	const saga = createSagaMiddleware();
 
 	const store = createStore(
@@ -13,10 +13,9 @@ export default (initialState, { isServer, req = null }) => {
 		composeWithDevTools(applyMiddleware(saga)),
 	);
 
-	/* istanbul ignore next */
-	if (req || !isServer) {
-		store.sagaTask = saga.run(rootSaga);
-	}
+	store.sagaTask = saga.run(rootSaga);
 
 	return store;
 };
+
+export default makeStore;

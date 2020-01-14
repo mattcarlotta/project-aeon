@@ -1,5 +1,5 @@
 import withMiddleware from "~middlewares";
-import { localSignup } from "~strategies";
+import localSignup from "~strategies/localSignup";
 
 const signup = (req, res) => {
 	res.status(201).json({

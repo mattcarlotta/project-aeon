@@ -52,6 +52,29 @@ export function* authenticateUser() {
 }
 
 /**
+ * Attempts to automatically sign user in via a session.
+ *
+ * @generator
+ * @function getProfile
+ * @yields {object} - A response from a call to the API.
+ * @function parseData - returns a parsed res.data.
+ * @yields {action} - A redux action to set the current user.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+export function* getProfile() {
+	try {
+		const res = yield call(app.get, "users/profile");
+		const data = yield call(parseData, res);
+
+		yield put(actions.setProfile(data));
+	} catch (e) {
+		yield call(Router.push, "/signin");
+		yield put(setError(e.toString()));
+		yield call(toast, { type: "error", message: e.toString() });
+	}
+}
+
+/**
  * Attempts to sign user in to a new session.
  *
  * @generator
@@ -116,6 +139,7 @@ export function* signupUser({ props }) {
 export default function* authSagas() {
 	yield all([
 		takeLatest(types.USER_SIGNIN_SESSION, authenticateUser),
+		takeLatest(types.USER_FETCH_PROFILE, getProfile),
 		takeLatest(types.USER_SIGNIN_ATTEMPT, signinUser),
 		takeLatest(types.USER_SIGNOUT_SESSION, signoutUserSession),
 		takeLatest(types.USER_SIGNUP, signupUser),

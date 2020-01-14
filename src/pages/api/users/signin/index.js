@@ -1,5 +1,5 @@
 import withMiddleware from "~middlewares";
-import { localLogin } from "~strategies";
+import localLogin from "~strategies/localLogin";
 
 /**
  * Allows a user to log in to the application.

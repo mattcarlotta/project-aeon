@@ -12,6 +12,28 @@ export const authenticateUser = () => ({
 });
 
 /**
+ * Sign in user via a session.
+ *
+ * @function getProfile
+ * @returns {object}
+ */
+export const getProfile = () => ({
+	type: types.USER_FETCH_PROFILE,
+});
+
+/**
+ * Sets user profile to redux state
+ *
+ * @function setProfile
+ * @param {object} data - contains user session data (id, email, first/last name, and role).
+ * @returns {object}
+ */
+export const setProfile = data => ({
+	type: types.USER_SET_PROFILE,
+	payload: !isEmpty(data) ? data : {},
+});
+
+/**
  * Sets current signed in user (can be guest) to redux state
  *
  * @function signin
