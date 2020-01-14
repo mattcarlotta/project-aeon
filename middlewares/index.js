@@ -28,8 +28,8 @@ export default next => async (req, res) => {
 				maxAge: 2592000000, // 30 * 24 * 60 * 60 * 1000 expire after 30 days
 				keys: [cookieSecret],
 				httpOnly: true,
-				sameSite: inProduction, // specifies same-site cookie attribute enforcement
-				secure: inProduction,
+				// sameSite: inProduction, // specifies same-site cookie attribute enforcement
+				// secure: inProduction,
 			}),
 			morgan(
 				inProduction

@@ -1,8 +1,10 @@
 import React, { PureComponent } from "react";
+import isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import { connect } from "react-redux";
 import { getProfile } from "~actions/Users";
+import RequireAuth from "~components/Containers/RequireAuth";
 
 class Profile extends PureComponent {
 	componentDidMount() {
@@ -10,16 +12,18 @@ class Profile extends PureComponent {
 	}
 
 	render = () => (
-		<>
+		<RequireAuth>
 			<Head>
 				<title>NextJS SSR Kit - Profile</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<h1>Profile</h1>
-			<pre>
-				<code>{JSON.stringify(this.props.settings, null, 4)}</code>
-			</pre>
-		</>
+			{!isEmpty(this.props.settings) && (
+				<pre>
+					<code>{JSON.stringify(this.props.settings, null, 4)}</code>
+				</pre>
+			)}
+		</RequireAuth>
 	);
 }
 
