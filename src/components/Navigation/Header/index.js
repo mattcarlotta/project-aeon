@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Dropdown } from "antd";
-import { FaCog } from "react-icons/fa";
+import { Dropdown, Menu } from "antd";
+import {
+	FaCog,
+	FaUserCog,
+	FaSignOutAlt,
+	FaQuestionCircle,
+} from "react-icons/fa";
 import { signoutUser } from "~actions/Users";
 import FlexEnd from "~components/Body/FlexEnd";
 import List from "~components/Body/List";
@@ -11,8 +16,22 @@ import Button from "~components/Body/Button";
 import NavContainer from "~components/Navigation/NavContainer";
 import LoadingNav from "~components/Navigation/LoadingNav";
 import StyledLink from "~components/Navigation/StyledLink";
+import FlexMiddle from "~components/Body/FlexMiddle";
 
 const DropDownButton = Dropdown.Button;
+const MenuItem = Menu.Item;
+
+const menuItemStyle = {
+	margin: "5px 0",
+	borderRadius: "4px",
+	width: 200,
+	lineHeight: "42px",
+	padding: "0px 35px 0 15px",
+};
+
+const iconStyle = {
+	marginRight: 15,
+};
 
 const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
 	const notLoggedin = !role || role === "guest";
@@ -45,37 +64,39 @@ const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
 								<DropDownButton
 									placement="bottomRight"
 									overlay={
-										<div css="background: #fff;padding: 4px 12px;width: 200px;box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);border-radius:4px;">
-											<Button
-												style={{ margin: "5px 0", display: "block" }}
-												radius="4px"
-												padding="0px"
-											>
-												<StyledLink style={{ padding: "4px 8px" }} href="/help">
-													Help
-												</StyledLink>
-											</Button>
-											<Button
-												style={{ margin: "5px 0", display: "block" }}
-												radius="4px"
-												padding="0px"
-											>
+										<Menu style={{ border: "1px solid #dac2c2" }}>
+											<MenuItem style={menuItemStyle}>
 												<StyledLink
-													style={{ padding: "4px 8px" }}
+													style={{ margin: 0, padding: 0 }}
+													href="/help"
+												>
+													<FlexMiddle>
+														<FaQuestionCircle style={iconStyle} /> Help
+													</FlexMiddle>
+												</StyledLink>
+											</MenuItem>
+											<MenuItem style={menuItemStyle}>
+												<StyledLink
+													style={{ margin: 0, padding: 0 }}
 													href="/profile"
 												>
-													Profile
+													<FlexMiddle>
+														<FaUserCog style={iconStyle} /> Profile
+													</FlexMiddle>
 												</StyledLink>
-											</Button>
-											<Button
-												danger
-												radius="4px"
-												style={{ margin: "5px 0", display: "block" }}
-												onClick={signoutUser}
-											>
-												Sign Out
-											</Button>
-										</div>
+											</MenuItem>
+											<MenuItem style={{ ...menuItemStyle, margin: 0 }}>
+												<div
+													role="button"
+													css="width: 100%; font-size: 16px;"
+													onClick={signoutUser}
+												>
+													<FlexMiddle>
+														<FaSignOutAlt style={iconStyle} /> Sign Out
+													</FlexMiddle>
+												</div>
+											</MenuItem>
+										</Menu>
 									}
 									size="large"
 									icon={<FaCog style={{ position: "relative", top: 3 }} />}

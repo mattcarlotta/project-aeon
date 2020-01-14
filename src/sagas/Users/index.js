@@ -40,8 +40,9 @@ export function* signoutUserSession() {
  * @yields {action} - A redux action to set the current user.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* authenticateUser({ headers = {} }) {
+export function* authenticateUser({ req }) {
 	try {
+		const headers = yield call(parseCookie, req);
 		const res = yield call(app.get, "users/signedin", headers);
 		const data = yield call(parseData, res);
 

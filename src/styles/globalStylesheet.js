@@ -124,7 +124,6 @@ export default createGlobalStyle`
     display: block;
     color: #03a9f3;
     font-size: 16px;
-    text-align: center;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
   }
