@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { User } from "~models/instances";
-import { sendError } from "~shared/helpers";
-import { badCredentials, missingSigninCredentials } from "~shared/errors";
+import db from "~database";
+import { findUserByEmail } from "~database/queries";
+import { sendError } from "~utils/helpers";
+import { badCredentials, missingSigninCredentials } from "~utils/errors";
 
 passport.use(
 	"local-login",
@@ -13,22 +14,20 @@ passport.use(
 			passwordField: "password",
 		},
 		async (email, password, next) => {
-			try {
-				// see if the user exists
-				const existingUser = await User.findOne({ email });
-				if (!existingUser) throw badCredentials;
+			await db.task("local-login", async dbtask => {
+				const existingUser = await dbtask.oneOrNone(findUserByEmail, [email]);
+				if (!existingUser) return next(badCredentials, null);
+				// if (!existingUser.verified) throw emailConfirmationReq;
 
-				// compare password to existingUser password
 				const validPassword = await bcrypt.compare(
 					password,
 					existingUser.password,
 				);
-				if (!validPassword) throw badCredentials;
+				if (!validPassword) return next(badCredentials, null);
 
-				next(null, existingUser);
-			} catch (err) {
-				next(err, false);
-			}
+				const signedInUser = await dbtask.one(findUserByEmail, [email]);
+				return next(null, signedInUser);
+			});
 		},
 	),
 );
@@ -52,10 +51,10 @@ export const localLogin = next => async (req, res) => {
 		});
 
 		req.session = {
-			id: existingUser._id.toString(),
+			id: existingUser.id,
 			email: existingUser.email,
-			firstName: existingUser.firstName,
-			lastName: existingUser.lastName,
+			firstName: existingUser.firstname,
+			lastName: existingUser.lastname,
 			role: existingUser.role,
 		};
 

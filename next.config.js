@@ -1,6 +1,4 @@
 require("./env");
-require("./database");
-require("./models");
 const openBrowser = require("react-dev-utils/openBrowser");
 const { antConfig, optimizations, plugins, rules } = require("./config");
 

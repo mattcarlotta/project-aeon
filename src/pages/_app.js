@@ -14,8 +14,9 @@ import "~styles/empty.css";
 export class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
 		const { store, req } = ctx;
+		const { isLoading, role } = store.getState().users;
 
-		if (!store.getState().users.email) {
+		if (isLoading && !role) {
 			await store.dispatch(authenticateUser(req));
 		}
 

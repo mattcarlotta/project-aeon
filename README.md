@@ -55,7 +55,6 @@ Want to use a custom Express server? Checkout the <a href="https://github.com/ma
 ├── database
 ├── env
 ├── middlewares
-├── models
 ├── public
 ├── src
 |   ├── actions
@@ -121,12 +120,17 @@ git clone --single-branch --branch master git@github.com:mattcarlotta/nextjs-ssr
 
 ## Example API
 
-Provided in this boilerplate is an example of how to integrate a RESTFUL API (utilizing MongoDB).
+Provided in this application is an integrated RESTFUL API (utilizing PostgreSQL).
 
 If you wish to utilize the API:
 
-- <a href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition">Install MongoDB</a> and make sure the service is up and running.
-- Navigate to `http://localhost:3000/users` to interact with the API from the NextJS-side.
+- <a href="https://www.postgresql.org/download/">Install PostgreSQL</a> and make sure the service is up and running.
+- Run `sudo -u postgres psql` to log in to a PostgreSQL shell as super user postgres.
+- Run `psql` to log into PostgreSQL DB.
+- Run `\password postgres` to set a password for "postgres"; after pressing enter, it'll prompt for the password.
+- Run `\q` to exits PostgreSQL shell.
+- Optionally run `sudo systemctl enable postgresql` to start PostgreSQL on reboots.
+- From the root directory, run `cd /database && psql -U postgres -f initDB.sql` to initialize a development PostgreSQL table.
 
 <hr />
 
@@ -147,10 +151,6 @@ If you wish to utilize the API:
 - src/store: redux store configuration.
 - src/styles: custom component/page styles.
 - src/types: redux constants.
-- src/utils/__mocks__/mockAxios.js: a mocked axios instance for testing.
-- src/utils/setupTest/index.js: enzyme test setup for your React components.
-- src/utils/axiosConfig/index.js: custom axios configuration.
-- src/utils/parseResponse/index.js: custom saga functions functions.
 - .eslintignore: NextJS eslint config.
 - .eslintrc: NextJS eslint ignore config.
 - .stylelintrc: stylelint config.
@@ -165,9 +165,9 @@ If you wish to utilize the API:
 <details>
 <summary>Click to expand API configuration</summary>
 <pre><code>
-- database: Mongo connection configuration.
-- middlewares: API middlewares.
-- models: Mongo models for Mongoose.
+- src/database: PostgreSQL connection configuration.
+- src/middlewares: API middlewares.
+- src/strategies: middleware functions for creating/authenticating users.
 - src/pages/api: API route controllers.
 </code></pre>
 </details>
@@ -180,6 +180,7 @@ If you wish to utilize the API:
 <pre><code>
 - .next: NextJS (src) compiled source.
 - config: webpack supporting configuration files.
+- src/utils: misc helper files for client and API.
 - .browserslistrc: browsers list config (for babel transpiling).
 - .prettierc: prettier config.
 - .npmrc: yarn config.
@@ -241,10 +242,12 @@ Click <a href="https://github.com/mattcarlotta/nextjs-ssr-kit/blob/master/packag
 - <a href="https://github.com/expressjs/body-parser">Body Parser</a>
 - <a href="https://github.com/expressjs/compression">Compression</a>
 - <a href="https://github.com/motdotla/dotenv">DotENV</a>
-- <a href="https://momentjs.com/timezone/">Moment Timezone</a>
-- <a href="https://mongoosejs.com/">Mongoose</a>
+- <a href="https://momentjs.com/timezone">Moment Timezone</a>
 - <a href="https://github.com/expressjs/morgan">Morgan</a>
+- <a href="https://github.com/vitaly-t/pg-monitor">PG-Monitor</a>
+- <a href="https://github.com/vitaly-t/pg-promise">PG-Promise</a>
 - <a href="https://github.com/prettier/prettier">Prettier</a>
+- <a href="https://www.postgresql.org/">PostgreSQL</a>
 </code></pre>
 </details>
 <br />

@@ -1,8 +1,10 @@
+import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { emailAlreadyTaken, missingSignupCreds } from "~shared/errors";
-import { createDate, sendError } from "~shared/helpers";
-import { User } from "~models/instances";
+import db from "~database";
+import { createNewUser, findUserByEmail } from "~database/queries";
+import { emailAlreadyTaken, missingSignupCreds } from "~utils/errors";
+import { createRandomToken, sendError } from "~utils/helpers";
 
 passport.use(
 	"local-signup",
@@ -13,24 +15,24 @@ passport.use(
 			passReqToCallback: true,
 		},
 		async (req, email, password, next) => {
-			try {
-				const existingUser = await User.findOne({ email });
-				if (existingUser) throw emailAlreadyTaken;
+			await db.task("local-signup", async dbtask => {
+				const existingUser = await dbtask.oneOrNone(findUserByEmail, [email]);
+				if (existingUser) return next(emailAlreadyTaken, null);
 
-				// hash password before attempting to create the user
-				const newPassword = await User.createPassword(password);
+				const newPassword = await bcrypt.hash(password, 12);
+				const token = createRandomToken();
+				const { firstName, lastName } = req.body;
 
-				// create new user
-				const newUser = await User.createUser({
-					...req.body,
-					password: newPassword,
-					registered: createDate().toDate(),
-				});
+				const createdUser = await dbtask.one(createNewUser, [
+					email,
+					newPassword,
+					firstName,
+					lastName,
+					token,
+				]);
 
-				next(null, newUser);
-			} catch (err) {
-				next(err, false);
-			}
+				return next(null, createdUser);
+			});
 		},
 	),
 );
@@ -56,7 +58,7 @@ export const localSignup = next => async (req, res) => {
 		});
 
 		req.user = {
-			firstName: newUser.firstName,
+			firstName: newUser.firstname,
 		};
 
 		next(req, res);

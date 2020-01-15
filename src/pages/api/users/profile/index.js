@@ -1,23 +1,22 @@
-// import { Router } from "next/router";
 import withMiddleware from "~middlewares";
-import { User } from "~models/instances";
-import { sendError } from "~shared/helpers";
+import db from "~database";
+import { findUserById } from "~database/queries";
 import requireAuth from "~strategies/requireAuth";
+import { sendError } from "~utils/helpers";
 
 /**
- * Allows a user to log in to the application.
+ * Retrieves logged in user app settings.
  *
- * @function signin
- * @returns {object}
+ * @function getProfile
+ * @returns {res}
  */
 const getProfile = async (req, res) => {
 	try {
-		const { id: _id } = req.session;
+		const { id } = req.session;
 
-		const signedinUser = await User.findOne({ _id }, { password: 0, __v: 0 });
+		const signedinUser = await db.oneOrNone(findUserById, [id]);
 		if (!signedinUser) throw String("Unable to locate signed in user profile.");
 
-		// Router.push("/login");
 		res.status(200).json({ signedinUser });
 	} catch (err) {
 		return sendError(err, res);

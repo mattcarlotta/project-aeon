@@ -6,7 +6,7 @@ import moment from "moment-timezone";
 import passport from "passport";
 import session from "cookie-session";
 import applyMiddleware from "~middlewares/applyMiddleware";
-import { sendError } from "~shared/helpers";
+import { sendError } from "~utils/helpers";
 
 const { inProduction, cookieSecret } = process.env;
 

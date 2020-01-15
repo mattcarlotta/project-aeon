@@ -17,11 +17,13 @@ class Profile extends PureComponent {
 				<title>NextJS SSR Kit - Profile</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<h1>Profile</h1>
 			{!isEmpty(this.props.settings) && (
-				<pre>
-					<code>{JSON.stringify(this.props.settings, null, 4)}</code>
-				</pre>
+				<>
+					<h1>Profile</h1>
+					<pre>
+						<code>{JSON.stringify(this.props.settings, null, 4)}</code>
+					</pre>
+				</>
 			)}
 		</RequireAuth>
 	);
