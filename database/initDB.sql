@@ -16,7 +16,9 @@ CREATE TABLE users (
 	password VARCHAR NOT NULL UNIQUE,
 	registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	token VARCHAR NOT NULL UNIQUE,
-	kudos BIGINT DEFAULT 0,
-	website TEXT,
+	reputation BIGINT DEFAULT 0,
+	website TEXT, 
+	description TEXT,
+	displayName TEXT UNIQUE,
   role TEXT DEFAULT 'member'
 );

@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 import styled from "styled-components";
 
-export default styled.p`
-	margin: 0;
-	padding: 0;
+export default styled.div`
+	font-weight: bold;
 `;
