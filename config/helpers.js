@@ -60,7 +60,6 @@ const mediaRule = ({ test, loader, options }) => ({
  * @param {regex} exclude
  * @param {boolean} modules
  * @param {boolean} isServer
- * @param {array} loaders
  * @returns {object}
  */
 const styleRule = ({
@@ -69,7 +68,6 @@ const styleRule = ({
 	exclude = undefined,
 	modules = false,
 	isServer,
-	loaders = [],
 }) => ({
 	test,
 	include,
@@ -100,7 +98,7 @@ const styleRule = ({
 				sourceMap: !inDev,
 			},
 		},
-		...loaders,
+		"sass-loader",
 	].filter(Boolean),
 });
 

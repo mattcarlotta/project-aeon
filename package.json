@@ -113,7 +113,6 @@
 		"jest-resolve": "^24.9.0",
 		"jest-styled-components": "^6.3.4",
 		"jsdom": "^15.2.1",
-		"less-loader": "^5.0.0",
 		"lint-staged": "^9.5.0",
 		"node-sass": "^4.13.0",
 		"nodemon": "^2.0.2",
