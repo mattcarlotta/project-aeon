@@ -1,5 +1,5 @@
 require("./env");
-const db = require("./src/database");
+const db = require("./database");
 const openBrowser = require("react-dev-utils/openBrowser");
 const { antConfig, optimizations, plugins, rules } = require("./config");
 
