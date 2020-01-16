@@ -1,6 +1,8 @@
-import db from "~database";
+import getConfig from "next/config";
 import { findUserById } from "~database/queries";
 import { clearSession, parseSession } from "~utils/helpers";
+
+const { db } = getConfig().publicRuntimeConfig;
 
 /**
  * Middleware function to check if a user is logged into a session and the session is valid.

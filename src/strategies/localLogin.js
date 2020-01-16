@@ -1,10 +1,12 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import db from "~database";
+import getConfig from "next/config";
 import { findUserByEmail } from "~database/queries";
 import { sendError } from "~utils/helpers";
 import { badCredentials, missingSigninCredentials } from "~utils/errors";
+
+const { db } = getConfig().publicRuntimeConfig;
 
 passport.use(
 	"local-login",

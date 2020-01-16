@@ -1,10 +1,12 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import db from "~database";
+import getConfig from "next/config";
 import { createNewUser, findUserByEmail } from "~database/queries";
 import { emailAlreadyTaken, missingSignupCreds } from "~utils/errors";
 import { createRandomToken, sendError } from "~utils/helpers";
+
+const { db } = getConfig().publicRuntimeConfig;
 
 passport.use(
 	"local-signup",

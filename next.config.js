@@ -1,4 +1,5 @@
 require("./env");
+const db = require("./src/database");
 const openBrowser = require("react-dev-utils/openBrowser");
 const { antConfig, optimizations, plugins, rules } = require("./config");
 
@@ -8,6 +9,9 @@ const { inDevelopment, LOCALHOST } = process.env;
 if (inDevelopment) openBrowser(LOCALHOST);
 
 module.exports = {
+	publicRuntimeConfig: {
+		db,
+	},
 	webpack(config, { isServer }) {
 		/* adds custom aliased extensions */
 		config.resolve.extensions.push(".css", ".sass", ".scss");
