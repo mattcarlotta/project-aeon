@@ -89,7 +89,7 @@ Want to use a custom Express server? Checkout the <a href="https://github.com/ma
 1 - Clone the repository.
 
 ```
-git clone --single-branch --branch development git@github.com:mattcarlotta/my-project.git
+git clone --single-branch --branch master git@github.com:mattcarlotta/my-project.git
 ```
 
 2 - Run `yarn install` to install dependencies.

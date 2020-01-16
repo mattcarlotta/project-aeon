@@ -7,6 +7,7 @@ import {
 	FaUserCog,
 	FaSignOutAlt,
 	FaQuestionCircle,
+	FaUserCircle,
 } from "react-icons/fa";
 import { signoutUser } from "~actions/Users";
 import FlexEnd from "~components/Body/FlexEnd";
@@ -66,12 +67,9 @@ const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
 									overlay={
 										<Menu style={{ border: "1px solid #dac2c2" }}>
 											<MenuItem style={menuItemStyle}>
-												<StyledLink
-													style={{ margin: 0, padding: 0 }}
-													href="/help"
-												>
+												<StyledLink style={{ margin: 0, padding: 0 }} href="/">
 													<FlexMiddle>
-														<FaQuestionCircle style={iconStyle} /> Help
+														<FaUserCircle style={iconStyle} /> Dashboard
 													</FlexMiddle>
 												</StyledLink>
 											</MenuItem>
@@ -82,6 +80,16 @@ const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
 												>
 													<FlexMiddle>
 														<FaUserCog style={iconStyle} /> Profile
+													</FlexMiddle>
+												</StyledLink>
+											</MenuItem>
+											<MenuItem style={menuItemStyle}>
+												<StyledLink
+													style={{ margin: 0, padding: 0 }}
+													href="/help"
+												>
+													<FlexMiddle>
+														<FaQuestionCircle style={iconStyle} /> Help
 													</FlexMiddle>
 												</StyledLink>
 											</MenuItem>
