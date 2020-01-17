@@ -2,11 +2,7 @@ import getConfig from "next/config";
 import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
-import {
-	findUserByDisplayName,
-	findUserById,
-	updateProfile,
-} from "~database/queries";
+import { findUserByDisplayName, updateProfile } from "~database/queries";
 
 const { db } = getConfig().publicRuntimeConfig;
 

@@ -3,9 +3,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "~components/Body/Button";
 import Info from "~components/Body/Info";
-import TabContainer from "~components/Body/TabContainer";
+import MissingDetails from "~components/Body/MissingDetails";
 import SubTitle from "~components/Body/SubTitle";
+import TabContainer from "~components/Body/TabContainer";
 import UpdateDescription from "~components/Containers/Forms/UpdateDescription";
+
+const subtitleStyle = {
+	padding: "5px 10px",
+};
 
 const Profile = ({
 	displayname,
@@ -31,32 +36,36 @@ const Profile = ({
 			<>
 				<Info>Display Name:</Info>
 				{displayname ? (
-					<SubTitle>{displayname}</SubTitle>
+					<SubTitle style={subtitleStyle}>{displayname}</SubTitle>
 				) : (
-					<p css="color: #9e9e9e;">You haven&#39;t provided a display name.</p>
+					<MissingDetails>
+						You haven&#39;t provided a display name.
+					</MissingDetails>
 				)}
 				<Info>Name:</Info>
-				<SubTitle>
+				<SubTitle style={subtitleStyle}>
 					{firstname} {lastname}
 				</SubTitle>
 				<Info>Website:</Info>
 				{website ? (
-					<SubTitle>
+					<SubTitle style={subtitleStyle}>
 						<a href={website} rel="noopener noreferrer" target="_blank">
 							{website.replace(/(^\w+:|^)\/\//, "")}
 						</a>
 					</SubTitle>
 				) : (
-					<p css="color: #9e9e9e;">You haven&#39;t provided a website.</p>
+					<MissingDetails>You haven&#39;t provided a website.</MissingDetails>
 				)}
 				<Info>Description:</Info>
 				<div>
 					{description ? (
-						<SubTitle>
+						<SubTitle style={subtitleStyle}>
 							<div dangerouslySetInnerHTML={{ __html: description }} />
 						</SubTitle>
 					) : (
-						<p css="color: #9e9e9e;">You haven&#39;t included a description.</p>
+						<MissingDetails>
+							You haven&#39;t included a description.
+						</MissingDetails>
 					)}
 				</div>
 				<Button radius="4px" width="200px" onClick={toggleProfileForm}>
