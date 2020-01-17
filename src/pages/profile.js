@@ -6,7 +6,7 @@ import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
 import { getProfile } from "~actions/Users";
-import ProfileTab from "~components/Body/Profile";
+import ProfileTab from "~components/Body/ProfileTab";
 import Center from "~components/Body/Center";
 import Container from "~components/Body/Container";
 import TabContainer from "~components/Body/TabContainer";
@@ -15,20 +15,20 @@ import SubTitle from "~components/Body/SubTitle";
 import RequireAuth from "~components/Containers/RequireAuth";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
-const { TabPane } = Tabs;
+const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
-	static getInitialProps({ store, req, res }) {
-		store.dispatch(getProfile({ req, res }));
+	static getInitialProps({ store: { dispatch }, req, res }) {
+		dispatch(getProfile({ req, res }));
 	}
 
 	state = {
-		showDescriptionForm: false,
+		showProfileForm: false,
 	};
 
-	toggleDescriptionForm = () =>
+	toggleProfileForm = () =>
 		this.setState(prevState => ({
-			showDescriptionForm: !prevState.showDescriptionForm,
+			showProfileForm: !prevState.showProfileForm,
 		}));
 
 	render = () => {
@@ -43,21 +43,19 @@ class Profile extends Component {
 				{!isEmpty(settings) ? (
 					<Row gutter={10}>
 						<Col {...{ md: 24, lg: 7 }}>
-							<Container>
+							<Container style={{ paddingTop: 20 }}>
 								<Center>
 									<img
-										css="height: 200px;width:200px; margin: 0 auto;border-radius: 50%;display:block;"
+										css="height: 200px;width:200px;margin: 0 auto;border-radius: 50%;display:block;"
 										src={settings.avatar || DefaultAvatar}
 										alt="avatar.png"
 									/>
 									<Title
 										style={{ margin: "15px 0", fontSize: 28, color: "#0f7ae5" }}
 									>
-										<span>
-											{settings.displayname
-												? settings.displayname
-												: `${settings.firstname} ${settings.lastname}`}
-										</span>
+										{settings.displayname
+											? settings.displayname
+											: `${settings.firstname} ${settings.lastname}`}
 									</Title>
 									<Title style={{ marginTop: 10 }}>Role</Title>
 									<SubTitle>{settings.role}</SubTitle>
@@ -76,8 +74,8 @@ class Profile extends Component {
 									<TabPane tab="Profile" key="profile">
 										<ProfileTab
 											{...settings}
-											showDescriptionForm={this.state.showDescriptionForm}
-											toggleDescriptionForm={this.toggleDescriptionForm}
+											showProfileForm={this.state.showProfileForm}
+											toggleProfileForm={this.toggleProfileForm}
 										/>
 									</TabPane>
 									<TabPane tab="Activity" key="activity">

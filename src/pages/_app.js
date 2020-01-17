@@ -13,11 +13,14 @@ import "~styles/empty.css";
 
 export class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
-		const { store, req } = ctx;
-		const { isLoading, role } = store.getState().users;
+		const {
+			store: { dispatch, getState },
+			req,
+		} = ctx;
+		const { isLoading, role } = getState().users;
 
 		if (isLoading && !role) {
-			await store.dispatch(authenticateUser(req));
+			dispatch(authenticateUser(req));
 		}
 
 		return {

@@ -13,12 +13,15 @@ export const initialState = {
  */
 const serverReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
-		case types.RESET_SERVER_MESSAGES:
+		case types.RESET_SERVER_MESSAGES: {
 			return initialState;
-		case types.SERVER_ERROR:
+		}
+		case types.SERVER_ERROR: {
 			return { ...state, error: payload };
-		case types.SERVER_MESSAGE:
+		}
+		case types.SERVER_MESSAGE: {
 			return { ...state, message: payload };
+		}
 		default:
 			return state;
 	}

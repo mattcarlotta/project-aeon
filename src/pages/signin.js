@@ -4,7 +4,7 @@ import Head from "next/head";
 import { connect } from "react-redux";
 import { signinUser } from "~actions/Users";
 import Button from "~components/Body/Button";
-import Input from "~components/Forms/Input";
+import FieldGenerator from "~components/Forms/FieldGenerator";
 import FormContainer from "~components/Forms/FormContainer";
 import StyledLink from "~components/Navigation/StyledLink";
 import fieldValidator from "~utils/fieldValidator";
@@ -64,9 +64,10 @@ export class LoginForm extends Component {
 			<h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
 			<p css="text-align: center;margin-top: 0px;">to your account below.</p>
 			<form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
-				{this.state.fields.map(props => (
-					<Input key={props.name} onChange={this.handleChange} {...props} />
-				))}
+				<FieldGenerator
+					fields={this.state.fields}
+					onChange={this.handleChange}
+				/>
 				<Button
 					primary
 					type="submit"

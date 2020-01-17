@@ -90,7 +90,7 @@ export function* getProfile({ req, res }) {
  */
 export function* signinUser({ props }) {
 	try {
-		yield call(resetMessage);
+		yield put(resetMessage());
 
 		const res = yield call(app.post, "users/signin", { ...props });
 		const data = yield call(parseData, res);
@@ -117,7 +117,7 @@ export function* signinUser({ props }) {
  */
 export function* signupUser({ props }) {
 	try {
-		yield call(resetMessage);
+		yield put(resetMessage());
 
 		const res = yield call(app.post, "users/signup", { ...props });
 		const message = yield call(parseMessage, res);
@@ -126,6 +126,38 @@ export function* signupUser({ props }) {
 		yield put(setMessage(message));
 
 		yield call(Router.push, "/signin");
+	} catch (e) {
+		yield put(setError(e.toString()));
+		yield call(toast, { type: "error", message: e.toString() });
+	}
+}
+
+/**
+ * Attempts to sign up a new user.
+ *
+ * @generator
+ * @function updateUserProfile
+ * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @yields {object} - A response from a call to the API.
+ * @function parseMessage - returns a parsed res.data.message.
+ * @yields {action} - A redux action to display a server message by type.
+ * @yields {action} - A redux action to get updated profile details.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+export function* updateUserProfile({ props }) {
+	try {
+		yield put(resetMessage());
+
+		const res = yield call(app.put, "users/profile/update", { ...props });
+		const message = yield call(parseMessage, res);
+
+		yield call(toast, { type: "success", message });
+		yield put(setMessage(message));
+
+		const response = yield call(app.get, "users/profile");
+		const data = yield call(parseData, response);
+
+		yield put(actions.setProfile(data));
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -146,5 +178,6 @@ export default function* authSagas() {
 		takeLatest(types.USER_SIGNIN_ATTEMPT, signinUser),
 		takeLatest(types.USER_SIGNOUT_SESSION, signoutUserSession),
 		takeLatest(types.USER_SIGNUP, signupUser),
+		takeLatest(types.USER_UPDATE_PROFILE, updateUserProfile),
 	]);
 }

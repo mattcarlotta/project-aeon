@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "~components/Body/Button";
@@ -11,15 +12,29 @@ const Profile = ({
 	description,
 	firstname,
 	lastname,
-	showDescriptionForm,
-	toggleDescriptionForm,
+	showProfileForm,
+	toggleProfileForm,
 	website,
 }) => (
 	<TabContainer>
-		{showDescriptionForm ? (
-			<UpdateDescription closeForm={toggleDescriptionForm} />
+		{showProfileForm ? (
+			<UpdateDescription
+				firstname={firstname}
+				lastname={lastname}
+				website={website}
+				description={description}
+				displayname={displayname}
+				showProfileForm={showProfileForm}
+				closeForm={toggleProfileForm}
+			/>
 		) : (
 			<>
+				<Info>Display Name:</Info>
+				{displayname ? (
+					<SubTitle>{displayname}</SubTitle>
+				) : (
+					<p css="color: #9e9e9e;">You haven&#39;t provided a display name.</p>
+				)}
 				<Info>Name:</Info>
 				<SubTitle>
 					{firstname} {lastname}
@@ -28,27 +43,23 @@ const Profile = ({
 				{website ? (
 					<SubTitle>
 						<a href={website} rel="noopener noreferrer" target="_blank">
-							{website}
+							{website.replace(/(^\w+:|^)\/\//, "")}
 						</a>
 					</SubTitle>
 				) : (
 					<p css="color: #9e9e9e;">You haven&#39;t provided a website.</p>
 				)}
-				<Info>Display Name:</Info>
-				{displayname ? (
-					<SubTitle>{displayname}</SubTitle>
-				) : (
-					<p css="color: #9e9e9e;">You haven&#39;t provided a display name.</p>
-				)}
 				<Info>Description:</Info>
 				<div>
 					{description ? (
-						<SubTitle>{description}</SubTitle>
+						<SubTitle>
+							<div dangerouslySetInnerHTML={{ __html: description }} />
+						</SubTitle>
 					) : (
 						<p css="color: #9e9e9e;">You haven&#39;t included a description.</p>
 					)}
 				</div>
-				<Button radius="4px" width="200px" onClick={toggleDescriptionForm}>
+				<Button radius="4px" width="200px" onClick={toggleProfileForm}>
 					Update Profile
 				</Button>
 			</>
@@ -61,9 +72,10 @@ Profile.propTypes = {
 	description: PropTypes.string,
 	firstname: PropTypes.string,
 	lastname: PropTypes.string,
-	showDescriptionForm: PropTypes.bool.isRequired,
-	toggleDescriptionForm: PropTypes.func.isRequired,
+	showProfileForm: PropTypes.bool.isRequired,
+	toggleProfileForm: PropTypes.func.isRequired,
 	website: PropTypes.string,
 };
 
 export default Profile;
+/* eslint-enable react/no-danger */

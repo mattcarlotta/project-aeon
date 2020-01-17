@@ -1,61 +1,84 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import { signinUser } from "~actions/Users";
+import { updateUserProfile } from "~actions/Users";
 import Button from "~components/Body/Button";
-import Input from "~components/Forms/Input";
+import FieldGenerator from "~components/Forms/FieldGenerator";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
-// import parseFields from "~utils/parseFields";
+import parseFields from "~utils/parseFields";
 
 export class UpdateDescriptionForm extends Component {
-	state = {
-		fields: [
-			{
-				name: "firstName",
-				type: "text",
-				label: "First Name",
-				value: "",
-				errors: "",
-				required: true,
-			},
-			{
-				name: "lastName",
-				type: "text",
-				label: "Last Name",
-				value: "",
-				errors: "",
-				required: true,
-			},
-			{
-				name: "website",
-				type: "text",
-				label: "Website",
-				value: "",
-				errors: "",
-				required: false,
-			},
-			{
-				name: "displayName",
-				type: "text",
-				label: "Display Name",
-				value: "",
-				errors: "",
-				required: false,
-			},
-			{
-				name: "description",
-				type: "textarea",
-				label: "Description",
-				value: "",
-				errors: "",
-				required: false,
-			},
-		],
-	};
+	constructor(props) {
+		super(props);
+
+		const { firstname, lastname, website, displayname, description } = props;
+
+		this.state = {
+			fields: [
+				{
+					name: "displayName",
+					type: "text",
+					label: "Display Name",
+					value: displayname,
+					tooltip: "Adding a display name will hide your first and last name.",
+					errors: "",
+					required: false,
+				},
+				{
+					name: "firstName",
+					type: "text",
+					label: "First Name",
+					value: firstname,
+					errors: "",
+					required: true,
+				},
+				{
+					name: "lastName",
+					type: "text",
+					label: "Last Name",
+					value: lastname,
+					errors: "",
+					required: true,
+				},
+				{
+					name: "website",
+					type: "text",
+					label: "Website",
+					value: website,
+					errors: "",
+					tooltip:
+						"You'll need to specify a full address: https://example.com.",
+					required: false,
+				},
+				{
+					name: "description",
+					type: "editor",
+					label: "Description",
+					value: description,
+					errors: "",
+					required: false,
+					placeholder: "Add a description...",
+				},
+			],
+			isSubmitting: false,
+		};
+	}
 
 	static getDerivedStateFromProps(props) {
 		return props.serverError ? { isSubmitting: false } : null;
+	}
+
+	componentDidUpdate(prevProps) {
+		const { showProfileForm, serverMessage } = this.props;
+
+		if (
+			showProfileForm &&
+			serverMessage &&
+			prevProps.serverMessage !== serverMessage
+		) {
+			this.props.closeForm();
+		}
 	}
 
 	handleChange = ({ target: { name, value } }) => {
@@ -71,15 +94,13 @@ export class UpdateDescriptionForm extends Component {
 		const { validatedFields, errors } = fieldValidator(this.state.fields);
 
 		this.setState({ fields: validatedFields, isSubmitting: !errors }, () => {
-			// if (!errors) this.props.signinUser(parseFields(validatedFields));
+			if (!errors) this.props.updateUserProfile(parseFields(validatedFields));
 		});
 	};
 
 	render = () => (
-		<form css="width: 400px;" onSubmit={this.handleSubmit}>
-			{this.state.fields.map(props => (
-				<Input key={props.name} onChange={this.handleChange} {...props} />
-			))}
+		<form css="width: 560px;" onSubmit={this.handleSubmit}>
+			<FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
 			<Button
 				primary
 				type="submit"
@@ -102,12 +123,28 @@ export class UpdateDescriptionForm extends Component {
 }
 
 UpdateDescriptionForm.propTypes = {
+	firstname: PropTypes.string,
+	lastname: PropTypes.string,
+	website: PropTypes.string,
+	description: PropTypes.string,
+	displayname: PropTypes.string,
 	serverError: PropTypes.string,
+	serverMessage: PropTypes.string,
+	showProfileForm: PropTypes.bool.isRequired,
 	closeForm: PropTypes.func.isRequired,
+	updateUserProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ server }) => ({
 	serverError: server.error,
+	serverMessage: server.message,
 });
 
-export default connect(mapStateToProps, {})(UpdateDescriptionForm);
+const mapDispatchToProps = {
+	updateUserProfile,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(UpdateDescriptionForm);

@@ -15,7 +15,7 @@ export default styled(Label)`
 			font-size: 16px;
 			color: #bbb !important;
 			position: relative;
-			top: 0;
+			top: 3px;
 			left: 0;
 
 			&:hover {

@@ -84,10 +84,22 @@ export const signout = () => ({
  * Sign up user via signup form.
  *
  * @function signupUser
- * @param {object} props - contains a token, an email, first/last name, and a password.
+ * @param {object} props - contains an email, first/last name, and a password.
  * @returns {object}
  */
 export const signupUser = props => ({
 	type: types.USER_SIGNUP,
+	props,
+});
+
+/**
+ * Updates user profile.
+ *
+ * @function updateUserProfile
+ * @param {object} props - contains firstname, lastname, displayname, website, description.
+ * @returns {object}
+ */
+export const updateUserProfile = props => ({
+	type: types.USER_UPDATE_PROFILE,
 	props,
 });

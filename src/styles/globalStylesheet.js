@@ -13,7 +13,6 @@ export default createGlobalStyle`
     height: 100%;
   }
   html,body {
-    height: 100%;
     width: 100% !important;
     margin: 0;
     padding: 0;
@@ -129,6 +128,18 @@ export default createGlobalStyle`
   }
   .link:hover {
     text-decoration: none;
+  }
+  .fr-box.fr-basic.fr-top .fr-wrapper {
+    height: 215px !important;
+    overflow-y: auto;
+  }
+  .fr-toolbar.fr-top {
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+  }
+  .second-toolbar {
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
   }
   .Toastify__toast-container {
     z-index: 9999;

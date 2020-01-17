@@ -32,6 +32,7 @@ module.exports = isServer => {
 			new MiniCssExtractPlugin({
 				filename,
 				chunkFilename,
+				ignoreOrder: true,
 			}),
 			/* envs for client */
 			new DefinePlugin({
