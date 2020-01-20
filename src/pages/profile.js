@@ -5,23 +5,18 @@ import Head from "next/head";
 import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
-import { checkAuth } from "~actions/Users";
 import ProfileTab from "~components/Body/ProfileTab";
 import Center from "~components/Body/Center";
 import Container from "~components/Body/Container";
 import TabContainer from "~components/Body/TabContainer";
 import Title from "~components/Body/Title";
 import SubTitle from "~components/Body/SubTitle";
-import RequireAuth from "~components/Containers/RequireAuth";
+import withAuth from "~components/Containers/App/withAuth";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
 const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
-	static getInitialProps({ store: { dispatch }, req, res }) {
-		dispatch(checkAuth({ req, res }));
-	}
-
 	state = {
 		showProfileForm: false,
 	};
@@ -35,7 +30,7 @@ class Profile extends Component {
 		const { settings } = this.props;
 
 		return (
-			<RequireAuth>
+			<>
 				<Head>
 					<title>NextJS SSR Kit - Profile</title>
 					<link rel="icon" href="/favicon.ico" />
@@ -91,7 +86,7 @@ class Profile extends Component {
 				) : (
 					<p>Loading...</p>
 				)}
-			</RequireAuth>
+			</>
 		);
 	};
 }
@@ -117,4 +112,4 @@ const mapStateToProps = ({ users }) => ({
 	settings: { ...users },
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(withAuth(Profile));

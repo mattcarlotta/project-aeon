@@ -38,7 +38,7 @@ const updateUserProfile = async (req, res) => {
 			description,
 		]);
 
-		res.status(200).json({ message: "Successfully update your profile!" });
+		res.status(201).json({ message: "Successfully update your profile!" });
 	} catch (err) {
 		return sendError(err, res);
 	}
