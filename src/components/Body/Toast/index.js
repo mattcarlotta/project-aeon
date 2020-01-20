@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 
 const style = {
-	marginTop: 9,
+	marginTop: 3,
 };
 
 export const displayIcon = type => {
@@ -18,9 +18,9 @@ export const displayIcon = type => {
 		case "success":
 			return <FaCheck style={style} />;
 		case "info":
-			return <FaInfo />;
+			return <FaInfo style={style} />;
 		case "error":
-			return <FaExclamationCircle />;
+			return <FaExclamationCircle style={style} />;
 		case "warning":
 			return <FaExclamationTriangle style={style} />;
 		default:

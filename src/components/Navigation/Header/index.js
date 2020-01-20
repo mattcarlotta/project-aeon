@@ -34,7 +34,14 @@ const iconStyle = {
 	marginRight: 15,
 };
 
-const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
+const Header = ({
+	displayname,
+	isLoading,
+	firstname,
+	lastname,
+	role,
+	signoutUser,
+}) => {
 	const notLoggedin = !role || role === "guest";
 
 	return (
@@ -110,8 +117,7 @@ const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
 									icon={<FaCog style={{ position: "relative", top: 3 }} />}
 									trigger={["click"]}
 								>
-									{firstName}&nbsp;
-									{lastName}
+									{displayname || `${firstname} ${lastname}`}
 								</DropDownButton>
 							</ListItem>
 						)}
@@ -125,8 +131,9 @@ const Header = ({ isLoading, firstName, lastName, role, signoutUser }) => {
 };
 
 Header.propTypes = {
-	firstName: PropTypes.string,
-	lastName: PropTypes.string,
+	displayname: PropTypes.string,
+	firstname: PropTypes.string,
+	lastname: PropTypes.string,
 	role: PropTypes.string,
 	isLoading: PropTypes.bool.isRequired,
 	signoutUser: PropTypes.func.isRequired,

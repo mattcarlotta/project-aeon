@@ -1,12 +1,10 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import getConfig from "next/config";
+import db from "~database/connection";
 import { createNewUser, findUserByEmail } from "~database/queries";
 import { emailAlreadyTaken, missingSignupCreds } from "~utils/errors";
 import { createRandomToken, sendError } from "~utils/helpers";
-
-const { db } = getConfig().publicRuntimeConfig;
 
 passport.use(
 	"local-signup",
@@ -23,13 +21,13 @@ passport.use(
 
 				const newPassword = await bcrypt.hash(password, 12);
 				const token = createRandomToken();
-				const { firstName, lastName } = req.body;
+				const { firstname, lastname } = req.body;
 
 				const createdUser = await dbtask.one(createNewUser, [
 					email,
 					newPassword,
-					firstName,
-					lastName,
+					firstname,
+					lastname,
 					token,
 				]);
 
@@ -48,9 +46,9 @@ passport.use(
  */
 export const localSignup = next => async (req, res) => {
 	try {
-		const { email, firstName, lastName, password } = req.body;
+		const { email, firstname, lastname, password } = req.body;
 
-		if (!email || !firstName || !lastName || !password)
+		if (!email || !firstname || !lastname || !password)
 			throw missingSignupCreds;
 
 		const newUser = await new Promise((resolve, reject) => {
@@ -60,7 +58,7 @@ export const localSignup = next => async (req, res) => {
 		});
 
 		req.user = {
-			firstName: newUser.firstname,
+			firstname: newUser.firstname,
 		};
 
 		next(req, res);

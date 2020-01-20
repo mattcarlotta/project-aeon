@@ -1,10 +1,8 @@
-import getConfig from "next/config";
 import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
+import db from "~database/connection";
 import { findUserByDisplayName, updateProfile } from "~database/queries";
-
-const { db } = getConfig().publicRuntimeConfig;
 
 /**
  * Attempts to update a user's profile.
@@ -15,16 +13,17 @@ const { db } = getConfig().publicRuntimeConfig;
  */
 const updateUserProfile = async (req, res) => {
 	try {
-		const { id } = req.session;
-		const { firstName, lastName, website, displayName, description } = req.body;
-		if (!firstName || !lastName)
+		const { id, email } = req.session;
+		const { firstname, lastname, website, displayname, description } = req.body;
+		if (!firstname || !lastname)
 			throw String("You must supply at least a first and last name!");
 
-		if (displayName) {
+		if (displayname) {
 			const existingUser = await db.oneOrNone(findUserByDisplayName, [
-				displayName,
+				displayname,
 			]);
-			if (existingUser && displayName !== existingUser.displayname)
+
+			if (existingUser && existingUser.email !== email)
 				throw String(
 					"That display name is already taken. Please choose a different name.",
 				);
@@ -32,9 +31,9 @@ const updateUserProfile = async (req, res) => {
 
 		await db.none(updateProfile, [
 			id,
-			displayName,
-			firstName,
-			lastName,
+			displayname,
+			firstname,
+			lastname,
 			website,
 			description,
 		]);

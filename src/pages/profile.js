@@ -5,7 +5,7 @@ import Head from "next/head";
 import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
-import { getProfile } from "~actions/Users";
+import { checkAuth } from "~actions/Users";
 import ProfileTab from "~components/Body/ProfileTab";
 import Center from "~components/Body/Center";
 import Container from "~components/Body/Container";
@@ -19,7 +19,7 @@ const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
 	static getInitialProps({ store: { dispatch }, req, res }) {
-		dispatch(getProfile({ req, res }));
+		dispatch(checkAuth({ req, res }));
 	}
 
 	state = {
@@ -114,7 +114,7 @@ Profile.propTypes = {
 
 /* istanbul ignore next */
 const mapStateToProps = ({ users }) => ({
-	settings: users.settings,
+	settings: { ...users },
 });
 
 export default connect(mapStateToProps)(Profile);

@@ -54,22 +54,19 @@ export function* authenticateUser({ req }) {
 }
 
 /**
- * Attempts to automatically sign user in via a session.
+ * Redirects user if not signed in.
  *
  * @generator
- * @function getProfile
+ * @function checkAuth
  * @yields {object} - A response from a call to the API.
  * @function parseData - returns a parsed res.data.
  * @yields {action} - A redux action to set the current user.
  * @throws {action} - A redux action to display a server message by type.
  */
-export function* getProfile({ req, res }) {
+export function* checkAuth({ req, res }) {
 	try {
 		const headers = yield call(parseCookie, req);
-		const response = yield call(app.get, "users/profile", headers);
-		const data = yield call(parseData, response);
-
-		yield put(actions.setProfile(data));
+		yield call(app.get, "users/auth", headers);
 	} catch (e) {
 		yield call(Redirect, res);
 		yield put(setError(e.toString()));
@@ -148,16 +145,16 @@ export function* updateUserProfile({ props }) {
 	try {
 		yield put(resetMessage());
 
-		const res = yield call(app.put, "users/profile/update", { ...props });
+		let res = yield call(app.put, "users/profile/update", { ...props });
 		const message = yield call(parseMessage, res);
 
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		const response = yield call(app.get, "users/profile");
-		const data = yield call(parseData, response);
+		res = yield call(app.get, "users/signedin");
+		const updatedUserData = yield call(parseData, res);
 
-		yield put(actions.setProfile(data));
+		yield put(actions.signin(updatedUserData));
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -174,7 +171,7 @@ export function* updateUserProfile({ props }) {
 export default function* authSagas() {
 	yield all([
 		takeLatest(types.USER_SIGNIN_SESSION, authenticateUser),
-		takeLatest(types.USER_FETCH_PROFILE, getProfile),
+		takeLatest(types.USER_CHECK_AUTH, checkAuth),
 		takeLatest(types.USER_SIGNIN_ATTEMPT, signinUser),
 		takeLatest(types.USER_SIGNOUT_SESSION, signoutUserSession),
 		takeLatest(types.USER_SIGNUP, signupUser),

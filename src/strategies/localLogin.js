@@ -1,12 +1,10 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import getConfig from "next/config";
 import { findUserByEmail } from "~database/queries";
 import { sendError } from "~utils/helpers";
+import db from "~database/connection";
 import { badCredentials, missingSigninCredentials } from "~utils/errors";
-
-const { db } = getConfig().publicRuntimeConfig;
 
 passport.use(
 	"local-login",
@@ -55,9 +53,14 @@ export const localLogin = next => async (req, res) => {
 		req.session = {
 			id: existingUser.id,
 			email: existingUser.email,
-			firstName: existingUser.firstname,
-			lastName: existingUser.lastname,
+			firstname: existingUser.firstname,
+			description: existingUser.description,
+			displayname: existingUser.displayname,
+			lastname: existingUser.lastname,
 			role: existingUser.role,
+			registered: existingUser.registered,
+			reputation: existingUser.reputation,
+			website: existingUser.website,
 		};
 
 		next(req, res);

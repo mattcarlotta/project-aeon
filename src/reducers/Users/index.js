@@ -3,9 +3,14 @@ import * as types from "~types";
 export const initialState = {
 	id: "",
 	email: "",
-	firstName: "",
-	lastName: "",
+	firstname: "",
+	description: "",
+	displayname: "",
+	lastname: "",
 	role: "",
+	registered: "",
+	reputation: "",
+	website: "",
 	isLoading: true,
 	settings: {},
 };

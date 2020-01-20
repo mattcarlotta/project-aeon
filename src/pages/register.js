@@ -23,7 +23,7 @@ export class RegisterForm extends Component {
 				required: true,
 			},
 			{
-				name: "firstName",
+				name: "firstname",
 				type: "text",
 				label: "First Name",
 				value: "",
@@ -31,7 +31,7 @@ export class RegisterForm extends Component {
 				required: true,
 			},
 			{
-				name: "lastName",
+				name: "lastname",
 				type: "text",
 				label: "Last Name",
 				value: "",

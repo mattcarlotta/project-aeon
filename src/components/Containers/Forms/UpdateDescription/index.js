@@ -17,7 +17,7 @@ export class UpdateDescriptionForm extends Component {
 		this.state = {
 			fields: [
 				{
-					name: "displayName",
+					name: "displayname",
 					type: "text",
 					label: "Display Name",
 					value: displayname,
@@ -26,7 +26,7 @@ export class UpdateDescriptionForm extends Component {
 					required: false,
 				},
 				{
-					name: "firstName",
+					name: "firstname",
 					type: "text",
 					label: "First Name",
 					value: firstname,
@@ -34,7 +34,7 @@ export class UpdateDescriptionForm extends Component {
 					required: true,
 				},
 				{
-					name: "lastName",
+					name: "lastname",
 					type: "text",
 					label: "Last Name",
 					value: lastname,

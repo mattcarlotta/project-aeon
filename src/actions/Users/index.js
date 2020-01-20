@@ -15,11 +15,11 @@ export const authenticateUser = req => ({
 /**
  * Sign in user via a session.
  *
- * @function getProfile
+ * @function checkAuth
  * @returns {object}
  */
-export const getProfile = ({ req, res }) => ({
-	type: types.USER_FETCH_PROFILE,
+export const checkAuth = ({ req, res }) => ({
+	type: types.USER_CHECK_AUTH,
 	req,
 	res,
 });
