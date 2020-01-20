@@ -10,7 +10,7 @@ const Spinner = ({ className }) => (
 			<div className={className}>
 				<div className="spinner" />
 			</div>
-			<Loading>Loading</Loading>
+			<Loading />
 		</FlexCenter>
 	</FadeIn>
 );

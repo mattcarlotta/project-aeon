@@ -1,7 +1,12 @@
 /* istanbul ignore file */
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
-export default styled.div`
+const Loading = ({ className }) => <div className={className}>Loading</div>;
+
+Loading.propTypes = { className: PropTypes.string.isRequired };
+
+export default styled(Loading)`
 	@-webkit-keyframes loading {
 		0% {
 			opacity: 1;
@@ -23,7 +28,9 @@ export default styled.div`
 		}
 	}
 
+	-webkit-animation: loading 1.2s infinite 0s ease-in-out;
 	animation: loading 1.2s infinite 0s ease-in-out;
+	-webkit-animation-direction: alternate;
 	animation-direction: alternate;
 	color: #c7c7c7;
 	margin-top: 2px;
