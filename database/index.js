@@ -5,7 +5,7 @@ const pgPromise = require("pg-promise");
 const initOptions = { promiseLib: promise, noWarnings: false }; // Database options
 const pgp = pgPromise(initOptions); // initialize pg-promise w/options
 
-const { NODE_ENV, DB, DBHOST, DBPASSWORD, DBPORT, DBUSER } = process.env; //
+const { NODE_ENV, DB, DBHOST, DBPASSWORD, DBPORT, DBUSER } = process.env;
 
 if (NODE_ENV === "development") {
 	monitor.attach(initOptions, ["query", "error"]);

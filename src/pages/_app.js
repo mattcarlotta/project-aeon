@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import App from "next/app";
+import Head from "next/head";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import { ToastContainer } from "react-toastify";
@@ -35,23 +36,28 @@ export class MyApp extends App {
 	render() {
 		const { Component, pageProps, store } = this.props;
 		return (
-			<Provider store={store}>
-				<Header />
-				<Wrapper>
-					<Component {...pageProps} />
-				</Wrapper>
-				<GlobalStylesheet />
-				<ToastContainer
-					position="top-right"
-					autoClose={2500}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick={false}
-					pauseOnVisibilityChange
-					draggable
-					pauseOnHover
-				/>
-			</Provider>
+			<>
+				<Head>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
+				<Provider store={store}>
+					<Header />
+					<Wrapper>
+						<Component {...pageProps} />
+					</Wrapper>
+					<GlobalStylesheet />
+					<ToastContainer
+						position="top-right"
+						autoClose={2500}
+						hideProgressBar={false}
+						newestOnTop={false}
+						closeOnClick={false}
+						pauseOnVisibilityChange
+						draggable
+						pauseOnHover
+					/>
+				</Provider>
+			</>
 		);
 	}
 }

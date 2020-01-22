@@ -7,6 +7,7 @@ const { SEED } = process.env;
 const userTable = `(
   id UUID DEFAULT uuid_generate_v1mc() UNIQUE,
 	key SERIAL PRIMARY KEY,
+	avatar TEXT NOT NULL DEFAULT '',
 	verified BOOLEAN DEFAULT FALSE,
 	email VARCHAR NOT NULL UNIQUE,
 	firstname TEXT NOT NULL,

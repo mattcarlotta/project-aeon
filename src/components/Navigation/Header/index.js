@@ -35,6 +35,7 @@ const iconStyle = {
 };
 
 const Header = ({
+	avatar,
 	displayname,
 	isLoading,
 	firstname,
@@ -117,7 +118,16 @@ const Header = ({
 									icon={<FaCog style={{ position: "relative", top: 3 }} />}
 									trigger={["click"]}
 								>
-									{displayname || `${firstname} ${lastname}`}
+									<span>
+										{avatar && (
+											<img
+												css="height: 20px;margin-right: 5px;border-radius: 50%;"
+												src={avatar}
+												alt="avatar"
+											/>
+										)}
+										{displayname || `${firstname} ${lastname}`}
+									</span>
 								</DropDownButton>
 							</ListItem>
 						)}
@@ -131,6 +141,7 @@ const Header = ({
 };
 
 Header.propTypes = {
+	avatar: PropTypes.string,
 	displayname: PropTypes.string,
 	firstname: PropTypes.string,
 	lastname: PropTypes.string,

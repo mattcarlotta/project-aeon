@@ -1,6 +1,20 @@
-/* istanbul ignore file */
+import React from "react";
 import styled from "styled-components";
-import Container from "./Container";
+import PropTypes from "prop-types";
+
+const Container = ({ className, children, style }) => (
+	<div className={className} style={style}>
+		{children}
+	</div>
+);
+
+Container.propTypes = {
+	className: PropTypes.string.isRequired,
+	children: PropTypes.node.isRequired,
+	style: PropTypes.objectOf(
+		PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	),
+};
 
 export default styled(Container)`
 	width: 100%;
@@ -8,6 +22,10 @@ export default styled(Container)`
 	text-align: left;
 	border-radius: 4px;
 	background: #fff;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+	-webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+		0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+		0 1px 3px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 30px;
+	margin-bottom: 20px;
 `;

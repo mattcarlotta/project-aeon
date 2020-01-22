@@ -4,7 +4,7 @@ const userQueries = {
 	findUserByEmail: "SELECT * FROM users WHERE email=$1",
 	findUserByDisplayName: "SELECT email FROM users WHERE displayname=$1",
 	findUserById:
-		"SELECT id,verified,email,displayname,firstname,lastname,registered,role,reputation,description,website FROM users WHERE id=$1",
+		"SELECT id,avatar,verified,email,displayname,firstname,lastname,registered,role,reputation,description,website FROM users WHERE id=$1",
 	updateProfile:
 		"UPDATE users SET displayname=$2,firstname=$3,lastname=$4,website=$5,description=$6 WHERE id=$1",
 };

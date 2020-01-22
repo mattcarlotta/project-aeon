@@ -1,12 +1,9 @@
 import React from "react";
-import Head from "next/head";
+import Head from "~components/Navigation/Head";
 
 const Help = () => (
 	<>
-		<Head>
-			<title>NextJS SSR Kit - Help</title>
-			<link rel="icon" href="/favicon.ico" />
-		</Head>
+		<Head title="Help" />
 		<h1>Help</h1>
 	</>
 );

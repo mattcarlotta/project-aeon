@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
-import Head from "next/head";
 import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
@@ -12,6 +11,7 @@ import TabContainer from "~components/Body/TabContainer";
 import Title from "~components/Body/Title";
 import SubTitle from "~components/Body/SubTitle";
 import withAuth from "~components/Containers/App/withAuth";
+import Head from "~components/Navigation/Head";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
 const TabPane = Tabs.TabPane;
@@ -31,10 +31,7 @@ class Profile extends Component {
 
 		return (
 			<>
-				<Head>
-					<title>NextJS SSR Kit - Profile</title>
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
+				<Head title="Profile" />
 				{!isEmpty(settings) ? (
 					<Row gutter={10}>
 						<Col {...{ md: 24, lg: 7 }}>

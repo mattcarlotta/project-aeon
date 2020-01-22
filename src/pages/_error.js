@@ -1,36 +1,31 @@
 import React from "react";
-import Head from "next/head";
-import { FaBug } from "react-icons/fa";
 import FlexCenter from "~components/Body/FlexCenter";
 import HomeIcon from "~components/Body/HomeIcon";
+import Button from "~components/Body/Button";
+import Center from "~components/Body/Center";
+import SubTitle from "~components/Body/SubTitle";
+import Title from "~components/Body/Title";
+import Head from "~components/Navigation/Head";
 import StyledLink from "~components/Navigation/StyledLink";
 
 const NotFound = () => (
-	<FlexCenter style={{ height: "calc(100vh - 96px)" }} id="notfound">
-		<Head>
-			<title>NextJS SSR Kit - Not Found</title>
-			<link rel="icon" href="/favicon.ico" />
-		</Head>
-		<div css="color: #03a9f3;background-color: #fff;padding: 100px;text-align: center;">
-			<div css="font-size: 120px;margin-bottom: 0;padding: 0px;">
-				<FaBug
-					style={{
-						position: "relative",
-						fontSize: 100,
-						top: 10,
-						marginRight: 10,
-					}}
-				/>
-				<span>404</span>
-			</div>
-			<div css="font-size: 32px;font-weight: bold;margin-top: -5px;margin-bottom: 20px;letter-spacing: 2px;">
-				Uh Oh! Page not found!
-			</div>
+	<FlexCenter>
+		<Head title="Not Found" />
+		<Center style={{ color: "#03a9f3", padding: "100px" }}>
+			<Title style={{ color: "#03a9f3", fontSize: "120px" }}>404</Title>
+			<Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
+				Page Not Found.
+			</Title>
+			<SubTitle>
+				Uh oh, you took a wrong turn! Unable to locate that page.
+			</SubTitle>
 			<StyledLink href="/">
-				<HomeIcon />
-				<span>Go Back</span>
+				<Button radius="4px" type="button">
+					<HomeIcon />
+					<span css="margin-left: 5px;">Go Home</span>
+				</Button>
 			</StyledLink>
-		</div>
+		</Center>
 	</FlexCenter>
 );
 

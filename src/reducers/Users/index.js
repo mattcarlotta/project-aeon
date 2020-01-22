@@ -2,6 +2,7 @@ import * as types from "~types";
 
 export const initialState = {
 	id: "",
+	avatar: "",
 	email: "",
 	firstname: "",
 	description: "",

@@ -52,6 +52,7 @@ export const localLogin = next => async (req, res) => {
 
 		req.session = {
 			id: existingUser.id,
+			avatar: existingUser.avatar,
 			email: existingUser.email,
 			firstname: existingUser.firstname,
 			description: existingUser.description,

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Head from "next/head";
 import { connect } from "react-redux";
 import { signupUser } from "~actions/Users";
 import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import FormContainer from "~components/Forms/FormContainer";
 import StyledLink from "~components/Navigation/StyledLink";
+import Head from "~components/Navigation/Head";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
 import parseFields from "~utils/parseFields";
@@ -73,10 +73,7 @@ export class RegisterForm extends Component {
 
 	render = () => (
 		<FormContainer marginTop="10vh">
-			<Head>
-				<title>NextJS SSR Kit - Register</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+			<Head title="Register" />
 			<h2 css="text-align: center;margin-bottom: 0px;">Register</h2>
 			<p css="text-align: center;margin-top: 0px;">for a new account below.</p>
 			<form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
