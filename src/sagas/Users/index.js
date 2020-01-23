@@ -1,12 +1,77 @@
 import { all, put, call, takeLatest } from "redux-saga/effects";
 import Router from "next/router";
 import app from "~utils/axiosConfig";
+import imageAPI from "~utils/imageAPIConfig";
 import { parseCookie, parseData, parseMessage } from "~utils/parseResponse";
 import Redirect from "~utils/redirect";
 import * as types from "~types";
 import * as actions from "~actions/Users";
 import { setError, setMessage, resetMessage } from "~actions/Server";
 import toast from "~components/Body/Toast";
+
+/**
+ * Attempts to create a new user avatar.
+ *
+ * @generator
+ * @function createUserAvatar
+ * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @yields {object} - A response from a call to the Image API.
+ * @function parseMessage - returns a parsed res.data.message.
+ * @yields {action} - A redux action to display a server message by type.
+ * @yields {action} - A redux action to get updated profile details.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+export function* createUserAvatar({ props }) {
+	try {
+		yield put(resetMessage());
+
+		let res = yield call(imageAPI.post, "avatar/create", props);
+		const message = yield call(parseMessage, res);
+
+		yield call(toast, { type: "success", message });
+		yield put(setMessage(message));
+
+		res = yield call(app.get, "users/signedin");
+		const updatedUserData = yield call(parseData, res);
+
+		yield put(actions.signin(updatedUserData));
+	} catch (e) {
+		yield put(setError(e.toString()));
+		yield call(toast, { type: "error", message: e.toString() });
+	}
+}
+
+/**
+ * Attempts to delete a user avatar.
+ *
+ * @generator
+ * @function createUserAvatar
+ * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @yields {object} - A response from a call to the Image API.
+ * @function parseMessage - returns a parsed res.data.message.
+ * @yields {action} - A redux action to display a server message by type.
+ * @yields {action} - A redux action to get updated profile details.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+export function* deleteUserAvatar() {
+	try {
+		yield put(resetMessage());
+
+		let res = yield call(imageAPI.delete, "avatar/delete");
+		const message = yield call(parseMessage, res);
+
+		yield call(toast, { type: "success", message });
+		yield put(setMessage(message));
+
+		res = yield call(app.get, "users/signedin");
+		const updatedUserData = yield call(parseData, res);
+
+		yield put(actions.signin(updatedUserData));
+	} catch (e) {
+		yield put(setError(e.toString()));
+		yield call(toast, { type: "error", message: e.toString() });
+	}
+}
 
 /**
  * Removes the current user from a express and redux session.
@@ -133,6 +198,38 @@ export function* signupUser({ props }) {
  * Attempts to sign up a new user.
  *
  * @generator
+ * @function updateUserAvatar
+ * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @yields {object} - A response from a call to the API.
+ * @function parseMessage - returns a parsed res.data.message.
+ * @yields {action} - A redux action to display a server message by type.
+ * @yields {action} - A redux action to get updated profile details.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+export function* updateUserAvatar({ props }) {
+	try {
+		yield put(resetMessage());
+
+		let res = yield call(imageAPI.put, "avatar/update", props);
+		const message = yield call(parseMessage, res);
+
+		yield call(toast, { type: "success", message });
+		yield put(setMessage(message));
+
+		res = yield call(app.get, "users/signedin");
+		const updatedUserData = yield call(parseData, res);
+
+		yield put(actions.signin(updatedUserData));
+	} catch (e) {
+		yield put(setError(e.toString()));
+		yield call(toast, { type: "error", message: e.toString() });
+	}
+}
+
+/**
+ * Attempts to sign up a new user.
+ *
+ * @generator
  * @function updateUserProfile
  * @param {object} props - props contains firstname, lastname, displayname, website, description.
  * @yields {object} - A response from a call to the API.
@@ -171,10 +268,13 @@ export function* updateUserProfile({ props }) {
 export default function* authSagas() {
 	yield all([
 		takeLatest(types.USER_SIGNIN_SESSION, authenticateUser),
+		takeLatest(types.USER_CREATE_AVATAR, createUserAvatar),
+		takeLatest(types.USER_DELETE_AVATAR, deleteUserAvatar),
 		takeLatest(types.USER_CHECK_AUTH, checkAuth),
 		takeLatest(types.USER_SIGNIN_ATTEMPT, signinUser),
 		takeLatest(types.USER_SIGNOUT_SESSION, signoutUserSession),
 		takeLatest(types.USER_SIGNUP, signupUser),
+		takeLatest(types.USER_UPDATE_AVATAR, updateUserAvatar),
 		takeLatest(types.USER_UPDATE_PROFILE, updateUserProfile),
 	]);
 }

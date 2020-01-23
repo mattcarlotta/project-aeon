@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
+import { deleteUserAvatar } from "~actions/Users";
 import ProfileTab from "~components/Body/ProfileTab";
+import Button from "~components/Body/Button";
 import Center from "~components/Body/Center";
 import Container from "~components/Body/Container";
 import TabContainer from "~components/Body/TabContainer";
@@ -12,6 +14,8 @@ import Title from "~components/Body/Title";
 import SubTitle from "~components/Body/SubTitle";
 import withAuth from "~components/Containers/App/withAuth";
 import Head from "~components/Navigation/Head";
+import Spinner from "~components/Body/Spinner";
+import UploadImageForm from "~components/Containers/Forms/UploadImage";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
 const TabPane = Tabs.TabPane;
@@ -19,6 +23,7 @@ const TabPane = Tabs.TabPane;
 class Profile extends Component {
 	state = {
 		showProfileForm: false,
+		showImageForm: false,
 	};
 
 	toggleProfileForm = () =>
@@ -26,8 +31,15 @@ class Profile extends Component {
 			showProfileForm: !prevState.showProfileForm,
 		}));
 
+	toggleImageForm = () =>
+		this.setState(prevState => ({
+			...prevState,
+			showImageForm: !prevState.showImageForm,
+		}));
+
 	render = () => {
-		const { settings } = this.props;
+		const { deleteUserAvatar, settings } = this.props;
+		const { showImageForm } = this.state;
 
 		return (
 			<>
@@ -37,13 +49,51 @@ class Profile extends Component {
 						<Col {...{ md: 24, lg: 7 }}>
 							<Container style={{ paddingTop: 20 }}>
 								<Center>
-									<img
-										css="height: 200px;width:200px;margin: 0 auto;border-radius: 50%;display:block;"
-										src={settings.avatar || DefaultAvatar}
-										alt="avatar.png"
-									/>
+									<div css="height: 250px;">
+										{showImageForm ? (
+											<UploadImageForm
+												{...this.state}
+												closeForm={this.toggleImageForm}
+											/>
+										) : (
+											<>
+												<img
+													css="max-height: 200px;max-width:200px;margin: 0 auto;border-radius: 50%;display: block;"
+													src={settings.avatar || DefaultAvatar}
+													alt="avatar.png"
+												/>
+												<div css="width: 100%; margin: 0 auto;">
+													<Button
+														type="button"
+														style={{
+															maxWidth: 150,
+															marginTop: 5,
+															marginRight: settings.avatar ? 20 : 0,
+														}}
+														onClick={this.toggleImageForm}
+													>
+														Change Avatar
+													</Button>
+													{settings.avatar && (
+														<Button
+															danger
+															type="button"
+															style={{ maxWidth: 150, marginTop: 5 }}
+															onClick={deleteUserAvatar}
+														>
+															Delete Avatar
+														</Button>
+													)}
+												</div>
+											</>
+										)}
+									</div>
 									<Title
-										style={{ margin: "15px 0", fontSize: 28, color: "#0f7ae5" }}
+										style={{
+											marginBottom: "15px",
+											fontSize: 28,
+											color: "#0f7ae5",
+										}}
 									>
 										{settings.displayname
 											? settings.displayname
@@ -81,7 +131,7 @@ class Profile extends Component {
 						</Col>
 					</Row>
 				) : (
-					<p>Loading...</p>
+					<Spinner />
 				)}
 			</>
 		);
@@ -89,6 +139,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
+	deleteUserAvatar: PropTypes.func.isRequired,
 	settings: PropTypes.shape({
 		id: PropTypes.string,
 		avatar: PropTypes.string,
@@ -109,4 +160,8 @@ const mapStateToProps = ({ users }) => ({
 	settings: { ...users },
 });
 
-export default connect(mapStateToProps)(withAuth(Profile));
+const mapDispatchToProps = {
+	deleteUserAvatar,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile));

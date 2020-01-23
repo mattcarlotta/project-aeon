@@ -12,6 +12,7 @@ const {
 
 const {
 	analyze,
+	APIURL,
 	baseURL,
 	cookieSecret,
 	DATABASE,
@@ -41,6 +42,7 @@ module.exports = isServer => {
 					cookieSecret: JSON.stringify(cookieSecret),
 					inDevelopment: inDev,
 					inTesting: JSON.stringify(inTesting),
+					APIURL: JSON.stringify(APIURL),
 					baseURL: JSON.stringify(baseURL),
 				},
 			}),

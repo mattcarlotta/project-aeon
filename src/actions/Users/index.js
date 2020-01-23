@@ -13,6 +13,28 @@ export const authenticateUser = req => ({
 });
 
 /**
+ * Creates a user avatar.
+ *
+ * @function createUserAvatar
+ * @param {object} props - contains file formdata.
+ * @returns {object}
+ */
+export const createUserAvatar = props => ({
+	type: types.USER_CREATE_AVATAR,
+	props,
+});
+
+/**
+ * Creates a user avatar.
+ *
+ * @function deleteUserAvatar
+ * @returns {object}
+ */
+export const deleteUserAvatar = () => ({
+	type: types.USER_DELETE_AVATAR,
+});
+
+/**
  * Sign in user via a session.
  *
  * @function checkAuth
@@ -89,6 +111,18 @@ export const signout = () => ({
  */
 export const signupUser = props => ({
 	type: types.USER_SIGNUP,
+	props,
+});
+
+/**
+ * Updates a user avatar.
+ *
+ * @function updateUserAvatar
+ * @param {object} props - contains file formdata.
+ * @returns {object}
+ */
+export const updateUserAvatar = props => ({
+	type: types.USER_UPDATE_AVATAR,
 	props,
 });
 
