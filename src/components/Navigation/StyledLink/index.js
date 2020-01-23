@@ -1,16 +1,14 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 
-class StyledLink extends PureComponent {
-	render = () => (
-		<Link href={this.props.href} prefetch={false}>
-			<a css="height: 100%;width:100%;" {...this.props} className="link">
-				{this.props.children}
-			</a>
-		</Link>
-	);
-}
+const StyledLink = ({ children, href, ...rest }) => (
+	<Link href={href} prefetch={false}>
+		<a css="height: 100%;width:100%;" {...rest} className="link">
+			{children}
+		</a>
+	</Link>
+);
 
 StyledLink.propTypes = {
 	href: PropTypes.string.isRequired,
