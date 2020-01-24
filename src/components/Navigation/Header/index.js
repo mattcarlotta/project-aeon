@@ -118,16 +118,16 @@ const Header = ({
 									icon={<FaCog style={{ position: "relative", top: 3 }} />}
 									trigger={["click"]}
 								>
-									<span>
+									<StyledLink href="/profile">
 										{avatar && (
 											<img
-												css="height: 20px;margin-right: 5px;border-radius: 50%;"
+												css="height: 20px;margin-right: 8px;border-radius: 50%;"
 												src={avatar}
 												alt="avatar"
 											/>
 										)}
 										{displayname || `${firstname} ${lastname}`}
-									</span>
+									</StyledLink>
 								</DropDownButton>
 							</ListItem>
 						)}
