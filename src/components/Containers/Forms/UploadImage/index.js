@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { FaUpload, FaTimesCircle, FaUndo } from "react-icons/fa";
+import {
+	FaUpload,
+	FaTimesCircle,
+	FaUndo,
+	FaCloudUploadAlt,
+} from "react-icons/fa";
 import { Tooltip } from "antd";
-import { MdCloudUpload } from "react-icons/md";
 import { createUserAvatar, updateUserAvatar } from "~actions/Users";
 import Button from "~components/Body/Button";
 import FlexCenter from "~components/Body/FlexCenter";
@@ -123,8 +127,8 @@ export class UpdateImageForm extends Component {
 							<img css="height: 100%;" src={imagePreview} alt="avatar" />
 						) : (
 							<>
-								<MdCloudUpload style={{ fontSize: 60 }} />
-								<p>Click or drag an image to this area.</p>
+								<FaCloudUploadAlt style={{ fontSize: 60 }} />
+								<p>Click here or drag an image to this area.</p>
 								<p css="margin: 0;padding: 0;font-size: 12px;">
 									&#40;jpg/png/gif/bmp &#8804; 10MB&#41;
 								</p>
@@ -147,10 +151,13 @@ export class UpdateImageForm extends Component {
 							type="submit"
 							width="50px"
 							radius="4px"
+							padding="5px"
 							style={{ marginTop: 10 }}
 							disabled={isSubmitting}
 						>
-							<FaUpload />
+							<FaUpload
+								style={{ fontSize: 17, position: "relative", top: 3 }}
+							/>
 						</Button>
 					</Tooltip>
 					<Tooltip placement="top" title="Reset">
@@ -158,11 +165,12 @@ export class UpdateImageForm extends Component {
 							type="button"
 							width="50px"
 							radius="4px"
+							padding="5px"
 							style={{ marginTop: 10 }}
 							onClick={this.handleReset}
 							disabled={isSubmitting}
 						>
-							<FaUndo style={{ fontSize: 17, position: "relative", top: 3 }} />
+							<FaUndo style={{ position: "relative", top: 4 }} />
 						</Button>
 					</Tooltip>
 
@@ -172,12 +180,13 @@ export class UpdateImageForm extends Component {
 							type="button"
 							width="50px"
 							radius="4px"
+							padding="5px"
 							style={{ marginTop: 10 }}
 							onClick={this.props.closeForm}
 							disabled={isSubmitting}
 						>
 							<FaTimesCircle
-								style={{ fontSize: 18, position: "relative", top: 3 }}
+								style={{ fontSize: 18, position: "relative", top: 4 }}
 							/>
 						</Button>
 					</Tooltip>

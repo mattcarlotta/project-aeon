@@ -10,7 +10,7 @@ import GlobalStylesheet from "~styles/globalStylesheet";
 import Wrapper from "~components/Body/Wrapper";
 import Header from "~components/Navigation/Header";
 import { authenticateUser } from "~actions/Users";
-import "~styles/empty.css";
+import "react-toastify/dist/ReactToastify.css";
 
 export class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
