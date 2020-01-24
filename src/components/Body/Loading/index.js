@@ -31,6 +31,8 @@ export default styled(Loading)`
 	animation: loading 1.2s infinite 0s ease-in-out;
 	-webkit-animation-direction: alternate;
 	animation-direction: alternate;
+	position: relative;
+	top: -62px;
 	color: #c7c7c7;
 	margin-top: 2px;
 `;

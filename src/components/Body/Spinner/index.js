@@ -44,8 +44,8 @@ export default styled(Spinner)`
 
 	font-size: 0;
 	color: #c7c7c7;
-	width: 75px;
-	height: 75px;
+	width: 100px;
+	height: 100px;
 
 	& .spinner {
 		width: 100%;

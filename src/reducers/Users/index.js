@@ -20,7 +20,7 @@ export const initialState = {
  * @function userReducer
  * @param {object} state - an object containing data and isLoading state.
  * @param {object} action - type and payload to be reduced.
- * @returns {object} - USERS state.
+ * @returns {object} - users state.
  */
 const userReducer = (state = initialState, { payload, type }) => {
 	switch (type) {

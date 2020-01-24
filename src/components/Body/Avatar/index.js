@@ -58,7 +58,7 @@ Avatar.propTypes = {
 		firstname: PropTypes.string,
 		lastname: PropTypes.string,
 		registered: PropTypes.string,
-		reputation: PropTypes.string,
+		reputation: PropTypes.number,
 		website: PropTypes.string,
 	}),
 	toggleImageForm: PropTypes.func.isRequired,

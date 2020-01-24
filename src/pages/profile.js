@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
+import isEmpty from "lodash.isempty";
 import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
@@ -123,7 +123,7 @@ Profile.propTypes = {
 		firstname: PropTypes.string,
 		lastname: PropTypes.string,
 		registered: PropTypes.string,
-		reputation: PropTypes.string,
+		reputation: PropTypes.number,
 		website: PropTypes.string,
 	}),
 };

@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import userReducer from "./Users";
+import questionsReducer from "./Questions";
 import serverReducer from "./Server";
+import userReducer from "./Users";
 
 const reducers = {
+	questions: questionsReducer,
 	server: serverReducer,
 	users: userReducer,
 };

@@ -9,7 +9,7 @@ export const initialState = {
  * @function serverReducer
  * @param {object} state - an object containing error or server messages.
  * @param {object} action - type and payload to be reduced.
- * @returns {object} - new server state.
+ * @returns {object} - server state.
  */
 const serverReducer = (state = initialState, { payload, type }) => {
 	switch (type) {

@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
-import random from "lodash/random";
-import get from "lodash/get";
+import random from "lodash.random";
+import get from "lodash.get";
 
 const tokenGenerator = (str, tlen) => {
 	const arr = [...str];

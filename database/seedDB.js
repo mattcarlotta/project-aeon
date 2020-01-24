@@ -15,26 +15,69 @@ const userTable = `(
 	password VARCHAR NOT NULL UNIQUE,
 	registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	token VARCHAR NOT NULL UNIQUE,
-	reputation BIGINT DEFAULT 0,
+	reputation INTEGER DEFAULT 0,
 	website TEXT NOT NULL DEFAULT '', 
 	description TEXT NOT NULL DEFAULT '',
 	displayname TEXT NOT NULL DEFAULT '',
   role TEXT DEFAULT 'member'
 )`;
 
+const noteTableOptions = `(
+  id UUID DEFAULT uuid_generate_v1mc(),
+  key SERIAL PRIMARY KEY,
+  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  read BOOLEAN DEFAULT false,
+  message TEXT NOT NULL DEFAULT '',
+  deleted BOOLEAN DEFAULT false
+)`;
+
+const avatarTableOptions = `(
+  key SERIAL PRIMARY KEY,
+  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  path TEXT DEFAULT NULL
+)`;
+
+const questionTableOptions = `(
+	id UUID DEFAULT uuid_generate_v1mc(),
+	key SERIAL PRIMARY KEY,
+  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	answered BOOLEAN DEFAULT FALSE,
+	views INTEGER DEFAULT 0,
+	title TEXT NOT NULL DEFAULT '',
+	body TEXT NOT NULL DEFAULT '',
+	tags TEXT [],
+	comments JSONB
+)`;
+
+const answerTableOptions = `(
+	id UUID DEFAULT uuid_generate_v1mc(),
+	key SERIAL PRIMARY KEY,
+	userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	body TEXT NOT NULL DEFAULT '',
+	comments JSONB
+)`;
+
 const seedDB = async () => {
 	try {
-		await db.task("seed-database", async dbtask => {
-			// create DB tables
-			await dbtask.none(`
-        DROP TABLE IF EXISTS users CASCADE;
-        CREATE TABLE users ${userTable};
+		await db.none(`
+				DROP TABLE IF EXISTS users CASCADE;
+				DROP TABLE IF EXISTS notifications;
+				DROP TABLE IF EXISTS avatars;
+				DROP TABLE IF EXISTS questions;
+				DROP TABLE IF EXISTS answers;
+				CREATE TABLE users ${userTable};
+				CREATE TABLE notifications ${noteTableOptions};
+				CREATE TABLE avatars ${avatarTableOptions};
+				CREATE TABLE questions ${questionTableOptions};
+				CREATE TABLE answers ${answerTableOptions};
       `);
 
-			return console.log(
-				"\n\x1b[7m\x1b[32;1m PASS \x1b[0m \x1b[2mutils/\x1b[0m\x1b[1mseedDB.js",
-			);
-		});
+		return console.log(
+			"\n\x1b[7m\x1b[32;1m PASS \x1b[0m \x1b[2mutils/\x1b[0m\x1b[1mseedDB.js",
+		);
 	} catch (err) {
 		return console.log(
 			"\n\x1b[7m\x1b[31;1m FAIL \x1b[0m \x1b[2mutils/\x1b[0m\x1b[31;1mseedDB.js\x1b[0m\x1b[31m\n" +

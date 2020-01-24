@@ -1,10 +1,10 @@
 import Router from "next/router";
 
 /**
- * Helper function to parse a message from an API response.
+ * Helper function to redirect a user client-side or server-side.
  *
- * @function
- * @param {array} res - an API response.
+ * @function redirect
+ * @param {object} res - an API response.
  * @returns {string} - a parsed message string from res.data.message.
  */
 function redirect(res) {
