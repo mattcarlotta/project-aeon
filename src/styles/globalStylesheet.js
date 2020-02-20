@@ -26,6 +26,9 @@ export default createGlobalStyle`
     min-height: 100vh;
     font-size: 15px;
   }
+  svg:not(:root) {
+    overflow: visible;
+  }
   @-webkit-keyframes wave {
     0% {
       left: -60%;
@@ -100,22 +103,6 @@ export default createGlobalStyle`
     20% {
       transform: scaleY(1.0);
       -webkit-transform: scaleY(1.0);
-    }
-  }
-  @-webkit-keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
     }
   }
   .link {

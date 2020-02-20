@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from "react";
 import PropTypes from "prop-types";
+import Markdown from "markdown-to-jsx";
 import Button from "~components/Body/Button";
 import Info from "~components/Body/Info";
 import MissingDetails from "~components/Body/MissingDetails";
@@ -60,7 +61,9 @@ const Profile = ({
 				<div>
 					{description ? (
 						<SubTitle style={subtitleStyle}>
-							<div dangerouslySetInnerHTML={{ __html: description }} />
+							<Markdown options={{ disableParsingRawHTML: true }}>
+								{description}
+							</Markdown>
 						</SubTitle>
 					) : (
 						<MissingDetails>

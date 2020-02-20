@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-class FroalaEditor extends Component {
+class MDEditor extends Component {
 	state = {
 		Component: null,
 	};
@@ -17,10 +17,12 @@ class FroalaEditor extends Component {
 	importFile = async () => {
 		try {
 			const { default: file } = await import(
-				/* webpackMode: "lazy" */ "react-froala-wysiwyg"
+				/* webpackMode: "lazy" */ "react-smde"
 			);
 
-			await import(/* webpackMode: "lazy" */ "~components/Forms/Editor/Styles");
+			await import(
+				/* webpackMode: "lazy" */ "react-smde/dist/styles/react-smde.css"
+			);
 
 			if (!this.cancelImport) this.setState({ Component: file });
 		} catch (err) {
@@ -35,9 +37,9 @@ class FroalaEditor extends Component {
 	};
 }
 
-FroalaEditor.propTypes = {
+MDEditor.propTypes = {
 	children: PropTypes.node,
 };
 
-export default FroalaEditor;
+export default MDEditor;
 /* eslint-enable no-console */

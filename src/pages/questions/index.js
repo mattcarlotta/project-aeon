@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import isEmpty from "lodash.isempty";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -6,24 +6,22 @@ import { fetchQuestions } from "~actions/Questions";
 import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 
-class NewestQuestions extends PureComponent {
-	static getInitialProps({ store: { dispatch } }) {
-		dispatch(fetchQuestions());
-	}
+const NewestQuestions = ({ data, isLoading }) => (
+	<>
+		<Head title="Newest Questions" />
+		{isLoading ? (
+			<Spinner />
+		) : isEmpty(data) ? (
+			<div>No Questions</div>
+		) : (
+			<div>Questions</div>
+		)}
+	</>
+);
 
-	render = () => (
-		<>
-			<Head title="Newest Questions" />
-			{this.props.isLoading ? (
-				<Spinner />
-			) : isEmpty(this.props.data) ? (
-				<div>No Questions</div>
-			) : (
-				<div>Questions</div>
-			)}
-		</>
-	);
-}
+NewestQuestions.getInitialProps = ({ store: { dispatch } }) => {
+	dispatch(fetchQuestions());
+};
 
 NewestQuestions.propTypes = {
 	data: PropTypes.arrayOf(

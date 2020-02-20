@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Input as AntInput, Switch } from "antd";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import Markdown from "markdown-to-jsx";
 import Label from "~components/Forms/Label";
 import Errors from "~components/Forms/Errors";
 import Input from "~components/Forms/Input";
 import Select from "~components/Forms/Select";
-import Editor from "~components/Forms/Editor";
+import MDEditor from "~components/Forms/MDEditor";
 
 const TextArea = AntInput.TextArea;
 
@@ -43,61 +44,19 @@ const FieldGenerator = ({ fields, onChange }) =>
 				);
 			}
 			case "editor": {
-				/* istanbul ignore next */
 				return (
-					<div key={props.name} css="height: 360px;">
+					<div key={props.name}>
 						{props.label && <Label {...props} />}
-						<Editor
-							model={props.value}
-							config={{
-								placeholderText: props.placeholder,
-								toolbarButtons: {
-									moreText: {
-										buttons: [
-											"bold",
-											"italic",
-											"underline",
-											"strikeThrough",
-											"subscript",
-											"superscript",
-											"fontFamily",
-											"fontSize",
-											"textColor",
-											"backgroundColor",
-											"insertLink",
-											"quote",
-										],
-										buttonsVisible: 3,
-									},
-									moreParagraph: {
-										buttons: [
-											"alignLeft",
-											"alignCenter",
-											"alignRight",
-											"alignJustify",
-											"formatOLSimple",
-											"formatOL",
-											"formatUL",
-											"paragraphFormat",
-											"paragraphStyle",
-											"lineHeight",
-											"outdent",
-											"indent",
-											"insertHR",
-										],
-										buttonsVisible: 3,
-									},
-									moreMisc: {
-										buttons: ["undo", "redo", "selectAll", "clearFormatting"],
-										align: "right",
-										buttonsVisible: 2,
-									},
-								},
-							}}
-							onModelChange={value =>
+						<MDEditor
+							value={props.value}
+							onChange={value =>
 								onChange({ target: { name: props.name, value } })
 							}
-						/>
+						>
+							<Markdown options={{ disableParsingRawHTML: true }}>
+								{props.value}
+							</Markdown>
+						</MDEditor>
 						{props.errors && <Errors>{props.errors}</Errors>}
 					</div>
 				);
@@ -150,7 +109,3 @@ FieldGenerator.defaultProps = {
 };
 
 export default FieldGenerator;
-
-/*
-
-*/

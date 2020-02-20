@@ -99,7 +99,7 @@ export class UpdateDescriptionForm extends Component {
 	};
 
 	render = () => (
-		<form css="width: 560px;" onSubmit={this.handleSubmit}>
+		<form css="width: 600px;" onSubmit={this.handleSubmit}>
 			<FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
 			<Button
 				primary

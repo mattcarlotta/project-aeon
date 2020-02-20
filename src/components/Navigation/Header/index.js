@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { signoutUser } from "~actions/Users";
 import FlexEnd from "~components/Body/FlexEnd";
+import Flex from "~components/Body/Flex";
 import List from "~components/Body/List";
 import ListItem from "~components/Body/ListItem";
 import Button from "~components/Body/Button";
@@ -40,6 +41,7 @@ const Header = ({
 	isLoading,
 	firstname,
 	lastname,
+	reputation,
 	role,
 	signoutUser,
 }) => {
@@ -119,14 +121,28 @@ const Header = ({
 									trigger={["click"]}
 								>
 									<StyledLink href="/profile">
-										{avatar && (
-											<img
-												css="height: 20px;margin-right: 8px;border-radius: 50%;"
-												src={avatar}
-												alt="avatar"
-											/>
-										)}
-										{displayname || `${firstname} ${lastname}`}
+										<Flex>
+											{avatar && (
+												<span>
+													<img
+														css="max-height: 22px; max-width: 22px; margin-right: 10px;border-radius: 50%;"
+														src={avatar}
+														alt="avatar"
+													/>
+												</span>
+											)}
+											<div css="text-align: left;">
+												<div css="white-space: nowrap;font-size: 12px;margin: 0;padding: 0;line-height: 16px;">
+													{displayname || `${firstname} ${lastname}`}
+												</div>
+												<div css="display: block;white-space: nowrap;font-size: 12px;margin: 0;padding: 0;line-height: 16px;">
+													<span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
+														&#9733;
+													</span>
+													{reputation.toLocaleString()} rep
+												</div>
+											</div>
+										</Flex>
 									</StyledLink>
 								</DropDownButton>
 							</ListItem>
@@ -147,6 +163,7 @@ Header.propTypes = {
 	lastname: PropTypes.string,
 	role: PropTypes.string,
 	isLoading: PropTypes.bool.isRequired,
+	reputation: PropTypes.number,
 	signoutUser: PropTypes.func.isRequired,
 };
 

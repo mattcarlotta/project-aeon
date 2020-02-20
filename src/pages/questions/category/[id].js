@@ -1,22 +1,20 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import get from "lodash.get";
 import Head from "~components/Navigation/Head";
 
-class Questions extends PureComponent {
-	static getInitialProps({ query }) {
-		const id = get(query, ["id"]);
+const Questions = ({ id }) => (
+	<>
+		<Head title={`${id} Questions`} />
+		<div>Nothing to see here</div>
+	</>
+);
 
-		return { id: id[0].toUpperCase() + id.slice(1) };
-	}
+Questions.getInitialProps = ({ query }) => {
+	const id = get(query, ["id"]);
 
-	render = () => (
-		<>
-			<Head title={`${this.props.id} Questions`} />
-			<div>Nothing to see here</div>
-		</>
-	);
-}
+	return { id: id[0].toUpperCase() + id.substring(1) };
+};
 
 Questions.propTypes = {
 	id: PropTypes.string,
