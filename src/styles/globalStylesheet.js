@@ -135,6 +135,18 @@ export default createGlobalStyle`
     -ms-animation: none !important;
 	  animation: none !important;
   }
+  .ant-select {
+    width: 100%;
+    font-size: 16px;
+  }
+  .ant-select-selection {
+    padding: 10px;
+
+    & :focus {
+      box-shadow: unset;
+    }
+  }
+  .ant-select-selection
   *, ::after, ::before {
     box-sizing: border-box;
   }

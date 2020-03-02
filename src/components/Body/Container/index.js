@@ -1,22 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
-const Container = ({ className, children, style }) => (
-	<div className={className} style={style}>
-		{children}
-	</div>
-);
-
-Container.propTypes = {
-	className: PropTypes.string.isRequired,
-	children: PropTypes.node.isRequired,
-	style: PropTypes.objectOf(
-		PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-	),
-};
-
-export default styled(Container)`
+export default styled.div`
 	width: 100%;
 	padding: 10px;
 	text-align: left;

@@ -10,7 +10,7 @@ export const initialState = {
 	lastname: "",
 	role: "",
 	registered: "",
-	reputation: "",
+	reputation: 0,
 	website: "",
 	isLoading: true,
 	settings: {},

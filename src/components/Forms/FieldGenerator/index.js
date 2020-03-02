@@ -8,6 +8,7 @@ import Errors from "~components/Forms/Errors";
 import Input from "~components/Forms/Input";
 import Select from "~components/Forms/Select";
 import MDEditor from "~components/Forms/MDEditor";
+import TagSelection from "~components/Forms/TagSelection";
 
 const TextArea = AntInput.TextArea;
 
@@ -43,9 +44,18 @@ const FieldGenerator = ({ fields, onChange }) =>
 					</div>
 				);
 			}
+			case "tag": {
+				return (
+					<div key={props.name} css="margin-bottom: 20px;">
+						{props.label && <Label {...props} />}
+						<TagSelection {...props} onChange={onChange} />
+						{props.errors && <Errors>{props.errors}</Errors>}
+					</div>
+				);
+			}
 			case "editor": {
 				return (
-					<div key={props.name}>
+					<div key={props.name} css="margin-bottom: 20px;">
 						{props.label && <Label {...props} />}
 						<MDEditor
 							value={props.value}

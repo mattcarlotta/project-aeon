@@ -19,6 +19,9 @@ import NavContainer from "~components/Navigation/NavContainer";
 import LoadingNav from "~components/Navigation/LoadingNav";
 import StyledLink from "~components/Navigation/StyledLink";
 import FlexMiddle from "~components/Body/FlexMiddle";
+import TextAlign from "~components/Body/TextAlign";
+import AccountButtonText from "~components/Body/AccountButtonText";
+import DefaultAvatar from "~images/defaultAvatar.png";
 
 const DropDownButton = Dropdown.Button;
 const MenuItem = Menu.Item;
@@ -35,6 +38,11 @@ const iconStyle = {
 	marginRight: 15,
 };
 
+const linkStyle = {
+	margin: 0,
+	padding: 0,
+};
+
 const Header = ({
 	avatar,
 	displayname,
@@ -44,117 +52,106 @@ const Header = ({
 	reputation,
 	role,
 	signoutUser,
-}) => {
-	const notLoggedin = !role || role === "guest";
-
-	return (
-		<NavContainer>
-			<FlexEnd>
-				{!isLoading ? (
-					<List>
-						{notLoggedin ? (
-							<>
-								<ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
-								<ListItem>
-									<StyledLink href="/signin">
-										<Button radius="4px" type="button">
-											Sign In
-										</Button>
-									</StyledLink>
-								</ListItem>
-								<ListItem>
-									<StyledLink href="/register">
-										<Button primary radius="4px" type="button">
-											Register
-										</Button>
-									</StyledLink>
-								</ListItem>
-							</>
-						) : (
+}) => (
+	<NavContainer>
+		<FlexEnd>
+			{!isLoading ? (
+				<List>
+					{!role || role === "guest" ? (
+						<>
+							<ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
 							<ListItem>
-								<DropDownButton
-									placement="bottomRight"
-									overlay={
-										<Menu style={{ border: "1px solid #dac2c2" }}>
-											<MenuItem style={menuItemStyle}>
-												<StyledLink style={{ margin: 0, padding: 0 }} href="/">
-													<FlexMiddle>
-														<FaUserCircle style={iconStyle} /> Dashboard
-													</FlexMiddle>
-												</StyledLink>
-											</MenuItem>
-											<MenuItem style={menuItemStyle}>
-												<StyledLink
-													style={{ margin: 0, padding: 0 }}
-													href="/profile"
-												>
-													<FlexMiddle>
-														<FaUserCog style={iconStyle} /> Profile
-													</FlexMiddle>
-												</StyledLink>
-											</MenuItem>
-											<MenuItem style={menuItemStyle}>
-												<StyledLink
-													style={{ margin: 0, padding: 0 }}
-													href="/help"
-												>
-													<FlexMiddle>
-														<FaQuestionCircle style={iconStyle} /> Help
-													</FlexMiddle>
-												</StyledLink>
-											</MenuItem>
-											<MenuItem style={{ ...menuItemStyle, margin: 0 }}>
-												<div
-													role="button"
-													css="width: 100%; font-size: 16px;"
-													onClick={signoutUser}
-												>
-													<FlexMiddle>
-														<FaSignOutAlt style={iconStyle} /> Sign Out
-													</FlexMiddle>
-												</div>
-											</MenuItem>
-										</Menu>
-									}
-									size="large"
-									icon={<FaCog style={{ position: "relative", top: 3 }} />}
-									trigger={["click"]}
-								>
-									<StyledLink href="/profile">
-										<Flex>
-											{avatar && (
-												<span>
-													<img
-														css="max-height: 22px; max-width: 22px; margin-right: 10px;border-radius: 50%;"
-														src={avatar}
-														alt="avatar"
-													/>
-												</span>
-											)}
-											<div css="text-align: left;">
-												<div css="white-space: nowrap;font-size: 12px;margin: 0;padding: 0;line-height: 16px;">
-													{displayname || `${firstname} ${lastname}`}
-												</div>
-												<div css="display: block;white-space: nowrap;font-size: 12px;margin: 0;padding: 0;line-height: 16px;">
-													<span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
-														&#9733;
-													</span>
-													{reputation.toLocaleString()} rep
-												</div>
-											</div>
-										</Flex>
-									</StyledLink>
-								</DropDownButton>
+								<StyledLink href="/signin">
+									<Button radius="4px" type="button">
+										Sign In
+									</Button>
+								</StyledLink>
 							</ListItem>
-						)}
-					</List>
-				) : (
-					<LoadingNav />
-				)}
-			</FlexEnd>
-		</NavContainer>
-	);
-};
+							<ListItem>
+								<StyledLink href="/register">
+									<Button primary radius="4px" type="button">
+										Register
+									</Button>
+								</StyledLink>
+							</ListItem>
+						</>
+					) : (
+						<ListItem>
+							<DropDownButton
+								placement="bottomRight"
+								overlay={
+									<Menu style={{ border: "1px solid #dac2c2" }}>
+										<MenuItem style={menuItemStyle}>
+											<StyledLink style={linkStyle} href="/">
+												<FlexMiddle>
+													<FaUserCircle style={iconStyle} /> Dashboard
+												</FlexMiddle>
+											</StyledLink>
+										</MenuItem>
+										<MenuItem style={menuItemStyle}>
+											<StyledLink style={linkStyle} href="/profile">
+												<FlexMiddle>
+													<FaUserCog style={iconStyle} /> Profile
+												</FlexMiddle>
+											</StyledLink>
+										</MenuItem>
+										<MenuItem style={menuItemStyle}>
+											<StyledLink style={linkStyle} href="/help">
+												<FlexMiddle>
+													<FaQuestionCircle style={iconStyle} /> Help
+												</FlexMiddle>
+											</StyledLink>
+										</MenuItem>
+										<MenuItem style={{ ...menuItemStyle, margin: 0 }}>
+											<div
+												role="button"
+												aria-label="Sign out button"
+												css="width: 100%; font-size: 16px;"
+												onClick={signoutUser}
+											>
+												<FlexMiddle>
+													<FaSignOutAlt style={iconStyle} /> Sign Out
+												</FlexMiddle>
+											</div>
+										</MenuItem>
+									</Menu>
+								}
+								size="large"
+								icon={<FaCog style={{ position: "relative", top: 3 }} />}
+								trigger={["click"]}
+							>
+								<StyledLink href="/profile">
+									<Flex>
+										<span>
+											<img
+												css="max-height: 22px;max-width: 22px;margin-right: 10px;border-radius: 50%;"
+												src={avatar || DefaultAvatar}
+												alt="avatar"
+											/>
+										</span>
+										<TextAlign align="left">
+											<AccountButtonText>
+												{displayname || `${firstname} ${lastname}`}
+											</AccountButtonText>
+											<AccountButtonText>
+												<span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
+													&#9733;
+												</span>
+												{reputation.toLocaleString()} rep
+											</AccountButtonText>
+										</TextAlign>
+									</Flex>
+								</StyledLink>
+							</DropDownButton>
+						</ListItem>
+					)}
+				</List>
+			) : (
+				<LoadingNav />
+			)}
+		</FlexEnd>
+	</NavContainer>
+);
 
 Header.propTypes = {
 	avatar: PropTypes.string,
