@@ -22,7 +22,6 @@ export default styled(Input)`
 		}
 
 		&::placeholder {
-			font-size: 14px;
 			color: #ccc;
 		}
 

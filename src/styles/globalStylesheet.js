@@ -135,16 +135,21 @@ export default createGlobalStyle`
     -ms-animation: none !important;
 	  animation: none !important;
   }
+  textarea::placeholder {
+    color: #bfbfbf;
+  }
   .ant-select {
     width: 100%;
+  }
+  .ant-select-selection--multiple .ant-select-selection__placeholder {
+    margin-left: 8px;
+  }
+  .ant-select-selection__rendered {
+    padding: 8px;
     font-size: 16px;
   }
-  .ant-select-selection {
-    padding: 10px;
-
-    & :focus {
-      box-shadow: unset;
-    }
+  .ant-select-selection:focus{
+    box-shadow: unset;
   }
   .ant-select-selection
   *, ::after, ::before {

@@ -8,7 +8,7 @@ export default styled.input`
 	color: #282c34;
 
 	&::placeholder {
-		color: #d3dce6;
+		color: #bfbfbf;
 	}
 
 	&:focus {

@@ -9,14 +9,14 @@ const AskQuestion = () => (
 	<PageContainer>
 		<Head title="Ask Question" />
 		<h1>Ask Question</h1>
-		<Row gutter={10}>
+		<Row gutter={20}>
 			<Col md={24} lg={14}>
-				<Container style={{ paddingTop: 20 }}>
+				<Container style={{ padding: 20 }}>
 					<QuestionForm />
 				</Container>
 			</Col>
 			<Col md={24} lg={8}>
-				<Container style={{ paddingTop: 20 }}>Tips</Container>
+				<Container style={{ padding: 20 }}>Tips</Container>
 			</Col>
 		</Row>
 	</PageContainer>
