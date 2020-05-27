@@ -1,5 +1,5 @@
 import isEmpty from "lodash.isempty";
-import * as types from "~types";
+import * as constants from "~constants";
 
 /**
  * Sign in user via a session.
@@ -8,7 +8,7 @@ import * as types from "~types";
  * @returns {object}
  */
 export const authenticateUser = req => ({
-	type: types.USER_SIGNIN_SESSION,
+	type: constants.USER_SIGNIN_SESSION,
 	req,
 });
 
@@ -20,7 +20,7 @@ export const authenticateUser = req => ({
  * @returns {object}
  */
 export const createUserAvatar = props => ({
-	type: types.USER_CREATE_AVATAR,
+	type: constants.USER_CREATE_AVATAR,
 	props,
 });
 
@@ -31,7 +31,7 @@ export const createUserAvatar = props => ({
  * @returns {object}
  */
 export const deleteUserAvatar = () => ({
-	type: types.USER_DELETE_AVATAR,
+	type: constants.USER_DELETE_AVATAR,
 });
 
 /**
@@ -41,7 +41,7 @@ export const deleteUserAvatar = () => ({
  * @returns {object}
  */
 export const checkAuth = ({ req, res }) => ({
-	type: types.USER_CHECK_AUTH,
+	type: constants.USER_CHECK_AUTH,
 	req,
 	res,
 });
@@ -54,7 +54,7 @@ export const checkAuth = ({ req, res }) => ({
  * @returns {object}
  */
 export const setProfile = data => ({
-	type: types.USER_SET_PROFILE,
+	type: constants.USER_SET_PROFILE,
 	payload: !isEmpty(data) ? data : {},
 });
 
@@ -66,7 +66,7 @@ export const setProfile = data => ({
  * @returns {object}
  */
 export const signin = data => ({
-	type: types.USER_SIGNIN,
+	type: constants.USER_SIGNIN,
 	payload: !isEmpty(data) ? data : { role: "guest" },
 });
 
@@ -78,7 +78,7 @@ export const signin = data => ({
  * @returns {object}
  */
 export const signinUser = props => ({
-	type: types.USER_SIGNIN_ATTEMPT,
+	type: constants.USER_SIGNIN_ATTEMPT,
 	props,
 });
 
@@ -89,7 +89,7 @@ export const signinUser = props => ({
  * @returns {object}
  */
 export const signoutUser = () => ({
-	type: types.USER_SIGNOUT_SESSION,
+	type: constants.USER_SIGNOUT_SESSION,
 });
 
 /**
@@ -99,7 +99,7 @@ export const signoutUser = () => ({
  * @returns {object}
  */
 export const signout = () => ({
-	type: types.USER_SIGNOUT,
+	type: constants.USER_SIGNOUT,
 });
 
 /**
@@ -110,7 +110,7 @@ export const signout = () => ({
  * @returns {object}
  */
 export const signupUser = props => ({
-	type: types.USER_SIGNUP,
+	type: constants.USER_SIGNUP,
 	props,
 });
 
@@ -122,7 +122,7 @@ export const signupUser = props => ({
  * @returns {object}
  */
 export const updateUserAvatar = props => ({
-	type: types.USER_UPDATE_AVATAR,
+	type: constants.USER_UPDATE_AVATAR,
 	props,
 });
 
@@ -134,6 +134,6 @@ export const updateUserAvatar = props => ({
  * @returns {object}
  */
 export const updateUserProfile = props => ({
-	type: types.USER_UPDATE_PROFILE,
+	type: constants.USER_UPDATE_PROFILE,
 	props,
 });

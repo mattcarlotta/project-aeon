@@ -18,5 +18,5 @@ export default next => async (req, res) => {
 
 	req.user = existingUser;
 
-	next(req, res);
+	return next(req, res);
 };

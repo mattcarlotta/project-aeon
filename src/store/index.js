@@ -18,4 +18,4 @@ const makeStore = initialState => {
 	return store;
 };
 
-export default makeStore;
+export const wrapper = createWrapper(makeStore, { debug: false });

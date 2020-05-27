@@ -4,7 +4,7 @@ import app from "~utils/axiosConfig";
 import imageAPI from "~utils/imageAPIConfig";
 import { parseCookie, parseData, parseMessage } from "~utils/parseResponse";
 import Redirect from "~utils/redirect";
-import * as types from "~types";
+import * as constants from "~constants";
 import * as actions from "~actions/Users";
 import { setError, setMessage, resetMessage } from "~actions/Server";
 import toast from "~components/Body/Toast";
@@ -267,14 +267,14 @@ export function* updateUserProfile({ props }) {
  */
 export default function* authSagas() {
 	yield all([
-		takeLatest(types.USER_SIGNIN_SESSION, authenticateUser),
-		takeLatest(types.USER_CREATE_AVATAR, createUserAvatar),
-		takeLatest(types.USER_DELETE_AVATAR, deleteUserAvatar),
-		takeLatest(types.USER_CHECK_AUTH, checkAuth),
-		takeLatest(types.USER_SIGNIN_ATTEMPT, signinUser),
-		takeLatest(types.USER_SIGNOUT_SESSION, signoutUserSession),
-		takeLatest(types.USER_SIGNUP, signupUser),
-		takeLatest(types.USER_UPDATE_AVATAR, updateUserAvatar),
-		takeLatest(types.USER_UPDATE_PROFILE, updateUserProfile),
+		takeLatest(constants.USER_SIGNIN_SESSION, authenticateUser),
+		takeLatest(constants.USER_CREATE_AVATAR, createUserAvatar),
+		takeLatest(constants.USER_DELETE_AVATAR, deleteUserAvatar),
+		takeLatest(constants.USER_CHECK_AUTH, checkAuth),
+		takeLatest(constants.USER_SIGNIN_ATTEMPT, signinUser),
+		takeLatest(constants.USER_SIGNOUT_SESSION, signoutUserSession),
+		takeLatest(constants.USER_SIGNUP, signupUser),
+		takeLatest(constants.USER_UPDATE_AVATAR, updateUserAvatar),
+		takeLatest(constants.USER_UPDATE_PROFILE, updateUserProfile),
 	]);
 }

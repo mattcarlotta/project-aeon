@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
-import { Empty, Select, Spin, Tag } from "antd";
+import { Empty, Select, Spin } from "antd";
 import debounce from "lodash.debounce";
 
 const { Option } = Select;
@@ -71,10 +71,6 @@ class TagSelection extends Component {
 			target: { name: this.props.name, value },
 		});
 
-	renderTags = props => (
-		<Tag color="1px solid #188fff">Hello{console.log(props)}</Tag>
-	);
-
 	renderNotFound = () => {
 		const { data, isLoading, searchText } = this.state;
 		const noData = isEmpty(data);
@@ -97,7 +93,6 @@ class TagSelection extends Component {
 			onSearch={this.fetchTag}
 			onChange={this.handleChange}
 			maxTagCount={10}
-			tagRender={() => null}
 		>
 			{this.state.data.map(({ tag }) => (
 				<Option key={tag}>{tag}</Option>

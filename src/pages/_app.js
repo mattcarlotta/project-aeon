@@ -1,18 +1,38 @@
 import React from "react";
-import { Provider } from "react-redux";
 import App from "next/app";
 import Head from "next/head";
-import withRedux from "next-redux-wrapper";
-import withReduxSaga from "next-redux-saga";
+import NProgress from "nprogress";
 import { ToastContainer } from "react-toastify";
-import configureStore from "~store";
 import GlobalStylesheet from "~styles/globalStylesheet";
 import Wrapper from "~components/Body/Wrapper";
-import Header from "~components/Navigation/Header";
-import { authenticateUser } from "~actions/Users";
+import { resetMessage } from "~actions/Users";
+import { wrapper } from "~store";
+import { version } from "../../package.json";
+import toast from "~components/Body/Toast";
 import "react-toastify/dist/ReactToastify.css";
 
 export class MyApp extends App {
+	componentDidMount = () => {
+		NProgress.configure({
+			showSpinner: false,
+		});
+
+		Router.events.on("routeChangeComplete", this.scrollToTop);
+		Router.events.on("routeChangeStart", this.startProgress);
+		Router.events.on("routeChangeComplete", this.endProgress);
+		Router.events.on("routeChangeError", this.endProgress);
+
+		const { serverError } = this.props;
+		if (serverError) toast({ type: "error", message: serverError });
+	};
+
+	componentWillUnmount = () => {
+		Router.events.off("routeChangeComplete", this.scrollToTop);
+		Router.events.off("routeChangeStart", this.startProgress);
+		Router.events.off("routeChangeComplete", this.endProgress);
+		Router.events.off("routeChangeError", this.endProgress);
+	};
+
 	static async getInitialProps({ Component, ctx }) {
 		const {
 			store: { dispatch, getState },
@@ -20,8 +40,17 @@ export class MyApp extends App {
 		} = ctx;
 		const { isLoading, role } = getState().users;
 
+		dispatch(resetMessage());
+
 		if (isLoading && !role) {
-			dispatch(authenticateUser(req));
+			try {
+				const res = app.get("users/signedin", parseCookie(req));
+				const data = parseData(res);
+
+				dispatch(actions.signin(data));
+			} catch (e) {
+				return { serverError: e.toString() };
+			}
 		}
 
 		return {
@@ -34,34 +63,37 @@ export class MyApp extends App {
 	}
 
 	render() {
-		const { Component, pageProps, store } = this.props;
+		const { Component, pageProps } = this.props;
 		return (
 			<>
 				<Head>
+					<meta charSet="utf-8" />
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+					<meta name="theme-color" content="#000000" />
+					<meta
+						name="description"
+						content="Official website for... something."
+					/>
+					<meta name="build version" content={`${version}`} />
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
-				<Provider store={store}>
-					<Header />
-					<Wrapper>
-						<Component {...pageProps} />
-					</Wrapper>
-					<GlobalStylesheet />
-					<ToastContainer
-						position="top-right"
-						autoClose={2500}
-						hideProgressBar={false}
-						newestOnTop={false}
-						closeOnClick={false}
-						pauseOnVisibilityChange
-						draggable
-						pauseOnHover
-					/>
-				</Provider>
+				<Wrapper>
+					<Component {...pageProps} />
+				</Wrapper>
+				<GlobalStylesheet />
+				<ToastContainer
+					position="top-right"
+					autoClose={2500}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick={false}
+					pauseOnVisibilityChange
+					draggable
+					pauseOnHover
+				/>
 			</>
 		);
 	}
 }
 
-export default withRedux(configureStore, { debug: false })(
-	withReduxSaga(MyApp),
-);
+export default wrapper.withRedux(MyApp);

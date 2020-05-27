@@ -116,18 +116,6 @@ export default createGlobalStyle`
   .link:hover {
     text-decoration: none;
   }
-  .fr-box.fr-basic.fr-top .fr-wrapper {
-    height: 215px !important;
-    overflow-y: auto;
-  }
-  .fr-toolbar.fr-top {
-    border-top-left-radius: 5px !important;
-    border-top-right-radius: 5px !important;
-  }
-  .second-toolbar {
-    border-bottom-left-radius: 5px !important;
-    border-bottom-right-radius: 5px !important;
-  }
   [ant-click-animating-without-extra-node]:after {
     -webkit-animation: none !important;
     -moz-animation: none !important;

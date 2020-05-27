@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Header = ({ title }) => (
 	<Head>
-		<title>My Project - {title}</title>
+		<title>Project Aeon - {title}</title>
 	</Head>
 );
 

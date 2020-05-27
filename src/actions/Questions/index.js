@@ -1,18 +1,18 @@
 import isEmpty from "lodash.isempty";
-import * as types from "~types";
+import * as constants from "~constants";
 
 /**
  * @function fetchQuestions - fetches newest questions.
  * @returns {object}
  */
-export const fetchQuestions = () => ({ type: types.QUESTIONS_FETCH });
+export const fetchQuestions = () => ({ type: constants.QUESTIONS_FETCH });
 
 /**
  * @function fetchQuestions - fetches a question by id.
  * @param {string} - id
  * @returns {object}
  */
-export const fetchOneQuestion = id => ({ type: types.QUESTIONS_FETCH, id });
+export const fetchOneQuestion = id => ({ type: constants.QUESTIONS_FETCH, id });
 
 /**
  * @function setOneQuestion - sets currently selected question to redux.
@@ -20,7 +20,7 @@ export const fetchOneQuestion = id => ({ type: types.QUESTIONS_FETCH, id });
  * @returns {object}
  */
 export const setOneQuestion = data => ({
-	type: types.QUESTIONS_SET_ONE,
+	type: constants.QUESTIONS_SET_ONE,
 	payload: !isEmpty(data) ? data : {},
 });
 
@@ -30,6 +30,6 @@ export const setOneQuestion = data => ({
  * @returns {object}
  */
 export const setQuestions = data => ({
-	type: types.QUESTIONS_SET,
+	type: constants.QUESTIONS_SET,
 	payload: !isEmpty(data) ? data : [],
 });

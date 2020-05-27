@@ -1,44 +1,38 @@
 /* eslint disable */
-import bodyParser from "body-parser";
-import compression from "compression";
 import morgan from "morgan";
-import moment from "moment-timezone";
 import passport from "passport";
 import session from "cookie-session";
-import applyMiddleware from "~middlewares/applyMiddleware";
 import { sendError } from "~utils/helpers";
 
-const { inProduction, cookieSecret } = process.env;
+const { NODE_ENV, cookieSecret, inStaging } = process.env;
+const inProduction = NODE_ENV === "production";
 
 export default next => async (req, res) => {
 	try {
-		morgan.token("date", () => moment().format("MMMM Do YYYY, h:mm:ss a"));
-
-		await applyMiddleware([
-			compression({
-				level: 6,
-				filter: (req, res) =>
-					req.headers["x-no-compression"]
-						? false
-						: compression.filter(req, res),
-			}),
+		const middlewares = [
 			session({
 				path: "/",
 				name: "app",
 				maxAge: 2592000000, // 30 * 24 * 60 * 60 * 1000 expire after 30 days
 				keys: [cookieSecret],
 				httpOnly: true,
-				// sameSite: inProduction, // specifies same-site cookie attribute enforcement
-				// secure: inProduction,
+				secure: inProduction && !inStaging,
+				sameSite: inProduction && !inStaging,
 			}),
-			morgan(
-				inProduction
-					? ":remote-addr [:date] :referrer :method :url HTTP/:http-version :status :res[content-length]"
-					: "tiny",
-			),
+			inProduction && morgan("tiny"),
 			passport.initialize(),
-			bodyParser.urlencoded({ extended: true }),
-		])(req, res);
+		];
+
+		const promises = middlewares.reduce((acc, middleware) => {
+			const promise = new Promise((resolve, reject) => {
+				middleware(req, res, result =>
+					result instanceof Error ? reject(result) : resolve(result),
+				);
+			});
+			return [...acc, promise];
+		}, []);
+
+		await Promise.all(promises);
 
 		return next(req, res);
 	} catch (error) {

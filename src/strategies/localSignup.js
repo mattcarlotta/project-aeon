@@ -61,9 +61,9 @@ export const localSignup = next => async (req, res) => {
 			firstname: newUser.firstname,
 		};
 
-		next(req, res);
+		return next(req, res);
 	} catch (err) {
-		sendError(err, res);
+		return sendError(err, res);
 	}
 };
 

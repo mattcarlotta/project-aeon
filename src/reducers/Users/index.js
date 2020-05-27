@@ -1,4 +1,4 @@
-import * as types from "~types";
+import * as constants from "~constants";
 
 export const initialState = {
 	id: "",
@@ -24,13 +24,13 @@ export const initialState = {
  */
 const userReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
-		case types.USER_SIGNIN: {
+		case constants.USER_SIGNIN: {
 			return { ...state, ...payload, isLoading: false };
 		}
-		case types.USER_SET_PROFILE: {
+		case constants.USER_SET_PROFILE: {
 			return { ...state, settings: payload.signedinUser };
 		}
-		case types.USER_SIGNOUT: {
+		case constants.USER_SIGNOUT: {
 			return { ...initialState, role: "guest", isLoading: false };
 		}
 		default: {

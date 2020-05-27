@@ -2,7 +2,7 @@ import { all, put, call, takeLatest } from "redux-saga/effects";
 import app from "~utils/axiosConfig";
 import { parseData } from "~utils/parseResponse"; // parseMessage
 import * as actions from "~actions/Questions";
-import * as types from "~types";
+import * as constants from "~constants";
 import toast from "~components/Body/Toast";
 
 /**
@@ -35,5 +35,5 @@ export function* fetchQuestions() {
  * @yields {watchers}
  */
 export default function* questionSagas() {
-	yield all([takeLatest(types.QUESTIONS_FETCH, fetchQuestions)]);
+	yield all([takeLatest(constants.QUESTIONS_FETCH, fetchQuestions)]);
 }

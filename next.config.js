@@ -19,6 +19,14 @@ module.exports = {
 		/* adds custom rules to client and server */
 		config.module.rules.push(...rules(isServer));
 
+		/* exports specific antd icons */
+		if (!isServer) {
+			config.resolve.alias = {
+				...config.resolve.alias,
+				"@ant-design/icons/lib/dist$": paths.icons,
+			};
+		}
+
 		/* adds custom rules to handle ant's css imports */
 		antConfig(config, isServer);
 

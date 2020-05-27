@@ -5,11 +5,9 @@
 	"globals": {
 		"React": true,
 		"document": true,
-		"localStorage": true,
-		"fetch": true,
-		"db": true,
 		"window": true,
-		"global": true
+		"localStorage": true,
+		"fetch": true
 	},
 	"root": true,
 	"overrides": [

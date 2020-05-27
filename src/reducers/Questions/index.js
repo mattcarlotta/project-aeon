@@ -1,4 +1,4 @@
-import * as types from "~types";
+import * as constants from "~constants";
 
 export const initialState = {
 	data: [],
@@ -14,14 +14,14 @@ export const initialState = {
  */
 const questionsReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
-		case types.QUESTIONS_FETCH:
-		case types.QUESTIONS_FETCH_ONE: {
+		case constants.QUESTIONS_FETCH:
+		case constants.QUESTIONS_FETCH_ONE: {
 			return initialState;
 		}
-		case types.QUESTIONS_SET: {
+		case constants.QUESTIONS_SET: {
 			return { ...state, data: payload, isLoading: false };
 		}
-		case types.QUESTIONS_SET_ONE: {
+		case constants.QUESTIONS_SET_ONE: {
 			return { ...state, question: payload, isLoading: false };
 		}
 		default: {
