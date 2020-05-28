@@ -13,24 +13,24 @@ export const initialState = {
 	reputation: 0,
 	website: "",
 	isLoading: true,
-	settings: {},
+	settings: {}
 };
 
 /**
- * @function userReducer
+ * @function authenticationReducer
  * @param {object} state - an object containing data and isLoading state.
  * @param {object} action - type and payload to be reduced.
  * @returns {object} - users state.
  */
-const userReducer = (state = initialState, { payload, type }) => {
+const authenticationReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
-		case constants.USER_SIGNIN: {
+		case constants.AUTH_SIGNIN: {
 			return { ...state, ...payload, isLoading: false };
 		}
-		case constants.USER_SET_PROFILE: {
+		case constants.AUTH_SET_PROFILE: {
 			return { ...state, settings: payload.signedinUser };
 		}
-		case constants.USER_SIGNOUT: {
+		case constants.AUTH_SIGNOUT: {
 			return { ...initialState, role: "guest", isLoading: false };
 		}
 		default: {
@@ -39,4 +39,4 @@ const userReducer = (state = initialState, { payload, type }) => {
 	}
 };
 
-export default userReducer;
+export default authenticationReducer;

@@ -7,9 +7,9 @@ import {
 	FaUserCog,
 	FaSignOutAlt,
 	FaQuestionCircle,
-	FaUserCircle,
+	FaUserCircle
 } from "react-icons/fa";
-import { signoutUser } from "~actions/Users";
+import { signoutUser } from "~actions/Authentication";
 import FlexEnd from "~components/Body/FlexEnd";
 import Flex from "~components/Body/Flex";
 import List from "~components/Body/List";
@@ -31,16 +31,16 @@ const menuItemStyle = {
 	borderRadius: "4px",
 	width: 200,
 	lineHeight: "42px",
-	padding: "0px 35px 0 15px",
+	padding: "0px 35px 0 15px"
 };
 
 const iconStyle = {
-	marginRight: 15,
+	marginRight: 15
 };
 
 const linkStyle = {
 	margin: 0,
-	padding: 0,
+	padding: 0
 };
 
 const Header = ({
@@ -51,7 +51,7 @@ const Header = ({
 	lastname,
 	reputation,
 	role,
-	signoutUser,
+	signoutUser
 }) => (
 	<NavContainer>
 		<FlexEnd>
@@ -161,13 +161,13 @@ Header.propTypes = {
 	role: PropTypes.string,
 	isLoading: PropTypes.bool.isRequired,
 	reputation: PropTypes.number,
-	signoutUser: PropTypes.func.isRequired,
+	signoutUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ users }) => ({ ...users });
+const mapStateToProps = ({ authentication }) => ({ ...authentication });
 
 const mapDispatchToProps = {
-	signoutUser,
+	signoutUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

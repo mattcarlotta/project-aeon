@@ -19,6 +19,7 @@ const NewestQuestions = ({ data, isLoading }) => (
 	</>
 );
 
+// TODO: CONVERT TO GETSERVERSIDEPROPS
 NewestQuestions.getInitialProps = ({ store: { dispatch } }) => {
 	dispatch(fetchQuestions());
 };
@@ -40,12 +41,12 @@ NewestQuestions.propTypes = {
 					userid: PropTypes.string,
 					comment: PropTypes.string,
 					accepted: PropTypes.bool,
-					points: PropTypes.number,
-				}),
-			),
-		}),
+					points: PropTypes.number
+				})
+			)
+		})
 	),
-	isLoading: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired
 };
 
 /* istanbul ignore next */

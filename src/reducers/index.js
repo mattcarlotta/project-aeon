@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
+import authenticationReducer from "./Authentication";
 import questionsReducer from "./Questions";
 import serverReducer from "./Server";
-import userReducer from "./Users";
 
 const reducers = {
+	authentication: authenticationReducer,
 	questions: questionsReducer,
-	server: serverReducer,
-	users: userReducer,
+	server: serverReducer
 };
 
 export default combineReducers(reducers);

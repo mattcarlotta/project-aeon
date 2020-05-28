@@ -7,10 +7,10 @@ import Info from "~components/Body/Info";
 import MissingDetails from "~components/Body/MissingDetails";
 import SubTitle from "~components/Body/SubTitle";
 import TabContainer from "~components/Body/TabContainer";
-import UpdateDescription from "~components/Containers/Forms/UpdateDescription";
+import UpdateDescription from "~containers/Forms/UpdateDescription";
 
 const subtitleStyle = {
-	padding: "5px 10px",
+	padding: "5px 10px"
 };
 
 const Profile = ({
@@ -20,7 +20,7 @@ const Profile = ({
 	lastname,
 	showProfileForm,
 	toggleProfileForm,
-	website,
+	website
 }) => (
 	<TabContainer>
 		{showProfileForm ? (
@@ -86,7 +86,7 @@ Profile.propTypes = {
 	lastname: PropTypes.string,
 	showProfileForm: PropTypes.bool.isRequired,
 	toggleProfileForm: PropTypes.func.isRequired,
-	website: PropTypes.string,
+	website: PropTypes.string
 };
 
 export default Profile;

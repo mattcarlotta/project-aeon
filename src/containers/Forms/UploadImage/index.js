@@ -5,10 +5,10 @@ import {
 	FaUpload,
 	FaTimesCircle,
 	FaUndo,
-	FaCloudUploadAlt,
+	FaCloudUploadAlt
 } from "react-icons/fa";
 import { Tooltip } from "antd";
-import { createUserAvatar, updateUserAvatar } from "~actions/Users";
+import { createUserAvatar, updateUserAvatar } from "~actions/Authentication";
 import Button from "~components/Body/Button";
 import FlexCenter from "~components/Body/FlexCenter";
 import FlexSpaceAround from "~components/Body/FlexSpaceAround";
@@ -18,7 +18,7 @@ const initialState = {
 	error: "",
 	imagePreview: "",
 	file: null,
-	isSubmitting: false,
+	isSubmitting: false
 };
 
 export class UpdateImageForm extends Component {
@@ -48,7 +48,7 @@ export class UpdateImageForm extends Component {
 				"image/jpeg",
 				"image/png",
 				"image/gif",
-				"image/bmp",
+				"image/bmp"
 			].some(type => type === file.type);
 			const isLt10MB = file.size / 10240000 <= 1;
 
@@ -60,17 +60,17 @@ export class UpdateImageForm extends Component {
 			await new Promise(
 				(resolve, reject) =>
 					(img.onload = () =>
-						img.width <= 256 && img.height <= 256 ? resolve() : reject()),
+						img.width <= 256 && img.height <= 256 ? resolve() : reject())
 			);
 
 			this.setState({
 				file,
-				imagePreview: img.src,
+				imagePreview: img.src
 			});
 		} catch (e) {
 			toast({
 				type: "error",
-				message: "Only 10MB (image/jpg,png,bmp,gif) files are accepted!",
+				message: "Only 10MB (image/jpg,png,bmp,gif) files are accepted!"
 			});
 		}
 	};
@@ -85,8 +85,8 @@ export class UpdateImageForm extends Component {
 			this.setState({ error: "Required!" }, () =>
 				toast({
 					type: "error",
-					message: "You must provide an image to upload!",
-				}),
+					message: "You must provide an image to upload!"
+				})
 			);
 		} else {
 			this.setState({ error: "", isSubmitting: true }, () => {
@@ -203,18 +203,18 @@ UpdateImageForm.propTypes = {
 	serverMessage: PropTypes.string,
 	showImageForm: PropTypes.bool.isRequired,
 	closeForm: PropTypes.func.isRequired,
-	updateUserAvatar: PropTypes.func.isRequired,
+	updateUserAvatar: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ users, server }) => ({
-	avatar: users.avatar,
+const mapStateToProps = ({ authentication, server }) => ({
+	avatar: authentication.avatar,
 	serverError: server.error,
-	serverMessage: server.message,
+	serverMessage: server.message
 });
 
 const mapDispatchToProps = {
 	createUserAvatar,
-	updateUserAvatar,
+	updateUserAvatar
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateImageForm);

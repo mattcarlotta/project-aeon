@@ -3,7 +3,7 @@ import { Col, Row } from "antd";
 import Head from "~components/Navigation/Head";
 import Container from "~components/Body/Container";
 import PageContainer from "~components/Body/PageContainer";
-import QuestionForm from "~components/Containers/Forms/QuestionForm";
+import QuestionForm from "~containers/Forms/QuestionForm";
 
 const AskQuestion = () => (
 	<PageContainer>

@@ -8,18 +8,16 @@ import Title from "~components/Body/Title";
 import Head from "~components/Navigation/Head";
 import StyledLink from "~components/Navigation/StyledLink";
 
-const ServerErrorPage = () => (
+const NotFound = () => (
 	<FlexCenter>
-		<Head title="Server Error" />
+		<Head title="Not Found" />
 		<Center style={{ color: "#03a9f3", padding: "100px" }}>
 			<Title style={{ color: "#03a9f3", fontSize: "120px" }}>404</Title>
 			<Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
-				Server Error.
+				Page Not Found.
 			</Title>
 			<SubTitle>
-				Uh oh, it looks the server has encountered an error. Please wait a few
-				minutes before refreshing the page or clicking the link below. We
-				appologize for this inconvience.
+				Uh oh, you took a wrong turn! Unable to locate that page.
 			</SubTitle>
 			<StyledLink href="/">
 				<Button radius="4px" type="button">
@@ -31,4 +29,4 @@ const ServerErrorPage = () => (
 	</FlexCenter>
 );
 
-export default ServerErrorPage;
+export default NotFound;

@@ -5,7 +5,7 @@ import NProgress from "nprogress";
 import { ToastContainer } from "react-toastify";
 import GlobalStylesheet from "~styles/globalStylesheet";
 import Wrapper from "~components/Body/Wrapper";
-import { resetMessage } from "~actions/Users";
+import { resetMessage } from "~actions/Messages";
 import { wrapper } from "~store";
 import { version } from "../../package.json";
 import toast from "~components/Body/Toast";
@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 export class MyApp extends App {
 	componentDidMount = () => {
 		NProgress.configure({
-			showSpinner: false,
+			showSpinner: false
 		});
 
 		Router.events.on("routeChangeComplete", this.scrollToTop);
@@ -32,35 +32,6 @@ export class MyApp extends App {
 		Router.events.off("routeChangeComplete", this.endProgress);
 		Router.events.off("routeChangeError", this.endProgress);
 	};
-
-	static async getInitialProps({ Component, ctx }) {
-		const {
-			store: { dispatch, getState },
-			req,
-		} = ctx;
-		const { isLoading, role } = getState().users;
-
-		dispatch(resetMessage());
-
-		if (isLoading && !role) {
-			try {
-				const res = app.get("users/signedin", parseCookie(req));
-				const data = parseData(res);
-
-				dispatch(actions.signin(data));
-			} catch (e) {
-				return { serverError: e.toString() };
-			}
-		}
-
-		return {
-			pageProps: {
-				...(Component.getInitialProps
-					? await Component.getInitialProps(ctx)
-					: {}),
-			},
-		};
-	}
 
 	render() {
 		const { Component, pageProps } = this.props;
@@ -95,5 +66,26 @@ export class MyApp extends App {
 		);
 	}
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(ctx => {
+	const {
+		store: { dispatch, getState },
+		req
+	} = ctx;
+	const { isLoading, role } = getState().users;
+
+	dispatch(resetMessage());
+
+	if (isLoading && !role) {
+		try {
+			const res = app.get("users/signedin", parseCookie(req));
+			const data = parseData(res);
+
+			dispatch(actions.signin(data));
+		} catch (e) {
+			return { serverError: e.toString() };
+		}
+	}
+});
 
 export default wrapper.withRedux(MyApp);

@@ -3,10 +3,9 @@ import Router from "next/router";
 import app from "~utils/axiosConfig";
 import imageAPI from "~utils/imageAPIConfig";
 import { parseCookie, parseData, parseMessage } from "~utils/parseResponse";
-import Redirect from "~utils/redirect";
 import * as constants from "~constants";
-import * as actions from "~actions/Users";
-import { setError, setMessage, resetMessage } from "~actions/Server";
+import * as actions from "~actions/Authentication";
+import { setError, setMessage, resetMessage } from "~actions/Messages";
 import toast from "~components/Body/Toast";
 
 /**
@@ -88,7 +87,7 @@ export function* signoutUserSession() {
 
 		yield put(actions.signout());
 
-		yield call(Router.push, "/");
+		yield call(Router.replace, "/");
 	} catch (e) {
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
@@ -113,27 +112,6 @@ export function* authenticateUser({ req }) {
 
 		yield put(actions.signin(data));
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
-	}
-}
-
-/**
- * Redirects user if not signed in.
- *
- * @generator
- * @function checkAuth
- * @yields {object} - A response from a call to the API.
- * @function parseData - returns a parsed res.data.
- * @yields {action} - A redux action to set the current user.
- * @throws {action} - A redux action to display a server message by type.
- */
-export function* checkAuth({ req, res }) {
-	try {
-		const headers = yield call(parseCookie, req);
-		yield call(app.get, "users/auth", headers);
-	} catch (e) {
-		yield call(Redirect, res);
 		yield put(setError(e.toString()));
 		yield call(toast, { type: "error", message: e.toString() });
 	}
@@ -267,14 +245,13 @@ export function* updateUserProfile({ props }) {
  */
 export default function* authSagas() {
 	yield all([
-		takeLatest(constants.USER_SIGNIN_SESSION, authenticateUser),
-		takeLatest(constants.USER_CREATE_AVATAR, createUserAvatar),
-		takeLatest(constants.USER_DELETE_AVATAR, deleteUserAvatar),
-		takeLatest(constants.USER_CHECK_AUTH, checkAuth),
-		takeLatest(constants.USER_SIGNIN_ATTEMPT, signinUser),
-		takeLatest(constants.USER_SIGNOUT_SESSION, signoutUserSession),
-		takeLatest(constants.USER_SIGNUP, signupUser),
-		takeLatest(constants.USER_UPDATE_AVATAR, updateUserAvatar),
-		takeLatest(constants.USER_UPDATE_PROFILE, updateUserProfile),
+		takeLatest(constants.AUTH_SIGNIN_SESSION, authenticateUser),
+		takeLatest(constants.AUTH_CREATE_AVATAR, createUserAvatar),
+		takeLatest(constants.AUTH_DELETE_AVATAR, deleteUserAvatar),
+		takeLatest(constants.AUTH_SIGNIN_ATTEMPT, signinUser),
+		takeLatest(constants.AUTH_SIGNOUT_SESSION, signoutUserSession),
+		takeLatest(constants.AUTH_SIGNUP, signupUser),
+		takeLatest(constants.AUTH_UPDATE_AVATAR, updateUserAvatar),
+		takeLatest(constants.AUTH_UPDATE_PROFILE, updateUserProfile)
 	]);
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { signupUser } from "~actions/Users";
+import { signupUser } from "~actions/Authentication";
 import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import FormContainer from "~components/Forms/FormContainer";
@@ -20,7 +20,7 @@ export class RegisterForm extends Component {
 				label: "Email",
 				value: "",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "firstname",
@@ -28,7 +28,7 @@ export class RegisterForm extends Component {
 				label: "First Name",
 				value: "",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "lastname",
@@ -36,7 +36,7 @@ export class RegisterForm extends Component {
 				label: "Last Name",
 				value: "",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "password",
@@ -44,10 +44,10 @@ export class RegisterForm extends Component {
 				label: "Password",
 				value: "",
 				errors: "",
-				required: true,
-			},
+				required: true
+			}
 		],
-		isSubmitting: false,
+		isSubmitting: false
 	};
 
 	static getDerivedStateFromProps(props) {
@@ -57,7 +57,7 @@ export class RegisterForm extends Component {
 	handleChange = ({ target: { name, value } }) => {
 		this.setState(prevState => ({
 			...prevState,
-			fields: fieldUpdater(prevState.fields, name, value),
+			fields: fieldUpdater(prevState.fields, name, value)
 		}));
 	};
 
@@ -103,17 +103,17 @@ export class RegisterForm extends Component {
 
 RegisterForm.propTypes = {
 	serverError: PropTypes.string,
-	signupUser: PropTypes.func.isRequired,
+	signupUser: PropTypes.func.isRequired
 };
 
 /* istanbul ignore next */
 const mapStateToProps = ({ server }) => ({
-	serverError: server.error,
+	serverError: server.error
 });
 
 /* istanbul ignore next */
 const mapDispatchToProps = {
-	signupUser,
+	signupUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

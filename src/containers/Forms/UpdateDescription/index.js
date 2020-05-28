@@ -1,67 +1,21 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { updateUserProfile } from "~actions/Users";
+import { updateUserProfile } from "~actions/Authentication";
 import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
 import parseFields from "~utils/parseFields";
+import createFields from "./Fields";
 
 export class UpdateDescriptionForm extends Component {
 	constructor(props) {
 		super(props);
 
-		const { firstname, lastname, website, displayname, description } = props;
-
 		this.state = {
-			fields: [
-				{
-					name: "displayname",
-					type: "text",
-					label: "Display Name",
-					value: displayname,
-					tooltip: "Adding a display name will hide your first and last name.",
-					errors: "",
-					required: false,
-				},
-				{
-					name: "firstname",
-					type: "text",
-					label: "First Name",
-					value: firstname,
-					errors: "",
-					required: true,
-				},
-				{
-					name: "lastname",
-					type: "text",
-					label: "Last Name",
-					value: lastname,
-					errors: "",
-					required: true,
-				},
-				{
-					name: "website",
-					type: "text",
-					label: "Website",
-					value: website,
-					errors: "",
-					tooltip:
-						"You'll need to specify a full address: https://example.com.",
-					required: false,
-				},
-				{
-					name: "description",
-					type: "editor",
-					label: "Description",
-					value: description,
-					errors: "",
-					required: false,
-					placeholder: "Add a description...",
-				},
-			],
-			isSubmitting: false,
+			fields: createFields(props),
+			isSubmitting: false
 		};
 	}
 
@@ -84,7 +38,7 @@ export class UpdateDescriptionForm extends Component {
 	handleChange = ({ target: { name, value } }) => {
 		this.setState(prevState => ({
 			...prevState,
-			fields: fieldUpdater(prevState.fields, name, value),
+			fields: fieldUpdater(prevState.fields, name, value)
 		}));
 	};
 
@@ -132,19 +86,19 @@ UpdateDescriptionForm.propTypes = {
 	serverMessage: PropTypes.string,
 	showProfileForm: PropTypes.bool.isRequired,
 	closeForm: PropTypes.func.isRequired,
-	updateUserProfile: PropTypes.func.isRequired,
+	updateUserProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ server }) => ({
 	serverError: server.error,
-	serverMessage: server.message,
+	serverMessage: server.message
 });
 
 const mapDispatchToProps = {
-	updateUserProfile,
+	updateUserProfile
 };
 
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps,
+	mapDispatchToProps
 )(UpdateDescriptionForm);

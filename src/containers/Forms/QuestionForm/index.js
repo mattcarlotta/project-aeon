@@ -6,40 +6,12 @@ import FieldGenerator from "~components/Forms/FieldGenerator";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
 // import parseFields from "~utils/parseFields";
+import fields from "./Fields";
 
 export class UpdateDescriptionForm extends Component {
 	state = {
-		fields: [
-			{
-				name: "title",
-				type: "text",
-				label: "Title",
-				placeholder: "Enter a question title...",
-				value: "",
-				errors: "",
-				required: true,
-			},
-			{
-				name: "tag",
-				type: "tag",
-				label: "Tags",
-				placeholder: "Search for related tags...",
-				tooltip: "Selecting tags will make the question more specific!",
-				value: [],
-				errors: "",
-				options: [],
-				required: false,
-			},
-			{
-				name: "question",
-				type: "editor",
-				label: "Question",
-				value: "",
-				errors: "",
-				required: true,
-			},
-		],
-		isSubmitting: false,
+		fields,
+		isSubmitting: false
 	};
 
 	static getDerivedStateFromProps(props) {
@@ -49,7 +21,7 @@ export class UpdateDescriptionForm extends Component {
 	handleChange = ({ target: { name, value } }) => {
 		this.setState(prevState => ({
 			...prevState,
-			fields: fieldUpdater(prevState.fields, name, value),
+			fields: fieldUpdater(prevState.fields, name, value)
 		}));
 	};
 
@@ -80,11 +52,11 @@ export class UpdateDescriptionForm extends Component {
 }
 
 UpdateDescriptionForm.propTypes = {
-	serverError: PropTypes.string,
+	serverError: PropTypes.string
 };
 
 const mapStateToProps = ({ server }) => ({
-	serverError: server.error,
+	serverError: server.error
 });
 
 // const mapDispatchToProps = {
@@ -92,6 +64,6 @@ const mapStateToProps = ({ server }) => ({
 // };
 
 export default connect(
-	mapStateToProps,
+	mapStateToProps
 	// mapDispatchToProps,
 )(UpdateDescriptionForm);

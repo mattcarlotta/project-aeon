@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 
 const Header = ({ title }) => (
 	<Head>
-		<title>Project Aeon - {title}</title>
+		<title>{title} - Project Aeon</title>
 	</Head>
 );
 
 Header.propTypes = {
-	title: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired
 };
 
 export default Header;

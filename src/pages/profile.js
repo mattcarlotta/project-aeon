@@ -4,7 +4,7 @@ import isEmpty from "lodash.isempty";
 import moment from "moment-timezone";
 import { Col, Row, Tabs } from "antd";
 import { connect } from "react-redux";
-import { deleteUserAvatar } from "~actions/Users";
+import { deleteUserAvatar } from "~actions/Authentication";
 import Avatar from "~components/Body/Avatar";
 import ProfileTab from "~components/Body/ProfileTab";
 import Center from "~components/Body/Center";
@@ -12,28 +12,28 @@ import Container from "~components/Body/Container";
 import TabContainer from "~components/Body/TabContainer";
 import Title from "~components/Body/Title";
 import SubTitle from "~components/Body/SubTitle";
-import withAuth from "~components/Containers/App/withAuth";
 import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
-import UploadImageForm from "~components/Containers/Forms/UploadImage";
+import withAuthentication from "~containers/App/withAuthentication";
+import UploadImageForm from "~containers/Forms/UploadImage";
 
 const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
 	state = {
 		showProfileForm: false,
-		showImageForm: false,
+		showImageForm: false
 	};
 
 	toggleProfileForm = () =>
 		this.setState(prevState => ({
-			showProfileForm: !prevState.showProfileForm,
+			showProfileForm: !prevState.showProfileForm
 		}));
 
 	toggleImageForm = () =>
 		this.setState(prevState => ({
 			...prevState,
-			showImageForm: !prevState.showImageForm,
+			showImageForm: !prevState.showImageForm
 		}));
 
 	render = () => {
@@ -65,7 +65,7 @@ class Profile extends Component {
 										style={{
 											marginBottom: "15px",
 											fontSize: 28,
-											color: "#0f7ae5",
+											color: "#0f7ae5"
 										}}
 									>
 										{settings.displayname
@@ -124,17 +124,19 @@ Profile.propTypes = {
 		lastname: PropTypes.string,
 		registered: PropTypes.string,
 		reputation: PropTypes.number,
-		website: PropTypes.string,
-	}),
+		website: PropTypes.string
+	})
 };
 
-/* istanbul ignore next */
-const mapStateToProps = ({ users }) => ({
-	settings: { ...users },
+const mapStateToProps = ({ authentication }) => ({
+	settings: { ...authentication }
 });
 
 const mapDispatchToProps = {
-	deleteUserAvatar,
+	deleteUserAvatar
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile));
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withAuthentication(Profile));
