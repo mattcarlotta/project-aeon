@@ -3,7 +3,7 @@ import {
 	FaCheck,
 	FaExclamationCircle,
 	FaExclamationTriangle,
-	FaBug,
+	FaBug
 } from "react-icons/fa";
 import { displayIcon } from "../index";
 

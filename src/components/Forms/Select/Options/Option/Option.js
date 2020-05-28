@@ -20,7 +20,7 @@ Option.propTypes = {
 	onClick: PropTypes.func.isRequired,
 	onKeyPress: PropTypes.func.isRequired,
 	name: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired
 };
 
 export default Option;

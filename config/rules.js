@@ -2,7 +2,7 @@ const {
 	fontsPublicPath,
 	fontsFolder,
 	imagesPublicPath,
-	imagesFolder,
+	imagesFolder
 } = require("./paths");
 const { jsRule, mediaRule, styleRule } = require("./helpers");
 
@@ -23,36 +23,36 @@ const styleRules = [
 	{
 		/* handles global CSS imports */
 		test: cssRegex,
-		exclude: cssModuleRegex,
+		exclude: cssModuleRegex
 	},
 	{
 		/* handles CSS module imports */
 		test: cssRegex,
 		include: cssModuleRegex,
-		modules: true,
+		modules: true
 	},
 	{
 		/* handles global SCSS imports */
 		test: scssRegex,
-		exclude: scssModuleRegex,
+		exclude: scssModuleRegex
 	},
 	{
 		/* handles SCSS module imports */
 		test: scssRegex,
 		include: scssModuleRegex,
-		modules: true,
+		modules: true
 	},
 	{
 		/* handles global SASS imports */
 		test: sassRegex,
-		exclude: sassModuleRegex,
+		exclude: sassModuleRegex
 	},
 	{
 		/* handles SASS module imports */
 		test: sassRegex,
 		include: sassModuleRegex,
-		modules: true,
-	},
+		modules: true
+	}
 ];
 
 module.exports = isServer => [
@@ -61,8 +61,8 @@ module.exports = isServer => [
 		loader: "eslint-loader",
 		options: {
 			cache: inDev,
-			emitWarning: inDev,
-		},
+			emitWarning: inDev
+		}
 	}),
 	/* handle image assets */
 	mediaRule({
@@ -72,8 +72,8 @@ module.exports = isServer => [
 			limit: 8192,
 			fallback: "file-loader",
 			publicPath: imagesPublicPath,
-			outputPath: imagesFolder,
-		},
+			outputPath: imagesFolder
+		}
 	}),
 	/* handle font assets */
 	mediaRule({
@@ -81,8 +81,8 @@ module.exports = isServer => [
 		loader: "file-loader",
 		options: {
 			publicPath: fontsPublicPath,
-			outputPath: fontsFolder,
-		},
+			outputPath: fontsFolder
+		}
 	}),
-	...styleRules.map(options => styleRule({ ...options, isServer })),
+	...styleRules.map(options => styleRule({ ...options, isServer }))
 ];

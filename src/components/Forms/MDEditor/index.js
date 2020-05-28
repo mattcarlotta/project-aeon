@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 class MDEditor extends Component {
 	state = {
-		Component: null,
+		Component: null
 	};
 
 	componentDidMount = () => this.importFile();
@@ -38,7 +38,7 @@ class MDEditor extends Component {
 }
 
 MDEditor.propTypes = {
-	children: PropTypes.node,
+	children: PropTypes.node
 };
 
 export default MDEditor;

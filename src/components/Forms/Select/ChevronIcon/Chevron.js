@@ -9,7 +9,7 @@ const Chevron = ({ className }) => (
 );
 
 Chevron.propTypes = {
-	className: PropTypes.string.isRequired,
+	className: PropTypes.string.isRequired
 };
 
 export default Chevron;

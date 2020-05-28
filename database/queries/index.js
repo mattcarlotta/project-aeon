@@ -6,7 +6,7 @@ const userQueries = {
 	findUserById:
 		"SELECT id,avatar,verified,email,displayname,firstname,lastname,registered,role,reputation,description,website FROM users WHERE id=$1",
 	updateProfile:
-		"UPDATE users SET displayname=$2,firstname=$3,lastname=$4,website=$5,description=$6 WHERE id=$1",
+		"UPDATE users SET displayname=$2,firstname=$3,lastname=$4,website=$5,description=$6 WHERE id=$1"
 };
 
 /*
@@ -208,5 +208,5 @@ const transactQueries = {
 */
 
 module.exports = {
-	...userQueries,
+	...userQueries
 };

@@ -13,15 +13,15 @@ describe("Field Validator Helper", () => {
 				type: "text",
 				value: "test@example.com",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "password",
 				type: "password",
 				value: "12345",
 				errors: "",
-				required: true,
-			},
+				required: true
+			}
 		];
 
 		const { errors } = fieldValidator(fields);
@@ -35,31 +35,31 @@ describe("Field Validator Helper", () => {
 				type: "text",
 				value: "",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "password",
 				type: "password",
 				value: "",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "season",
 				type: "range",
 				value: [],
 				errors: "",
-				required: true,
-			},
+				required: true
+			}
 		];
 
 		const { validatedFields, errors } = fieldValidator(fields);
 		expect(validatedFields).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					errors: "Required.",
-				}),
-			]),
+					errors: "Required."
+				})
+			])
 		);
 		expect(errors).toEqual(3);
 	});
@@ -70,17 +70,17 @@ describe("Field Validator Helper", () => {
 				name: "email",
 				type: "text",
 				value: "bademail.com",
-				errors: "",
-			},
+				errors: ""
+			}
 		];
 
 		const { validatedFields, errors } = fieldValidator(fields);
 		expect(validatedFields).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					errors: "Invalid email.",
-				}),
-			]),
+					errors: "Invalid email."
+				})
+			])
 		);
 		expect(errors).toEqual(1);
 	});
@@ -91,17 +91,17 @@ describe("Field Validator Helper", () => {
 				name: "password",
 				type: "password",
 				value: "1234",
-				errors: "",
-			},
+				errors: ""
+			}
 		];
 
 		const { validatedFields, errors } = fieldValidator(fields);
 		expect(validatedFields).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					errors: "Password too short.",
-				}),
-			]),
+					errors: "Password too short."
+				})
+			])
 		);
 		expect(errors).toEqual(1);
 	});
@@ -112,17 +112,17 @@ describe("Field Validator Helper", () => {
 				name: "date",
 				type: "range",
 				value: ["1234"],
-				errors: "",
-			},
+				errors: ""
+			}
 		];
 
 		const { validatedFields, errors } = fieldValidator(fields);
 		expect(validatedFields).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					errors: "You must select a start and an end date.",
-				}),
-			]),
+					errors: "You must select a start and an end date."
+				})
+			])
 		);
 		expect(errors).toEqual(1);
 	});

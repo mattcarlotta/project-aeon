@@ -206,10 +206,10 @@ UpdateImageForm.propTypes = {
 	updateUserAvatar: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ authentication, server }) => ({
+const mapStateToProps = ({ authentication, messages }) => ({
 	avatar: authentication.avatar,
-	serverError: server.error,
-	serverMessage: server.message
+	serverError: messages.error,
+	serverMessage: messages.message
 });
 
 const mapDispatchToProps = {

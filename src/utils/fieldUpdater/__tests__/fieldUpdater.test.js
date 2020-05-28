@@ -8,7 +8,7 @@ const fields = [
 		label: "Email",
 		icon: "mail",
 		value: "",
-		errors: "",
+		errors: ""
 	},
 	{
 		name: "password",
@@ -16,8 +16,8 @@ const fields = [
 		label: "Password",
 		icon: "lock",
 		value: "",
-		errors: "",
-	},
+		errors: ""
+	}
 ];
 
 describe("Field Updater Helper", () => {
@@ -28,7 +28,7 @@ describe("Field Updater Helper", () => {
 
 		expect(console.error).toHaveBeenCalledTimes(1);
 		expect(nextFields).toEqual(
-			"Error: You must supply a field array and name of field to update!",
+			"Error: You must supply a field array and name of field to update!"
 		);
 	});
 
@@ -38,9 +38,9 @@ describe("Field Updater Helper", () => {
 		expect(updatedFields).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					value: updatedEmail,
-				}),
-			]),
+					value: updatedEmail
+				})
+			])
 		);
 	});
 });

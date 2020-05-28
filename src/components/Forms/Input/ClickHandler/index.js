@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 class ClickHandler extends Component {
 	state = {
-		isFocused: false,
+		isFocused: false
 	};
 
 	componentDidMount() {
@@ -38,14 +38,14 @@ class ClickHandler extends Component {
 			{this.props.children({
 				isFocused: this.state.isFocused,
 				handleBlur: this.handleBlur,
-				handleFocus: this.handleFocus,
+				handleFocus: this.handleFocus
 			})}
 		</span>
 	);
 }
 
 ClickHandler.propTypes = {
-	children: PropTypes.func.isRequired,
+	children: PropTypes.func.isRequired
 };
 
 export default ClickHandler;

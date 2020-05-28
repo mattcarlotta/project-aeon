@@ -5,7 +5,7 @@ import { signinUser } from "~actions/Authentication";
 import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import FormContainer from "~components/Forms/FormContainer";
-import StyledLink from "~components/Navigation/StyledLink";
+import Link from "~components/Navigation/Link";
 import Head from "~components/Navigation/Head";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
@@ -76,9 +76,9 @@ export class LoginForm extends Component {
 				</Button>
 				<div css="text-align: center;margin-top: 40px;">
 					<p>Don&#39;t have an account?</p>
-					<StyledLink href="/register">
+					<Link href="/register">
 						<Button type="button">Register</Button>
-					</StyledLink>
+					</Link>
 				</div>
 			</form>
 		</FormContainer>
@@ -91,8 +91,8 @@ LoginForm.propTypes = {
 };
 
 /* istanbul ignore next */
-const mapStateToProps = ({ server }) => ({
-	serverError: server.error
+const mapStateToProps = ({ messages }) => ({
+	serverError: messages.error
 });
 
 /* istanbul ignore next */

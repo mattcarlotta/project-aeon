@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 class ClickHandler extends Component {
 	state = {
 		isVisible: false,
-		searchText: "",
+		searchText: ""
 	};
 
 	componentDidMount() {
@@ -73,7 +73,7 @@ class ClickHandler extends Component {
 
 	handleOptionSelect = props => {
 		this.setState({ isVisible: false, searchText: "" }, () =>
-			this.props.onChange({ ...props }),
+			this.props.onChange({ ...props })
 		);
 	};
 
@@ -85,7 +85,7 @@ class ClickHandler extends Component {
 				handleSearchClear: this.handleSearchClear,
 				handleSelectClick: this.handleSelectClick,
 				handleOptionSelect: this.handleOptionSelect,
-				searchText: this.state.searchText,
+				searchText: this.state.searchText
 			})}
 		</div>
 	);
@@ -94,7 +94,7 @@ class ClickHandler extends Component {
 ClickHandler.propTypes = {
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func.isRequired,
-	children: PropTypes.func.isRequired,
+	children: PropTypes.func.isRequired
 };
 
 export default ClickHandler;

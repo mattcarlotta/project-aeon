@@ -46,7 +46,7 @@ const createDate = date => moment(date || Date.now()).tz("America/Los_Angeles");
 const createRandomToken = () =>
 	tokenGenerator(
 		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$/.",
-		64,
+		64
 	);
 
 /**
@@ -79,5 +79,5 @@ export {
 	createRandomToken,
 	parseSession,
 	sendError,
-	uniqueArray,
+	uniqueArray
 };

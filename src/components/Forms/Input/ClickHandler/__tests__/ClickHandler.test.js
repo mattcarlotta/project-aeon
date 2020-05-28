@@ -23,7 +23,7 @@ describe("Click Handler", () => {
 					)}
 				</ClickHandler>
 				<div tabIndex={0} className="outside" />
-			</div>,
+			</div>
 		);
 	});
 
@@ -50,7 +50,7 @@ describe("Click Handler", () => {
 			.find("ClickHandler")
 			.instance()
 			.handleClickOutside({
-				target: wrapper.find("input").getDOMNode(),
+				target: wrapper.find("input").getDOMNode()
 			});
 
 		expect(wrapper.find("ClickHandler").state("isFocused")).toBeTruthy();
@@ -59,7 +59,7 @@ describe("Click Handler", () => {
 			.find("ClickHandler")
 			.instance()
 			.handleClickOutside({
-				target: wrapper.find("div.wrapper").getDOMNode(),
+				target: wrapper.find("div.wrapper").getDOMNode()
 			});
 
 		expect(wrapper.find("ClickHandler").state("isFocused")).toBeTruthy();
@@ -72,7 +72,7 @@ describe("Click Handler", () => {
 			.find("ClickHandler")
 			.instance()
 			.handleClickOutside({
-				target: wrapper.find("div.outside").getDOMNode(),
+				target: wrapper.find("div.outside").getDOMNode()
 			});
 
 		expect(wrapper.find("ClickHandler").state("isFocused")).toBeFalsy();

@@ -8,7 +8,7 @@ const initProps = {
 	name: "test",
 	selected: "",
 	searchText: "",
-	selectOptions: ["Ducks", "Kings"],
+	selectOptions: ["Ducks", "Kings"]
 };
 
 describe("Options", () => {
@@ -27,20 +27,12 @@ describe("Options", () => {
 		});
 
 		it("displays two options", () => {
-			expect(
-				wrapper
-					.find("Option")
-					.at(1)
-					.find("div")
-					.text(),
-			).toContain("Ducks");
-			expect(
-				wrapper
-					.find("Option")
-					.at(3)
-					.find("div")
-					.text(),
-			).toContain("Kings");
+			expect(wrapper.find("Option").at(1).find("div").text()).toContain(
+				"Ducks"
+			);
+			expect(wrapper.find("Option").at(3).find("div").text()).toContain(
+				"Kings"
+			);
 		});
 
 		it("calls handleOptionSelect when clicked or when enter is pressed", () => {
@@ -48,8 +40,8 @@ describe("Options", () => {
 			const target = {
 				dataset: {
 					name: "test",
-					value: "Ducks",
-				},
+					value: "Ducks"
+				}
 			};
 
 			option1.simulate("click", { target });
@@ -79,21 +71,17 @@ describe("Options", () => {
 		describe("Individual Option", () => {
 			let optionNode;
 			beforeEach(() => {
-				optionNode = () =>
-					wrapper
-						.find("Option")
-						.first()
-						.find("div");
+				optionNode = () => wrapper.find("Option").first().find("div");
 			});
 
 			it("initially renders a default option", () => {
 				expect(optionNode()).toHaveStyleRule("color", "#282c34");
 				expect(optionNode()).toHaveStyleRule("background-color", "#fff");
 				expect(optionNode()).toHaveStyleRule("color", "#282c34", {
-					modifier: ":hover",
+					modifier: ":hover"
 				});
 				expect(optionNode()).toHaveStyleRule("color", "#282c34", {
-					modifier: ":focus",
+					modifier: ":focus"
 				});
 			});
 
@@ -103,10 +91,10 @@ describe("Options", () => {
 				expect(optionNode()).toHaveStyleRule("color", "#0f7ae5");
 				expect(optionNode()).toHaveStyleRule("background-color", "#f3f3f3");
 				expect(optionNode()).toHaveStyleRule("color", "#0f7ae5", {
-					modifier: ":hover",
+					modifier: ":hover"
 				});
 				expect(optionNode()).toHaveStyleRule("color", "#0f7ae5", {
-					modifier: ":focus",
+					modifier: ":focus"
 				});
 			});
 		});

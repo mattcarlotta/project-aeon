@@ -2,7 +2,7 @@ import React from "react";
 import isEmpty from "lodash.isempty";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchQuestions } from "~actions/Questions";
+// import { fetchQuestions } from "~actions/Questions";
 import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 
@@ -20,9 +20,9 @@ const NewestQuestions = ({ data, isLoading }) => (
 );
 
 // TODO: CONVERT TO GETSERVERSIDEPROPS
-NewestQuestions.getInitialProps = ({ store: { dispatch } }) => {
-	dispatch(fetchQuestions());
-};
+// NewestQuestions.getInitialProps = ({ store: { dispatch } }) => {
+// 	dispatch(fetchQuestions());
+// };
 
 NewestQuestions.propTypes = {
 	data: PropTypes.arrayOf(

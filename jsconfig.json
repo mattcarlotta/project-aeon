@@ -5,9 +5,11 @@
 			"~actions/*": ["src/actions/*"],
 			"~components/*": ["src/components/*"],
 			"~constants": ["src/constants/index"],
+			"~containers/*": ["src/containers/*"],
 			"~database/*": ["database/*"],
 			"~database": ["database/index"],
 			"~images/*": ["src/images/*"],
+			"~messages/*": ["src/messages/*"],
 			"~middlewares": ["src/middlewares/index"],
 			"~models": ["models/index"],
 			"~pages/*": ["src/pages/*"],
@@ -16,7 +18,8 @@
 			"~sagas/*": ["src/sagas/*"],
 			"~sagas": ["src/sagas/index"],
 			"~store": ["src/store/index"],
-			"~strategies": ["src/strategies/*"],
+			"~strategies/*": ["src/strategies/*"],
+			"~strategies": ["src/strategies/index"],
 			"~styles/*": ["src/styles/*"],
 			"~utils/*": ["src/utils/*"]
 		}

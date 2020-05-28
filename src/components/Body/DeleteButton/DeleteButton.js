@@ -19,8 +19,8 @@ DeleteButton.propTypes = {
 	id: PropTypes.string,
 	onClick: PropTypes.func.isRequired,
 	style: PropTypes.objectOf(
-		PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-	),
+		PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	)
 };
 
 export default DeleteButton;

@@ -5,7 +5,7 @@ const onClick = jest.fn();
 const initProps = {
 	children: <h1>Example Modal Content</h1>,
 	maxWidth: "",
-	title: "Hello",
+	title: "Hello"
 };
 
 const wrapper = mount(<Modal {...initProps} />);

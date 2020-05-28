@@ -1,9 +1,10 @@
+import { HYDRATE } from "next-redux-wrapper";
 import * as constants from "~constants";
 
 export const initialState = {
 	data: [],
 	question: {},
-	isLoading: true,
+	isLoading: true
 };
 
 /**
@@ -14,6 +15,8 @@ export const initialState = {
  */
 const questionsReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
+		case HYDRATE:
+			return { ...state, ...payload.questions };
 		case constants.QUESTIONS_FETCH:
 		case constants.QUESTIONS_FETCH_ONE: {
 			return initialState;

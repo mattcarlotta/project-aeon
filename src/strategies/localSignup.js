@@ -3,7 +3,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import db from "~database/connection";
 import { createNewUser, findUserByEmail } from "~database/queries";
-import { emailAlreadyTaken, missingSignupCreds } from "~utils/errors";
+import { emailAlreadyTaken, missingSignupCreds } from "~messages/errors";
 import { createRandomToken, sendError } from "~utils/helpers";
 
 passport.use(
@@ -12,7 +12,7 @@ passport.use(
 		{
 			usernameField: "email",
 			passwordField: "password",
-			passReqToCallback: true,
+			passReqToCallback: true
 		},
 		async (req, email, password, next) => {
 			await db.task("local-signup", async dbtask => {
@@ -28,13 +28,13 @@ passport.use(
 					newPassword,
 					firstname,
 					lastname,
-					token,
+					token
 				]);
 
 				return next(null, createdUser);
 			});
-		},
-	),
+		}
+	)
 );
 
 /**
@@ -53,12 +53,12 @@ export const localSignup = next => async (req, res) => {
 
 		const newUser = await new Promise((resolve, reject) => {
 			passport.authenticate("local-signup", (err, user) =>
-				err ? reject(err) : resolve(user),
+				err ? reject(err) : resolve(user)
 			)(req, res, next);
 		});
 
 		req.user = {
-			firstname: newUser.firstname,
+			firstname: newUser.firstname
 		};
 
 		return next(req, res);

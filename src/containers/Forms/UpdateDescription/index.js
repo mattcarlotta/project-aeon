@@ -77,11 +77,6 @@ export class UpdateDescriptionForm extends Component {
 }
 
 UpdateDescriptionForm.propTypes = {
-	firstname: PropTypes.string,
-	lastname: PropTypes.string,
-	website: PropTypes.string,
-	description: PropTypes.string,
-	displayname: PropTypes.string,
 	serverError: PropTypes.string,
 	serverMessage: PropTypes.string,
 	showProfileForm: PropTypes.bool.isRequired,
@@ -89,9 +84,9 @@ UpdateDescriptionForm.propTypes = {
 	updateUserProfile: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ server }) => ({
-	serverError: server.error,
-	serverMessage: server.message
+const mapStateToProps = ({ messages }) => ({
+	serverError: messages.error,
+	serverMessage: messages.message
 });
 
 const mapDispatchToProps = {

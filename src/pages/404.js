@@ -6,7 +6,7 @@ import Center from "~components/Body/Center";
 import SubTitle from "~components/Body/SubTitle";
 import Title from "~components/Body/Title";
 import Head from "~components/Navigation/Head";
-import StyledLink from "~components/Navigation/StyledLink";
+import Link from "~components/Navigation/Link";
 
 const NotFound = () => (
 	<FlexCenter>
@@ -19,12 +19,12 @@ const NotFound = () => (
 			<SubTitle>
 				Uh oh, you took a wrong turn! Unable to locate that page.
 			</SubTitle>
-			<StyledLink href="/">
+			<Link href="/">
 				<Button radius="4px" type="button">
 					<HomeIcon />
 					<span css="margin-left: 5px;">Go Home</span>
 				</Button>
-			</StyledLink>
+			</Link>
 		</Center>
 	</FlexCenter>
 );

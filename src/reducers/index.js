@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import authenticationReducer from "./Authentication";
+import messagesReducer from "./Messages";
 import questionsReducer from "./Questions";
-import serverReducer from "./Server";
 
 const reducers = {
 	authentication: authenticationReducer,
-	questions: questionsReducer,
-	server: serverReducer
+	messages: messagesReducer,
+	questions: questionsReducer
 };
 
 export default combineReducers(reducers);

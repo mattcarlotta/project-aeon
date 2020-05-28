@@ -15,7 +15,7 @@ import {
 	FaTshirt,
 	FaStickyNote,
 	FaSearch,
-	FaTimesCircle,
+	FaTimesCircle
 } from "react-icons/fa";
 import { MdPersonPin } from "react-icons/md";
 
@@ -88,9 +88,9 @@ Icon.propTypes = {
 	className: PropTypes.string.isRequired,
 	onClick: PropTypes.func,
 	style: PropTypes.objectOf(
-		PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+		PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	),
-	type: PropTypes.string,
+	type: PropTypes.string
 };
 
 export default Icon;

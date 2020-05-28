@@ -4,7 +4,7 @@ import LandingContainer from "~components/Body/LandingContainer";
 import Button from "~components/Body/Button";
 import SubTitle from "~components/Body/SubTitle";
 import Head from "~components/Navigation/Head";
-import Link from "~components/Navigation/StyledLink";
+import Link from "~components/Navigation/Link";
 
 const Home = () => (
 	<HomeContainer>

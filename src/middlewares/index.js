@@ -17,16 +17,16 @@ export default next => async (req, res) => {
 				keys: [cookieSecret],
 				httpOnly: true,
 				secure: inProduction && !inStaging,
-				sameSite: inProduction && !inStaging,
+				sameSite: inProduction && !inStaging
 			}),
-			inProduction && morgan("tiny"),
-			passport.initialize(),
-		];
+			!inProduction && morgan("tiny"),
+			passport.initialize()
+		].filter(Boolean);
 
 		const promises = middlewares.reduce((acc, middleware) => {
 			const promise = new Promise((resolve, reject) => {
 				middleware(req, res, result =>
-					result instanceof Error ? reject(result) : resolve(result),
+					result instanceof Error ? reject(result) : resolve(result)
 				);
 			});
 			return [...acc, promise];

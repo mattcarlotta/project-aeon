@@ -17,7 +17,7 @@ const initProps = {
 	searchText: "",
 	value: "",
 	placeholder: "Select an option...",
-	width: "100%",
+	width: "100%"
 };
 
 describe("Select - Selection", () => {
@@ -46,7 +46,7 @@ describe("Select - Selection", () => {
 			expect(findBtnCtnr().exists()).toBeTruthy();
 			expect(findBtnCtnr()).toHaveStyleRule("border", "1px solid #e5e5e5");
 			expect(findBtnCtnr()).toHaveStyleRule("border", "1px solid #bfbebe", {
-				modifier: ":hover",
+				modifier: ":hover"
 			});
 		});
 
@@ -56,7 +56,7 @@ describe("Select - Selection", () => {
 			expect(findBtnCtnr().exists()).toBeTruthy();
 			expect(findBtnCtnr()).toHaveStyleRule("border", "1px solid #1e90ff");
 			expect(findBtnCtnr()).toHaveStyleRule("border", "1px solid #1e90ff", {
-				modifier: ":hover",
+				modifier: ":hover"
 			});
 		});
 
@@ -66,25 +66,19 @@ describe("Select - Selection", () => {
 			expect(findBtnCtnr().exists()).toBeTruthy();
 			expect(findBtnCtnr()).toHaveStyleRule(
 				"border",
-				"1px solid #d14023 !important",
+				"1px solid #d14023 !important"
 			);
 		});
 	});
 
 	it("calls handleSelectClick when SelectText is clicked", () => {
-		wrapper
-			.find("SelectText")
-			.at(1)
-			.simulate("click");
+		wrapper.find("SelectText").at(1).simulate("click");
 		expect(handleSelectClick).toHaveBeenCalledTimes(1);
 	});
 
 	it("if disabled doesn't call handleSelectClick", () => {
 		wrapper.setProps({ disabled: true });
-		wrapper
-			.find("SelectText")
-			.at(1)
-			.simulate("click");
+		wrapper.find("SelectText").at(1).simulate("click");
 		expect(handleSelectClick).toHaveBeenCalledTimes(0);
 	});
 
@@ -133,14 +127,14 @@ describe("Select - Selection", () => {
 
 		it("initially points down when options are hidden", () => {
 			expect(chevronIcon()).toHaveStyleRule("transform", "rotate(270deg)", {
-				modifier: "svg",
+				modifier: "svg"
 			});
 		});
 
 		it("points up when option are shown", () => {
 			wrapper.setProps({ isVisible: true });
 			expect(chevronIcon()).toHaveStyleRule("transform", "rotate(90deg)", {
-				modifier: "svg",
+				modifier: "svg"
 			});
 		});
 	});
@@ -165,16 +159,13 @@ describe("Select - Selection", () => {
 		it("clicking on the FaTimesCircle calls handleSearchClear", () => {
 			wrapper.setProps({ isSearchable: true, searchText: "Test" });
 
-			wrapper
-				.find("Icon")
-				.at(1)
-				.simulate("click");
+			wrapper.find("Icon").at(1).simulate("click");
 
 			expect(handleSearchClear).toHaveBeenCalledWith({
 				target: {
 					name: "test",
-					value: "",
-				},
+					value: ""
+				}
 			});
 		});
 	});

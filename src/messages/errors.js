@@ -100,6 +100,9 @@ const missingPasswords =
 
 const missingSeasonId = "You must provide a season id.";
 
+const missingSigninCredentials =
+	"Invalid login request. You must supply a valid email and password!";
+
 const missingSignupCreds =
 	"Invalid sign up request. You must supply a valid: authorization key, authorized email, first name, last name and password.";
 
@@ -245,6 +248,7 @@ export {
 	missingMemberId,
 	missingPasswords,
 	missingSeasonId,
+	missingSigninCredentials,
 	missingSignupCreds,
 	missingToken,
 	missingTokenId,
@@ -281,5 +285,5 @@ export {
 	unableToUpdateMail,
 	unableToUpdateSeason,
 	unableToUpdateToken,
-	usernameAlreadyTaken,
+	usernameAlreadyTaken
 };

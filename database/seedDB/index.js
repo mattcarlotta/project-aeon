@@ -1,8 +1,9 @@
 /* eslint-disable */
-require("../env");
-const db = require("./index.js");
+const chalk = require("chalk");
+require("../../env");
+const db = require("../index.js");
 
-const { SEED } = process.env;
+const { DB, SEED } = process.env;
 
 const userTable = `(
   id UUID DEFAULT uuid_generate_v1mc() UNIQUE,
@@ -75,16 +76,18 @@ const seedDB = async () => {
 				CREATE TABLE answers ${answerTableOptions};
       `);
 
-		return console.log(
-			"\n\x1b[7m\x1b[32;1m PASS \x1b[0m \x1b[2mutils/\x1b[0m\x1b[1mseedDB.js",
+		console.log(
+			`\n${chalk.rgb(7, 54, 66).bgRgb(38, 139, 210)(" SEED ")} ${chalk.blue(
+				`\x1b[2mutils/\x1b[0m\x1b[1mseedDB.js\x1b[0m (${DB})`
+			)}\n`
 		);
+
+		if (SEED) process.exit(0);
 	} catch (err) {
-		return console.log(
-			"\n\x1b[7m\x1b[31;1m FAIL \x1b[0m \x1b[2mutils/\x1b[0m\x1b[31;1mseedDB.js\x1b[0m\x1b[31m\n" +
-				err.toString() +
-				"\x1b[0m",
+		console.log(
+			`\n\x1b[7m\x1b[31;1m FAIL \x1b[0m \x1b[2mutils/\x1b[0m\x1b[31;1mseedDB.js\x1b[0m\x1b[31m\n${err.toString()}\x1b[0m`
 		);
-	} finally {
+
 		if (SEED) process.exit(0);
 	}
 };

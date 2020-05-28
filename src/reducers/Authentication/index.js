@@ -1,3 +1,4 @@
+import { HYDRATE } from "next-redux-wrapper";
 import * as constants from "~constants";
 
 export const initialState = {
@@ -24,6 +25,8 @@ export const initialState = {
  */
 const authenticationReducer = (state = initialState, { payload, type }) => {
 	switch (type) {
+		case HYDRATE:
+			return { ...state, ...payload.authentication };
 		case constants.AUTH_SIGNIN: {
 			return { ...state, ...payload, isLoading: false };
 		}

@@ -9,6 +9,7 @@ import {
 	FaQuestionCircle,
 	FaUserCircle
 } from "react-icons/fa";
+import Router from "next/router";
 import { signoutUser } from "~actions/Authentication";
 import FlexEnd from "~components/Body/FlexEnd";
 import Flex from "~components/Body/Flex";
@@ -17,7 +18,7 @@ import ListItem from "~components/Body/ListItem";
 import Button from "~components/Body/Button";
 import NavContainer from "~components/Navigation/NavContainer";
 import LoadingNav from "~components/Navigation/LoadingNav";
-import StyledLink from "~components/Navigation/StyledLink";
+import Link from "~components/Navigation/Link";
 import FlexMiddle from "~components/Body/FlexMiddle";
 import TextAlign from "~components/Body/TextAlign";
 import AccountButtonText from "~components/Body/AccountButtonText";
@@ -61,18 +62,20 @@ const Header = ({
 						<>
 							<ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
 							<ListItem>
-								<StyledLink href="/signin">
-									<Button radius="4px" type="button">
-										Sign In
-									</Button>
-								</StyledLink>
+								<Button
+									onClick={() => Router.push("/signin")}
+									radius="4px"
+									type="button"
+								>
+									Sign In
+								</Button>
 							</ListItem>
 							<ListItem>
-								<StyledLink href="/register">
+								<Link href="/register">
 									<Button primary radius="4px" type="button">
 										Register
 									</Button>
-								</StyledLink>
+								</Link>
 							</ListItem>
 						</>
 					) : (
@@ -82,25 +85,25 @@ const Header = ({
 								overlay={
 									<Menu style={{ border: "1px solid #dac2c2" }}>
 										<MenuItem style={menuItemStyle}>
-											<StyledLink style={linkStyle} href="/">
+											<Link style={linkStyle} href="/">
 												<FlexMiddle>
 													<FaUserCircle style={iconStyle} /> Dashboard
 												</FlexMiddle>
-											</StyledLink>
+											</Link>
 										</MenuItem>
 										<MenuItem style={menuItemStyle}>
-											<StyledLink style={linkStyle} href="/profile">
+											<Link style={linkStyle} href="/profile">
 												<FlexMiddle>
 													<FaUserCog style={iconStyle} /> Profile
 												</FlexMiddle>
-											</StyledLink>
+											</Link>
 										</MenuItem>
 										<MenuItem style={menuItemStyle}>
-											<StyledLink style={linkStyle} href="/help">
+											<Link style={linkStyle} href="/help">
 												<FlexMiddle>
 													<FaQuestionCircle style={iconStyle} /> Help
 												</FlexMiddle>
-											</StyledLink>
+											</Link>
 										</MenuItem>
 										<MenuItem style={{ ...menuItemStyle, margin: 0 }}>
 											<div
@@ -120,7 +123,7 @@ const Header = ({
 								icon={<FaCog style={{ position: "relative", top: 3 }} />}
 								trigger={["click"]}
 							>
-								<StyledLink href="/profile">
+								<Link href="/profile">
 									<Flex>
 										<span>
 											<img
@@ -141,7 +144,7 @@ const Header = ({
 											</AccountButtonText>
 										</TextAlign>
 									</Flex>
-								</StyledLink>
+								</Link>
 							</DropDownButton>
 						</ListItem>
 					)}

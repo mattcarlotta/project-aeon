@@ -12,20 +12,20 @@ describe("Parse Fields Helper", () => {
 			{
 				name: "callTime1",
 				type: "time",
-				value: moment(new Date("2019-12-17T01:00:00")),
+				value: moment(new Date("2019-12-17T01:00:00"))
 			},
 			{
 				name: "callTime2",
 				type: "time",
-				value: "",
-			},
+				value: ""
+			}
 		];
 
 		const nextFields = parsedFields(fields);
 		expect(nextFields).toEqual(
 			expect.objectContaining({
-				callTimes: ["2019-12-17T01:00:00-08:00"],
-			}),
+				callTimes: ["2019-12-17T01:00:00-08:00"]
+			})
 		);
 	});
 
@@ -34,48 +34,48 @@ describe("Parse Fields Helper", () => {
 			{
 				name: "email",
 				type: "text",
-				value: "test@example.com",
+				value: "test@example.com"
 			},
 			{
 				name: "password",
 				type: "password",
-				value: "12345",
+				value: "12345"
 			},
 			{
 				name: "seasonDuration",
 				type: "range",
 				value: [
 					moment(new Date("2019-12-17T01:00:00")),
-					moment(new Date("2019-12-17T02:00:00")),
-				],
+					moment(new Date("2019-12-17T02:00:00"))
+				]
 			},
 			{
 				name: "callTime1",
 				type: "time",
-				value: moment(new Date("2019-12-17T01:00:00")),
+				value: moment(new Date("2019-12-17T01:00:00"))
 			},
 			{
 				name: "callTime2",
 				type: "time",
-				value: moment(new Date("2019-12-17T02:00:00")),
+				value: moment(new Date("2019-12-17T02:00:00"))
 			},
 			{
 				name: "callTime3",
 				type: "time",
-				value: moment(new Date("2019-12-17T03:00:00")),
+				value: moment(new Date("2019-12-17T03:00:00"))
 			},
 			{
 				name: "0123456789",
 				type: "radiogroup",
 				value: "I want to work.",
-				updateEvent: true,
+				updateEvent: true
 			},
 			{
 				name: "1234567891",
 				type: "radiogroup",
 				value: "Available to work.",
-				updateEvent: false,
-			},
+				updateEvent: false
+			}
 		];
 
 		const nextFields = parsedFields(fields);
@@ -85,26 +85,26 @@ describe("Parse Fields Helper", () => {
 				password: "12345",
 				seasonDuration: [
 					"2019-12-17T01:00:00-08:00",
-					"2019-12-17T02:00:00-08:00",
+					"2019-12-17T02:00:00-08:00"
 				],
 				callTimes: [
 					"2019-12-17T01:00:00-08:00",
 					"2019-12-17T02:00:00-08:00",
-					"2019-12-17T03:00:00-08:00",
+					"2019-12-17T03:00:00-08:00"
 				],
 				responses: [
 					{
 						id: "0123456789",
 						value: "I want to work.",
-						updateEvent: true,
+						updateEvent: true
 					},
 					{
 						id: "1234567891",
 						value: "Available to work.",
-						updateEvent: false,
-					},
-				],
-			}),
+						updateEvent: false
+					}
+				]
+			})
 		);
 	});
 });

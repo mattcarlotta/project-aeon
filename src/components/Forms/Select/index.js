@@ -54,11 +54,11 @@ Select.propTypes = {
 	placeholder: PropTypes.string,
 	onChange: PropTypes.func.isRequired,
 	selectOptions: PropTypes.arrayOf(PropTypes.string),
-	value: PropTypes.string,
+	value: PropTypes.string
 };
 
 Select.defaultProps = {
-	placeholder: "Select an option...",
+	placeholder: "Select an option..."
 };
 
 export default Select;

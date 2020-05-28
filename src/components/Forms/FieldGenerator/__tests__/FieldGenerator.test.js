@@ -13,7 +13,7 @@ const input = {
 		"Select a start and end date below to automatically fill in this field.",
 	icon: "id",
 	value: "",
-	errors: "",
+	errors: ""
 };
 
 const switchField = {
@@ -22,7 +22,7 @@ const switchField = {
 	label: "Email Reminders",
 	value: true,
 	tooltip:
-		"This setting only affects scheduled events and A/P form email reminders. Monthly schedules will remain unaffected.",
+		"This setting only affects scheduled events and A/P form email reminders. Monthly schedules will remain unaffected."
 };
 
 const textarea = {
@@ -31,7 +31,7 @@ const textarea = {
 	label: "Notes",
 	icon: "note",
 	value: "",
-	errors: "",
+	errors: ""
 };
 
 const select = {
@@ -43,7 +43,7 @@ const select = {
 	value: "",
 	errors: "",
 	required: true,
-	selectOptions: ["staff", "member"],
+	selectOptions: ["staff", "member"]
 };
 
 const range = {
@@ -54,7 +54,7 @@ const range = {
 	errors: "",
 	required: true,
 	disabled: true,
-	format: "l",
+	format: "l"
 };
 
 const date = {
@@ -66,7 +66,7 @@ const date = {
 	errors: "",
 	required: true,
 	format: "MM/DD/YYYY h:mm a",
-	showTime: { format: "h:mm a", use12Hours: true, minuteStep: 15 },
+	showTime: { format: "h:mm a", use12Hours: true, minuteStep: 15 }
 };
 
 // const editor = {
@@ -89,18 +89,18 @@ const time = {
 	value: moment(),
 	errors: "",
 	required: true,
-	disabled: true,
+	disabled: true
 };
 
 const removetime = {
 	...time,
 	label: "",
-	onFieldRemove,
+	onFieldRemove
 };
 
 const initProps = {
 	fields: [],
-	onChange,
+	onChange
 };
 
 const radiogroup = {
@@ -114,8 +114,8 @@ const radiogroup = {
 		"I want to work.",
 		"Available to work.",
 		"Prefer not to work.",
-		"Not available to work.",
-	],
+		"Not available to work."
+	]
 };
 
 const transfer = {
@@ -132,21 +132,21 @@ const transfer = {
 		{
 			_id: "5d83d5b32bff0853d6539cb6",
 			email: "Bobby Axelrod <member10@example.com>",
-			key: "Bobby Axelrod <member10@example.com>",
+			key: "Bobby Axelrod <member10@example.com>"
 		},
 		{
 			_id: "5d83d5b32bff0853d6539cb7",
 			email: "Matt Polls <member11@example.com>",
-			key: "Matt Polls <member11@example.com>",
-		},
+			key: "Matt Polls <member11@example.com>"
+		}
 	],
 	showSearch: true,
 	listStyle: {
 		width: 277,
-		height: 300,
+		height: 300
 	},
 	rowKey: record => record.email,
-	render: item => item.email.replace(/ <.*?>/g, ""),
+	render: item => item.email.replace(/ <.*?>/g, "")
 };
 
 describe("Field Generator", () => {
@@ -209,8 +209,8 @@ describe("Field Generator", () => {
 		expect(onChange).toHaveBeenCalledWith({
 			target: {
 				name: "emailReminders",
-				value: false,
-			},
+				value: false
+			}
 		});
 	});
 
@@ -224,7 +224,7 @@ describe("Field Generator", () => {
 
 		expect(wrapper.find(DatePicker).exists()).toBeTruthy();
 		expect(onChange).toHaveBeenCalledWith({
-			target: { name: "eventDate", value: expect.any(moment) },
+			target: { name: "eventDate", value: expect.any(moment) }
 		});
 	});
 
@@ -256,7 +256,7 @@ describe("Field Generator", () => {
 
 	it("displays a RadioGroup with notes when passed a 'notes' prop", () => {
 		wrapper.setProps({
-			fields: [{ ...radiogroup, notes: "This is a special note!" }],
+			fields: [{ ...radiogroup, notes: "This is a special note!" }]
 		});
 
 		expect(wrapper.find("Notes").exists()).toBeTruthy();
@@ -264,7 +264,7 @@ describe("Field Generator", () => {
 
 	it("displays a RadioGroup with errors when passed an 'errors' prop", () => {
 		wrapper.setProps({
-			fields: [{ ...radiogroup, errors: "Required!" }],
+			fields: [{ ...radiogroup, errors: "Required!" }]
 		});
 
 		expect(wrapper.find("Errors").exists()).toBeTruthy();
@@ -274,25 +274,19 @@ describe("Field Generator", () => {
 		wrapper.setProps({ fields: [time] });
 
 		const value = moment("2000-01-01 00:00:00");
-		wrapper
-			.find(TimePicker)
-			.instance()
-			.handleChange(value);
+		wrapper.find(TimePicker).instance().handleChange(value);
 
 		expect(wrapper.find("Label").exists()).toBeTruthy();
 		expect(wrapper.find("TimePicker").exists()).toBeTruthy();
 		expect(onChange).toHaveBeenCalledWith({
-			target: { name: "callTime", value },
+			target: { name: "callTime", value }
 		});
 	});
 
 	it("returns a removeable TimePicker field when a 'onFieldRemove' is present", () => {
 		wrapper.setProps({ fields: [removetime] });
 
-		wrapper
-			.find("Icon")
-			.first()
-			.simulate("click");
+		wrapper.find("Icon").first().simulate("click");
 
 		expect(onFieldRemove).toHaveBeenCalledWith("callTime");
 		expect(wrapper.find("Label").exists()).toBeFalsy();
@@ -317,16 +311,13 @@ describe("Field Generator", () => {
 
 		expect(wrapper.find("ListItem")).toHaveLength(1);
 
-		wrapper
-			.find(Transfer)
-			.instance()
-			.moveTo("right");
+		wrapper.find(Transfer).instance().moveTo("right");
 
 		expect(onChange).toHaveBeenCalledWith({
 			target: {
 				name: "sendTo",
-				value: [],
-			},
+				value: []
+			}
 		});
 	});
 });

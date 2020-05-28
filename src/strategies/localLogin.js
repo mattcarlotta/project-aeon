@@ -4,14 +4,14 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { findUserByEmail } from "~database/queries";
 import { sendError } from "~utils/helpers";
 import db from "~database/connection";
-import { badCredentials, missingSigninCredentials } from "~utils/errors";
+import { badCredentials, missingSigninCredentials } from "~messages/errors";
 
 passport.use(
 	"local-login",
 	new LocalStrategy(
 		{
 			usernameField: "email",
-			passwordField: "password",
+			passwordField: "password"
 		},
 		async (email, password, next) => {
 			await db.task("local-login", async dbtask => {
@@ -21,15 +21,15 @@ passport.use(
 
 				const validPassword = await bcrypt.compare(
 					password,
-					existingUser.password,
+					existingUser.password
 				);
 				if (!validPassword) return next(badCredentials, null);
 
 				const signedInUser = await dbtask.one(findUserByEmail, [email]);
 				return next(null, signedInUser);
 			});
-		},
-	),
+		}
+	)
 );
 
 /**
@@ -46,7 +46,7 @@ export const localLogin = next => async (req, res) => {
 
 		const existingUser = await new Promise((resolve, reject) => {
 			passport.authenticate("local-login", (err, user) =>
-				err ? reject(err) : resolve(user),
+				err ? reject(err) : resolve(user)
 			)(req, res, next);
 		});
 
@@ -61,7 +61,7 @@ export const localLogin = next => async (req, res) => {
 			role: existingUser.role,
 			registered: existingUser.registered,
 			reputation: existingUser.reputation,
-			website: existingUser.website,
+			website: existingUser.website
 		};
 
 		next(req, res);

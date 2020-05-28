@@ -1,7 +1,7 @@
 import db from "~database/connection";
 import { findUserById } from "~database/queries";
+import { badCredentials } from "~messages/errors";
 import { parseSession, sendError } from "~utils/helpers";
-import { badCredentials } from "~utils/errors";
 
 /**
  * Middleware function to check if a user is logged into a session and the session is valid.

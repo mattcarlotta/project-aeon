@@ -4,9 +4,9 @@ const autoprefixer = require("autoprefixer");
 const postcssFixes = require("postcss-flexbugs-fixes");
 const postcssEnv = require("postcss-preset-env")({
 	autoprefixer: {
-		flexbox: "no-2009",
+		flexbox: "no-2009"
 	},
-	stage: 3,
+	stage: 3
 });
 
 const { inDevelopment } = process.env;
@@ -26,7 +26,7 @@ const name = "[name]-[hash].[ext]";
 const jsRule = ({ loader, options }) => ({
 	test: /\.(js|mjs|jsx|ts|tsx)$/,
 	exclude: /(node_modules)/,
-	use: [{ loader, options }],
+	use: [{ loader, options }]
 });
 
 /**
@@ -45,10 +45,10 @@ const mediaRule = ({ test, loader, options }) => ({
 			loader,
 			options: {
 				...options,
-				name,
-			},
-		},
-	],
+				name
+			}
+		}
+	]
 });
 
 /**
@@ -67,7 +67,7 @@ const styleRule = ({
 	include = undefined,
 	exclude = undefined,
 	modules = false,
-	isServer,
+	isServer
 }) => ({
 	test,
 	include,
@@ -82,8 +82,8 @@ const styleRule = ({
 				minimize: !inDev,
 				sourceMap: inDev,
 				importLoaders: 1,
-				localIdentName,
-			},
+				localIdentName
+			}
 		},
 		{
 			loader: "postcss-loader",
@@ -93,17 +93,17 @@ const styleRule = ({
 					postcssFixes,
 					postcssEnv,
 					autoprefixer(),
-					postcssNormalize(),
+					postcssNormalize()
 				],
-				sourceMap: !inDev,
-			},
+				sourceMap: !inDev
+			}
 		},
-		"sass-loader",
-	].filter(Boolean),
+		"sass-loader"
+	].filter(Boolean)
 });
 
 module.exports = {
 	jsRule,
 	mediaRule,
-	styleRule,
+	styleRule
 };

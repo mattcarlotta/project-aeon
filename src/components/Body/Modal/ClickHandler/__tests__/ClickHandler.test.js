@@ -17,7 +17,7 @@ describe("Modal Click Handler", () => {
 					</div>
 				</ClickHandler>
 				<div className="outside-content" />
-			</div>,
+			</div>
 		);
 	});
 
@@ -34,7 +34,7 @@ describe("Modal Click Handler", () => {
 			.find("ClickHandler")
 			.instance()
 			.handleClickOutside({
-				target: wrapper.find("div.modal-content").getDOMNode(),
+				target: wrapper.find("div.modal-content").getDOMNode()
 			});
 
 		expect(closeModal).toHaveBeenCalledTimes(0);
@@ -45,7 +45,7 @@ describe("Modal Click Handler", () => {
 			.find("ClickHandler")
 			.instance()
 			.handleClickOutside({
-				target: wrapper.find("div.outside-content").getDOMNode(),
+				target: wrapper.find("div.outside-content").getDOMNode()
 			});
 
 		expect(closeModal).toHaveBeenCalledTimes(1);

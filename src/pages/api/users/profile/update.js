@@ -20,12 +20,12 @@ const updateUserProfile = async (req, res) => {
 
 		if (displayname) {
 			const existingUser = await db.oneOrNone(findUserByDisplayName, [
-				displayname,
+				displayname
 			]);
 
 			if (existingUser && existingUser.email !== email)
 				throw String(
-					"That display name is already taken. Please choose a different name.",
+					"That display name is already taken. Please choose a different name."
 				);
 		}
 
@@ -35,7 +35,7 @@ const updateUserProfile = async (req, res) => {
 			firstname,
 			lastname,
 			website,
-			description,
+			description
 		]);
 
 		res.status(201).json({ message: "Successfully update your profile!" });

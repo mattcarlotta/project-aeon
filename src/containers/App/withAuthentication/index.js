@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { accessDenied } from "~messages/errors";
-import { wrapper } from "~store";
 import { signoutUser } from "~actions/Authentication";
 import FadeIn from "~components/Body/FadeIn";
 import Spinner from "~components/Body/Spinner";
@@ -10,6 +9,17 @@ import toast from "~components/Body/Toast";
 
 const withAuthentication = WrappedComponent => {
 	class RequiresAuthentication extends PureComponent {
+		static getInitialProps = async ctx => {
+			const {
+				store: { getState }
+			} = ctx;
+			const { role, email } = getState().authentication;
+			const { getInitialProps } = WrappedComponent;
+
+			if (role === "guest" || !email) return { authError: accessDenied };
+			if (getInitialProps) return getInitialProps(ctx);
+		};
+
 		componentDidMount = () => {
 			if (this.props.authError) {
 				this.props.signoutUser();
@@ -28,6 +38,7 @@ const withAuthentication = WrappedComponent => {
 	}
 
 	RequiresAuthentication.propTypes = {
+		authError: PropTypes.string,
 		email: PropTypes.string,
 		signoutUser: PropTypes.func.isRequired
 	};
@@ -44,16 +55,5 @@ const withAuthentication = WrappedComponent => {
 withAuthentication.propTypes = {
 	WrappedComponent: PropTypes.node.isRequired
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(ctx => {
-	const {
-		store: { getState }
-	} = ctx;
-	const { getServerSideProps } = WrappedComponent;
-	const { email } = getState().authenticated;
-
-	if (!email) return { authError: accessDenied };
-	if (getServerSideProps) return getServerSideProps(ctx);
-});
 
 export default withAuthentication;

@@ -2,9 +2,9 @@ module.exports = (
 	isServer,
 	{
 		optimization: {
-			splitChunks: { cacheGroups },
-		},
-	},
+			splitChunks: { cacheGroups }
+		}
+	}
 ) =>
 	!isServer
 		? {
@@ -14,7 +14,7 @@ module.exports = (
 					name: "styles",
 					test: /\.+(scss|sass|css)$/,
 					chunks: "all",
-					enforce: true,
-				},
+					enforce: true
+				}
 		  }
 		: cacheGroups;
