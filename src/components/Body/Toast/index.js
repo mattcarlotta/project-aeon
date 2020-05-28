@@ -16,7 +16,7 @@ const style = {
 export const displayIcon = type => {
 	switch (type) {
 		case "success":
-			return <FaCheck style={style} />;
+			return <FaCheck />;
 		case "info":
 			return <FaInfo />;
 		case "error":

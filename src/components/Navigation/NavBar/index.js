@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Dropdown, Menu } from "antd";
+import { Dropdown, Menu, Button as AntButton } from "antd";
 import {
-	FaCog,
 	FaUserCog,
 	FaSignOutAlt,
 	FaQuestionCircle,
@@ -12,7 +11,6 @@ import {
 import Router from "next/router";
 import { signoutUser } from "~actions/Authentication";
 import FlexEnd from "~components/Body/FlexEnd";
-import Flex from "~components/Body/Flex";
 import List from "~components/Body/List";
 import ListItem from "~components/Body/ListItem";
 import Button from "~components/Body/Button";
@@ -24,7 +22,6 @@ import TextAlign from "~components/Body/TextAlign";
 import AccountButtonText from "~components/Body/AccountButtonText";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
-const DropDownButton = Dropdown.Button;
 const MenuItem = Menu.Item;
 
 const menuItemStyle = {
@@ -44,7 +41,7 @@ const linkStyle = {
 	padding: 0
 };
 
-const NavBar = ({
+const Header = ({
 	avatar,
 	displayname,
 	isLoading,
@@ -79,72 +76,77 @@ const NavBar = ({
 							</ListItem>
 						</>
 					) : (
-						<ListItem>
-							<DropDownButton
-								placement="bottomRight"
-								overlay={
-									<Menu style={{ border: "1px solid #dac2c2" }}>
-										<MenuItem style={menuItemStyle}>
-											<Link style={linkStyle} href="/">
-												<FlexMiddle>
-													<FaUserCircle style={iconStyle} /> Dashboard
-												</FlexMiddle>
-											</Link>
-										</MenuItem>
-										<MenuItem style={menuItemStyle}>
-											<Link style={linkStyle} href="/profile">
-												<FlexMiddle>
-													<FaUserCog style={iconStyle} /> Profile
-												</FlexMiddle>
-											</Link>
-										</MenuItem>
-										<MenuItem style={menuItemStyle}>
-											<Link style={linkStyle} href="/help">
-												<FlexMiddle>
-													<FaQuestionCircle style={iconStyle} /> Help
-												</FlexMiddle>
-											</Link>
-										</MenuItem>
-										<MenuItem style={{ ...menuItemStyle, margin: 0 }}>
-											<div
-												role="button"
-												aria-label="Sign out button"
-												css="width: 100%; font-size: 16px;"
-												onClick={signoutUser}
-											>
-												<FlexMiddle>
-													<FaSignOutAlt style={iconStyle} /> Sign Out
-												</FlexMiddle>
-											</div>
-										</MenuItem>
-									</Menu>
-								}
-								size="large"
-								icon={<FaCog style={{ position: "relative", top: 3 }} />}
-								trigger={["click"]}
-							>
-								<Link href="/profile">
-									<Flex>
+						<>
+							<ListItem>
+								<TextAlign align="left">
+									<AccountButtonText>
+										{displayname || `${firstname} ${lastname}`}
+									</AccountButtonText>
+								</TextAlign>
+							</ListItem>
+							<ListItem>
+								<TextAlign align="left">
+									<AccountButtonText>
+										<span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
+											&#9733;
+										</span>
+										{reputation.toLocaleString()} rep
+									</AccountButtonText>
+								</TextAlign>
+							</ListItem>
+							<ListItem>
+								<Dropdown
+									placement="bottomRight"
+									overlay={
+										<Menu style={{ border: "1px solid #dac2c2" }}>
+											<MenuItem style={menuItemStyle}>
+												<Link style={linkStyle} href="/">
+													<FlexMiddle>
+														<FaUserCircle style={iconStyle} /> Dashboard
+													</FlexMiddle>
+												</Link>
+											</MenuItem>
+											<MenuItem style={menuItemStyle}>
+												<Link style={linkStyle} href="/profile">
+													<FlexMiddle>
+														<FaUserCog style={iconStyle} /> Profile
+													</FlexMiddle>
+												</Link>
+											</MenuItem>
+											<MenuItem style={menuItemStyle}>
+												<Link style={linkStyle} href="/help">
+													<FlexMiddle>
+														<FaQuestionCircle style={iconStyle} /> Help
+													</FlexMiddle>
+												</Link>
+											</MenuItem>
+											<MenuItem style={{ ...menuItemStyle, margin: 0 }}>
+												<div
+													role="button"
+													aria-label="Sign out button"
+													css="width: 100%; font-size: 16px;"
+													onClick={signoutUser}
+												>
+													<FlexMiddle>
+														<FaSignOutAlt style={iconStyle} /> Sign Out
+													</FlexMiddle>
+												</div>
+											</MenuItem>
+										</Menu>
+									}
+									size="large"
+									trigger={["click"]}
+								>
+									<AntButton>
 										<img
-											css="max-height: 22px;max-width: 22px;margin-right: 10px;border-radius: 50%;"
+											css="max-height: 22px;max-width: 22px;border-radius: 50%;position: relative;top: -1px;"
 											src={avatar || DefaultAvatar}
 											alt="avatar"
 										/>
-										<TextAlign align="left">
-											<AccountButtonText>
-												{displayname || `${firstname} ${lastname}`}
-											</AccountButtonText>
-											<AccountButtonText>
-												<span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
-													&#9733;
-												</span>
-												{reputation.toLocaleString()} rep
-											</AccountButtonText>
-										</TextAlign>
-									</Flex>
-								</Link>
-							</DropDownButton>
-						</ListItem>
+									</AntButton>
+								</Dropdown>
+							</ListItem>
+						</>
 					)}
 				</List>
 			) : (
@@ -154,7 +156,7 @@ const NavBar = ({
 	</NavContainer>
 );
 
-NavBar.propTypes = {
+Header.propTypes = {
 	avatar: PropTypes.string,
 	displayname: PropTypes.string,
 	firstname: PropTypes.string,
@@ -171,4 +173,4 @@ const mapDispatchToProps = {
 	signoutUser
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

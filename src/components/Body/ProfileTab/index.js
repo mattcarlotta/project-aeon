@@ -40,7 +40,7 @@ const Profile = ({
 					<SubTitle style={subtitleStyle}>{displayname}</SubTitle>
 				) : (
 					<MissingDetails>
-						You haven&#39;t provided a display name.
+						Use a display name if you wish to hide your real name.
 					</MissingDetails>
 				)}
 				<Info>Name:</Info>
@@ -58,7 +58,7 @@ const Profile = ({
 					<MissingDetails>You haven&#39;t provided a website.</MissingDetails>
 				)}
 				<Info>Description:</Info>
-				<div>
+				<div css="margin-bottom: 20px;">
 					{description ? (
 						<SubTitle style={subtitleStyle}>
 							<Markdown options={{ disableParsingRawHTML: true }}>
