@@ -24,7 +24,7 @@ export class UpdateDescriptionForm extends Component {
 				type: "tag",
 				label: "Tags",
 				placeholder: "Search for related tags...",
-				tooltip: "Selecting tags will make the question more specific!",
+				tooltip: "Selecting tags will make the question more specific.",
 				value: [],
 				errors: "",
 				options: [],
@@ -66,15 +66,11 @@ export class UpdateDescriptionForm extends Component {
 	render = () => (
 		<form onSubmit={this.handleSubmit}>
 			<FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
-			<Button
-				primary
-				type="submit"
-				width="200px"
-				style={{ marginTop: 10 }}
-				disabled={this.state.isSubmitting}
-			>
-				Submit
-			</Button>
+			<div css="width: 200px; margin: 10px auto">
+				<Button primary type="submit" disabled={this.state.isSubmitting}>
+					Submit
+				</Button>
+			</div>
 		</form>
 	);
 }

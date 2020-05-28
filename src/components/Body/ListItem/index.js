@@ -8,4 +8,8 @@ export default styled.li`
 	& .ant-btn-group {
 		display: flex;
 	}
+
+	& .ant-btn {
+		padding: 4px 15px;
+	}
 `;

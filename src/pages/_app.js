@@ -4,12 +4,11 @@ import Head from "next/head";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { ToastContainer } from "react-toastify";
-import GlobalStylesheet from "~styles/globalStylesheet";
 import { signin } from "~actions/Authentication";
 import { resetMessage } from "~actions/Messages";
 import Wrapper from "~components/Body/Wrapper";
 import toast from "~components/Body/Toast";
-import Header from "~components/Navigation/Header";
+import NavBar from "~components/Navigation/NavBar";
 import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 import { parseCookie, parseData } from "~utils/parseResponse";
@@ -87,17 +86,15 @@ export class MyApp extends App {
 					<meta name="build version" content={`${version}`} />
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
-				<Header />
+				<NavBar />
 				<Wrapper>
 					<Component {...pageProps} />
 				</Wrapper>
-				<GlobalStylesheet />
 				<ToastContainer
 					position="top-right"
 					autoClose={2500}
 					hideProgressBar={false}
 					newestOnTop={false}
-					closeOnClick={false}
 					pauseOnVisibilityChange
 					draggable
 					pauseOnHover

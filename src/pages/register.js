@@ -72,7 +72,7 @@ export class RegisterForm extends Component {
 	};
 
 	render = () => (
-		<FormContainer marginTop="10vh">
+		<FormContainer>
 			<Head title="Register" />
 			<h2 css="text-align: center;margin-bottom: 0px;">Register</h2>
 			<p css="text-align: center;margin-top: 0px;">for a new account below.</p>

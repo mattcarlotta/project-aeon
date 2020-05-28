@@ -1,20 +1,11 @@
 /* istanbul ignore file */
 import styled from "styled-components";
 
-export default styled.div`
-	flex-direction: row;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-moz-box-align: center;
-	-ms-flex-align: center;
-	justify-content: center;
-	align-items: center;
+export default styled.header`
+	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100%;
-	background: #fff;
-	height: 55px;
-	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+	z-index: 5050;
+	background-color: #fff;
 `;

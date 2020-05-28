@@ -1,8 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import Router from "next/router";
 import { connect } from "react-redux";
 import { accessDenied } from "~messages/errors";
-import { signoutUser } from "~actions/Authentication";
 import FadeIn from "~components/Body/FadeIn";
 import Spinner from "~components/Body/Spinner";
 import toast from "~components/Body/Toast";
@@ -22,7 +22,7 @@ const withAuthentication = WrappedComponent => {
 
 		componentDidMount = () => {
 			if (this.props.authError) {
-				this.props.signoutUser();
+				Router.replace("/signin");
 				toast({ type: "error", message: this.props.authError });
 			}
 		};
@@ -39,17 +39,14 @@ const withAuthentication = WrappedComponent => {
 
 	RequiresAuthentication.propTypes = {
 		authError: PropTypes.string,
-		email: PropTypes.string,
-		signoutUser: PropTypes.func.isRequired
+		email: PropTypes.string
 	};
 
 	const mapStateToProps = ({ authentication }) => ({
 		email: authentication.email
 	});
 
-	const mapDispatchToProps = { signoutUser };
-
-	return connect(mapStateToProps, mapDispatchToProps)(RequiresAuthentication);
+	return connect(mapStateToProps)(RequiresAuthentication);
 };
 
 withAuthentication.propTypes = {

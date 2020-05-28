@@ -2,3 +2,159 @@
 @import "~antd/dist/antd.min.css";
 @import "~react-smde/dist/styles/react-smde.css";
 @import "./nprogress.scss";
+
+@font-face {
+	font-family: "Valera Round";
+	font-style: normal;
+	font-weight: normal;
+	src: url("./assets/fonts/VarelaRound-Regular.ttf") format("truetype");
+}
+
+#__next,
+body,
+html {
+	height: 100%;
+}
+html,
+body {
+	width: 100% !important;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	padding-top: 46px;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	background-color: #ebebeb;
+	min-height: 100vh;
+	font-size: 15px;
+}
+
+svg:not(:root) {
+	overflow: visible;
+}
+
+@keyframes wave {
+	0% {
+		left: -60%;
+	}
+	100% {
+		left: 125%;
+	}
+}
+
+@keyframes pulse {
+	0% {
+		background-color: #eee;
+	}
+	50% {
+		background-color: #e4e4e4;
+	}
+	100% {
+		background-color: #eee;
+	}
+}
+
+@keyframes pop {
+	0% {
+		top: 6px;
+		height: 46px;
+	}
+	50%,
+	100% {
+		top: 19px;
+		height: 21px;
+	}
+}
+
+@keyframes delay {
+	0%,
+	40%,
+	100% {
+		transform: scaleY(0.05);
+		-webkit-transform: scaleY(0.05);
+	}
+	20% {
+		transform: scaleY(1);
+		-webkit-transform: scaleY(1);
+	}
+}
+
+.link {
+	cursor: pointer;
+	display: block;
+	color: #03a9f3;
+	font-size: 16px;
+	transition: all 0.2s ease-in-out;
+	text-decoration: none;
+}
+
+.link:hover {
+	text-decoration: none;
+}
+
+[ant-click-animating-without-extra-node]:after {
+	-webkit-animation: none !important;
+	-moz-animation: none !important;
+	-o-animation: none !important;
+	-ms-animation: none !important;
+	animation: none !important;
+}
+
+.ant-layout-header {
+	height: 55px;
+	padding: 0;
+	color: rgba(0, 0, 0, 0.65);
+	line-height: 55px;
+}
+
+.ant-layout,
+.ant-layout-content {
+	background: #ebebeb;
+	height: 100%;
+}
+
+.ant-layout-content {
+	overflow-y: auto;
+	padding: 20px;
+}
+
+textarea::placeholder {
+	color: #bfbfbf;
+}
+
+.ant-select {
+	width: 100%;
+}
+
+.ant-select-selection--multiple .ant-select-selection__placeholder {
+	margin-left: 8px;
+}
+
+.ant-select-selection__rendered {
+	padding: 8px;
+	font-size: 16px;
+}
+
+.ant-select-selection:focus {
+	box-shadow: unset;
+}
+
+.ant-select-multiple .ant-select-selector {
+	padding: 9px;
+}
+
+.ant-select-selection *,
+::after,
+::before {
+	box-sizing: border-box;
+}
+
+::-moz-focus-inner {
+	border: 0;
+}

@@ -1,7 +1,6 @@
 // Error Messages //
 
-const accessDenied =
-	"Your access to the requested page was denied. You do not have the correct account permissions.";
+const accessDenied = "You must be logged in before you can view that page.";
 
 const alreadyLoggedIn =
 	"It looks like you are already logged in to another session. Please refresh your browser.";

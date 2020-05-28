@@ -3,41 +3,47 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const Button = ({
-	className,
-	children,
-	dataTestId,
-	disabled,
-	onBlur,
-	onContextMenu,
-	onClick,
-	onFocus,
-	onMouseDown,
-	onMouseEnter,
-	onMouseLeave,
-	onTouchStart,
-	style,
-	type
-}) => (
-	<button
-		aria-label="button"
-		data-testid={dataTestId}
-		className={className}
-		disabled={disabled}
-		onBlur={onBlur}
-		onClick={onClick}
-		onContextMenu={onContextMenu}
-		onFocus={onFocus}
-		onMouseDown={onMouseDown}
-		onMouseEnter={onMouseEnter}
-		onMouseLeave={onMouseLeave}
-		onTouchStart={onTouchStart}
-		style={style}
-		tabIndex={0}
-		type={type}
-	>
-		{children}
-	</button>
+const Button = React.forwardRef(
+	(
+		{
+			className,
+			children,
+			dataTestId,
+			disabled,
+			onBlur,
+			onContextMenu,
+			onClick,
+			onFocus,
+			onMouseDown,
+			onMouseEnter,
+			onMouseLeave,
+			onTouchStart,
+			style,
+			type
+		},
+		ref
+	) => (
+		<button
+			ref={ref}
+			aria-label="button"
+			data-testid={dataTestId}
+			className={className}
+			disabled={disabled}
+			onBlur={onBlur}
+			onClick={onClick}
+			onContextMenu={onContextMenu}
+			onFocus={onFocus}
+			onMouseDown={onMouseDown}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			onTouchStart={onTouchStart}
+			style={style}
+			tabIndex={0}
+			type={type}
+		>
+			{children}
+		</button>
+	)
 );
 
 Button.propTypes = {

@@ -44,7 +44,7 @@ const linkStyle = {
 	padding: 0
 };
 
-const Header = ({
+const NavBar = ({
 	avatar,
 	displayname,
 	isLoading,
@@ -125,13 +125,11 @@ const Header = ({
 							>
 								<Link href="/profile">
 									<Flex>
-										<span>
-											<img
-												css="max-height: 22px;max-width: 22px;margin-right: 10px;border-radius: 50%;"
-												src={avatar || DefaultAvatar}
-												alt="avatar"
-											/>
-										</span>
+										<img
+											css="max-height: 22px;max-width: 22px;margin-right: 10px;border-radius: 50%;"
+											src={avatar || DefaultAvatar}
+											alt="avatar"
+										/>
 										<TextAlign align="left">
 											<AccountButtonText>
 												{displayname || `${firstname} ${lastname}`}
@@ -156,7 +154,7 @@ const Header = ({
 	</NavContainer>
 );
 
-Header.propTypes = {
+NavBar.propTypes = {
 	avatar: PropTypes.string,
 	displayname: PropTypes.string,
 	firstname: PropTypes.string,
@@ -173,4 +171,4 @@ const mapDispatchToProps = {
 	signoutUser
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
