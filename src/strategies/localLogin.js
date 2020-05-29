@@ -14,20 +14,17 @@ passport.use(
 			passwordField: "password"
 		},
 		async (email, password, next) => {
-			await db.task("local-login", async dbtask => {
-				const existingUser = await dbtask.oneOrNone(findUserByEmail, [email]);
-				if (!existingUser) return next(badCredentials, null);
-				// if (!existingUser.verified) throw emailConfirmationReq;
+			const existingUser = await db.oneOrNone(findUserByEmail, [email]);
+			if (!existingUser) return next(badCredentials, null);
+			// if (!existingUser.verified) throw emailConfirmationReq;
 
-				const validPassword = await bcrypt.compare(
-					password,
-					existingUser.password
-				);
-				if (!validPassword) return next(badCredentials, null);
+			const validPassword = await bcrypt.compare(
+				password,
+				existingUser.password
+			);
+			if (!validPassword) return next(badCredentials, null);
 
-				const signedInUser = await dbtask.one(findUserByEmail, [email]);
-				return next(null, signedInUser);
-			});
+			return next(null, existingUser);
 		}
 	)
 );

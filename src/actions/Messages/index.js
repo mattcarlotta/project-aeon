@@ -1,10 +1,10 @@
 import * as constants from "~constants";
 
 /**
- * @function resetMessage - resets all messages.
+ * @function resetMessages - resets all messages.
  * @returns {object}
  */
-export const resetMessage = () => ({ type: constants.RESET_MESSAGES });
+export const resetMessages = () => ({ type: constants.RESET_MESSAGES });
 
 /**
  * @function setMessage - adds a new message.

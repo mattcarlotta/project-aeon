@@ -132,6 +132,13 @@ textarea::placeholder {
 	width: 100%;
 }
 
+.ant-dropdown-menu-item > a,
+.ant-dropdown-menu-item,
+.ant-dropdown-menu {
+	padding: 0;
+	margin: 0;
+}
+
 .ant-select-selection--multiple .ant-select-selection__placeholder {
 	margin-left: 8px;
 }

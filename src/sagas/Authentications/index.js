@@ -5,7 +5,7 @@ import imageAPI from "~utils/imageAPIConfig";
 import { parseCookie, parseData, parseMessage } from "~utils/parseResponse";
 import * as constants from "~constants";
 import * as actions from "~actions/Authentication";
-import { setError, setMessage, resetMessage } from "~actions/Messages";
+import { setError, setMessage, resetMessages } from "~actions/Messages";
 import toast from "~components/Body/Toast";
 
 /**
@@ -22,7 +22,7 @@ import toast from "~components/Body/Toast";
  */
 export function* createUserAvatar({ props }) {
 	try {
-		yield put(resetMessage());
+		yield put(resetMessages());
 
 		let res = yield call(imageAPI.post, "avatar/create", props);
 		const message = yield call(parseMessage, res);
@@ -54,7 +54,7 @@ export function* createUserAvatar({ props }) {
  */
 export function* deleteUserAvatar() {
 	try {
-		yield put(resetMessage());
+		yield put(resetMessages());
 
 		let res = yield call(imageAPI.delete, "avatar/delete");
 		const message = yield call(parseMessage, res);
@@ -130,7 +130,7 @@ export function* authenticateUser({ req }) {
  */
 export function* signinUser({ props }) {
 	try {
-		yield put(resetMessage());
+		yield put(resetMessages());
 
 		const res = yield call(app.post, "users/signin", { ...props });
 		const data = yield call(parseData, res);
@@ -157,7 +157,7 @@ export function* signinUser({ props }) {
  */
 export function* signupUser({ props }) {
 	try {
-		yield put(resetMessage());
+		yield put(resetMessages());
 
 		const res = yield call(app.post, "users/signup", { ...props });
 		const message = yield call(parseMessage, res);
@@ -186,7 +186,7 @@ export function* signupUser({ props }) {
  */
 export function* updateUserAvatar({ props }) {
 	try {
-		yield put(resetMessage());
+		yield put(resetMessages());
 
 		let res = yield call(imageAPI.put, "avatar/update", props);
 		const message = yield call(parseMessage, res);
@@ -218,7 +218,7 @@ export function* updateUserAvatar({ props }) {
  */
 export function* updateUserProfile({ props }) {
 	try {
-		yield put(resetMessage());
+		yield put(resetMessages());
 
 		let res = yield call(app.put, "users/profile/update", { ...props });
 		const message = yield call(parseMessage, res);

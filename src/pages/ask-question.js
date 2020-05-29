@@ -4,6 +4,7 @@ import Head from "~components/Navigation/Head";
 import Container from "~components/Body/Container";
 import PageContainer from "~components/Body/PageContainer";
 import QuestionForm from "~containers/Forms/QuestionForm";
+import withAuthentication from "~containers/App/withAuthentication";
 
 const AskQuestion = () => (
 	<PageContainer>
@@ -22,4 +23,4 @@ const AskQuestion = () => (
 	</PageContainer>
 );
 
-export default AskQuestion;
+export default withAuthentication(AskQuestion);

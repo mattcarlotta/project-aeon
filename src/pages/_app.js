@@ -3,12 +3,12 @@ import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
 import NProgress from "nprogress";
-import { ToastContainer } from "react-toastify";
 import { signin } from "~actions/Authentication";
-import { resetMessage } from "~actions/Messages";
+import { resetMessages } from "~actions/Messages";
 import Wrapper from "~components/Body/Wrapper";
 import toast from "~components/Body/Toast";
 import NavBar from "~components/Navigation/NavBar";
+import ServerMessages from "~containers/App/ServerMessages";
 import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 import { parseCookie, parseData } from "~utils/parseResponse";
@@ -21,11 +21,11 @@ export class MyApp extends App {
 			store: { dispatch, getState },
 			req
 		} = ctx;
-		const { isLoading, role } = getState().authentication;
+		const { role } = getState().authentication;
 
-		dispatch(resetMessage());
+		dispatch(resetMessages());
 
-		if (isLoading && !role) {
+		if (!role) {
 			try {
 				const res = await app.get("users/signedin", parseCookie(req));
 				const data = parseData(res);
@@ -89,16 +89,8 @@ export class MyApp extends App {
 				<NavBar />
 				<Wrapper>
 					<Component {...pageProps} />
+					<ServerMessages />
 				</Wrapper>
-				<ToastContainer
-					position="top-right"
-					autoClose={2500}
-					hideProgressBar={false}
-					newestOnTop={false}
-					pauseOnVisibilityChange
-					draggable
-					pauseOnHover
-				/>
 			</>
 		);
 	}

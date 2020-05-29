@@ -1,11 +1,11 @@
 import Head from "~components/Navigation/Head";
 import PageContainer from "~components/Body/PageContainer";
 
-const Help = () => (
+const Dashboard = () => (
 	<PageContainer>
-		<Head title="Help" />
-		<h1>Help</h1>
+		<Head title="Dashboard" />
+		<h1>Dashboard</h1>
 	</PageContainer>
 );
 
-export default Help;
+export default Dashboard;

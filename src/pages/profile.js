@@ -16,6 +16,7 @@ import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 import withAuthentication from "~containers/App/withAuthentication";
 import UploadImageForm from "~containers/Forms/UploadImage";
+import PageContainer from "~components/Body/PageContainer";
 
 const TabPane = Tabs.TabPane;
 
@@ -41,7 +42,7 @@ class Profile extends Component {
 		const { showImageForm } = this.state;
 
 		return (
-			<>
+			<PageContainer>
 				<Head title="Profile" />
 				{!isEmpty(settings) ? (
 					<Row gutter={10}>
@@ -106,7 +107,7 @@ class Profile extends Component {
 				) : (
 					<Spinner />
 				)}
-			</>
+			</PageContainer>
 		);
 	};
 }
