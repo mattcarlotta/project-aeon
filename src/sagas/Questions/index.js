@@ -3,7 +3,7 @@ import app from "~utils/axiosConfig";
 import { parseData } from "~utils/parseResponse"; // parseMessage
 import * as actions from "~actions/Questions";
 import * as constants from "~constants";
-import toast from "~components/Body/Toast";
+import setServerError from "~utils/setServerError";
 
 /**
  * Attempts to fetch newest questions.
@@ -16,14 +16,13 @@ import toast from "~components/Body/Toast";
  * @yields {action} - A redux action to set questions to state.
  */
 export function* fetchQuestions() {
-	let data = [];
 	try {
 		const res = yield call(app.get, "questions");
-		data = yield call(parseData, res);
-	} catch (e) {
-		yield call(toast, { type: "error", message: e.toString() });
-	} finally {
+		const data = yield call(parseData, res);
+
 		yield put(actions.setQuestions(data));
+	} catch (e) {
+		yield call(setServerError, e.toString());
 	}
 }
 

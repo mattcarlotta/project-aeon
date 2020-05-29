@@ -7,5 +7,4 @@ export default styled.div`
 	box-shadow: 0 2px 4px 0 rgba(181, 181, 181, 0.7);
 	padding: 10px;
 	background: #fff;
-	margin-top: 5vh;
 `;

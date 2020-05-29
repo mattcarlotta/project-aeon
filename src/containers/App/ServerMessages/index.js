@@ -6,7 +6,8 @@ import { resetMessages } from "~actions/Messages";
 
 export class ServerMessages extends Component {
 	shouldComponentUpdate = nextProps =>
-		nextProps.serverMessage !== this.props.serverMessage;
+		nextProps.serverMessage !== this.props.serverMessage ||
+		nextProps.serverError !== this.props.serverError;
 
 	componentDidUpdate = prevProps => {
 		const { serverError, serverMessage } = this.props;

@@ -1,6 +1,6 @@
 const userQueries = {
 	createNewUser:
-		"INSERT INTO users(email, password, firstname, lastname, token) VALUES ($1, $2, $3, $4, $5) RETURNING firstname",
+		"INSERT INTO users(email, password, firstname, lastname, token) VALUES ($1, $2, $3, $4, $5)",
 	findUserByEmail: "SELECT * FROM users WHERE email=$1",
 	findUserByDisplayName: "SELECT email FROM users WHERE displayname=$1",
 	findUserById:

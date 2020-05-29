@@ -16,31 +16,23 @@ export const localSignup = next => async (req, res) => {
 		const { email, firstname, lastname, password } = req.body;
 
 		if (!email || !firstname || !lastname || !password)
-			throw missingSignupCreds;
+			throw String(missingSignupCreds);
 
-		const { err, newUser } = await db.task("local-signup", async dbtask => {
-			const existingUser = await dbtask.oneOrNone(findUserByEmail, [email]);
-			if (existingUser) return { err: emailAlreadyTaken, newUser: null };
+		const existingUser = await db.oneOrNone(findUserByEmail, [email]);
+		if (existingUser) throw String(emailAlreadyTaken);
 
-			const newPassword = await bcrypt.hash(password, 12);
-			const token = createRandomToken();
-			const { firstname, lastname } = req.body;
+		const newPassword = await bcrypt.hash(password, 12);
+		const token = createRandomToken();
 
-			const createdUser = await dbtask.one(createNewUser, [
-				email,
-				newPassword,
-				firstname,
-				lastname,
-				token
-			]);
+		await db.one(createNewUser, [
+			email,
+			newPassword,
+			firstname,
+			lastname,
+			token
+		]);
 
-			return { err: "", newUser: createdUser };
-		});
-		if (err) throw String(err);
-
-		req.user = {
-			firstname: newUser.firstname
-		};
+		req.user.firstname = firstname;
 
 		return next(req, res);
 	} catch (err) {

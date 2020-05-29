@@ -5,8 +5,8 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import { signin } from "~actions/Authentication";
 import { resetMessages } from "~actions/Messages";
-import Wrapper from "~components/Body/Wrapper";
 import toast from "~components/Body/Toast";
+import PageContainer from "~components/Body/PageContainer";
 import NavBar from "~components/Navigation/NavBar";
 import ServerMessages from "~containers/App/ServerMessages";
 import { wrapper } from "~store";
@@ -87,10 +87,10 @@ export class MyApp extends App {
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
 				<NavBar />
-				<Wrapper>
+				<PageContainer>
 					<Component {...pageProps} />
-					<ServerMessages />
-				</Wrapper>
+				</PageContainer>
+				<ServerMessages />
 			</>
 		);
 	}

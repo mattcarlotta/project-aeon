@@ -2,11 +2,34 @@ import { all, put, call, takeLatest } from "redux-saga/effects";
 import Router from "next/router";
 import app from "~utils/axiosConfig";
 import imageAPI from "~utils/imageAPIConfig";
-import { parseCookie, parseData, parseMessage } from "~utils/parseResponse";
+import { parseData, parseMessage } from "~utils/parseResponse";
 import * as constants from "~constants";
 import * as actions from "~actions/Authentication";
-import { setError, setMessage, resetMessages } from "~actions/Messages";
+import { setMessage, resetMessages } from "~actions/Messages";
+import setServerError from "~utils/setServerError";
 import toast from "~components/Body/Toast";
+
+/**
+ * Updates the user's session.
+ *
+ * @generator
+ * @function relogin
+ * @yields {object} - A response from a call to API.
+ * @function parseData - returns a parsed res.data.
+ * @yields {action} - A redux action to update redux authentication state.
+ * @yields {action} - A redux action to get updated profile details.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+function* relogin() {
+	try {
+		const res = yield call(app.get, "users/signedin");
+		const data = yield call(parseData, res);
+
+		yield put(actions.signin(data));
+	} catch (e) {
+		yield call(setServerError, e.toString());
+	}
+}
 
 /**
  * Attempts to create a new user avatar.
@@ -24,19 +47,15 @@ export function* createUserAvatar({ props }) {
 	try {
 		yield put(resetMessages());
 
-		let res = yield call(imageAPI.post, "avatar/create", props);
+		const res = yield call(imageAPI.post, "avatar/create", props);
 		const message = yield call(parseMessage, res);
 
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		res = yield call(app.get, "users/signedin");
-		const updatedUserData = yield call(parseData, res);
-
-		yield put(actions.signin(updatedUserData));
+		yield call(relogin);
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -56,19 +75,15 @@ export function* deleteUserAvatar() {
 	try {
 		yield put(resetMessages());
 
-		let res = yield call(imageAPI.delete, "avatar/delete");
+		const res = yield call(imageAPI.delete, "avatar/delete");
 		const message = yield call(parseMessage, res);
 
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		res = yield call(app.get, "users/signedin");
-		const updatedUserData = yield call(parseData, res);
-
-		yield put(actions.signin(updatedUserData));
+		yield call(relogin);
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -89,31 +104,7 @@ export function* signoutUserSession() {
 
 		yield call(Router.replace, "/");
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
-	}
-}
-
-/**
- * Attempts to automatically sign user in via a session.
- *
- * @generator
- * @function authenticateUser
- * @yields {object} - A response from a call to the API.
- * @function parseData - returns a parsed res.data.
- * @yields {action} - A redux action to set the current user.
- * @throws {action} - A redux action to display a server message by type.
- */
-export function* authenticateUser({ req }) {
-	try {
-		const headers = yield call(parseCookie, req);
-		const res = yield call(app.get, "users/signedin", headers);
-		const data = yield call(parseData, res);
-
-		yield put(actions.signin(data));
-	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -138,8 +129,7 @@ export function* signinUser({ props }) {
 		yield put(actions.signin(data));
 		yield call(Router.push, "/");
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -167,8 +157,7 @@ export function* signupUser({ props }) {
 
 		yield call(Router.push, "/signin");
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -188,19 +177,15 @@ export function* updateUserAvatar({ props }) {
 	try {
 		yield put(resetMessages());
 
-		let res = yield call(imageAPI.put, "avatar/update", props);
+		const res = yield call(imageAPI.put, "avatar/update", props);
 		const message = yield call(parseMessage, res);
 
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		res = yield call(app.get, "users/signedin");
-		const updatedUserData = yield call(parseData, res);
-
-		yield put(actions.signin(updatedUserData));
+		yield call(relogin);
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -220,19 +205,15 @@ export function* updateUserProfile({ props }) {
 	try {
 		yield put(resetMessages());
 
-		let res = yield call(app.put, "users/profile/update", { ...props });
+		const res = yield call(app.put, "users/profile/update", { ...props });
 		const message = yield call(parseMessage, res);
 
 		yield call(toast, { type: "success", message });
 		yield put(setMessage(message));
 
-		res = yield call(app.get, "users/signedin");
-		const updatedUserData = yield call(parseData, res);
-
-		yield put(actions.signin(updatedUserData));
+		yield call(relogin);
 	} catch (e) {
-		yield put(setError(e.toString()));
-		yield call(toast, { type: "error", message: e.toString() });
+		yield call(setServerError, e.toString());
 	}
 }
 
@@ -245,7 +226,6 @@ export function* updateUserProfile({ props }) {
  */
 export default function* authSagas() {
 	yield all([
-		takeLatest(constants.AUTH_SIGNIN_SESSION, authenticateUser),
 		takeLatest(constants.AUTH_CREATE_AVATAR, createUserAvatar),
 		takeLatest(constants.AUTH_DELETE_AVATAR, deleteUserAvatar),
 		takeLatest(constants.AUTH_SIGNIN_ATTEMPT, signinUser),

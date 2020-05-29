@@ -16,7 +16,6 @@ import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 import withAuthentication from "~containers/App/withAuthentication";
 import UploadImageForm from "~containers/Forms/UploadImage";
-import PageContainer from "~components/Body/PageContainer";
 
 const TabPane = Tabs.TabPane;
 
@@ -39,10 +38,9 @@ class Profile extends Component {
 
 	render = () => {
 		const { settings } = this.props;
-		const { showImageForm } = this.state;
 
 		return (
-			<PageContainer>
+			<>
 				<Head title="Profile" />
 				{!isEmpty(settings) ? (
 					<Row gutter={10}>
@@ -50,7 +48,7 @@ class Profile extends Component {
 							<Container style={{ paddingTop: 20 }}>
 								<Center>
 									<div css="height: 250px;">
-										{showImageForm ? (
+										{this.state.showImageForm ? (
 											<UploadImageForm
 												{...this.state}
 												closeForm={this.toggleImageForm}
@@ -107,7 +105,7 @@ class Profile extends Component {
 				) : (
 					<Spinner />
 				)}
-			</PageContainer>
+			</>
 		);
 	};
 }

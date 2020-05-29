@@ -14,14 +14,14 @@ import { badCredentials, missingSigninCredentials } from "~messages/errors";
 export const localLogin = next => async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		if (!email || !password) throw missingSigninCredentials;
+		if (!email || !password) throw String(missingSigninCredentials);
 
 		const existingUser = await db.oneOrNone(findUserByEmail, [email]);
-		if (!existingUser) throw badCredentials;
-		// if (!existingUser.verified) throw emailConfirmationReq;
+		if (!existingUser) throw String(badCredentials);
+		// if (!existingUser.verified) throw String(emailConfirmationReq);
 
 		const validPassword = await bcrypt.compare(password, existingUser.password);
-		if (!validPassword) throw badCredentials;
+		if (!validPassword) throw String(badCredentials);
 
 		req.session = {
 			id: existingUser.id,

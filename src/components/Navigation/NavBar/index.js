@@ -105,7 +105,7 @@ const Header = ({
 										</AccountButtonText>
 									</TextAlign>
 								</ListItem>
-								<ListItem>
+								<ListItem style={{ margin: "0 0 0 10px" }}>
 									<Dropdown
 										placement="bottomRight"
 										overlay={

@@ -2,17 +2,6 @@ import isEmpty from "lodash.isempty";
 import * as constants from "~constants";
 
 /**
- * Sign in user via a session.
- *
- * @function authenticateUser
- * @returns {object}
- */
-export const authenticateUser = req => ({
-	type: constants.AUTH_SIGNIN_SESSION,
-	req
-});
-
-/**
  * Creates a user avatar.
  *
  * @function createUserAvatar
