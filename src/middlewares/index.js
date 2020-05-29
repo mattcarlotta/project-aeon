@@ -1,6 +1,5 @@
 /* eslint disable */
 import morgan from "morgan";
-import passport from "passport";
 import session from "cookie-session";
 import { sendError } from "~utils/helpers";
 
@@ -19,8 +18,7 @@ export default next => async (req, res) => {
 				secure: inProduction && !inStaging,
 				sameSite: inProduction && !inStaging
 			}),
-			!inProduction && morgan("tiny"),
-			passport.initialize()
+			!inProduction && morgan("tiny")
 		].filter(Boolean);
 
 		const promises = middlewares.reduce((acc, middleware) => {

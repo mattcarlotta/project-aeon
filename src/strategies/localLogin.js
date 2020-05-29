@@ -1,33 +1,8 @@
 import bcrypt from "bcryptjs";
-import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
 import { findUserByEmail } from "~database/queries";
 import { sendError } from "~utils/helpers";
 import db from "~database/connection";
 import { badCredentials, missingSigninCredentials } from "~messages/errors";
-
-passport.use(
-	"local-login",
-	new LocalStrategy(
-		{
-			usernameField: "email",
-			passwordField: "password"
-		},
-		async (email, password, next) => {
-			const existingUser = await db.oneOrNone(findUserByEmail, [email]);
-			if (!existingUser) return next(badCredentials, null);
-			// if (!existingUser.verified) throw emailConfirmationReq;
-
-			const validPassword = await bcrypt.compare(
-				password,
-				existingUser.password
-			);
-			if (!validPassword) return next(badCredentials, null);
-
-			return next(null, existingUser);
-		}
-	)
-);
 
 /**
  * Middleware function to login in a user (applies user to req.session).
@@ -41,11 +16,12 @@ export const localLogin = next => async (req, res) => {
 		const { email, password } = req.body;
 		if (!email || !password) throw missingSigninCredentials;
 
-		const existingUser = await new Promise((resolve, reject) => {
-			passport.authenticate("local-login", (err, user) =>
-				err ? reject(err) : resolve(user)
-			)(req, res, next);
-		});
+		const existingUser = await db.oneOrNone(findUserByEmail, [email]);
+		if (!existingUser) throw badCredentials;
+		// if (!existingUser.verified) throw emailConfirmationReq;
+
+		const validPassword = await bcrypt.compare(password, existingUser.password);
+		if (!validPassword) throw badCredentials;
 
 		req.session = {
 			id: existingUser.id,
@@ -61,9 +37,9 @@ export const localLogin = next => async (req, res) => {
 			website: existingUser.website
 		};
 
-		next(req, res);
+		return next(req, res);
 	} catch (err) {
-		sendError(err, res);
+		return sendError(err, res);
 	}
 };
 
