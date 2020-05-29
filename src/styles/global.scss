@@ -1,89 +1,8 @@
 @import "~react-toastify/dist/ReactToastify.css";
 @import "~antd/dist/antd.min.css";
 @import "~react-smde/dist/styles/react-smde.css";
+@import "~highlight.js/styles/atelier-forest-light.css";
 @import "./nprogress.scss";
-
-@font-face {
-	font-family: "Valera Round";
-	font-style: normal;
-	font-weight: normal;
-	src: url("./assets/fonts/VarelaRound-Regular.ttf") format("truetype");
-}
-
-#__next,
-body,
-html {
-	height: 100%;
-}
-html,
-body {
-	width: 100% !important;
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	padding-top: 46px;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-		"Helvetica Neue", sans-serif;
-	background-color: #ebebeb;
-	min-height: 100vh;
-	font-size: 15px;
-}
-
-svg:not(:root) {
-	overflow: visible;
-}
-
-@keyframes wave {
-	0% {
-		left: -60%;
-	}
-	100% {
-		left: 125%;
-	}
-}
-
-@keyframes pulse {
-	0% {
-		background-color: #eee;
-	}
-	50% {
-		background-color: #e4e4e4;
-	}
-	100% {
-		background-color: #eee;
-	}
-}
-
-@keyframes pop {
-	0% {
-		top: 6px;
-		height: 46px;
-	}
-	50%,
-	100% {
-		top: 19px;
-		height: 21px;
-	}
-}
-
-@keyframes delay {
-	0%,
-	40%,
-	100% {
-		transform: scaleY(0.05);
-		-webkit-transform: scaleY(0.05);
-	}
-	20% {
-		transform: scaleY(1);
-		-webkit-transform: scaleY(1);
-	}
-}
 
 .link {
 	cursor: pointer;
@@ -148,12 +67,51 @@ textarea::placeholder {
 	font-size: 16px;
 }
 
-.ant-select-selection:focus {
-	box-shadow: unset;
+.ant-select-selection {
+	border: 1px solid #d9d9d9;
 }
 
 .ant-select-multiple .ant-select-selector {
 	padding: 9px;
+}
+
+.ant-select-selection:focus,
+.ant-select-open .ant-select-selection {
+	box-shadow: none;
+}
+
+.mde:hover {
+	& .mde-textarea-wrapper {
+		border-color: #40a9ff;
+		transition: border-color 0.2s ease-in-out;
+	}
+}
+
+.mde-toolbar,
+.mde-grip {
+	background: #fff;
+}
+
+.mde-toolbar {
+	border-radius: 4px 4px 0 0;
+	border-top: 1px solid #d9d9d9;
+	border-left: 1px solid #d9d9d9;
+	border-right: 1px solid #d9d9d9;
+}
+
+.mde-grip {
+	border-radius: 0px 0px 4px 4px;
+	border-left: 1px solid #d9d9d9;
+	border-right: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.mde-textarea-wrapper {
+	border: 1px solid #d9d9d9;
+}
+
+.svg-icon {
+	color: #252525;
 }
 
 .ant-select-selection *,

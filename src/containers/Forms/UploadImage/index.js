@@ -44,24 +44,15 @@ export class UpdateImageForm extends Component {
 		try {
 			const file = files[0];
 
-			const isAccepted = [
-				"image/jpeg",
-				"image/png",
-				"image/gif",
-				"image/bmp"
-			].some(type => type === file.type);
+			const isAccepted = ["image/jpeg", "image/png", "image/gif"].some(
+				type => type === file.type
+			);
 			const isLt10MB = file.size / 10240000 <= 1;
 
 			if (!isAccepted || !isLt10MB) throw String("Invalid format.");
 
 			const img = new Image();
 			img.src = URL.createObjectURL(file);
-
-			await new Promise(
-				(resolve, reject) =>
-					(img.onload = () =>
-						img.width <= 256 && img.height <= 256 ? resolve() : reject())
-			);
 
 			this.setState({
 				file,
@@ -70,7 +61,7 @@ export class UpdateImageForm extends Component {
 		} catch (e) {
 			toast({
 				type: "error",
-				message: "Only 10MB (image/jpg,png,bmp,gif) files are accepted!"
+				message: "Only 10MB (image/jpg,png,gif) files are accepted!"
 			});
 		}
 	};

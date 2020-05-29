@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Input as AntInput, Switch } from "antd";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import Markdown from "markdown-to-jsx";
+import MDEditor from "react-smde";
+import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import Label from "~components/Forms/Label";
 import Errors from "~components/Forms/Errors";
 import Input from "~components/Forms/Input";
 import Select from "~components/Forms/Select";
-import MDEditor from "~components/Forms/MDEditor";
 import TagSelection from "~components/Forms/TagSelection";
 
 const TextArea = AntInput.TextArea;
@@ -63,9 +63,7 @@ const FieldGenerator = ({ fields, onChange }) =>
 								onChange({ target: { name: props.name, value } })
 							}
 						>
-							<Markdown options={{ disableParsingRawHTML: true }}>
-								{props.value}
-							</Markdown>
+							<MarkdownPreviewer>{props.value || "(empty)"}</MarkdownPreviewer>
 						</MDEditor>
 						{props.errors && <Errors>{props.errors}</Errors>}
 					</div>

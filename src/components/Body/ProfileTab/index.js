@@ -1,9 +1,9 @@
 /* eslint-disable react/no-danger */
 import React from "react";
 import PropTypes from "prop-types";
-import Markdown from "markdown-to-jsx";
 import Button from "~components/Body/Button";
 import Info from "~components/Body/Info";
+import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import MissingDetails from "~components/Body/MissingDetails";
 import SubTitle from "~components/Body/SubTitle";
 import TabContainer from "~components/Body/TabContainer";
@@ -61,9 +61,7 @@ const Profile = ({
 				<div css="margin-bottom: 20px;">
 					{description ? (
 						<SubTitle style={subtitleStyle}>
-							<Markdown options={{ disableParsingRawHTML: true }}>
-								{description}
-							</Markdown>
+							<MarkdownPreviewer>{description}</MarkdownPreviewer>
 						</SubTitle>
 					) : (
 						<MissingDetails>

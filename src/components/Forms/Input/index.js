@@ -9,7 +9,7 @@ export default styled(Input)`
 
 	input {
 		position: relative;
-		padding: 10px;
+		padding: 11px;
 		width: 100%;
 		font-size: 16px;
 		background: #fff;
@@ -18,7 +18,7 @@ export default styled(Input)`
 		transition: border 0.2s ease-in-out;
 
 		&:hover {
-			border: 1px solid #bfbebe;
+			border: 1px solid #40a9ff;
 		}
 
 		&::placeholder {

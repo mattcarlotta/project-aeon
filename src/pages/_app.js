@@ -10,6 +10,7 @@ import PageContainer from "~components/Body/PageContainer";
 import NavBar from "~components/Navigation/NavBar";
 import ServerMessages from "~containers/App/ServerMessages";
 import { wrapper } from "~store";
+import GlobalStylesheet from "~styles/globalStylesheet";
 import app from "~utils/axiosConfig";
 import { parseCookie, parseData } from "~utils/parseResponse";
 import { version } from "../../package.json";
@@ -86,6 +87,7 @@ export class MyApp extends App {
 					<meta name="build version" content={`${version}`} />
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
+				<GlobalStylesheet />
 				<NavBar />
 				<PageContainer>
 					<Component {...pageProps} />

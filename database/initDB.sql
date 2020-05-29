@@ -20,5 +20,5 @@ CREATE TABLE users (
 	website TEXT, 
 	description TEXT,
 	displayname TEXT UNIQUE,
- role TEXT DEFAULT 'member'
+ 	role TEXT DEFAULT 'member'
 );
