@@ -6,36 +6,37 @@ import FlexEnd from "~components/Body/FlexEnd";
 import FlexStart from "~components/Body/FlexStart";
 import ClickHandler from "./ClickHandler";
 import DropdownContainer from "./DropdownContainer";
-import Menu from "./Menu";
+import DropdownMenu from "./DropdownMenu";
+import SelectContainer from "./SelectContainer";
 
 const Dropdown = ({ children, menu }) => (
 	<ClickHandler>
 		{({ isVisible, handleMenuClick }) => (
-			<div
-				data-testid="select-container"
-				css="display: flex;margin: 0 auto;width: 100%;max-width: 225px;
-  flex-direction: row;"
-			>
-				<div css="position: relative;width: 100%;">
-					<DropdownContainer isVisible={isVisible} onClick={handleMenuClick}>
-						<Flex>
-							<FlexStart>{children}</FlexStart>
-							<FlexEnd>
-								<FaChevronUp
-									style={{
-										fontSize: 12,
-										transform: `${
-											isVisible ? "rotate(-180deg)" : "rotate(0deg)"
-										}`,
-										transition: "transform  0.2s ease-in-out"
-									}}
-								/>
-							</FlexEnd>
-						</Flex>
-					</DropdownContainer>
-					{isVisible && <Menu>{menu}</Menu>}
-				</div>
-			</div>
+			<SelectContainer data-testid="select-container">
+				<DropdownContainer
+					data-testid="dropdown-container"
+					isVisible={isVisible}
+					onClick={handleMenuClick}
+				>
+					<Flex>
+						<FlexStart data-testid="dropdown-children">{children}</FlexStart>
+						<FlexEnd data-testid="dropdown-chevron">
+							<FaChevronUp
+								style={{
+									fontSize: 12,
+									transform: `${
+										isVisible ? "rotate(-180deg)" : "rotate(0deg)"
+									}`,
+									transition: "transform 0.2s ease-in-out"
+								}}
+							/>
+						</FlexEnd>
+					</Flex>
+				</DropdownContainer>
+				{isVisible && (
+					<DropdownMenu data-testid="dropdown-menu">{menu}</DropdownMenu>
+				)}
+			</SelectContainer>
 		)}
 	</ClickHandler>
 );
