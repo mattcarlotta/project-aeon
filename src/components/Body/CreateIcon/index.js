@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUserPlus } from "react-icons/fa";
 
 const CreateIcon = () => (

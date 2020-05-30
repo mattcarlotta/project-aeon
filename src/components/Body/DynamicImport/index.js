@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 /* eslint-disable no-console */
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import Spinner from "~components/Spinner";
 

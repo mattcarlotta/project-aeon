@@ -1,4 +1,3 @@
-import React from "react";
 import { Col, Row } from "antd";
 import Head from "~components/Navigation/Head";
 import Container from "~components/Body/Container";

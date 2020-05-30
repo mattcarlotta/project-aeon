@@ -1,4 +1,3 @@
-import React from "react";
 import { FaChartArea } from "react-icons/fa";
 import Container from "~components/Container";
 import FlexCenter from "~components/FlexCenter";

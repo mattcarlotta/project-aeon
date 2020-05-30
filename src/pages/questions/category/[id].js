@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import { Component } from "react";
+import { withRouter } from "next/router";
 import PropTypes from "prop-types";
 import get from "lodash.get";
 import Head from "~components/Navigation/Head";
@@ -6,20 +7,23 @@ import Head from "~components/Navigation/Head";
 class Questions extends Component {
 	constructor(props) {
 		super(props);
-		const id = get(query, ["id"]);
-		this.state = { id: id[0].toUpperCase() + id.substring(1) };
+		this.state = { id: get(props.router.query, ["id"]) || "" };
 	}
 
 	render = () => (
 		<>
-			<Head title={`${this.state.id} Questions`} />
+			<Head title={`Newest '${this.state.id}' Questions`} />
 			<div>Nothing to see here</div>
 		</>
 	);
 }
 
 Questions.propTypes = {
-	id: PropTypes.string
+	router: PropTypes.shape({
+		query: PropTypes.shape({
+			id: PropTypes.string
+		})
+	})
 };
 
-export default Questions;
+export default withRouter(Questions);

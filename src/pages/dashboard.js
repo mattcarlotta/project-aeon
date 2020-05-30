@@ -1,4 +1,5 @@
 import Head from "~components/Navigation/Head";
+import withAuthentication from "~containers/App/withAuthentication";
 
 const Dashboard = () => (
 	<>
@@ -7,4 +8,4 @@ const Dashboard = () => (
 	</>
 );
 
-export default Dashboard;
+export default withAuthentication(Dashboard);

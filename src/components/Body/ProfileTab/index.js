@@ -1,5 +1,4 @@
 /* eslint-disable react/no-danger */
-import React from "react";
 import PropTypes from "prop-types";
 import Button from "~components/Body/Button";
 import Info from "~components/Body/Info";

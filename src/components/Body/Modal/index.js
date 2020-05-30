@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { FaTimes } from "react-icons/fa";

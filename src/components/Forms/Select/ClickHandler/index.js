@@ -1,5 +1,5 @@
 /* eslint-disable no-lonely-if */
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 class ClickHandler extends Component {

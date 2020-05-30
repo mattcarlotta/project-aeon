@@ -1,4 +1,3 @@
-import React from "react";
 import LandingContainer from "~components/Body/LandingContainer";
 import Button from "~components/Body/Button";
 import SubTitle from "~components/Body/SubTitle";

@@ -9,48 +9,15 @@ export default createGlobalStyle`
     src: url(${VarelaRound}) format('truetype');
   }
   
-  #__next, body, html {
+  html,body,#__next {
     height: 100%;
-  }
-
-  html,body {
-    height: 100%;
-    width: 100% !important;
+    width: 100%;
     margin: 0;
     padding: 0;
   }
 
   body {
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    background-color: #ebebeb;
-    min-height: 100vh;
-    font-size: 15px;
-  }
-
-  #__next,
-  body,
-  html {
-    height: 100%;
-  }
-
-  html,
-  body {
-    width: 100% !important;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    padding-top: 46px;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-      "Helvetica Neue", sans-serif;
     background-color: #ebebeb;
     min-height: 100vh;
     font-size: 15px;

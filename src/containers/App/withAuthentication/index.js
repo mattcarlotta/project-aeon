@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 import { connect } from "react-redux";

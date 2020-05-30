@@ -1,4 +1,3 @@
-import React from "react";
 import FlexCenter from "~components/Body/FlexCenter";
 import HomeIcon from "~components/Body/HomeIcon";
 import Button from "~components/Body/Button";
