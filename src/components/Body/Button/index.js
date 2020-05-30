@@ -38,7 +38,7 @@ const Button = React.forwardRef(
 			onTouchStart={onTouchStart}
 			style={style}
 			tabIndex={0}
-			type={type}
+			type={type || "button"}
 		>
 			{children}
 		</button>
@@ -71,7 +71,7 @@ Button.defaultProps = {
 
 export default styled(Button)`
 	font-size: 16px;
-	line-height: 26px;
+	height: 100%;
 	text-align: center;
 	transition: all 0.2s ease-in-out;
 	text-decoration: none;
@@ -88,6 +88,8 @@ export default styled(Button)`
 			return "border:1px solid #188fff;background-color:#188fff;color:#fff;";
 		if (props.danger)
 			return "border:1px solid #f0506e;background-color:transparent;color:#f0506e;";
+		if (props.link)
+			return "border: 0;background-color:transparent;color:#000000a6;";
 		return "border:1px solid #03a9f3;background-color:transparent;color:#03a9f3;";
 	}};
 
@@ -99,6 +101,7 @@ export default styled(Button)`
 				return "border-color:#0f7ae5;background-color:#0f7ae5;";
 			if (props.danger)
 				return "border-color:#ee395b;background-color:transparent;color:#ee395b;";
+			if (props.link) return "color:#40a9ff;";
 			return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
 		}};
 	}

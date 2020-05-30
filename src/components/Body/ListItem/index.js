@@ -2,8 +2,8 @@
 import styled from "styled-components";
 
 export default styled.li`
-	display: inline-block;
-	margin: 0px 10px;
+	display: flex;
+	margin-left: 10px;
 
 	& .ant-btn-group {
 		display: flex;
