@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default styled.div`
 	width: 225px;
 	display: flex;
-	min-height: 38px;
+	height: 40px;
 	border-radius: ${({ isVisible }) => (isVisible ? "4px 4px 0 0" : "4px")};
 	border-top: 1px solid #bdbdbd;
 	border-left: 1px solid #bdbdbd;

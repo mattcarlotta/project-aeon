@@ -6,4 +6,5 @@ export default styled.li`
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	height: 40px;
+	user-select: none;
 `;
