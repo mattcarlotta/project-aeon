@@ -9,5 +9,5 @@ export default styled.header`
 	z-index: 2;
 	background-color: #fff;
 	height: 52px;
-	box-shadow: 0px -1px 3px 2px rgba(0, 0, 0, 0.31);
+	border-bottom: 1px solid #d5d5d6;
 `;

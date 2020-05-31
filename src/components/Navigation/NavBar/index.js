@@ -3,20 +3,20 @@ import { connect } from "react-redux";
 import { FaUserCog, FaSignOutAlt, FaQuestionCircle } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { signoutUser } from "~actions/Authentication";
+import AccountButtonText from "~components/Body/AccountButtonText";
 import Dropdown from "~components/Body/Dropdown";
 import FlexEnd from "~components/Body/FlexEnd";
+import FlexMiddle from "~components/Body/FlexMiddle";
+import FlexStart from "~components/Body/FlexStart";
 import List from "~components/Body/List";
 import ListItem from "~components/Body/ListItem";
 import Button from "~components/Body/Button";
 import Menu from "~components/Body/Menu";
 import MenuItem from "~components/Body/MenuItem";
+
 import NavHeader from "~components/Navigation/NavHeader";
 import LoadingNav from "~components/Navigation/LoadingNav";
 import Link from "~components/Navigation/Link";
-import FlexMiddle from "~components/Body/FlexMiddle";
-import TextAlign from "~components/Body/TextAlign";
-import AccountButtonText from "~components/Body/AccountButtonText";
-import FlexStart from "~components/Body/FlexStart";
 import NavContainer from "~components/Navigation/NavContainer";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
@@ -105,7 +105,7 @@ const Header = ({
 										src={avatar || DefaultAvatar}
 										alt="avatar"
 									/>
-									<TextAlign style={{ overflow: "hidden" }} align="left">
+									<div css="overflow:hidden;">
 										<AccountButtonText>
 											{displayname || `${firstname} ${lastname}`}
 										</AccountButtonText>
@@ -115,7 +115,7 @@ const Header = ({
 											</span>
 											{reputation.toLocaleString()} rep
 										</AccountButtonText>
-									</TextAlign>
+									</div>
 								</Dropdown>
 							</ListItem>
 						)}
