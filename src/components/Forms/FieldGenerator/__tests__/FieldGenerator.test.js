@@ -1,5 +1,4 @@
 import moment from "moment-timezone";
-import { DatePicker, TimePicker, Transfer } from "antd";
 import FieldGenerator from "../index";
 
 const onChange = jest.fn();
@@ -162,7 +161,6 @@ describe("Field Generator", () => {
 	it("initially returns nothing", () => {
 		expect(wrapper.find("Input").exists()).toBeFalsy();
 		expect(wrapper.find("Select").exists()).toBeFalsy();
-		expect(wrapper.find("RangePicker").exists()).toBeFalsy();
 	});
 
 	it("returns an Input when type is 'text'", () => {
@@ -199,35 +197,6 @@ describe("Field Generator", () => {
 		expect(wrapper.find("Select").exists()).toBeTruthy();
 	});
 
-	it("returns a Switch when type is 'switch'", () => {
-		wrapper.setProps({ fields: [switchField] });
-
-		expect(wrapper.find("Switch").exists()).toBeTruthy();
-
-		wrapper.find("button").simulate("click");
-
-		expect(onChange).toHaveBeenCalledWith({
-			target: {
-				name: "emailReminders",
-				value: false
-			}
-		});
-	});
-
-	it("returns a DatePicker when type is 'date'", () => {
-		wrapper.setProps({ fields: [date] });
-
-		wrapper.find(".ant-calendar-picker-input").simulate("click");
-
-		wrapper.find(".ant-calendar-cell.ant-calendar-today").simulate("click");
-		wrapper.find(".ant-calendar-ok-btn").simulate("click");
-
-		expect(wrapper.find(DatePicker).exists()).toBeTruthy();
-		expect(onChange).toHaveBeenCalledWith({
-			target: { name: "eventDate", value: expect.any(moment) }
-		});
-	});
-
 	// it("renders a QuillEditor when type is 'editor'", () => {
 	// 	wrapper.setProps({ fields: [editor] });
 	//
@@ -241,83 +210,4 @@ describe("Field Generator", () => {
 	//
 	// 	expect(wrapper.find("LazyQuill").exists()).toBeTruthy();
 	// });
-
-	it("returns a RangePicker when type is 'range'", () => {
-		wrapper.setProps({ fields: [range] });
-
-		expect(wrapper.find("RangePicker").exists()).toBeTruthy();
-	});
-
-	it("returns an RadioGroup when type is 'radiogroup'", () => {
-		wrapper.setProps({ fields: [radiogroup] });
-
-		expect(wrapper.find("RadioGroup").exists()).toBeTruthy();
-	});
-
-	it("displays a RadioGroup with notes when passed a 'notes' prop", () => {
-		wrapper.setProps({
-			fields: [{ ...radiogroup, notes: "This is a special note!" }]
-		});
-
-		expect(wrapper.find("Notes").exists()).toBeTruthy();
-	});
-
-	it("displays a RadioGroup with errors when passed an 'errors' prop", () => {
-		wrapper.setProps({
-			fields: [{ ...radiogroup, errors: "Required!" }]
-		});
-
-		expect(wrapper.find("Errors").exists()).toBeTruthy();
-	});
-
-	it("returns a TimePicker when type is 'time'", () => {
-		wrapper.setProps({ fields: [time] });
-
-		const value = moment("2000-01-01 00:00:00");
-		wrapper.find(TimePicker).instance().handleChange(value);
-
-		expect(wrapper.find("Label").exists()).toBeTruthy();
-		expect(wrapper.find("TimePicker").exists()).toBeTruthy();
-		expect(onChange).toHaveBeenCalledWith({
-			target: { name: "callTime", value }
-		});
-	});
-
-	it("returns a removeable TimePicker field when a 'onFieldRemove' is present", () => {
-		wrapper.setProps({ fields: [removetime] });
-
-		wrapper.find("Icon").first().simulate("click");
-
-		expect(onFieldRemove).toHaveBeenCalledWith("callTime");
-		expect(wrapper.find("Label").exists()).toBeFalsy();
-		expect(wrapper.find("FaMinusCircle").exists()).toBeTruthy();
-		expect(wrapper.find("TimePicker").exists()).toBeTruthy();
-	});
-
-	it("returns a Transfer field when type is 'trasnfer'", () => {
-		wrapper.setProps({ fields: [transfer] });
-
-		expect(wrapper.find("Transfer").exists()).toBeTruthy();
-		expect(wrapper.find("Transfer").props().className).toEqual("");
-
-		wrapper.setProps({ fields: [{ ...transfer, errors: "Required. " }] });
-		expect(wrapper.find("Transfer").props().className).toEqual("has-error");
-		expect(wrapper.find("Errors").exists()).toBeTruthy();
-
-		wrapper
-			.find("input.ant-transfer-list-search")
-			.first()
-			.simulate("change", { target: { value: "bobby" } });
-
-		expect(wrapper.find("ListItem")).toHaveLength(1);
-
-		wrapper.find(Transfer).instance().moveTo("right");
-
-		expect(onChange).toHaveBeenCalledWith({
-			target: {
-				name: "sendTo",
-				value: []
-			}
-		});
-	});
 });

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Tooltip } from "antd";
+import { Tooltip } from "react-smde";
 import Button from "~components/Body/Button";
 import DefaultAvatar from "~images/defaultAvatar.png";
 

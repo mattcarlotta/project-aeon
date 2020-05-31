@@ -10516,10 +10516,10 @@ react-slick@~0.25.2:
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
 
-react-smde@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/react-smde/-/react-smde-0.3.4.tgz#57f5c96a3a74f2cc23ebeb507c7948c652bd863d"
-  integrity sha512-3xted1qDCFUmippKlD0p4O0rYezhiHFGnS5ZUWut+0yOAYp9I8qd8BrAO2zT1c1z/s9qF2Wvcz6hR90rNNWPYg==
+react-smde@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/react-smde/-/react-smde-0.3.5.tgz#f9a2abc81cde0a4a4c849683aca4fc66c0fe9f93"
+  integrity sha512-obk3r5OItknyHvno/tveVIa0idutrWlK7TNdNp8+lJRpy11VpPcuGr5MxxXBsMIo1dWWrrscEkuFA7mgLv4MhQ==
 
 react-test-renderer@^16.0.0-0:
   version "16.13.1"
