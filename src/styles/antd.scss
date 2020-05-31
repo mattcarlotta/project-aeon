@@ -1,0 +1,70 @@
+@import "~antd/dist/antd.min.css";
+
+[ant-click-animating-without-extra-node]:after {
+	-webkit-animation: none !important;
+	-moz-animation: none !important;
+	-o-animation: none !important;
+	-ms-animation: none !important;
+	animation: none !important;
+}
+
+.ant-layout-header {
+	height: 55px;
+	padding: 0;
+	color: rgba(0, 0, 0, 0.65);
+	line-height: 55px;
+}
+
+.ant-layout,
+.ant-layout-content {
+	background: #ebebeb;
+	height: 100%;
+}
+
+.ant-layout-content {
+	overflow-y: auto;
+	padding: 20px;
+}
+
+textarea::placeholder {
+	color: #bfbfbf;
+}
+
+.ant-select {
+	width: 100%;
+}
+
+.ant-dropdown-menu-item > a,
+.ant-dropdown-menu-item,
+.ant-dropdown-menu {
+	padding: 0;
+	margin: 0;
+}
+
+.ant-select-selection--multiple .ant-select-selection__placeholder {
+	margin-left: 8px;
+}
+
+.ant-select-selection__rendered {
+	padding: 8px;
+	font-size: 16px;
+}
+
+.ant-select-selection {
+	border: 1px solid #d9d9d9;
+}
+
+.ant-select-multiple .ant-select-selector {
+	padding: 9px;
+}
+
+.ant-select-selection:focus,
+.ant-select-open .ant-select-selection {
+	box-shadow: none;
+}
+
+.ant-select-selection *,
+::after,
+::before {
+	box-sizing: border-box;
+}

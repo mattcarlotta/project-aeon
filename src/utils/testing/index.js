@@ -35,7 +35,7 @@ export const HOCWrap = (
 	Component,
 	initialProps = {},
 	state = null,
-	options = {},
+	options = {}
 ) => {
 	const wrapper = mount(
 		createElement(
@@ -44,9 +44,9 @@ export const HOCWrap = (
 					<Component {...props} />
 				</Provider>
 			),
-			initialProps,
+			initialProps
 		),
-		options,
+		options
 	);
 	if (state) wrapper.find(Component).setState(state);
 	return wrapper;

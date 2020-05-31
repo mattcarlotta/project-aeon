@@ -1,8 +1,6 @@
-const { DefinePlugin } = require("webpack");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { DefinePlugin, IgnorePlugin } = require("webpack");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 	.BundleAnalyzerPlugin;
-const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const WebpackBar = require("webpackbar");
 const address = require("address");
@@ -10,48 +8,47 @@ const {
 	analyzeClientPath,
 	analyzeServerPath,
 	staticCSSDevPath,
-	staticCSSProdPath,
+	staticCSSProdPath
 } = require("./paths");
-
-const remoteAddress = address.ip();
 
 const {
 	analyze,
+	APIURL,
 	baseURL,
 	cookieSecret,
 	DATABASE,
 	inDevelopment,
+	inStaging,
 	inTesting,
 	LOCALHOST,
-	PORT,
+	PORT
 } = process.env;
 
 const inDev = inDevelopment === "true";
 const filename = inDev ? staticCSSDevPath : staticCSSProdPath;
 const chunkFilename = filename;
 
+const REMOTEADDRESS = address.ip();
+
 module.exports = isServer => {
 	const plugins = [];
 
 	if (!isServer) {
 		plugins.push(
-			/* overlays browser with compilation errors */
-			new ErrorOverlayPlugin(),
-			/* extracts css chunks for client */
-			new MiniCssExtractPlugin({
-				filename,
-				chunkFilename,
-			}),
+			/* strips out moment locales */
+			new IgnorePlugin(/^\.\/locale$/, /moment$/),
 			/* envs for client */
 			new DefinePlugin({
 				"process.env": {
 					DATABASE: JSON.stringify(DATABASE),
 					cookieSecret: JSON.stringify(cookieSecret),
 					inDevelopment: inDev,
+					inStaging: JSON.stringify(inStaging),
 					inTesting: JSON.stringify(inTesting),
-					baseURL: JSON.stringify(baseURL),
-				},
-			}),
+					APIURL: JSON.stringify(APIURL),
+					baseURL: JSON.stringify(baseURL)
+				}
+			})
 		);
 	} else {
 		plugins.push(
@@ -59,7 +56,7 @@ module.exports = isServer => {
 			new WebpackBar({
 				color: "#268bd2",
 				minimal: false,
-				compiledIn: false,
+				compiledIn: false
 			}),
 			/* in console error */
 			new FriendlyErrorsWebpackPlugin({
@@ -67,16 +64,17 @@ module.exports = isServer => {
 					messages: [
 						inDev && `Local development build: \x1b[1m${LOCALHOST}\x1b[0m`,
 						inDev &&
-							remoteAddress &&
-							`Remote development build: \x1b[1mhttp://${remoteAddress}:${PORT}\x1b[0m`,
+							REMOTEADDRESS &&
+							`Remote development build: \x1b[1mhttp://${REMOTEADDRESS}:${PORT}\x1b[0m`
 					].filter(Boolean),
 					notes: [
 						inDev && "Note that the development build is not optimized.",
-						"To create a production build, use \x1b[1m\x1b[32myarn build\x1b[0m.\n",
-					].filter(Boolean),
+						inDev &&
+							"To create a production build, use \x1b[1m\x1b[32myarn build\x1b[0m.\n"
+					].filter(Boolean)
 				},
-				clearConsole: inDev,
-			}),
+				clearConsole: false
+			})
 		);
 	}
 
@@ -85,8 +83,8 @@ module.exports = isServer => {
 		plugins.push(
 			new BundleAnalyzerPlugin({
 				analyzerMode: "static",
-				reportFilename: isServer ? analyzeServerPath : analyzeClientPath,
-			}),
+				reportFilename: isServer ? analyzeServerPath : analyzeClientPath
+			})
 		);
 	}
 

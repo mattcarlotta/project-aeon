@@ -1,11 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { subtitle } from "./Subtitle.module.scss";
+/* istanbul ignore file */
+import styled from "styled-components";
 
-const SubTitle = ({ children }) => <h2 className={subtitle}>{children}</h2>;
-
-SubTitle.propTypes = {
-	children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
-};
-
-export default SubTitle;
+export default styled.div`
+	font-size: 16px;
+	${"" /* color: #0f7ae5; */}
+	font-weight: normal;
+	margin-top: 0;
+	margin-bottom: 1em;
+`;

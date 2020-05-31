@@ -2,19 +2,18 @@
 // WEBPACK PATHS                                                   //
 // =============================================================== //
 
+const { PWD } = process.env;
 const publicPath = "/_next/static";
 
 module.exports = {
 	/* project publicPath */
 	publicPath,
-	/* public static images */
-	imagesPublicPath: `${publicPath}/media/`,
-	/* compiled images next path (next/static/media) */
-	imagesFolder: "static/media/",
-	/* public static images */
-	fontsPublicPath: `${publicPath}/assets/`,
-	/* compiled fonts next path (next/static/assets) */
-	fontsFolder: "static/assets/",
+	/* public assets */
+	assetsPublicPath: `${publicPath}/media/`,
+	/* compiled assets next path (next/static/media) */
+	assetsFolder: "static/media/",
+	/* path to required ant design icons */
+	icons: `${PWD}/src/utils/icons/index.js`,
 	/* public css */
 	cssPublicPath: `${publicPath}/css/`,
 	/* compiled CSS next path (next/static/css) */
@@ -26,5 +25,5 @@ module.exports = {
 	/* static css assets for development */
 	staticCSSDevPath: "static/css/[name].css",
 	/* static css assets for production */
-	staticCSSProdPath: "static/css/[name].[contenthash:8].css",
+	staticCSSProdPath: "static/css/[name].[contenthash:8].css"
 };

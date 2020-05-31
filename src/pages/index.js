@@ -1,21 +1,21 @@
-import React from "react";
-import Head from "next/head";
-import HomeContainer from "~components/Body/HomeContainer";
 import LandingContainer from "~components/Body/LandingContainer";
+import Button from "~components/Body/Button";
 import SubTitle from "~components/Body/SubTitle";
-import NextJSSKitLogo from "~images/nextjsKit.png";
+import Head from "~components/Navigation/Head";
+import Link from "~components/Navigation/Link";
 
 const Home = () => (
-	<HomeContainer>
-		<Head>
-			<title>NextJS SSR Kit - Home</title>
-			<link rel="icon" href="/favicon.ico" />
-		</Head>
+	<div css="text-align: center;">
+		<Head title="Home" />
 		<LandingContainer>
-			<img src={NextJSSKitLogo} alt="ssrLogoLight.png" />
-			<SubTitle>Edit files in the root directory and save to reload.</SubTitle>
+			<SubTitle>The best resource for everything.</SubTitle>
+			<Link href="/ask-question">
+				<Button width={200} style={{ margin: "0 auto" }} onClick={null}>
+					Ask A Question
+				</Button>
+			</Link>
 		</LandingContainer>
-	</HomeContainer>
+	</div>
 );
 
 export default Home;

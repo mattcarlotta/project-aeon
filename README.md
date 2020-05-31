@@ -1,266 +1,109 @@
-![bnej5es.png](https://i.imgur.com/bnej5es.png)
+# Project Aeon (working title)
 
-<img src="https://img.shields.io/github/package-json/v/mattcarlotta/nextjs-ssr-kit?style=for-the-badge"></img> [![Codecov](https://img.shields.io/codecov/c/github/mattcarlotta/nextjs-ssr-kit?style=for-the-badge)](https://codecov.io/gh/mattcarlotta/nextjs-ssr-kit) [![Open Issues](https://img.shields.io/github/issues-raw/mattcarlotta/nextjs-ssr-kit?style=for-the-badge)](https://github.com/mattcarlotta/nextjs-ssr-kit/issues) [![Dependencies](https://img.shields.io/david/mattcarlotta/nextjs-ssr-kit.svg?style=for-the-badge)](https://david-dm.org/mattcarlotta/nextjs-ssr-kit) [![License](https://img.shields.io/github/license/mattcarlotta/nextjs-ssr-kit?style=for-the-badge)](https://github.com/mattcarlotta/nextjs-ssr-kit/blob/master/LICENSE)
+a better web app to ask web development questions and use integrated tools to answer them.
 
-## Table of contents
+## Quick Links
 
-[Pre-Configured Packages](#pre-configured-packages)
+- [Quickstart Linux](#quickstart-linux)
+- [Quickstart MacOS](#quickstart-macos)
+- [Notes](#notes)
 
-[Project Structure](#project-structure)
+---
 
-[Installation](#installation)
+## Quickstart Linux
 
-[Commands](#commands)
+The instructions provided below are specific to Debian 10. For other versions of linux, please see the [PostgreSQL downloads page](https://www.postgresql.org/download/).
 
-[Example API](#example-api)
+### 1. Install NodeJS (minimum v10) and Yarn (v1.x preferred)
 
-[NextJS Configuration](#nextjs-configuration)
+- `sudo apt-get install curl python-software-properties`
+- `curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
+- `sudo apt-get update`
+- `sudo apt-get install node`
+- `sudo npm install -g yarn`
 
-[API Configuration](#api-configuration)
+### 2. Install and Configure PostgreSQL (v12 preferred)
 
-[Misc Configurations](#misc-configurations)
+- `sudo nano /etc/apt/sources.list.d/pgdg.list` (create pdgd list file)
+- `http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main` (sets Debian version to install)
+- Press `ctrl+x` to initiate a write and then `y` and `enter` to save the file, then `ctrl+x` to exit
+- `wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -` (adds the PostgreSQL Package Repository Key)
+- `sudo apt-get update` (updates caches)
+- `sudo apt-get install postgresql-12 postgresql-contrib` (installs postgres-12 with additional modules)
+- `sudo systemctl start postgresql` (starts PostgreSQL service -- may not be needed if has already been started)
+- `sudo -u postgres psql` (logs in to a PostgreSQL shell as super user postgres)
+- `psql`(logs into PostgreSQL DB)
+- `\password postgres` (will ask to set a password for "postgres"; after pressing enter, it'll prompt for the password)
+- `\q` (exits PostgreSQL shell)
 
-[Packages Incorporated](#packages-incorporated)
+### 3. Create a Custom PostgreSQL User (optional)
 
-[NextJS and API Integrations](#nextjs-and-api-integrations)
+- `psql -U postgres` (logs into PostgreSQL DB as "postgres", enter newly created "postgres" password when prompted)
+- `CREATE ROLE <username> WITH LOGIN PASSWORD '<password>';` (creates a new user with a password)
+- `ALTER ROLE <username> CREATEDB;` (gives user limited ability to create DBs or `GRANT ALL PRIVILEDGES ON DATABASE <dbname> TO <username>;`)
+- `\du` (shows active DB maintainers)
+- `\q` (exits PostgreSQL shell)
 
-[Known Issues](#known-issues)
+### 4. Starting PostgreSQL on Boot (optional)
 
-## Pre-Configured Packages
+- `sudo systemctl enable postgresql`
 
-✔️ Redux + Redux + Redux Saga implementation.
+### 5. Seed DB and Run Node Server
 
-✔️ Styled-components implementation.
+- `psql -U <username> -f initDB.sql` (only required to initialize the DB, then you can optionally run `npm run seed` for a `development` DB or `npm run seed` for a `dev` DB.)
+- `yarn dev` (while at the root directory)
 
-✔️ CSS/SASS/SCSS module and global imports.
+### 6. Install App
 
-✔️ Eslint JS/JSX files.
+- `git clone git@github.com:mattcarlotta/project-aeon.git` (clones the repo)
+- `cd project-aeon` (steps into project directory)
+- `yarn` (installs dependencies)
 
-✔️ Stylelint SCSS files.
+---
 
-✔️ Runs Eslint, Jest, and Stylelint before committing.
+## Quickstart MacOS
 
-✔️ Pre-configured interactive API.
+### 1. Install Brew
 
-Want to use a custom Express server? Checkout the <a href="https://github.com/mattcarlotta/nextjs-ssr-kit/tree/express">express</a> branch.
+- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
-## Project Structure
+### 2. Install NodeJS (minimum v10), PostgreSQL (v12 preferred), and Yarn (v1.x preferred)
 
-<details>
-<summary>Click to expand project structure</summary>
-<pre><code>
-├── .next
-├── build
-├── config
-├── database
-├── env
-├── middlewares
-├── models
-├── public
-├── src
-|   ├── actions
-|   ├── components
-|   ├── images
-|   ├── pages
-|   ├── reducers
-|   ├── sagas
-|   ├── store
-|   ├── styles
-|   ├── types
-|   └── utils
-|
-├── .browserslistrc
-├── .eslintignore
-├── .eslintrc
-├── .npmrc
-├── .prettierc
-├── .stylelintrc
-├── babel.config.js
-├── jest.json
-├── next.config.json
-└── nodemon.json
-</code></pre>
-</details>
-<br />
+- `brew update`
+- `brew install node`
+- `brew install postgresql postgresql-contrib`
+- `brew install yarn`
 
-<hr />
+### 3. Configure PostgreSQL
 
-## Installation
+- `sudo -u postgres psql` (logs in to a PostgreSQL shell as super user postgres)
+- `psql`(logs into PostgreSQL DB)
+- `\password postgres` (will ask to set a password for "postgres"; after pressing enter, it'll prompt for the password)
+- `\q` (exits PostgreSQL shell)
 
-1 - Clone the repository.
+### 4. Create a Custom PostgreSQL User (optional)
 
-```
-git clone --single-branch --branch master git@github.com:mattcarlotta/nextjs-ssr-kit.git
-```
+- `psql -U postgres` (logs into PostgreSQL as "postgres", enter newly created postgres password when prompted)
+- `CREATE ROLE <username> WITH LOGIN PASSWORD '<password>';` (creates a new user with a password)
+- `ALTER ROLE <username> CREATEDB;` (gives user limited ability to create DBs or `GRANT ALL PRIVILEDGES ON DATABASE <dbname> TO <username>;`)
+- `\du` (shows active DB maintainers)
+- `\q` (exits PostgreSQL shell)
 
-2 - Run `yarn install` to install dependencies.
+### 5. Starting PostgreSQL on Boot (optional)
 
-3 - While at the application's root directory, start a dev server by running `yarn dev`.
+- `brew services start postgresql`
 
-<hr />
+### 6. Seed DB and Run Node Server
 
-## Commands
+- `psql -U <username> -f initDB.sql` (only required to initialize the DB, then you can optionally run `npm run seed` for a `development` DB or `npm run seed:test` for a `test` DB.)
+- `npm run dev` (while at the root directory)
 
-| `yarn <command>` | Description                                                               |
-| ---------------- | ------------------------------------------------------------------------- |
-| `analyze`        | Compiles `src` app and spawns webpack chunk distribution charts.          |
-| `build`          | Compiles `src` application to a `.next/static` folder.                    |
-| `checkbuild`     | Checks to see if the `.next/static` folder is ES5 compliant (for IE11).   |
-| `dev`            | Starts development server (`localhost:3000`).                             |
-| `lint`           | Lints all `.js` files in `src`.                                           |
-| `lint:styles`    | Lints all `.scss` files in `src`.                                         |
-| `start`          | Starts a production server at `localhost:3000` (must run `build` first).† |
-| `test`           | Runs `.test.js` files for `src` only.                                     |
-| `test:cov`       | Runs `.test.js` files for `src` with code coverage.                       |
-| `test:watch`     | Runs and watches any changed `.js` files in `src`.                        |
-| `test:watchall`  | Runs and watches all `.test.js` files in `src`.                           |
+### 7. Install App
 
-† Note: Before running this command, you must edit the <a href="https://github.com/mattcarlotta/nextjs-ssr-kit/blob/master/env/.env.production#L2">env/.env.production</a> file and update the `baseURL` from `http://localhost:8080/api/` to include your remote server address.
+- `git clone git@github.com:mattcarlotta/project-aeon.git` (clones the repo)
+- `cd project-aeon` (steps into project directory)
+- `yarn` (installs dependencies)
 
-<hr />
+## Notes
 
-## Example API
-
-Provided in this boilerplate is an example of how to integrate a RESTFUL API (utilizing MongoDB).
-
-If you wish to utilize the API:
-
-- <a href="https://docs.mongodb.com/manual/installation/#mongodb-community-edition">Install MongoDB</a> and make sure the service is up and running.
-- Navigate to `http://localhost:3000/users` to interact with the API from the NextJS-side.
-
-<hr />
-
-## NextJS Configuration
-
-<details>
-<summary>Click to expand NextJS configuration</summary>
-<pre><code>
-- public: NextJS public folder.
-- src/actions: redux actions.
-- src/components: react components.
-- src/images: NextJS app images.
-- src/pages/_app.js: NextJS app configuration (redux + redux saga + global stylesheet).
-- src/pages/_document.js: NextJS document configuration for styled-components.
-- src/pages/_error.js: NextJS fallback 404 page.
-- src/reducers: redux reducers.
-- src/sagas: redux sagas.
-- src/store: redux store configuration.
-- src/styles: custom component/page styles.
-- src/types: redux constants.
-- src/utils/__mocks__/mockAxios.js: a mocked axios instance for testing.
-- src/utils/setupTest/index.js: enzyme test setup for your React components.
-- src/utils/axiosConfig/index.js: custom axios configuration.
-- src/utils/parseResponse/index.js: custom saga functions functions.
-- .eslintignore: NextJS eslint config.
-- .eslintrc: NextJS eslint ignore config.
-- .stylelintrc: stylelint config.
-- jest.json: jest config for NextJS.
-- next.config.js: custom NextJS webpack config.
-</code></pre>
-</details>
-<br />
-
-## API Configuration
-
-<details>
-<summary>Click to expand API configuration</summary>
-<pre><code>
-- database: Mongo connection configuration.
-- middlewares: API middlewares.
-- models: Mongo models for Mongoose.
-- src/pages/api: API route controllers.
-</code></pre>
-</details>
-<br />
-
-## Misc Configurations
-
-<details>
-<summary>Click to expand misc configurations</summary>
-<pre><code>
-- .next: NextJS (src) compiled source.
-- config: webpack supporting configuration files.
-- .browserslistrc: browsers list config (for babel transpiling).
-- .prettierc: prettier config.
-- .npmrc: yarn config.
-- babel.config.js: babel config.
-- nodemon.json: nodemon configuration for server restarts.
-</code></pre>
-</details>
-<br />
-
-<hr />
-
-## Packages Incorporated
-
-Click <a href="https://github.com/mattcarlotta/nextjs-ssr-kit/blob/master/package.json">here</a> to see latest versions.
-
-### NextJS Specfic
-
-<details>
-<summary>Click to expand brief overview of NextJS packages</summary>
-<pre><code>
-- <a href="https://github.com/postcss/autoprefixer">Autoprefixer</a> 
-- <a href="https://github.com/axios/axios">Axios</a>
-- <a href="https://github.com/babel/babel">Babel</a>
-- <a href="https://github.com/motdotla/dotenv">DotENV</a>
-- <a href="https://github.com/webpack-contrib/css-loader">CSS Loader</a>
-- <a href="https://github.com/eslint/eslint/">Eslint</a>
-- <a href="http://airbnb.io/enzyme/">Enzyme</a>
-- <a href="https://github.com/typicode/husky">Husky</a>
-- <a href="https://github.com/facebook/jest">Jest</a>
-- <a href="https://github.com/lodash/lodash">Lodash</a>
-- <a href="https://github.com/zeit/next.js">NextJS</a>
-- <a href="https://github.com/zeit/next-plugins">NextJS CSS</a>
-- <a href="https://github.com/zeit/next-plugins">NextJS SASS</a>
-- <a href="https://github.com/kirill-konshin/next-redux-wrapper">NextJS Redux</a> 
-- <a href="https://github.com/bmealhouse/next-redux-saga">NextJS Redux-Saga</a>
-- <a href="https://github.com/prettier/prettier">Prettier</a>
-- <a href="https://github.com/facebook/prop-types">PropTypes</a>
-- <a href="https://github.com/facebook/react">React</a>
-- <a href="https://github.com/fkhadra/react-toastify">React Toastify</a>
-- <a href="https://github.com/reduxjs/redux">Redux</a>
-- <a href="https://github.com/zalmoxisus/redux-devtools-extension">Redux DevTools Extension</a>
-- <a href="https://redux-saga.js.org/">Redux Saga</a>
-- <a href="https://github.com/webpack-contrib/sass-loader">Sass Loader</a>
-- <a href="https://stylelint.io/">Stylelint</a>
-- <a href="https://github.com/kristerkari/stylelint-scss">Stylelint-SCSS</a>
-- <a href="https://github.com/stylelint/stylelint-config-recommended">Stylelint-Config-Recommended</a>
-- <a href="https://github.com/styled-components/styled-components">Stylized Components</a>
-- <a href="https://github.com/webpack/webpack">Webpack</a>
-</code></pre>
-</details>
-<br />
-
-### API Specific
-
-<details>
-<summary>Click to expand brief overview of API packages</summary>
-<pre><code>
-- <a href="https://github.com/petkaantonov/bluebird">Bluebird</a>
-- <a href="https://github.com/expressjs/body-parser">Body Parser</a>
-- <a href="https://github.com/expressjs/compression">Compression</a>
-- <a href="https://github.com/motdotla/dotenv">DotENV</a>
-- <a href="https://momentjs.com/timezone/">Moment Timezone</a>
-- <a href="https://mongoosejs.com/">Mongoose</a>
-- <a href="https://github.com/expressjs/morgan">Morgan</a>
-- <a href="https://github.com/prettier/prettier">Prettier</a>
-</code></pre>
-</details>
-<br />
-
-<hr />
-
-## NextJS and API Integrations
-
-By default, all directories within the root and `src` folders (with <a href="https://github.com/mattcarlotta/nextjs-ssr-kit/blob/master/babel.config.js#L4">exceptions</a>) are aliased (`~`). This means you can refer to their child root directories by using the ~ symbol followed by the child folder name. For example, `~middlewares`, refers to the root `middlewares` folder; or, for example, in the `src` directory: `~components` refers to the `src/components` folder directory. This allows for rapid development when referring to reusable components or functions as it eliminates the hassle of traversing the folder tree for relative pathing!
-
-<hr />
-
-## Known Issues
-
-If you run into any issues, please fill out an issue report <a href="https://github.com/mattcarlotta/nextjs-ssr-kit/issues">here</a>.
-
-⚠️ (Status: Unresolved) - Importing a component or page that imports a `.css`, `.scss` or `.sass` file breaks `next/link` components. See <a href="https://github.com/zeit/next-plugins/issues/282">issue tracker</a>.
-
-⚠️ (Status: Unresolveable) - Adding `test.js` files within the `pages` folder causes NextJS to fail upon production compilation. Unfortunately, NextJS handles all files and folders within the `pages` file as reachable views. Instead, a workaround is to place a `__tests__` folder for `pages` at the root of the `components` folder.
+⚠️ If running into authentication failures when attempting to connect to psql, please follow this guide: <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/firstconnect.html">Getting Started</a>

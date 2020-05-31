@@ -17,7 +17,7 @@ const initProps = {
 	readOnly: false,
 	tooltip: "",
 	type: "text",
-	value: "",
+	value: ""
 };
 
 describe("Input", () => {
@@ -44,21 +44,11 @@ describe("Input", () => {
 	it("displays a label and a tooltip", () => {
 		wrapper.setProps({
 			label: "Password",
-			tooltip: "Your password must be longer than 5 characters.",
+			tooltip: "Your password must be longer than 5 characters."
 		});
 
-		expect(
-			wrapper
-				.find("Tooltip")
-				.first()
-				.exists(),
-		).toBeTruthy();
-		expect(
-			wrapper
-				.find("Label")
-				.at(1)
-				.text(),
-		).toContain("Password");
+		expect(wrapper.find("Tooltip").first().exists()).toBeTruthy();
+		expect(wrapper.find("Label").at(1).text()).toContain("Password");
 	});
 
 	it("when invalid, adds a 'error' classname and displays validation errors", () => {

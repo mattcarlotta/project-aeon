@@ -1,5 +1,5 @@
 import withMiddleware from "~middlewares";
-import { clearSession } from "~shared/helpers";
+import { clearSession } from "~utils/helpers";
 
 const signout = (req, res) => clearSession(req, res, 200);
 

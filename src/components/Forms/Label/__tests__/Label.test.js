@@ -3,7 +3,7 @@ import Label from "../index";
 const initProps = {
 	name: "email",
 	label: "email",
-	tooltip: "",
+	tooltip: ""
 };
 
 const wrapper = mount(<Label {...initProps} />);

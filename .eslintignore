@@ -4,7 +4,6 @@ build
 config
 node_modules
 middlewares
-models
 **/coverage
 babel.config.js
 next.config.js

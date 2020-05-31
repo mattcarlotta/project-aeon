@@ -1,12 +1,12 @@
 /* istanbul ignore file */
 /* eslint-disable no-console */
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import Spinner from "~components/Spinner";
 
 class DynamicImport extends Component {
 	state = {
-		Component: null,
+		Component: null
 	};
 
 	componentDidMount = () => this.importFile();
@@ -33,7 +33,7 @@ class DynamicImport extends Component {
 }
 
 DynamicImport.propTypes = {
-	loadFile: PropTypes.func.isRequired,
+	loadFile: PropTypes.func.isRequired
 };
 
 export default DynamicImport;

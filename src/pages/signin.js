@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Head from "next/head";
 import { connect } from "react-redux";
-import { signinUser } from "~actions/Users";
+import { signinUser } from "~actions/Authentication";
 import Button from "~components/Body/Button";
-import Input from "~components/Forms/Input";
+import FieldGenerator from "~components/Forms/FieldGenerator";
 import FormContainer from "~components/Forms/FormContainer";
-import StyledLink from "~components/Navigation/StyledLink";
+import Link from "~components/Navigation/Link";
+import Head from "~components/Navigation/Head";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
 import parseFields from "~utils/parseFields";
@@ -20,7 +20,7 @@ export class LoginForm extends Component {
 				label: "Email",
 				value: "",
 				errors: "",
-				required: true,
+				required: true
 			},
 			{
 				name: "password",
@@ -28,10 +28,10 @@ export class LoginForm extends Component {
 				label: "Password",
 				value: "",
 				errors: "",
-				required: true,
-			},
+				required: true
+			}
 		],
-		isSubmitting: false,
+		isSubmitting: false
 	};
 
 	static getDerivedStateFromProps(props) {
@@ -41,7 +41,7 @@ export class LoginForm extends Component {
 	handleChange = ({ target: { name, value } }) => {
 		this.setState(prevState => ({
 			...prevState,
-			fields: fieldUpdater(prevState.fields, name, value),
+			fields: fieldUpdater(prevState.fields, name, value)
 		}));
 	};
 
@@ -57,16 +57,14 @@ export class LoginForm extends Component {
 
 	render = () => (
 		<FormContainer>
-			<Head>
-				<title>NextJS SSR Kit - Sign In</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+			<Head title="Sign In" />
 			<h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
 			<p css="text-align: center;margin-top: 0px;">to your account below.</p>
 			<form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
-				{this.state.fields.map(props => (
-					<Input key={props.name} onChange={this.handleChange} {...props} />
-				))}
+				<FieldGenerator
+					fields={this.state.fields}
+					onChange={this.handleChange}
+				/>
 				<Button
 					primary
 					type="submit"
@@ -78,9 +76,9 @@ export class LoginForm extends Component {
 				</Button>
 				<div css="text-align: center;margin-top: 40px;">
 					<p>Don&#39;t have an account?</p>
-					<StyledLink href="/register">
+					<Link href="/register">
 						<Button type="button">Register</Button>
-					</StyledLink>
+					</Link>
 				</div>
 			</form>
 		</FormContainer>
@@ -89,17 +87,17 @@ export class LoginForm extends Component {
 
 LoginForm.propTypes = {
 	serverError: PropTypes.string,
-	signinUser: PropTypes.func.isRequired,
+	signinUser: PropTypes.func.isRequired
 };
 
 /* istanbul ignore next */
-const mapStateToProps = ({ server }) => ({
-	serverError: server.error,
+const mapStateToProps = ({ messages }) => ({
+	serverError: messages.error
 });
 
 /* istanbul ignore next */
 const mapDispatchToProps = {
-	signinUser,
+	signinUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

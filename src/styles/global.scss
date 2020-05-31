@@ -1,0 +1,22 @@
+@import "~react-toastify/dist/ReactToastify.css";
+@import "~highlight.js/styles/atelier-forest-light.css";
+@import "./antd.scss";
+@import "./nprogress.scss";
+@import "./smde.scss";
+
+.link {
+	cursor: pointer;
+	display: block;
+	color: #03a9f3;
+	font-size: 16px;
+	transition: all 0.2s ease-in-out;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+::-moz-focus-inner {
+	border: 0;
+}

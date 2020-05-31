@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import PropTypes from "prop-types";
 
 class ClickHandler extends PureComponent {
@@ -27,7 +27,7 @@ class ClickHandler extends PureComponent {
 
 ClickHandler.propTypes = {
 	children: PropTypes.node.isRequired,
-	closeModal: PropTypes.func,
+	closeModal: PropTypes.func
 };
 
 export default ClickHandler;

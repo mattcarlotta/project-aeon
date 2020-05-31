@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import isEmpty from "lodash/isEmpty";
+import isEmpty from "lodash.isempty";
 
 /**
  * Helper function to update form fields.
@@ -15,11 +15,11 @@ export default (fields, name, value) => {
 	try {
 		if (isEmpty(fields) || !name) {
 			throw new Error(
-				"You must supply a field array and name of field to update!",
+				"You must supply a field array and name of field to update!"
 			);
 		}
 		const updatedFields = fields.map(field =>
-			field.name === name ? { ...field, value, errors: "" } : field,
+			field.name === name ? { ...field, value, errors: "" } : field
 		);
 		return updatedFields;
 	} catch (err) {

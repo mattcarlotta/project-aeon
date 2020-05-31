@@ -1,9 +1,9 @@
 import Container from "../index";
 
-const wrapper = shallow(
+const wrapper = mount(
 	<Container>
 		<p>children</p>
-	</Container>,
+	</Container>
 );
 
 describe("Container", () => {

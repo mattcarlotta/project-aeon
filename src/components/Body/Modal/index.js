@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { FaTimes } from "react-icons/fa";
@@ -37,7 +37,7 @@ class Modal extends PureComponent {
 									<Flex
 										style={{
 											borderBottom: "1px solid #d3d3d3",
-											padding: "2px 0",
+											padding: "2px 0"
 										}}
 									>
 										<FlexStart>
@@ -60,7 +60,7 @@ class Modal extends PureComponent {
 					</ModalContainer>
 				</WindowContainer>
 			</div>,
-			document.body,
+			document.body
 		);
 }
 
@@ -68,7 +68,7 @@ Modal.propTypes = {
 	children: PropTypes.node.isRequired,
 	maxWidth: PropTypes.string,
 	onClick: PropTypes.func,
-	title: PropTypes.string,
+	title: PropTypes.string
 };
 
 export default Modal;
