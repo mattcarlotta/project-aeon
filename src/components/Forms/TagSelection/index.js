@@ -1,10 +1,12 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
-import { Empty, Select, Spin } from "antd";
+import { Select } from "antd";
 import debounce from "lodash.debounce";
+import Empty from "~components/Body/Empty";
+import Spin from "~components/Body/Spin";
 
-const { Option } = Select;
+const Option = Select.Option;
 
 const initialState = {
 	data: [],

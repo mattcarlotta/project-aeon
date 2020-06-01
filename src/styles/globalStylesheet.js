@@ -27,15 +27,6 @@ export default createGlobalStyle`
     overflow: visible;
   }
 
-  @keyframes wave {
-    0% {
-      left: -60%;
-    }
-    100% {
-      left: 125%;
-    }
-  }
-
   @keyframes pulse {
     0% {
       background-color: #eee;
@@ -45,31 +36,6 @@ export default createGlobalStyle`
     }
     100% {
       background-color: #eee;
-    }
-  }
-
-  @keyframes pop {
-    0% {
-      top: 6px;
-      height: 46px;
-    }
-    50%,
-    100% {
-      top: 19px;
-      height: 21px;
-    }
-  }
-
-  @keyframes delay {
-    0%,
-    40%,
-    100% {
-      transform: scaleY(0.05);
-      -webkit-transform: scaleY(0.05);
-    }
-    20% {
-      transform: scaleY(1);
-      -webkit-transform: scaleY(1);
     }
   }
 `;
