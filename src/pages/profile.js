@@ -2,13 +2,15 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import moment from "moment-timezone";
-import { Col, Row, Tabs } from "antd";
+import { Tabs } from "antd";
 import { connect } from "react-redux";
 import { deleteUserAvatar } from "~actions/Authentication";
 import Avatar from "~components/Body/Avatar";
 import ProfileTab from "~components/Body/ProfileTab";
 import Center from "~components/Body/Center";
+import Col from "~components/Body/Col";
 import Container from "~components/Body/Container";
+import Row from "~components/Body/Row";
 import TabContainer from "~components/Body/TabContainer";
 import Title from "~components/Body/Title";
 import SubTitle from "~components/Body/SubTitle";
@@ -43,8 +45,8 @@ class Profile extends Component {
 			<>
 				<Head title="Profile" />
 				{!isEmpty(settings) ? (
-					<Row gutter={10}>
-						<Col {...{ md: 24, lg: 7 }}>
+					<Row padding="0 10px">
+						<Col md={24} lg={7}>
 							<Container style={{ paddingTop: 20 }}>
 								<Center>
 									<div css="height: 250px;">
@@ -82,7 +84,7 @@ class Profile extends Component {
 								</Center>
 							</Container>
 						</Col>
-						<Col {...{ md: 24, lg: 17 }}>
+						<Col md={24} lg={17}>
 							<Container>
 								<Tabs defaultActiveKey="profile">
 									<TabPane tab="Profile" key="profile">

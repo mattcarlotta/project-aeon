@@ -25,9 +25,6 @@ const {
 } = process.env;
 
 const inDev = inDevelopment === "true";
-const filename = inDev ? staticCSSDevPath : staticCSSProdPath;
-const chunkFilename = filename;
-
 const REMOTEADDRESS = address.ip();
 
 module.exports = isServer => {
