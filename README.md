@@ -26,7 +26,7 @@ The instructions provided below are specific to Debian 10. For other versions of
 
 - `sudo nano /etc/apt/sources.list.d/pgdg.list` (create pdgd list file)
 - `http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main` (sets Debian version to install)
-- Press `ctrl+x` to initiate a write and then `y` and `enter` to save the file, then `ctrl+x` to exit
+- Press `ctrl + o` to initiate a write and then `y` and `enter` to save the file, then `ctrl + x` to exit
 - `wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -` (adds the PostgreSQL Package Repository Key)
 - `sudo apt-get update` (updates caches)
 - `sudo apt-get install postgresql-12 postgresql-contrib` (installs postgres-12 with additional modules)
@@ -106,4 +106,14 @@ The instructions provided below are specific to Debian 10. For other versions of
 
 ## Notes
 
-⚠️ If running into authentication failures when attempting to connect to psql, please follow this guide: <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/firstconnect.html">Getting Started</a>
+⚠️ If running into authentication failures when attempting to connect to psql for the first time, please follow these steps:
+
+1.) Type `sudo nano /etc/postgresql/12/main/pg_hba.conf` to edit the conf file (if using a version other than 12, change the folder pathing to match the installed version)
+2.) Change this line:
+`local all postgres peer`
+to
+`local all postgres md5`
+then press `ctrl + o` to initiate a write, then `y`, then `enter` to save the file. Press `ctrl + x` to exit.
+3.) Type `sudo service postgresql restart` to restart PostgreSQL.
+
+If still running into issues, then read this [stackoverflow issue](https://stackoverflow.com/questions/18664074/getting-error-peer-authentication-failed-for-user-postgres-when-trying-to-ge) for more information.
