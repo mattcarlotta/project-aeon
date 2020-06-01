@@ -29,6 +29,7 @@ export class MyApp extends App {
 			try {
 				const res = await app.get("users/signedin", parseCookie(req));
 				const data = parseData(res);
+
 				dispatch(signin(data));
 			} catch (e) {
 				return { serverError: e.toString() };

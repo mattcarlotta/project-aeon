@@ -32,32 +32,34 @@ class TagSelection extends Component {
 					searchText,
 					currentPromise: prevState.currentPromise + 1
 				}),
-				async () => {
-					const res = await new Promise(res =>
-						setTimeout(() => {
-							res({
-								data: [{ tag: "reactjs" }, { tag: "react-native" }]
-							});
-						}, 1000)
-					);
-
-					if (this.state.currentPromise === this.promiseCount) {
-						const { value } = this.props;
-						const data = res.data.filter(({ tag }) => !value.includes(tag));
-
-						this.setState(
-							{
-								data,
-								isLoading: false,
-								currentPromise: 0
-							},
-							() => (this.promiseCount = 0)
-						);
-					}
-				}
+				this.fetchTags
 			);
 		} else {
 			this.handleResetState();
+		}
+	};
+
+	fetchTags = async () => {
+		const res = await new Promise(res =>
+			setTimeout(() => {
+				res({
+					data: [{ tag: "reactjs" }, { tag: "react-native" }]
+				});
+			}, 1000)
+		);
+
+		if (this.state.currentPromise === this.promiseCount) {
+			const { value } = this.props;
+			const data = res.data.filter(({ tag }) => !value.includes(tag));
+
+			this.setState(
+				{
+					data,
+					isLoading: false,
+					currentPromise: 0
+				},
+				() => (this.promiseCount = 0)
+			);
 		}
 	};
 

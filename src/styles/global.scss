@@ -4,6 +4,10 @@
 @import "./nprogress.scss";
 @import "./smde.scss";
 
+.ant-tooltip-inner {
+	text-align: center;
+}
+
 .link {
 	cursor: pointer;
 	display: block;

@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { FaChevronUp } from "react-icons/fa";
 import Flex from "~components/Body/Flex";

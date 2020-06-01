@@ -1,49 +1,47 @@
 import PropTypes from "prop-types";
-import { Tooltip } from "antd";
+import { Tooltip } from "react-smde";
 import Button from "~components/Body/Button";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
-const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => {
-	return (
-		<>
-			<img
-				css="max-height: 200px;max-width:200px;margin: 0 auto;border-radius: 50%;display: block;"
-				src={settings.avatar || DefaultAvatar}
-				alt="avatar.png"
-			/>
-			<div css="width: 100%; margin-left: auto;margin-right: auto; margin-top: 2px;">
-				<Tooltip placement="top" title="Change Avatar">
+const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
+	<>
+		<img
+			css="max-height: 200px;max-width:200px;margin: 0 auto;border-radius: 50%;display: block;"
+			src={settings.avatar || DefaultAvatar}
+			alt="avatar.png"
+		/>
+		<div css="width: 100%; margin-left: auto;margin-right: auto; margin-top: 2px;">
+			<Tooltip placement="top" title="Change Avatar">
+				<Button
+					type="button"
+					style={{
+						maxWidth: 100,
+						marginTop: 5
+					}}
+					onClick={toggleImageForm}
+				>
+					Change
+				</Button>
+			</Tooltip>
+			{settings.avatar && (
+				<Tooltip placement="top" title="Delete Avatar">
 					<Button
+						danger
 						type="button"
 						style={{
 							maxWidth: 100,
-							marginTop: 5
+							marginTop: 5,
+							marginLeft: 20
 						}}
-						onClick={toggleImageForm}
+						onClick={deleteUserAvatar}
 					>
-						Change
+						Delete
 					</Button>
 				</Tooltip>
-				{settings.avatar && (
-					<Tooltip placement="top" title="Delete Avatar">
-						<Button
-							danger
-							type="button"
-							style={{
-								maxWidth: 100,
-								marginTop: 5,
-								marginLeft: 20
-							}}
-							onClick={deleteUserAvatar}
-						>
-							Delete
-						</Button>
-					</Tooltip>
-				)}
-			</div>
-		</>
-	);
-};
+			)}
+		</div>
+	</>
+);
 
 Avatar.propTypes = {
 	deleteUserAvatar: PropTypes.func.isRequired,

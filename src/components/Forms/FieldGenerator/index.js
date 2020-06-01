@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import { Input as AntInput, Switch } from "antd";
-import { FaCheck, FaTimes } from "react-icons/fa";
 import MDEditor from "react-smde";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import Label from "~components/Forms/Label";
@@ -8,13 +6,7 @@ import Errors from "~components/Forms/Errors";
 import Input from "~components/Forms/Input";
 import Select from "~components/Forms/Select";
 import TagSelection from "~components/Forms/TagSelection";
-
-const TextArea = AntInput.TextArea;
-
-const switchIconStyle = {
-	position: "relative",
-	top: 2
-};
+import TextArea from "~components/Forms/TextArea";
 
 const FieldGenerator = ({ fields, onChange }) =>
 	fields.map(props => {
@@ -26,22 +18,6 @@ const FieldGenerator = ({ fields, onChange }) =>
 			}
 			case "select": {
 				return <Select {...props} key={props.name} onChange={onChange} />;
-			}
-			case "switch": {
-				return (
-					<div key={props.name} css="height: 70px;">
-						<Label {...props} style={{ marginBottom: 5 }} />
-						<Switch
-							aria-label="toggle switch"
-							checked={props.value}
-							checkedChildren={<FaCheck style={switchIconStyle} />}
-							unCheckedChildren={<FaTimes style={switchIconStyle} />}
-							onChange={value =>
-								onChange({ target: { name: props.name, value } })
-							}
-						/>
-					</div>
-				);
 			}
 			case "tag": {
 				return (
@@ -69,24 +45,7 @@ const FieldGenerator = ({ fields, onChange }) =>
 				);
 			}
 			case "textarea": {
-				return (
-					<div key={props.name} css="margin-bottom: 20px;">
-						{props.label && <Label {...props} />}
-						<TextArea
-							name={props.name}
-							aria-label={props.name}
-							className={props.errors ? "has-error" : ""}
-							disabled={props.disabled}
-							maxLength={props.maxLength}
-							placeholder={props.placeholder}
-							style={props.innerStyle}
-							onChange={onChange}
-							rows={props.rows || 4}
-							value={props.value}
-						/>
-						{props.errors && <Errors>{props.errors}</Errors>}
-					</div>
-				);
+				return <TextArea {...props} key={props.name} onChange={onChange} />;
 			}
 		}
 	});

@@ -31,7 +31,7 @@ export default ({ displayname, firstname, lastname, website, description }) => [
 		name: "website",
 		type: "text",
 		label: "Website",
-		tooltip: "You'll need to specify a full address: https://example.com.",
+		tooltip: "You'll need to specify a full URL address: https://example.com.",
 		placeholder: "Add a personal website URL address...",
 		value: website,
 		errors: "",
