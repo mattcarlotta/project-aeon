@@ -105,7 +105,7 @@ const Header = ({
 										src={avatar || DefaultAvatar}
 										alt="avatar"
 									/>
-									<div css="overflow:hidden;">
+									<div css="overflow:hidden;margin-right: 15px;">
 										<AccountButtonText>
 											{displayname || `${firstname} ${lastname}`}
 										</AccountButtonText>

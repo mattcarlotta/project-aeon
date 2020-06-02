@@ -55,7 +55,7 @@
 		"moment-timezone": "^0.5.31",
 		"morgan": "^1.10.0",
 		"next": "^9.4.4",
-		"next-redux-wrapper": "^6.0.0",
+		"next-redux-wrapper": "^6.0.1",
 		"nprogress": "^0.2.0",
 		"pg-monitor": "^1.4.0",
 		"pg-promise": "^10.5.6",

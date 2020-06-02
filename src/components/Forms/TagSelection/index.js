@@ -16,11 +16,11 @@ const initialState = {
 };
 
 class TagSelection extends Component {
-	constructor(props) {
-		super(props);
-		this.promiseCount = 0;
+	constructor() {
+		super();
 		this.fetchTag = debounce(this.fetchTag, 500);
 		this.state = initialState;
+		this.promiseCount = 0;
 	}
 
 	fetchTag = searchText => {
@@ -51,8 +51,9 @@ class TagSelection extends Component {
 		);
 
 		if (this.state.currentPromise === this.promiseCount) {
-			const { value } = this.props;
-			const data = res.data.filter(({ tag }) => !value.includes(tag));
+			const data = res.data.filter(
+				({ tag }) => !this.props.value.includes(tag)
+			);
 
 			this.setState(
 				{
@@ -80,7 +81,7 @@ class TagSelection extends Component {
 		const noData = isEmpty(data);
 
 		return noData && !isLoading && searchText ? (
-			<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+			<Empty />
 		) : noData && isLoading ? (
 			<Spin size="small" />
 		) : null;
