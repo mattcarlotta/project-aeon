@@ -24,7 +24,7 @@ export class UpdateDescriptionForm extends Component {
 				type: "tag",
 				label: "Tags",
 				placeholder: "Search for related tags...",
-				tooltip: "Selecting tags will make the question more specific.",
+				tooltip: "Adding tags will make the question more specific.",
 				value: [],
 				errors: "",
 				options: [],

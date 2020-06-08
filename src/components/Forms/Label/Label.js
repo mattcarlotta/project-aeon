@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { Tooltip } from "react-smde";
 import { GoQuestion } from "react-icons/go";
+import Tooltip from "~components/Body/Tooltip";
 
 const Label = ({ className, name, label, style, tooltip }) => (
 	<label className={className} style={style} htmlFor={name}>
@@ -8,7 +8,9 @@ const Label = ({ className, name, label, style, tooltip }) => (
 		{tooltip && (
 			<span className="tooltip">
 				<Tooltip placement="top" title={tooltip}>
-					<GoQuestion />
+					<span>
+						<GoQuestion />
+					</span>
 				</Tooltip>
 			</span>
 		)}

@@ -16,6 +16,8 @@ const Button = React.forwardRef(
 			onMouseDown,
 			onMouseEnter,
 			onMouseLeave,
+			onMouseOver,
+			onTouchEnd,
 			onTouchStart,
 			style,
 			type
@@ -35,6 +37,8 @@ const Button = React.forwardRef(
 			onMouseDown={onMouseDown}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			onMouseOver={onMouseOver}
+			onTouchEnd={onTouchEnd}
 			onTouchStart={onTouchStart}
 			style={style}
 			tabIndex={0}
@@ -57,7 +61,9 @@ Button.propTypes = {
 	onMouseDown: PropTypes.func,
 	onMouseEnter: PropTypes.func,
 	onMouseLeave: PropTypes.func,
+	onMouseOver: PropTypes.func,
 	onTouchStart: PropTypes.func,
+	onTouchEnd: PropTypes.func,
 	style: PropTypes.objectOf(
 		PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	),

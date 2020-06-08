@@ -14,6 +14,7 @@ import app from "~utils/axiosConfig";
 import { parseCookie, parseData } from "~utils/parseResponse";
 import { version } from "../../package.json";
 import "~styles/global.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 export class MyApp extends App {
 	static getInitialProps = async ({ Component, ctx }) => {

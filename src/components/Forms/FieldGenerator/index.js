@@ -34,6 +34,16 @@ const FieldGenerator = ({ fields, onChange }) =>
 						{props.label && <Label {...props} />}
 						<MDEditor
 							value={props.value}
+							classes={{
+								mde: "mde-editor",
+								mdegrip: "mde-grip",
+								mdepreview: !props.value ? "mde-preview-empty" : undefined,
+								mdetoolbar: "mde-toolbar",
+								mdetooltip: "tooltip-container",
+								mdetooltiparrow: "tooltip-arrow",
+								mdetextareawrapper: "mde-textarea-wrapper"
+							}}
+							maxEditorWidth="100%"
 							onChange={value =>
 								onChange({ target: { name: props.name, value } })
 							}

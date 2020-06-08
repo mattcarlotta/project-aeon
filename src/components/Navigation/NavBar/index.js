@@ -52,7 +52,7 @@ const Header = ({
 							<>
 								<ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
 								<ListItem>
-									<Link href="/signin">
+									<Link style={{ marginRight: 0 }} href="/signin">
 										<Button radius="4px">Sign In</Button>
 									</Link>
 								</ListItem>

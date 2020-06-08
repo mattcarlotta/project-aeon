@@ -7,8 +7,8 @@ import {
 	FaUndo,
 	FaCloudUploadAlt
 } from "react-icons/fa";
-import { Tooltip } from "react-smde";
 import { createUserAvatar, updateUserAvatar } from "~actions/Authentication";
+import Tooltip from "~components/Body/Tooltip";
 import Button from "~components/Body/Button";
 import FlexCenter from "~components/Body/FlexCenter";
 import FlexSpaceAround from "~components/Body/FlexSpaceAround";

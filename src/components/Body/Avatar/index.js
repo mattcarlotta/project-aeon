@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { Tooltip } from "react-smde";
 import Button from "~components/Body/Button";
+import Tooltip from "~components/Body/Tooltip";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
 const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
