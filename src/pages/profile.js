@@ -2,7 +2,6 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import moment from "moment-timezone";
-import { Tabs } from "antd";
 import { connect } from "react-redux";
 import { deleteUserAvatar } from "~actions/Authentication";
 import Avatar from "~components/Body/Avatar";
@@ -11,7 +10,9 @@ import Center from "~components/Body/Center";
 import Col from "~components/Body/Col";
 import Container from "~components/Body/Container";
 import Row from "~components/Body/Row";
-import TabContainer from "~components/Body/TabContainer";
+import Tab from "~components/Body/Tab";
+import Tabs from "~components/Body/Tabs";
+import TabPanel from "~components/Body/TabPanel";
 import Title from "~components/Body/Title";
 import SubTitle from "~components/Body/SubTitle";
 import Head from "~components/Navigation/Head";
@@ -19,10 +20,9 @@ import Spinner from "~components/Body/Spinner";
 import withAuthentication from "~containers/App/withAuthentication";
 import UploadImageForm from "~containers/Forms/UploadImage";
 
-const TabPane = Tabs.TabPane;
-
 class Profile extends Component {
 	state = {
+		showTab: 0,
 		showProfileForm: false,
 		showImageForm: false
 	};
@@ -38,8 +38,11 @@ class Profile extends Component {
 			showImageForm: !prevState.showImageForm
 		}));
 
+	setTab = (_, tab) => this.setState({ showTab: tab });
+
 	render = () => {
 		const { settings } = this.props;
+		const { showTab } = this.state;
 
 		return (
 			<>
@@ -86,21 +89,24 @@ class Profile extends Component {
 						</Col>
 						<Col md={24} lg={17}>
 							<Container>
-								<Tabs defaultActiveKey="profile">
-									<TabPane tab="Profile" key="profile">
-										<ProfileTab
-											{...settings}
-											showProfileForm={this.state.showProfileForm}
-											toggleProfileForm={this.toggleProfileForm}
-										/>
-									</TabPane>
-									<TabPane tab="Activity" key="activity">
-										<TabContainer>Activity</TabContainer>
-									</TabPane>
-									<TabPane tab="Edit Settings" key="edit-settings">
-										<TabContainer>Edit Settings</TabContainer>
-									</TabPane>
+								<Tabs value={showTab} onChange={this.setTab}>
+									{["Activity", "Profile", "Settings"].map(tab => (
+										<Tab key={tab} label={tab} />
+									))}
 								</Tabs>
+								<TabPanel value={showTab} index={0}>
+									Activity
+								</TabPanel>
+								<TabPanel value={showTab} index={1}>
+									<ProfileTab
+										{...settings}
+										showProfileForm={this.state.showProfileForm}
+										toggleProfileForm={this.toggleProfileForm}
+									/>
+								</TabPanel>
+								<TabPanel value={showTab} index={2}>
+									Edit Settings
+								</TabPanel>
 							</Container>
 						</Col>
 					</Row>

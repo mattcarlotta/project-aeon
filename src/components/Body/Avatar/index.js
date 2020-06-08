@@ -6,7 +6,7 @@ import DefaultAvatar from "~images/defaultAvatar.png";
 const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
 	<>
 		<img
-			css="max-height: 200px;max-width:200px;margin: 0 auto;border-radius: 50%;display: block;"
+			css="max-height: 200px;max-width:200px;margin: 0 auto;display: block;"
 			src={settings.avatar || DefaultAvatar}
 			alt="avatar.png"
 		/>

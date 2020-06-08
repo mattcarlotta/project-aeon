@@ -58,6 +58,10 @@ export class MyApp extends App {
 
 		if (this.props.serverError)
 			toast({ type: "error", message: this.props.serverError });
+
+		const jssStyles = document.querySelector("#jss-server-side");
+		if (jssStyles && jssStyles.parentNode)
+			jssStyles.parentNode.removeChild(jssStyles);
 	};
 
 	componentWillUnmount = () => {

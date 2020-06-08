@@ -101,7 +101,7 @@ const Header = ({
 									}
 								>
 									<img
-										css="max-height: 22px;max-width: 22px;border-radius: 50%;position: relative;top: -1px;margin-right: 10px;"
+										css="max-height: 22px;max-width: 22px;position: relative;top: -1px;margin-right: 10px;"
 										src={avatar || DefaultAvatar}
 										alt="avatar"
 									/>

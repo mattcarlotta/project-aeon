@@ -5,7 +5,6 @@ import Info from "~components/Body/Info";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import MissingDetails from "~components/Body/MissingDetails";
 import SubTitle from "~components/Body/SubTitle";
-import TabContainer from "~components/Body/TabContainer";
 import UpdateDescription from "~containers/Forms/UpdateDescription";
 
 const subtitleStyle = {
@@ -21,7 +20,7 @@ const Profile = ({
 	toggleProfileForm,
 	website
 }) => (
-	<TabContainer>
+	<>
 		{showProfileForm ? (
 			<UpdateDescription
 				firstname={firstname}
@@ -73,7 +72,7 @@ const Profile = ({
 				</Button>
 			</>
 		)}
-	</TabContainer>
+	</>
 );
 
 Profile.propTypes = {
