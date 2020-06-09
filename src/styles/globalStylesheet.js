@@ -39,6 +39,8 @@ export default createGlobalStyle`
     }
   }
 
+  /* SMDE Editor Overrides */
+
   .mde-editor.mde-editor {
     & .has-error {
       border-color: #d14023;
@@ -83,6 +85,9 @@ export default createGlobalStyle`
   .svg-icon {
     color: #252525;
   }
+  
+  /* Nprogress Copyright (c) 2013-2014 Rico Sta. Cruz */
+  /* https://github.com/rstacruz/nprogress */
 
   @keyframes nprogress-spinner {
     0% {
@@ -229,6 +234,9 @@ export default createGlobalStyle`
   .hljs-strong {
     font-weight: bold;
   }
+
+  /* antd v4.3.3 Copyright 2015-present, Alipay, Inc. All rights reserved. */
+  /* https://github.com/ant-design/ant-design */
 
   @keyframes antZoomIn {
     0% {
@@ -636,7 +644,7 @@ export default createGlobalStyle`
   }
 
   .anticon svg {
-      display: inline-block;
+    display: inline-block;
   }
 
   .zoom-enter, .zoom-appear  {
