@@ -23,5 +23,5 @@ TabPanel.propTypes = {
 
 export default styled(TabPanel)`
 	padding: 10px;
-	min-height: 478px;
+	min-height: 440px;
 `;

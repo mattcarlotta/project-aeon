@@ -30,7 +30,7 @@ const FieldGenerator = ({ fields, onChange }) =>
 			}
 			case "editor": {
 				return (
-					<div key={props.name} css="margin-bottom: 20px;">
+					<div key={props.name} css="margin-bottom: 10px;min-height: 406px;">
 						{props.label && <Label {...props} />}
 						<MDEditor
 							value={props.value}
@@ -41,7 +41,9 @@ const FieldGenerator = ({ fields, onChange }) =>
 								mdetoolbar: "mde-toolbar",
 								mdetooltip: "tooltip-container",
 								mdetooltiparrow: "tooltip-arrow",
-								mdetextareawrapper: "mde-textarea-wrapper"
+								mdetextareawrapper: `mde-textarea-wrapper ${
+									props.errors ? "has-error" : undefined
+								}`
 							}}
 							maxEditorWidth="100%"
 							onChange={value =>

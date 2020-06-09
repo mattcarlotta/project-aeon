@@ -13,7 +13,6 @@ import GlobalStylesheet from "~styles/globalStylesheet";
 import app from "~utils/axiosConfig";
 import { parseCookie, parseData } from "~utils/parseResponse";
 import { version } from "../../package.json";
-import "~styles/global.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 export class MyApp extends App {
@@ -59,9 +58,9 @@ export class MyApp extends App {
 		if (this.props.serverError)
 			toast({ type: "error", message: this.props.serverError });
 
-		const jssStyles = document.querySelector("#jss-server-side");
-		if (jssStyles && jssStyles.parentNode)
-			jssStyles.parentNode.removeChild(jssStyles);
+		// const jssStyles = document.querySelector("#jss-server-side");
+		// if (jssStyles && jssStyles.parentNode)
+		// 	jssStyles.parentNode.removeChild(jssStyles);
 	};
 
 	componentWillUnmount = () => {

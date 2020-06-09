@@ -135,7 +135,7 @@ export class UpdateImageForm extends Component {
 						onChange={this.handleChange}
 					/>
 				</div>
-				<FlexSpaceAround style={{ width: "200px" }}>
+				<FlexSpaceAround style={{ width: "200px", paddingTop: 10 }}>
 					<Tooltip placement="top" title="Upload">
 						<Button
 							primary
@@ -143,11 +143,11 @@ export class UpdateImageForm extends Component {
 							width="50px"
 							radius="4px"
 							padding="5px"
-							style={{ marginTop: 10 }}
+							style={{ height: 34 }}
 							disabled={isSubmitting}
 						>
 							<FaUpload
-								style={{ fontSize: 17, position: "relative", top: 3 }}
+								style={{ fontSize: 17, position: "relative", top: 1 }}
 							/>
 						</Button>
 					</Tooltip>
@@ -157,14 +157,13 @@ export class UpdateImageForm extends Component {
 							width="50px"
 							radius="4px"
 							padding="5px"
-							style={{ marginTop: 10 }}
+							style={{ height: 34 }}
 							onClick={this.handleReset}
 							disabled={isSubmitting}
 						>
-							<FaUndo style={{ position: "relative", top: 4 }} />
+							<FaUndo style={{ position: "relative", top: 3 }} />
 						</Button>
 					</Tooltip>
-
 					<Tooltip placement="top" title="Cancel">
 						<Button
 							danger
@@ -172,12 +171,12 @@ export class UpdateImageForm extends Component {
 							width="50px"
 							radius="4px"
 							padding="5px"
-							style={{ marginTop: 10 }}
+							style={{ height: 34 }}
 							onClick={this.props.closeForm}
 							disabled={isSubmitting}
 						>
 							<FaTimesCircle
-								style={{ fontSize: 18, position: "relative", top: 4 }}
+								style={{ fontSize: 18, position: "relative", top: 3 }}
 							/>
 						</Button>
 					</Tooltip>
