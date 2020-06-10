@@ -37,12 +37,13 @@ const FieldGenerator = ({ fields, onChange }) =>
 							classes={{
 								mde: "mde-editor",
 								mdegrip: "mde-grip",
-								mdepreview: !props.value ? "mde-preview-empty" : undefined,
+								mdepreview: !props.value ? "mde-preview-empty" : "",
 								mdetoolbar: "mde-toolbar",
 								mdetooltip: "tooltip-container",
 								mdetooltiparrow: "tooltip-arrow",
+								mdetextarea: "mde-textarea",
 								mdetextareawrapper: `mde-textarea-wrapper ${
-									props.errors ? "has-error" : undefined
+									props.errors ? "has-error" : ""
 								}`
 							}}
 							maxEditorWidth="100%"

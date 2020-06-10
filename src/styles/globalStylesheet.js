@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 import VarelaRound from "./assets/fonts/VarelaRound-Regular.ttf";
 
+const fontFamily = `"Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`;
+
 export default createGlobalStyle`
   @font-face {
     font-family: 'Valera Round';
@@ -17,7 +19,7 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: ${fontFamily};
     background-color: #ebebeb;
     min-height: 100vh;
     font-size: 15px;
@@ -72,6 +74,12 @@ export default createGlobalStyle`
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
+  }
+
+  .mde-textarea::placeholder {
+    font-size: 16px;
+    font-family: ${fontFamily};
+    color: #ccc;
   }
 
   .mde-textarea-wrapper.mde-textarea-wrapper {
@@ -423,7 +431,7 @@ export default createGlobalStyle`
     white-space: nowrap;
     text-overflow: ellipsis;
     opacity: .4;
-    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: ${fontFamily};
   }
 
   .ant-select-multiple .ant-select-selection-item {
@@ -456,7 +464,7 @@ export default createGlobalStyle`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: ${fontFamily};
   }
 
   .ant-select-multiple .ant-select-selection-item-remove {

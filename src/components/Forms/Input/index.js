@@ -80,14 +80,14 @@ Input.defaultProps = {
 	readOnly: false
 };
 
+const fontFamily = `"Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`;
+
 export default styled(Input)`
 	position: relative;
 	display: inline-block;
 	height: 100px;
 	width: 100%;
-	font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-		"Helvetica Neue", sans-serif;
+	font-family: ${fontFamily};
 
 	input {
 		position: relative;
@@ -105,9 +105,7 @@ export default styled(Input)`
 
 		&::placeholder {
 			color: #ccc;
-			font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
-				Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-				"Helvetica Neue", sans-serif;
+			font-family: ${fontFamily};
 		}
 
 		&:focus {
