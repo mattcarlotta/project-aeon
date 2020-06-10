@@ -28,7 +28,7 @@ const TextArea = ({
 						errors && "error",
 						disabled && "disabled"
 					]
-						.filter(c => !!c)
+						.filter(Boolean)
 						.join(" ")}
 				>
 					{label && (

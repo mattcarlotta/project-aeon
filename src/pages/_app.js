@@ -1,5 +1,4 @@
 import App from "next/app";
-import Head from "next/head";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { signin } from "~actions/Authentication";
@@ -12,7 +11,6 @@ import { wrapper } from "~store";
 import GlobalStylesheet from "~styles/globalStylesheet";
 import app from "~utils/axiosConfig";
 import { parseCookie, parseData } from "~utils/parseResponse";
-import { version } from "../../package.json";
 import "react-toastify/dist/ReactToastify.css";
 
 export class MyApp extends App {
@@ -80,17 +78,6 @@ export class MyApp extends App {
 		const { Component, pageProps } = this.props;
 		return (
 			<>
-				<Head>
-					<meta charSet="utf-8" />
-					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					<meta name="theme-color" content="#000000" />
-					<meta
-						name="description"
-						content="Official website for... something."
-					/>
-					<meta name="build version" content={`${version}`} />
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
 				<GlobalStylesheet />
 				<NavBar />
 				<PageContainer>

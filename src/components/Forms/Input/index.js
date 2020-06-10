@@ -28,7 +28,7 @@ const Input = ({
 						errors && "error",
 						disabled && "disabled"
 					]
-						.filter(c => !!c)
+						.filter(Boolean)
 						.join(" ")}
 				>
 					{label && (
@@ -85,6 +85,9 @@ export default styled(Input)`
 	display: inline-block;
 	height: 100px;
 	width: 100%;
+	font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
 
 	input {
 		position: relative;
@@ -102,6 +105,9 @@ export default styled(Input)`
 
 		&::placeholder {
 			color: #ccc;
+			font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
+				Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+				"Helvetica Neue", sans-serif;
 		}
 
 		&:focus {

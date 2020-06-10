@@ -337,7 +337,7 @@ export default createGlobalStyle`
     list-style: none;
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.65);
-    font-size: 14px;
+    font-size: 16px;
     font-variant: tabular-nums;
     line-height: 1.5;
     font-feature-settings: "tnum";
@@ -358,6 +358,10 @@ export default createGlobalStyle`
     align-items: center;
     padding: 6px 10px 6px 5px;
 
+    &:hover {
+      border-color: #1e90ff;
+    }
+
     &:after {
       display: inline-block;
       width: 0;
@@ -372,6 +376,10 @@ export default createGlobalStyle`
     margin-left: .5px;
   }
 
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector,.ant-select-focused.ant-select-multiple .ant-select-selector {
+    border-color: #1e90ff;
+  }
+
   .ant-select-multiple .ant-select-selection-search:first-child .ant-select-selection-search-input {
     margin-left: 6.5px;
   } 
@@ -383,6 +391,7 @@ export default createGlobalStyle`
     background: transparent;
     border: none;
     outline: none;
+    font-size: 16px;
     width: 100%;
     min-width: 3px;
     line-height: 1.5715;
@@ -404,7 +413,7 @@ export default createGlobalStyle`
   .ant-select-multiple .ant-select-selection-placeholder {
     font-size: 16px;
     position: absolute;
-    top: 50%;
+    top: 51%;
     right: 11px;
     left: 12px;
     transform: translateY(-50%);
@@ -414,6 +423,7 @@ export default createGlobalStyle`
     white-space: nowrap;
     text-overflow: ellipsis;
     opacity: .4;
+    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 
   .ant-select-multiple .ant-select-selection-item {
@@ -446,6 +456,7 @@ export default createGlobalStyle`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-family: "Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 
   .ant-select-multiple .ant-select-selection-item-remove {
@@ -463,7 +474,6 @@ export default createGlobalStyle`
     line-height: inherit;
     cursor: pointer;
     display: inline-block;
-    font-size: 10px;
     transition: background 0.2s ease-in-out;
 
     &:hover {
