@@ -1,7 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
-import moment from "moment-timezone";
 import { connect } from "react-redux";
 import { deleteUserAvatar } from "~actions/Authentication";
 import Avatar from "~components/Body/Avatar";
@@ -19,6 +18,7 @@ import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 import withAuthentication from "~containers/App/withAuthentication";
 import UploadImageForm from "~containers/Forms/UploadImage";
+import dayjs from "~utils/dayjs";
 
 class Profile extends Component {
 	state = {
@@ -80,7 +80,7 @@ class Profile extends Component {
 									<SubTitle>{settings.role}</SubTitle>
 									<Title>Registered</Title>
 									<SubTitle>
-										{moment(settings.registered).format("MMMM Do, YYYY")}
+										{dayjs(settings.registered).format("MMMM Do, YYYY")}
 									</SubTitle>
 									<Title>Reputation</Title>
 									<SubTitle>{settings.reputation}</SubTitle>
@@ -88,7 +88,7 @@ class Profile extends Component {
 							</Container>
 						</Col>
 						<Col md={24} lg={17}>
-							<Container>
+							<Container style={{ overflow: "hidden" }}>
 								<Tabs value={showTab} onChange={this.setTab}>
 									{["Activity", "Profile", "Settings"].map(tab => (
 										<Tab key={tab} label={tab} />

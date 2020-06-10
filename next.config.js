@@ -23,7 +23,7 @@ module.exports = {
 		if (!isServer) {
 			config.resolve.alias = {
 				...config.resolve.alias,
-				"@ant-design/icons/lib/dist$": paths.icons
+				"@ant-design/icons$": paths.icons
 			};
 		}
 

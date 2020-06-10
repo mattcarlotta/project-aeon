@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import FadeIn from "~components/Body/FadeIn";
 
 const TabPanel = ({ children, className, index, value }) => (
 	<div
@@ -10,7 +11,7 @@ const TabPanel = ({ children, className, index, value }) => (
 		id={`simple-tabpanel-${index}`}
 		aria-labelledby={`simple-tab-${index}`}
 	>
-		{value === index && children}
+		{value === index && <FadeIn timing="600ms">{children}</FadeIn>}
 	</div>
 );
 

@@ -1,4 +1,3 @@
-import moment from "moment-timezone";
 import random from "lodash.random";
 import get from "lodash.get";
 
@@ -28,14 +27,6 @@ const clearSession = (req, res, status, err) => {
 
 	res.status(status).json({ role: "guest", err });
 };
-
-/**
- * Helper function to create a current date.
- *
- * @function createDate
- * @returns {Date}
- */
-const createDate = date => moment(date || Date.now()).tz("America/Los_Angeles");
 
 /**
  * Helper function to create a random string.
@@ -75,7 +66,6 @@ const uniqueArray = arr => arr.length === new Set(arr).size;
 
 export {
 	clearSession,
-	createDate,
 	createRandomToken,
 	parseSession,
 	sendError,
