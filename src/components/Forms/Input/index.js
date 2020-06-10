@@ -80,14 +80,11 @@ Input.defaultProps = {
 	readOnly: false
 };
 
-const fontFamily = `"Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`;
-
 export default styled(Input)`
 	position: relative;
 	display: inline-block;
 	height: 100px;
 	width: 100%;
-	font-family: ${fontFamily};
 
 	input {
 		position: relative;
@@ -99,13 +96,12 @@ export default styled(Input)`
 		border-radius: 4px;
 		transition: border 0.2s ease-in-out;
 
-		&:hover {
-			border: 1px solid #40a9ff;
+		::placeholder {
+			color: #ccc;
 		}
 
-		&::placeholder {
-			color: #ccc;
-			font-family: ${fontFamily};
+		&:hover {
+			border: 1px solid #40a9ff;
 		}
 
 		&:focus {

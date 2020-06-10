@@ -55,6 +55,11 @@ export default createGlobalStyle`
       border-color: #40a9ff;
       transition: border-color 0.2s ease-in-out;
     }
+
+    & .mde-textarea-wrapper.preview {
+      border-color: #d9d9d9;
+      transition: border-color 0.2s ease-in-out;
+    }
   }
 
   .mde-toolbar.mde-toolbar,
@@ -76,14 +81,29 @@ export default createGlobalStyle`
     border-bottom: 1px solid #d9d9d9;
   }
 
-  .mde-textarea::placeholder {
+  .mde-textarea {
     font-size: 16px;
-    font-family: ${fontFamily};
-    color: #ccc;
+
+    ::placeholder {
+      font-size: 16px;
+      color: #ccc;
+    }
   }
 
   .mde-textarea-wrapper.mde-textarea-wrapper {
     border: 1px solid #d9d9d9;
+  }
+
+  .mde-preview {
+    background: transparent;
+    
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .mde-textarea-wrapper.preview {
+    background: #fdfdfd;
   }
 
   .mde-preview-empty.mde-preview-empty {
@@ -177,13 +197,11 @@ export default createGlobalStyle`
   /* by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/forest) */
   /* Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16) */
 
-  /* Atelier-Forest Comment */
   .hljs-comment,
   .hljs-quote {
     color: #766e6b;
   }
 
-  /* Atelier-Forest Red */
   .hljs-variable,
   .hljs-template-variable,
   .hljs-attribute,
@@ -197,7 +215,6 @@ export default createGlobalStyle`
     color: #f22c40;
   }
 
-  /* Atelier-Forest Orange */
   .hljs-number,
   .hljs-meta,
   .hljs-built_in,
@@ -208,20 +225,17 @@ export default createGlobalStyle`
     color: #df5320;
   }
 
-  /* Atelier-Forest Green */
   .hljs-string,
   .hljs-symbol,
   .hljs-bullet {
     color: #7b9726;
   }
 
-  /* Atelier-Forest Blue */
   .hljs-title,
   .hljs-section {
     color: #407ee7;
   }
 
-  /* Atelier-Forest Purple */
   .hljs-keyword,
   .hljs-selector-tag {
     color: #6666ea;
@@ -431,7 +445,6 @@ export default createGlobalStyle`
     white-space: nowrap;
     text-overflow: ellipsis;
     opacity: .4;
-    font-family: ${fontFamily};
   }
 
   .ant-select-multiple .ant-select-selection-item {
@@ -464,7 +477,6 @@ export default createGlobalStyle`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-family: ${fontFamily};
   }
 
   .ant-select-multiple .ant-select-selection-item-remove {
@@ -692,15 +704,12 @@ export default createGlobalStyle`
     pointer-events: none;
   }
 
-  .ant-select-selection *,
-  ::after,
-  ::before {
-    box-sizing: border-box;
-  }
-
   *,
+  .ant-select-selection *
   ::after,
-  ::before {
+  ::before,
+  ::placeholder {
+    font-family: ${fontFamily};
     box-sizing: border-box;
   }
 

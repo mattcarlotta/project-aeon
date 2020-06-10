@@ -37,7 +37,9 @@ const FieldGenerator = ({ fields, onChange }) =>
 							classes={{
 								mde: "mde-editor",
 								mdegrip: "mde-grip",
-								mdepreview: !props.value ? "mde-preview-empty" : "",
+								mdepreview: `mde-preview ${
+									!props.value ? "mde-preview-empty" : ""
+								}`,
 								mdetoolbar: "mde-toolbar",
 								mdetooltip: "tooltip-container",
 								mdetooltiparrow: "tooltip-arrow",
