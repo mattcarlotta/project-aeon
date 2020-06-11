@@ -2,32 +2,32 @@ import { PureComponent } from "react";
 import PropTypes from "prop-types";
 
 class ClickHandler extends PureComponent {
-	componentDidMount() {
-		document.addEventListener("mousedown", this.handleClickOutside);
-	}
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
 
-	componentWillUnmount() {
-		document.removeEventListener("mousedown", this.handleClickOutside);
-	}
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
 
-	handleClickOutside = ({ target }) => {
-		const { closeModal } = this.props;
+  handleClickOutside = ({ target }) => {
+    const { closeModal } = this.props;
 
-		if (this.wrapperRef && !this.wrapperRef.contains(target) && closeModal) {
-			closeModal();
-		}
-	};
+    if (this.wrapperRef && !this.wrapperRef.contains(target) && closeModal) {
+      closeModal();
+    }
+  };
 
-	render = () => (
-		<div id="click-handler" ref={node => (this.wrapperRef = node)}>
-			{this.props.children}
-		</div>
-	);
+  render = () => (
+    <div id="click-handler" ref={node => (this.wrapperRef = node)}>
+      {this.props.children}
+    </div>
+  );
 }
 
 ClickHandler.propTypes = {
-	children: PropTypes.node.isRequired,
-	closeModal: PropTypes.func
+  children: PropTypes.node.isRequired,
+  closeModal: PropTypes.func,
 };
 
 export default ClickHandler;

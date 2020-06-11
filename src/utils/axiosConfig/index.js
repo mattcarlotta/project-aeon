@@ -5,17 +5,17 @@ import axios from "axios";
 const { baseURL } = process.env;
 
 export const app = axios.create({
-	baseURL,
-	withCredentials: true
+  baseURL,
+  withCredentials: true,
 });
 
 app.interceptors.response.use(
-	response => response,
-	error => {
-		const err = get(error, ["response", "data", "err"]);
+  response => response,
+  error => {
+    const err = get(error, ["response", "data", "err"]);
 
-		return Promise.reject(err || error.message);
-	}
+    return Promise.reject(err || error.message);
+  },
 );
 
 export default app;

@@ -2,5 +2,5 @@
 import styled from "styled-components";
 
 export default styled.div`
-	text-align: ${({ align }) => align || "center"};
+  text-align: ${({ align }) => align || "center"};
 `;

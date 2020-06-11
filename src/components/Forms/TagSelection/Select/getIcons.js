@@ -31,56 +31,56 @@ import CloseCircleFilled from "@ant-design/icons/CloseCircleFilled";
 import SearchOutlined from "@ant-design/icons/SearchOutlined";
 
 export default function getIcons({
-	suffixIcon,
-	clearIcon,
-	menuItemSelectedIcon,
-	removeIcon,
-	loading,
-	multiple
+  suffixIcon,
+  clearIcon,
+  menuItemSelectedIcon,
+  removeIcon,
+  loading,
+  multiple,
 }) {
-	// Clear Icon
-	let mergedClearIcon = clearIcon;
-	if (!clearIcon) {
-		mergedClearIcon = <CloseCircleFilled />;
-	}
+  // Clear Icon
+  let mergedClearIcon = clearIcon;
+  if (!clearIcon) {
+    mergedClearIcon = <CloseCircleFilled />;
+  }
 
-	// Arrow item icon
-	let mergedSuffixIcon = null;
-	if (suffixIcon !== undefined) {
-		mergedSuffixIcon = suffixIcon;
-	} else if (loading) {
-		mergedSuffixIcon = <LoadingOutlined spin />;
-	} else {
-		mergedSuffixIcon = ({ open, showSearch }) => {
-			if (open && showSearch) {
-				return <SearchOutlined />;
-			}
-			return <DownOutlined />;
-		};
-	}
+  // Arrow item icon
+  let mergedSuffixIcon = null;
+  if (suffixIcon !== undefined) {
+    mergedSuffixIcon = suffixIcon;
+  } else if (loading) {
+    mergedSuffixIcon = <LoadingOutlined spin />;
+  } else {
+    mergedSuffixIcon = ({ open, showSearch }) => {
+      if (open && showSearch) {
+        return <SearchOutlined />;
+      }
+      return <DownOutlined />;
+    };
+  }
 
-	// Checked item icon
-	let mergedItemIcon = null;
-	if (menuItemSelectedIcon !== undefined) {
-		mergedItemIcon = menuItemSelectedIcon;
-	} else if (multiple) {
-		mergedItemIcon = <CheckOutlined />;
-	} else {
-		mergedItemIcon = null;
-	}
+  // Checked item icon
+  let mergedItemIcon = null;
+  if (menuItemSelectedIcon !== undefined) {
+    mergedItemIcon = menuItemSelectedIcon;
+  } else if (multiple) {
+    mergedItemIcon = <CheckOutlined />;
+  } else {
+    mergedItemIcon = null;
+  }
 
-	let mergedRemoveIcon = null;
-	if (removeIcon !== undefined) {
-		mergedRemoveIcon = removeIcon;
-	} else {
-		mergedRemoveIcon = <CloseOutlined />;
-	}
+  let mergedRemoveIcon = null;
+  if (removeIcon !== undefined) {
+    mergedRemoveIcon = removeIcon;
+  } else {
+    mergedRemoveIcon = <CloseOutlined />;
+  }
 
-	return {
-		clearIcon: mergedClearIcon,
-		suffixIcon: mergedSuffixIcon,
-		itemIcon: mergedItemIcon,
-		removeIcon: mergedRemoveIcon
-	};
+  return {
+    clearIcon: mergedClearIcon,
+    suffixIcon: mergedSuffixIcon,
+    itemIcon: mergedItemIcon,
+    removeIcon: mergedRemoveIcon,
+  };
 }
 /* eslint-enable react/prop-types */

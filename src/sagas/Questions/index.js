@@ -16,14 +16,14 @@ import setServerError from "~utils/setServerError";
  * @yields {action} - A redux action to set questions to state.
  */
 export function* fetchQuestions() {
-	try {
-		const res = yield call(app.get, "questions");
-		const data = yield call(parseData, res);
+  try {
+    const res = yield call(app.get, "questions");
+    const data = yield call(parseData, res);
 
-		yield put(actions.setQuestions(data));
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield put(actions.setQuestions(data));
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -34,5 +34,5 @@ export function* fetchQuestions() {
  * @yields {watchers}
  */
 export default function* questionSagas() {
-	yield all([takeLatest(constants.QUESTIONS_FETCH, fetchQuestions)]);
+  yield all([takeLatest(constants.QUESTIONS_FETCH, fetchQuestions)]);
 }

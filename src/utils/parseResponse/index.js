@@ -8,8 +8,8 @@ import get from "lodash.get";
  * @returns {string} - a string cookie from req.headers.cookie.
  */
 export function parseCookie(req) {
-	const cookie = get(req, ["headers", "cookie"]);
-	return cookie ? { headers: { cookie } } : undefined;
+  const cookie = get(req, ["headers", "cookie"]);
+  return cookie ? { headers: { cookie } } : undefined;
 }
 
 /**
@@ -20,7 +20,7 @@ export function parseCookie(req) {
  * @returns {string} - a parsed message string from res.data.message.
  */
 export function parseMessage(res) {
-	return get(res, ["data", "message"]);
+  return get(res, ["data", "message"]);
 }
 
 /**
@@ -31,5 +31,5 @@ export function parseMessage(res) {
  * @returns {object} - a parsed data object from res.data.
  */
 export function parseData(res) {
-	return get(res, ["data"]);
+  return get(res, ["data"]);
 }

@@ -28,18 +28,18 @@ import PropTypes from "prop-types";
 const SizeContext = createContext(undefined);
 
 export const SizeContextProvider = ({ children, size }) => (
-	<SizeContext.Consumer>
-		{originSize => (
-			<SizeContext.Provider value={size || originSize}>
-				{children}
-			</SizeContext.Provider>
-		)}
-	</SizeContext.Consumer>
+  <SizeContext.Consumer>
+    {originSize => (
+      <SizeContext.Provider value={size || originSize}>
+        {children}
+      </SizeContext.Provider>
+    )}
+  </SizeContext.Consumer>
 );
 
 SizeContextProvider.propTypes = {
-	children: PropTypes.node.isRequired,
-	size: PropTypes.string
+  children: PropTypes.node.isRequired,
+  size: PropTypes.string,
 };
 
 export default SizeContext;

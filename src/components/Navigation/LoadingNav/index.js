@@ -6,6 +6,6 @@ export default styled.div`
     width: 350px;
     height: 40px;
     margin-right: 10px;
-		animation: pulse 1.2s infinite;
-	}
+    animation: pulse 1.2s infinite;
+  }
 `;

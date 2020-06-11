@@ -30,12 +30,12 @@ global.React = require("react");
 global.Provider = require("react-redux").Provider;
 
 Object.keys(document.defaultView).forEach(property => {
-	if (typeof global[property] === "undefined") {
-		exposedProperties.push(property);
-		global[property] = document.defaultView[property];
-	}
+  if (typeof global[property] === "undefined") {
+    exposedProperties.push(property);
+    global[property] = document.defaultView[property];
+  }
 });
 
 global.navigator = {
-	userAgent: "node.js"
+  userAgent: "node.js",
 };

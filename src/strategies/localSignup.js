@@ -12,32 +12,32 @@ import { createRandomToken, sendError } from "~utils/helpers";
  * @throws {string}
  */
 export const localSignup = next => async (req, res) => {
-	try {
-		const { email, firstname, lastname, password } = req.body;
+  try {
+    const { email, firstname, lastname, password } = req.body;
 
-		if (!email || !firstname || !lastname || !password)
-			throw String(missingSignupCreds);
+    if (!email || !firstname || !lastname || !password)
+      throw String(missingSignupCreds);
 
-		const existingUser = await db.oneOrNone(findUserByEmail, [email]);
-		if (existingUser) throw String(emailAlreadyTaken);
+    const existingUser = await db.oneOrNone(findUserByEmail, [email]);
+    if (existingUser) throw String(emailAlreadyTaken);
 
-		const newPassword = await bcrypt.hash(password, 12);
-		const token = createRandomToken();
+    const newPassword = await bcrypt.hash(password, 12);
+    const token = createRandomToken();
 
-		await db.one(createNewUser, [
-			email,
-			newPassword,
-			firstname,
-			lastname,
-			token
-		]);
+    await db.one(createNewUser, [
+      email,
+      newPassword,
+      firstname,
+      lastname,
+      token,
+    ]);
 
-		req.user.firstname = firstname;
+    req.user.firstname = firstname;
 
-		return next(req, res);
-	} catch (err) {
-		return sendError(err, res);
-	}
+    return next(req, res);
+  } catch (err) {
+    return sendError(err, res);
+  }
 };
 
 export default localSignup;

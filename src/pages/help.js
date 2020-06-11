@@ -1,10 +1,10 @@
 import Head from "~components/Navigation/Head";
 
 const Help = () => (
-	<>
-		<Head title="Help" />
-		<h1>Help</h1>
-	</>
+  <>
+    <Head title="Help" />
+    <h1>Help</h1>
+  </>
 );
 
 export default Help;

@@ -21,14 +21,14 @@ import toast from "~components/Body/Toast";
  * @throws {action} - A redux action to display a server message by type.
  */
 function* relogin() {
-	try {
-		const res = yield call(app.get, "users/signedin");
-		const data = yield call(parseData, res);
+  try {
+    const res = yield call(app.get, "users/signedin");
+    const data = yield call(parseData, res);
 
-		yield put(actions.signin(data));
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield put(actions.signin(data));
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -44,19 +44,19 @@ function* relogin() {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* createUserAvatar({ props }) {
-	try {
-		yield put(resetMessages());
+  try {
+    yield put(resetMessages());
 
-		const res = yield call(imageAPI.post, "avatar/create", props);
-		const message = yield call(parseMessage, res);
+    const res = yield call(imageAPI.post, "avatar/create", props);
+    const message = yield call(parseMessage, res);
 
-		yield call(toast, { type: "success", message });
-		yield put(setMessage(message));
+    yield call(toast, { type: "success", message });
+    yield put(setMessage(message));
 
-		yield call(relogin);
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield call(relogin);
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -72,19 +72,19 @@ export function* createUserAvatar({ props }) {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* deleteUserAvatar() {
-	try {
-		yield put(resetMessages());
+  try {
+    yield put(resetMessages());
 
-		const res = yield call(imageAPI.delete, "avatar/delete");
-		const message = yield call(parseMessage, res);
+    const res = yield call(imageAPI.delete, "avatar/delete");
+    const message = yield call(parseMessage, res);
 
-		yield call(toast, { type: "success", message });
-		yield put(setMessage(message));
+    yield call(toast, { type: "success", message });
+    yield put(setMessage(message));
 
-		yield call(relogin);
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield call(relogin);
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -97,15 +97,15 @@ export function* deleteUserAvatar() {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* signoutUserSession() {
-	try {
-		yield call(app.get, "users/signout");
+  try {
+    yield call(app.get, "users/signout");
 
-		yield put(actions.signout());
+    yield put(actions.signout());
 
-		yield call(Router.replace, "/");
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield call(Router.replace, "/");
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -120,17 +120,17 @@ export function* signoutUserSession() {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* signinUser({ props }) {
-	try {
-		yield put(resetMessages());
+  try {
+    yield put(resetMessages());
 
-		const res = yield call(app.post, "users/signin", { ...props });
-		const data = yield call(parseData, res);
+    const res = yield call(app.post, "users/signin", { ...props });
+    const data = yield call(parseData, res);
 
-		yield put(actions.signin(data));
-		yield call(Router.push, "/");
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield put(actions.signin(data));
+    yield call(Router.push, "/");
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -146,19 +146,19 @@ export function* signinUser({ props }) {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* signupUser({ props }) {
-	try {
-		yield put(resetMessages());
+  try {
+    yield put(resetMessages());
 
-		const res = yield call(app.post, "users/signup", { ...props });
-		const message = yield call(parseMessage, res);
+    const res = yield call(app.post, "users/signup", { ...props });
+    const message = yield call(parseMessage, res);
 
-		yield call(toast, { type: "success", message });
-		yield put(setMessage(message));
+    yield call(toast, { type: "success", message });
+    yield put(setMessage(message));
 
-		yield call(Router.push, "/signin");
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield call(Router.push, "/signin");
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -174,19 +174,19 @@ export function* signupUser({ props }) {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* updateUserAvatar({ props }) {
-	try {
-		yield put(resetMessages());
+  try {
+    yield put(resetMessages());
 
-		const res = yield call(imageAPI.put, "avatar/update", props);
-		const message = yield call(parseMessage, res);
+    const res = yield call(imageAPI.put, "avatar/update", props);
+    const message = yield call(parseMessage, res);
 
-		yield call(toast, { type: "success", message });
-		yield put(setMessage(message));
+    yield call(toast, { type: "success", message });
+    yield put(setMessage(message));
 
-		yield call(relogin);
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield call(relogin);
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -202,19 +202,19 @@ export function* updateUserAvatar({ props }) {
  * @throws {action} - A redux action to display a server message by type.
  */
 export function* updateUserProfile({ props }) {
-	try {
-		yield put(resetMessages());
+  try {
+    yield put(resetMessages());
 
-		const res = yield call(app.put, "users/profile/update", { ...props });
-		const message = yield call(parseMessage, res);
+    const res = yield call(app.put, "users/profile/update", { ...props });
+    const message = yield call(parseMessage, res);
 
-		yield call(toast, { type: "success", message });
-		yield put(setMessage(message));
+    yield call(toast, { type: "success", message });
+    yield put(setMessage(message));
 
-		yield call(relogin);
-	} catch (e) {
-		yield call(setServerError, e.toString());
-	}
+    yield call(relogin);
+  } catch (e) {
+    yield call(setServerError, e.toString());
+  }
 }
 
 /**
@@ -225,13 +225,13 @@ export function* updateUserProfile({ props }) {
  * @yields {watchers}
  */
 export default function* authSagas() {
-	yield all([
-		takeLatest(constants.AUTH_CREATE_AVATAR, createUserAvatar),
-		takeLatest(constants.AUTH_DELETE_AVATAR, deleteUserAvatar),
-		takeLatest(constants.AUTH_SIGNIN_ATTEMPT, signinUser),
-		takeLatest(constants.AUTH_SIGNOUT_SESSION, signoutUserSession),
-		takeLatest(constants.AUTH_SIGNUP, signupUser),
-		takeLatest(constants.AUTH_UPDATE_AVATAR, updateUserAvatar),
-		takeLatest(constants.AUTH_UPDATE_PROFILE, updateUserProfile)
-	]);
+  yield all([
+    takeLatest(constants.AUTH_CREATE_AVATAR, createUserAvatar),
+    takeLatest(constants.AUTH_DELETE_AVATAR, deleteUserAvatar),
+    takeLatest(constants.AUTH_SIGNIN_ATTEMPT, signinUser),
+    takeLatest(constants.AUTH_SIGNOUT_SESSION, signoutUserSession),
+    takeLatest(constants.AUTH_SIGNUP, signupUser),
+    takeLatest(constants.AUTH_UPDATE_AVATAR, updateUserAvatar),
+    takeLatest(constants.AUTH_UPDATE_PROFILE, updateUserProfile),
+  ]);
 }

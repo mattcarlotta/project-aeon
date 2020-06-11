@@ -16,9 +16,9 @@ import { store } from "~store";
  * @returns {ShallowWrapper}
  */
 export const shallowWrap = (Component, state = null) => {
-	const wrapper = shallow(Component);
-	if (state) wrapper.setState(state);
-	return wrapper;
+  const wrapper = shallow(Component);
+  if (state) wrapper.setState(state);
+  return wrapper;
 };
 
 /**
@@ -32,22 +32,22 @@ export const shallowWrap = (Component, state = null) => {
  * @returns {MountedRouterWrapper}
  */
 export const HOCWrap = (
-	Component,
-	initialProps = {},
-	state = null,
-	options = {}
+  Component,
+  initialProps = {},
+  state = null,
+  options = {},
 ) => {
-	const wrapper = mount(
-		createElement(
-			props => (
-				<Provider store={store}>
-					<Component {...props} />
-				</Provider>
-			),
-			initialProps
-		),
-		options
-	);
-	if (state) wrapper.find(Component).setState(state);
-	return wrapper;
+  const wrapper = mount(
+    createElement(
+      props => (
+        <Provider store={store}>
+          <Component {...props} />
+        </Provider>
+      ),
+      initialProps,
+    ),
+    options,
+  );
+  if (state) wrapper.find(Component).setState(state);
+  return wrapper;
 };

@@ -21,128 +21,128 @@ import NavContainer from "~components/Navigation/NavContainer";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
 const menuStyle = {
-	padding: "0px 35px 0 15px"
+  padding: "0px 35px 0 15px",
 };
 
 const iconStyle = {
-	marginRight: 15
+  marginRight: 15,
 };
 
 const Header = ({
-	avatar,
-	displayname,
-	isLoading,
-	firstname,
-	lastname,
-	reputation,
-	role,
-	signoutUser
+  avatar,
+  displayname,
+  isLoading,
+  firstname,
+  lastname,
+  reputation,
+  role,
+  signoutUser,
 }) => (
-	<NavHeader>
-		<NavContainer>
-			<FlexStart>
-				<Link blue href="/">
-					<div css="font-size: 20px;font-weight: bold;">Project Aeon</div>
-				</Link>
-			</FlexStart>
-			<FlexEnd>
-				{!isLoading ? (
-					<List>
-						{!role || role === "guest" ? (
-							<>
-								<ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
-								<ListItem>
-									<Link style={{ marginRight: 0 }} href="/signin">
-										<Button radius="4px">Sign In</Button>
-									</Link>
-								</ListItem>
-								<ListItem>
-									<Link href="/register">
-										<Button primary radius="4px">
-											Register
-										</Button>
-									</Link>
-								</ListItem>
-							</>
-						) : (
-							<ListItem>
-								<Dropdown
-									menu={
-										<Menu>
-											<MenuItem>
-												<Link href="/dashboard">
-													<FlexMiddle style={menuStyle}>
-														<MdDashboard style={iconStyle} /> Dashboard
-													</FlexMiddle>
-												</Link>
-											</MenuItem>
-											<MenuItem>
-												<Link href="/profile">
-													<FlexMiddle style={menuStyle}>
-														<FaUserCog style={iconStyle} /> Profile
-													</FlexMiddle>
-												</Link>
-											</MenuItem>
-											<MenuItem>
-												<Link href="/help">
-													<FlexMiddle style={menuStyle}>
-														<FaQuestionCircle style={iconStyle} /> Help
-													</FlexMiddle>
-												</Link>
-											</MenuItem>
-											<MenuItem>
-												<Button link padding="0" onClick={signoutUser}>
-													<FlexMiddle style={menuStyle}>
-														<FaSignOutAlt style={iconStyle} /> Sign Out
-													</FlexMiddle>
-												</Button>
-											</MenuItem>
-										</Menu>
-									}
-								>
-									<img
-										css="max-height: 22px;max-width: 22px;position: relative;top: -1px;margin-right: 10px;"
-										src={avatar || DefaultAvatar}
-										alt="avatar"
-									/>
-									<div css="overflow:hidden;margin-right: 15px;">
-										<AccountButtonText>
-											{displayname || `${firstname} ${lastname}`}
-										</AccountButtonText>
-										<AccountButtonText>
-											<span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
-												&#9733;
-											</span>
-											{reputation.toLocaleString()} rep
-										</AccountButtonText>
-									</div>
-								</Dropdown>
-							</ListItem>
-						)}
-					</List>
-				) : (
-					<LoadingNav />
-				)}
-			</FlexEnd>
-		</NavContainer>
-	</NavHeader>
+  <NavHeader>
+    <NavContainer>
+      <FlexStart>
+        <Link blue href="/">
+          <div css="font-size: 20px;font-weight: bold;">Project Aeon</div>
+        </Link>
+      </FlexStart>
+      <FlexEnd>
+        {!isLoading ? (
+          <List>
+            {!role || role === "guest" ? (
+              <>
+                <ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
+                <ListItem>
+                  <Link style={{ marginRight: 0 }} href="/signin">
+                    <Button radius="4px">Sign In</Button>
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link href="/register">
+                    <Button primary radius="4px">
+                      Register
+                    </Button>
+                  </Link>
+                </ListItem>
+              </>
+            ) : (
+              <ListItem>
+                <Dropdown
+                  menu={
+                    <Menu>
+                      <MenuItem>
+                        <Link href="/dashboard">
+                          <FlexMiddle style={menuStyle}>
+                            <MdDashboard style={iconStyle} /> Dashboard
+                          </FlexMiddle>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link href="/profile">
+                          <FlexMiddle style={menuStyle}>
+                            <FaUserCog style={iconStyle} /> Profile
+                          </FlexMiddle>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link href="/help">
+                          <FlexMiddle style={menuStyle}>
+                            <FaQuestionCircle style={iconStyle} /> Help
+                          </FlexMiddle>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Button link padding="0" onClick={signoutUser}>
+                          <FlexMiddle style={menuStyle}>
+                            <FaSignOutAlt style={iconStyle} /> Sign Out
+                          </FlexMiddle>
+                        </Button>
+                      </MenuItem>
+                    </Menu>
+                  }
+                >
+                  <img
+                    css="max-height: 22px;max-width: 22px;position: relative;top: -1px;margin-right: 10px;"
+                    src={avatar || DefaultAvatar}
+                    alt="avatar"
+                  />
+                  <div css="overflow:hidden;margin-right: 15px;">
+                    <AccountButtonText>
+                      {displayname || `${firstname} ${lastname}`}
+                    </AccountButtonText>
+                    <AccountButtonText>
+                      <span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
+                        &#9733;
+                      </span>
+                      {reputation.toLocaleString()} rep
+                    </AccountButtonText>
+                  </div>
+                </Dropdown>
+              </ListItem>
+            )}
+          </List>
+        ) : (
+          <LoadingNav />
+        )}
+      </FlexEnd>
+    </NavContainer>
+  </NavHeader>
 );
 
 Header.propTypes = {
-	avatar: PropTypes.string,
-	displayname: PropTypes.string,
-	firstname: PropTypes.string,
-	lastname: PropTypes.string,
-	role: PropTypes.string,
-	isLoading: PropTypes.bool.isRequired,
-	reputation: PropTypes.number,
-	signoutUser: PropTypes.func.isRequired
+  avatar: PropTypes.string,
+  displayname: PropTypes.string,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  role: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  reputation: PropTypes.number,
+  signoutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ authentication }) => ({ ...authentication });
 
 const mapDispatchToProps = {
-	signoutUser
+  signoutUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

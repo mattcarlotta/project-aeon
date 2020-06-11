@@ -25,14 +25,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import { createContext } from "react";
 
 export const ConfigContext = createContext({
-	// We provide a default function for Context without provider
-	getPrefixCls: (suffixCls, customizePrefixCls) => {
-		if (customizePrefixCls) return customizePrefixCls;
+  // We provide a default function for Context without provider
+  getPrefixCls: (suffixCls, customizePrefixCls) => {
+    if (customizePrefixCls) return customizePrefixCls;
 
-		return suffixCls ? `ant-${suffixCls}` : "ant";
-	},
+    return suffixCls ? `ant-${suffixCls}` : "ant";
+  },
 
-	renderEmpty: null
+  renderEmpty: null,
 });
 
 export const ConfigConsumer = ConfigContext.Consumer;

@@ -14,79 +14,79 @@ import { parseCookie, parseData } from "~utils/parseResponse";
 import "react-toastify/dist/ReactToastify.css";
 
 export class MyApp extends App {
-	static getInitialProps = async ({ Component, ctx }) => {
-		const {
-			store: { dispatch, getState },
-			req
-		} = ctx;
-		const { role } = getState().authentication;
+  static getInitialProps = async ({ Component, ctx }) => {
+    const {
+      store: { dispatch, getState },
+      req,
+    } = ctx;
+    const { role } = getState().authentication;
 
-		dispatch(resetMessages());
+    dispatch(resetMessages());
 
-		if (!role) {
-			try {
-				const res = await app.get("users/signedin", parseCookie(req));
-				const data = parseData(res);
+    if (!role) {
+      try {
+        const res = await app.get("users/signedin", parseCookie(req));
+        const data = parseData(res);
 
-				dispatch(signin(data));
-			} catch (e) {
-				return { serverError: e.toString() };
-			}
-		}
+        dispatch(signin(data));
+      } catch (e) {
+        return { serverError: e.toString() };
+      }
+    }
 
-		return {
-			pageProps: {
-				...(Component.getInitialProps
-					? await Component.getInitialProps(ctx)
-					: {})
-			}
-		};
-	};
+    return {
+      pageProps: {
+        ...(Component.getInitialProps
+          ? await Component.getInitialProps(ctx)
+          : {}),
+      },
+    };
+  };
 
-	componentDidMount = () => {
-		NProgress.configure({
-			showSpinner: false
-		});
+  componentDidMount = () => {
+    NProgress.configure({
+      showSpinner: false,
+    });
 
-		Router.events.on("routeChangeComplete", this.scrollToTop);
-		Router.events.on("routeChangeStart", this.startProgress);
-		Router.events.on("routeChangeComplete", this.endProgress);
-		Router.events.on("routeChangeError", this.endProgress);
+    Router.events.on("routeChangeComplete", this.scrollToTop);
+    Router.events.on("routeChangeStart", this.startProgress);
+    Router.events.on("routeChangeComplete", this.endProgress);
+    Router.events.on("routeChangeError", this.endProgress);
 
-		if (this.props.serverError)
-			toast({ type: "error", message: this.props.serverError });
+    if (this.props.serverError)
+      toast({ type: "error", message: this.props.serverError });
 
-		const jssStyles = document.querySelector("#jss-server-side");
-		if (jssStyles && jssStyles.parentNode)
-			jssStyles.parentNode.removeChild(jssStyles);
-	};
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles && jssStyles.parentNode)
+      jssStyles.parentNode.removeChild(jssStyles);
+  };
 
-	componentWillUnmount = () => {
-		Router.events.off("routeChangeComplete", this.scrollToTop);
-		Router.events.off("routeChangeStart", this.startProgress);
-		Router.events.off("routeChangeComplete", this.endProgress);
-		Router.events.off("routeChangeError", this.endProgress);
-	};
+  componentWillUnmount = () => {
+    Router.events.off("routeChangeComplete", this.scrollToTop);
+    Router.events.off("routeChangeStart", this.startProgress);
+    Router.events.off("routeChangeComplete", this.endProgress);
+    Router.events.off("routeChangeError", this.endProgress);
+  };
 
-	scrollToTop = () => window.scrollTo(0, 0);
+  scrollToTop = () => window.scrollTo(0, 0);
 
-	startProgress = () => NProgress.start();
+  startProgress = () => NProgress.start();
 
-	endProgress = () => NProgress.done();
+  endProgress = () => NProgress.done();
 
-	render() {
-		const { Component, pageProps } = this.props;
-		return (
-			<>
-				<GlobalStylesheet />
-				<NavBar />
-				<PageContainer>
-					<Component {...pageProps} />
-				</PageContainer>
-				<ServerMessages />
-			</>
-		);
-	}
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
+      <>
+        <GlobalStylesheet />
+        <NavBar />
+        <PageContainer>
+          <Component {...pageProps} />
+        </PageContainer>
+        <ServerMessages />
+      </>
+    );
+  }
 }
 
 export default wrapper.withRedux(MyApp);

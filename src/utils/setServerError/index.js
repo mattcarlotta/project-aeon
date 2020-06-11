@@ -12,8 +12,8 @@ import toast from "~components/Body/Toast";
  * @yields {function} - A function to trigger an error toast with the server message.
  */
 function* setServerError(message) {
-	yield put(setError(message.toString()));
-	yield call(toast, { type: "error", message: message.toString() });
+  yield put(setError(message.toString()));
+  yield call(toast, { type: "error", message: message.toString() });
 }
 
 export default setServerError;

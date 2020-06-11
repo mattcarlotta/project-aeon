@@ -9,9 +9,9 @@ const name = "[name]-[hash].[ext]";
  * @returns {object}
  */
 const jsRule = ({ loader, options }) => ({
-	test: /\.(js|mjs|jsx|ts|tsx)$/,
-	exclude: /(node_modules)/,
-	use: [{ loader, options }]
+  test: /\.(js|mjs|jsx|ts|tsx)$/,
+  exclude: /(node_modules)/,
+  use: [{ loader, options }],
 });
 
 /**
@@ -24,19 +24,19 @@ const jsRule = ({ loader, options }) => ({
  * @returns {object}
  */
 const mediaRule = ({ test, loader, options }) => ({
-	test,
-	use: [
-		{
-			loader,
-			options: {
-				...options,
-				name
-			}
-		}
-	]
+  test,
+  use: [
+    {
+      loader,
+      options: {
+        ...options,
+        name,
+      },
+    },
+  ],
 });
 
 module.exports = {
-	jsRule,
-	mediaRule
+  jsRule,
+  mediaRule,
 };

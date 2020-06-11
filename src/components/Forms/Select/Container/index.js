@@ -2,6 +2,6 @@
 import styled from "styled-components";
 
 export default styled.div`
-	height: 117px;
-	width: 100%;
+  height: 117px;
+  width: 100%;
 `;

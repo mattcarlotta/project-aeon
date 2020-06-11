@@ -2,14 +2,14 @@ import random from "lodash.random";
 import get from "lodash.get";
 
 const tokenGenerator = (str, tlen) => {
-	const arr = [...str];
-	const max = arr.length - 1;
-	let token = "";
-	for (let i = 0; i < tlen; i += 1) {
-		const int = random(max);
-		token += arr[int];
-	}
-	return token;
+  const arr = [...str];
+  const max = arr.length - 1;
+  let token = "";
+  for (let i = 0; i < tlen; i += 1) {
+    const int = random(max);
+    token += arr[int];
+  }
+  return token;
 };
 
 /**
@@ -23,9 +23,9 @@ const tokenGenerator = (str, tlen) => {
  * @returns {response}
  */
 const clearSession = (req, res, status, err) => {
-	req.session = null;
+  req.session = null;
 
-	res.status(status).json({ role: "guest", err });
+  res.status(status).json({ role: "guest", err });
 };
 
 /**
@@ -35,10 +35,10 @@ const clearSession = (req, res, status, err) => {
  * @returns {String}
  */
 const createRandomToken = () =>
-	tokenGenerator(
-		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$/.",
-		64
-	);
+  tokenGenerator(
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$/.",
+    64,
+  );
 
 /**
  * Helper function to parse req.session.
@@ -65,9 +65,9 @@ const sendError = (err, res) => res.status(400).json({ err: err.toString() });
 const uniqueArray = arr => arr.length === new Set(arr).size;
 
 export {
-	clearSession,
-	createRandomToken,
-	parseSession,
-	sendError,
-	uniqueArray
+  clearSession,
+  createRandomToken,
+  parseSession,
+  sendError,
+  uniqueArray,
 };

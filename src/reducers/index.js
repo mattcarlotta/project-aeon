@@ -4,9 +4,9 @@ import messagesReducer from "./Messages";
 import questionsReducer from "./Questions";
 
 const reducers = {
-	authentication: authenticationReducer,
-	messages: messagesReducer,
-	questions: questionsReducer
+  authentication: authenticationReducer,
+  messages: messagesReducer,
+  questions: questionsReducer,
 };
 
 export default combineReducers(reducers);

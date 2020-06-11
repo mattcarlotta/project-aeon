@@ -9,13 +9,13 @@ import { clearSession, parseSession } from "~utils/helpers";
  * @returns {function}
  */
 export default next => async (req, res) => {
-	const id = parseSession(req);
-	if (!id) return clearSession(req, res, 200);
+  const id = parseSession(req);
+  if (!id) return clearSession(req, res, 200);
 
-	const existingUser = await db.oneOrNone(findUserById, [id]);
-	if (!existingUser) return clearSession(req, res, 200);
+  const existingUser = await db.oneOrNone(findUserById, [id]);
+  if (!existingUser) return clearSession(req, res, 200);
 
-	req.user = existingUser;
+  req.user = existingUser;
 
-	next(req, res);
+  next(req, res);
 };

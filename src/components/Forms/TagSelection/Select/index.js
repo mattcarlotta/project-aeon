@@ -33,156 +33,156 @@ import SizeContext from "./SizeContext";
 
 // We still use class here since `forwardRef` not support generic in typescript
 class Select extends Component {
-	static Option = Option;
+  static Option = Option;
 
-	static OptGroup = OptGroup;
+  static OptGroup = OptGroup;
 
-	static SECRET_COMBOBOX_MODE_DO_NOT_USE = "SECRET_COMBOBOX_MODE_DO_NOT_USE";
+  static SECRET_COMBOBOX_MODE_DO_NOT_USE = "SECRET_COMBOBOX_MODE_DO_NOT_USE";
 
-	selectRef = React.createRef();
+  selectRef = React.createRef();
 
-	focus = () => {
-		if (this.selectRef.current) {
-			this.selectRef.current.focus();
-		}
-	};
+  focus = () => {
+    if (this.selectRef.current) {
+      this.selectRef.current.focus();
+    }
+  };
 
-	blur = () => {
-		if (this.selectRef.current) {
-			this.selectRef.current.blur();
-		}
-	};
+  blur = () => {
+    if (this.selectRef.current) {
+      this.selectRef.current.blur();
+    }
+  };
 
-	getMode = () => {
-		const { mode } = this.props;
+  getMode = () => {
+    const { mode } = this.props;
 
-		if (mode === "combobox") {
-			return undefined;
-		}
+    if (mode === "combobox") {
+      return undefined;
+    }
 
-		if (mode === Select.SECRET_COMBOBOX_MODE_DO_NOT_USE) {
-			return "combobox";
-		}
+    if (mode === Select.SECRET_COMBOBOX_MODE_DO_NOT_USE) {
+      return "combobox";
+    }
 
-		return mode;
-	};
+    return mode;
+  };
 
-	renderSelect = ({
-		getPopupContainer: getContextPopupContainer,
-		getPrefixCls,
-		renderEmpty,
-		direction,
-		virtual,
-		dropdownMatchSelectWidth
-	}) => {
-		const {
-			prefixCls: customizePrefixCls,
-			notFoundContent,
-			className,
-			size: customizeSize,
-			listHeight = 256,
-			listItemHeight = 24,
-			getPopupContainer,
-			dropdownClassName,
-			bordered
-		} = this.props;
+  renderSelect = ({
+    getPopupContainer: getContextPopupContainer,
+    getPrefixCls,
+    renderEmpty,
+    direction,
+    virtual,
+    dropdownMatchSelectWidth,
+  }) => {
+    const {
+      prefixCls: customizePrefixCls,
+      notFoundContent,
+      className,
+      size: customizeSize,
+      listHeight = 256,
+      listItemHeight = 24,
+      getPopupContainer,
+      dropdownClassName,
+      bordered,
+    } = this.props;
 
-		const prefixCls = getPrefixCls("select", customizePrefixCls);
-		const mode = this.getMode();
+    const prefixCls = getPrefixCls("select", customizePrefixCls);
+    const mode = this.getMode();
 
-		const isMultiple = mode === "multiple" || mode === "tags";
+    const isMultiple = mode === "multiple" || mode === "tags";
 
-		// ===================== Empty =====================
-		let mergedNotFound;
-		if (notFoundContent !== undefined) {
-			mergedNotFound = notFoundContent;
-		} else if (mode === "combobox") {
-			mergedNotFound = null;
-		} else {
-			mergedNotFound = renderEmpty("Select");
-		}
+    // ===================== Empty =====================
+    let mergedNotFound;
+    if (notFoundContent !== undefined) {
+      mergedNotFound = notFoundContent;
+    } else if (mode === "combobox") {
+      mergedNotFound = null;
+    } else {
+      mergedNotFound = renderEmpty("Select");
+    }
 
-		// ===================== Icons =====================
-		const { suffixIcon, itemIcon, removeIcon, clearIcon } = getIcons({
-			...this.props,
-			multiple: isMultiple
-		});
+    // ===================== Icons =====================
+    const { suffixIcon, itemIcon, removeIcon, clearIcon } = getIcons({
+      ...this.props,
+      multiple: isMultiple,
+    });
 
-		const selectProps = omit(this.props, [
-			"prefixCls",
-			"suffixIcon",
-			"itemIcon",
-			"removeIcon",
-			"clearIcon",
-			"size",
-			"bordered"
-		]);
+    const selectProps = omit(this.props, [
+      "prefixCls",
+      "suffixIcon",
+      "itemIcon",
+      "removeIcon",
+      "clearIcon",
+      "size",
+      "bordered",
+    ]);
 
-		const rcSelectRtlDropDownClassName = classNames(dropdownClassName, {
-			[`${prefixCls}-dropdown-${direction}`]: direction === "rtl"
-		});
-		return (
-			<SizeContext.Consumer>
-				{size => {
-					const mergedSize = customizeSize || size;
-					const mergedClassName = classNames(className, {
-						[`${prefixCls}-lg`]: mergedSize === "large",
-						[`${prefixCls}-sm`]: mergedSize === "small",
-						[`${prefixCls}-rtl`]: direction === "rtl",
-						[`${prefixCls}-borderless`]: !bordered
-					});
+    const rcSelectRtlDropDownClassName = classNames(dropdownClassName, {
+      [`${prefixCls}-dropdown-${direction}`]: direction === "rtl",
+    });
+    return (
+      <SizeContext.Consumer>
+        {size => {
+          const mergedSize = customizeSize || size;
+          const mergedClassName = classNames(className, {
+            [`${prefixCls}-lg`]: mergedSize === "large",
+            [`${prefixCls}-sm`]: mergedSize === "small",
+            [`${prefixCls}-rtl`]: direction === "rtl",
+            [`${prefixCls}-borderless`]: !bordered,
+          });
 
-					return (
-						<RcSelect
-							ref={this.selectRef}
-							virtual={virtual}
-							dropdownMatchSelectWidth={dropdownMatchSelectWidth}
-							{...selectProps}
-							listHeight={listHeight}
-							listItemHeight={listItemHeight}
-							mode={mode}
-							prefixCls={prefixCls}
-							direction={direction}
-							inputIcon={suffixIcon}
-							menuItemSelectedIcon={itemIcon}
-							removeIcon={removeIcon}
-							clearIcon={clearIcon}
-							notFoundContent={mergedNotFound}
-							className={mergedClassName}
-							getPopupContainer={getPopupContainer || getContextPopupContainer}
-							dropdownClassName={rcSelectRtlDropDownClassName}
-						/>
-					);
-				}}
-			</SizeContext.Consumer>
-		);
-	};
+          return (
+            <RcSelect
+              ref={this.selectRef}
+              virtual={virtual}
+              dropdownMatchSelectWidth={dropdownMatchSelectWidth}
+              {...selectProps}
+              listHeight={listHeight}
+              listItemHeight={listItemHeight}
+              mode={mode}
+              prefixCls={prefixCls}
+              direction={direction}
+              inputIcon={suffixIcon}
+              menuItemSelectedIcon={itemIcon}
+              removeIcon={removeIcon}
+              clearIcon={clearIcon}
+              notFoundContent={mergedNotFound}
+              className={mergedClassName}
+              getPopupContainer={getPopupContainer || getContextPopupContainer}
+              dropdownClassName={rcSelectRtlDropDownClassName}
+            />
+          );
+        }}
+      </SizeContext.Consumer>
+    );
+  };
 
-	render() {
-		return <ConfigConsumer>{this.renderSelect}</ConfigConsumer>;
-	}
+  render() {
+    return <ConfigConsumer>{this.renderSelect}</ConfigConsumer>;
+  }
 }
 
 Select.propTypes = {
-	choiceTransitionName: PropTypes.string,
-	bordered: PropTypes.bool,
-	direction: PropTypes.string,
-	className: PropTypes.string,
-	dropdownClassName: PropTypes.string,
-	getPopupContainer: PropTypes.func,
-	listHeight: PropTypes.number,
-	listItemHeight: PropTypes.number,
-	mode: PropTypes.string,
-	notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-	prefixCls: PropTypes.string,
-	size: PropTypes.string,
-	transitionName: PropTypes.string
+  choiceTransitionName: PropTypes.string,
+  bordered: PropTypes.bool,
+  direction: PropTypes.string,
+  className: PropTypes.string,
+  dropdownClassName: PropTypes.string,
+  getPopupContainer: PropTypes.func,
+  listHeight: PropTypes.number,
+  listItemHeight: PropTypes.number,
+  mode: PropTypes.string,
+  notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  prefixCls: PropTypes.string,
+  size: PropTypes.string,
+  transitionName: PropTypes.string,
 };
 
 Select.defaultProps = {
-	transitionName: "slide-up",
-	choiceTransitionName: "zoom",
-	bordered: true
+  transitionName: "slide-up",
+  choiceTransitionName: "zoom",
+  bordered: true,
 };
 
 export default Select;

@@ -3,5 +3,5 @@ import authenticationSagas from "./Authentications";
 import questionSagas from "./Questions";
 
 export default function* rootSaga() {
-	yield all([authenticationSagas(), questionSagas()]);
+  yield all([authenticationSagas(), questionSagas()]);
 }

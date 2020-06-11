@@ -9,55 +9,55 @@ import SelectContainer from "./SelectContainer";
 import Options from "./Options";
 
 const Select = ({
-	disabled,
-	errors,
-	name,
-	label,
-	selectOptions,
-	value,
-	...props
+  disabled,
+  errors,
+  name,
+  label,
+  selectOptions,
+  value,
+  ...props
 }) => (
-	<Container>
-		<Label name={name} label={label} htmlFor={name} />
-		<ClickHandler disabled={disabled} onChange={props.onChange}>
-			{handlers => (
-				<SelectContainer>
-					<SelectBox>
-						<Selection
-							{...handlers}
-							{...props}
-							name={name}
-							disabled={disabled}
-							errors={errors}
-							value={value}
-						/>
-						<Options
-							{...handlers}
-							name={name}
-							selectOptions={selectOptions}
-							selected={value}
-						/>
-					</SelectBox>
-				</SelectContainer>
-			)}
-		</ClickHandler>
-		{errors && <Errors>{errors}</Errors>}
-	</Container>
+  <Container>
+    <Label name={name} label={label} htmlFor={name} />
+    <ClickHandler disabled={disabled} onChange={props.onChange}>
+      {handlers => (
+        <SelectContainer>
+          <SelectBox>
+            <Selection
+              {...handlers}
+              {...props}
+              name={name}
+              disabled={disabled}
+              errors={errors}
+              value={value}
+            />
+            <Options
+              {...handlers}
+              name={name}
+              selectOptions={selectOptions}
+              selected={value}
+            />
+          </SelectBox>
+        </SelectContainer>
+      )}
+    </ClickHandler>
+    {errors && <Errors>{errors}</Errors>}
+  </Container>
 );
 
 Select.propTypes = {
-	disabled: PropTypes.bool,
-	errors: PropTypes.string,
-	name: PropTypes.string.isRequired,
-	label: PropTypes.string.isRequired,
-	placeholder: PropTypes.string,
-	onChange: PropTypes.func.isRequired,
-	selectOptions: PropTypes.arrayOf(PropTypes.string),
-	value: PropTypes.string
+  disabled: PropTypes.bool,
+  errors: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  selectOptions: PropTypes.arrayOf(PropTypes.string),
+  value: PropTypes.string,
 };
 
 Select.defaultProps = {
-	placeholder: "Select an option..."
+  placeholder: "Select an option...",
 };
 
 export default Select;

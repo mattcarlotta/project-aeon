@@ -20,8 +20,8 @@ export const fetchOneQuestion = id => ({ type: constants.QUESTIONS_FETCH, id });
  * @returns {object}
  */
 export const setOneQuestion = data => ({
-	type: constants.QUESTIONS_SET_ONE,
-	payload: !isEmpty(data) ? data : {}
+  type: constants.QUESTIONS_SET_ONE,
+  payload: !isEmpty(data) ? data : {},
 });
 
 /**
@@ -30,6 +30,6 @@ export const setOneQuestion = data => ({
  * @returns {object}
  */
 export const setQuestions = data => ({
-	type: constants.QUESTIONS_SET,
-	payload: !isEmpty(data) ? data : []
+  type: constants.QUESTIONS_SET,
+  payload: !isEmpty(data) ? data : [],
 });

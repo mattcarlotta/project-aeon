@@ -9,8 +9,8 @@ import * as constants from "~constants";
  * @returns {object}
  */
 export const createUserAvatar = props => ({
-	type: constants.AUTH_CREATE_AVATAR,
-	props
+  type: constants.AUTH_CREATE_AVATAR,
+  props,
 });
 
 /**
@@ -20,7 +20,7 @@ export const createUserAvatar = props => ({
  * @returns {object}
  */
 export const deleteUserAvatar = () => ({
-	type: constants.AUTH_DELETE_AVATAR
+  type: constants.AUTH_DELETE_AVATAR,
 });
 
 /**
@@ -31,8 +31,8 @@ export const deleteUserAvatar = () => ({
  * @returns {object}
  */
 export const setProfile = data => ({
-	type: constants.AUTH_SET_PROFILE,
-	payload: !isEmpty(data) ? data : {}
+  type: constants.AUTH_SET_PROFILE,
+  payload: !isEmpty(data) ? data : {},
 });
 
 /**
@@ -43,8 +43,8 @@ export const setProfile = data => ({
  * @returns {object}
  */
 export const signin = data => ({
-	type: constants.AUTH_SIGNIN,
-	payload: !isEmpty(data) ? data : { role: "guest" }
+  type: constants.AUTH_SIGNIN,
+  payload: !isEmpty(data) ? data : { role: "guest" },
 });
 
 /**
@@ -55,8 +55,8 @@ export const signin = data => ({
  * @returns {object}
  */
 export const signinUser = props => ({
-	type: constants.AUTH_SIGNIN_ATTEMPT,
-	props
+  type: constants.AUTH_SIGNIN_ATTEMPT,
+  props,
 });
 
 /**
@@ -66,7 +66,7 @@ export const signinUser = props => ({
  * @returns {object}
  */
 export const signoutUser = () => ({
-	type: constants.AUTH_SIGNOUT_SESSION
+  type: constants.AUTH_SIGNOUT_SESSION,
 });
 
 /**
@@ -76,7 +76,7 @@ export const signoutUser = () => ({
  * @returns {object}
  */
 export const signout = () => ({
-	type: constants.AUTH_SIGNOUT
+  type: constants.AUTH_SIGNOUT,
 });
 
 /**
@@ -87,8 +87,8 @@ export const signout = () => ({
  * @returns {object}
  */
 export const signupUser = props => ({
-	type: constants.AUTH_SIGNUP,
-	props
+  type: constants.AUTH_SIGNUP,
+  props,
 });
 
 /**
@@ -99,8 +99,8 @@ export const signupUser = props => ({
  * @returns {object}
  */
 export const updateUserAvatar = props => ({
-	type: constants.AUTH_UPDATE_AVATAR,
-	props
+  type: constants.AUTH_UPDATE_AVATAR,
+  props,
 });
 
 /**
@@ -111,6 +111,6 @@ export const updateUserAvatar = props => ({
  * @returns {object}
  */
 export const updateUserProfile = props => ({
-	type: constants.AUTH_UPDATE_PROFILE,
-	props
+  type: constants.AUTH_UPDATE_PROFILE,
+  props,
 });

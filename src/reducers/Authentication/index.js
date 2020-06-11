@@ -2,19 +2,19 @@ import { HYDRATE } from "next-redux-wrapper";
 import * as constants from "~constants";
 
 export const initialState = {
-	id: "",
-	avatar: "",
-	email: "",
-	firstname: "",
-	description: "",
-	displayname: "",
-	lastname: "",
-	role: "",
-	registered: "",
-	reputation: 0,
-	website: "",
-	isLoading: true,
-	settings: {}
+  id: "",
+  avatar: "",
+  email: "",
+  firstname: "",
+  description: "",
+  displayname: "",
+  lastname: "",
+  role: "",
+  registered: "",
+  reputation: 0,
+  website: "",
+  isLoading: true,
+  settings: {},
 };
 
 /**
@@ -24,22 +24,22 @@ export const initialState = {
  * @returns {object} - users state.
  */
 const authenticationReducer = (state = initialState, { payload, type }) => {
-	switch (type) {
-		case HYDRATE:
-			return { ...state, ...payload.authentication };
-		case constants.AUTH_SIGNIN: {
-			return { ...state, ...payload, isLoading: false };
-		}
-		case constants.AUTH_SET_PROFILE: {
-			return { ...state, settings: payload.signedinUser };
-		}
-		case constants.AUTH_SIGNOUT: {
-			return { ...initialState, role: "guest", isLoading: false };
-		}
-		default: {
-			return state;
-		}
-	}
+  switch (type) {
+    case HYDRATE:
+      return { ...state, ...payload.authentication };
+    case constants.AUTH_SIGNIN: {
+      return { ...state, ...payload, isLoading: false };
+    }
+    case constants.AUTH_SET_PROFILE: {
+      return { ...state, settings: payload.signedinUser };
+    }
+    case constants.AUTH_SIGNOUT: {
+      return { ...initialState, role: "guest", isLoading: false };
+    }
+    default: {
+      return state;
+    }
+  }
 };
 
 export default authenticationReducer;
