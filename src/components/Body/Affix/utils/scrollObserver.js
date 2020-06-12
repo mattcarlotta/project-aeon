@@ -16,12 +16,10 @@ const resizeListener = e => {
 
 const exports = (element, fn) => {
   const window = this;
-  const document = window.document;
-  const attachEvent = document.attachEvent;
 
   if (!element.__resizeListeners__) {
     element.__resizeListeners__ = [];
-    if (attachEvent) {
+    if (window.document.attachEvent) {
       element.__resizeTrigger__ = element;
       element.attachEvent("onresize", resizeListener);
     } else if (getComputedStyle(element).position === "static") {
@@ -32,7 +30,6 @@ const exports = (element, fn) => {
 };
 
 export const unbind = (element, fn) => {
-  const attachEvent = document.attachEvent;
   let listeners = element.__resizeListeners__ || [];
   if (fn) {
     const index = listeners.indexOf(fn);
@@ -43,7 +40,7 @@ export const unbind = (element, fn) => {
   }
 
   if (!listeners.length) {
-    if (attachEvent) {
+    if (document.attachEvent) {
       element.detachEvent("onresize", resizeListener);
     } else if (element.__resizeTrigger__) {
       const contentDocument = element.__resizeTrigger__.contentDocument;

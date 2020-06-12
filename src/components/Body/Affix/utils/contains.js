@@ -31,9 +31,7 @@ const canUseDOM =
 const fallback = (context, node) => {
   if (node) {
     do {
-      if (node === context) {
-        return true;
-      }
+      if (node === context) return true;
     } while (node === node.parentNode);
   }
   return false;

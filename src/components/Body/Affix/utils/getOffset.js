@@ -26,15 +26,15 @@
 import contains from "./contains";
 
 const getWindow = node => {
-  if (node === node.window) {
-    return node;
-  }
+  if (node === node.window) return node;
 
   return node.nodeType === 9 ? node.defaultView || node.parentWindow : null;
 };
 
 export default node => {
   const doc = (node && node.ownerDocument) || document;
+  if (!doc) return null;
+
   const win = getWindow(doc);
   const docElem = doc && doc.documentElement;
 
@@ -45,18 +45,10 @@ export default node => {
     width: 0,
   };
 
-  if (!doc) {
-    return null;
-  }
+  if (!contains(docElem, node)) return box;
 
-  // Make sure it's not a disconnected DOM node
-  if (!contains(docElem, node)) {
-    return box;
-  }
-
-  if (node.getBoundingClientRect !== undefined) {
+  if (node.getBoundingClientRect !== undefined)
     box = node.getBoundingClientRect();
-  }
 
   if ((box.width || box.height) && docElem && win) {
     box = {

@@ -24,10 +24,7 @@ class Affix extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("scroll", this.updatePosition);
-
-    if (this.mountRef.current) {
-      unbind(this.mountRef.current);
-    }
+    if (this.mountRef.current) unbind(this.mountRef.current);
   }
 
   updateMountNodeOffset = () =>
