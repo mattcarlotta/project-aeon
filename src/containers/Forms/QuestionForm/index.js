@@ -1,11 +1,12 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { createQuestion } from "~actions/Questions";
 import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
-// import parseFields from "~utils/parseFields";
+import parseFields from "~utils/parseFields";
 
 export class UpdateDescriptionForm extends Component {
   state = {
@@ -20,7 +21,7 @@ export class UpdateDescriptionForm extends Component {
         required: true,
       },
       {
-        name: "tag",
+        name: "tags",
         type: "tag",
         label: "Tags",
         placeholder: "Search for related tags...",
@@ -31,7 +32,7 @@ export class UpdateDescriptionForm extends Component {
         required: false,
       },
       {
-        name: "question",
+        name: "body",
         type: "editor",
         label: "Question",
         value: "",
@@ -59,7 +60,7 @@ export class UpdateDescriptionForm extends Component {
     const { validatedFields, errors } = fieldValidator(this.state.fields);
 
     this.setState({ fields: validatedFields, isSubmitting: !errors }, () => {
-      // if (!errors) this.props.updateUserProfile(parseFields(validatedFields));
+      if (!errors) this.props.createQuestion(parseFields(validatedFields));
     });
   };
 
@@ -77,17 +78,18 @@ export class UpdateDescriptionForm extends Component {
 
 UpdateDescriptionForm.propTypes = {
   serverError: PropTypes.string,
+  createQuestion: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ messages }) => ({
   serverError: messages.error,
 });
 
-// const mapDispatchToProps = {
-// 	updateUserProfile,
-// };
+const mapDispatchToProps = {
+  createQuestion,
+};
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps,
+  mapDispatchToProps,
 )(UpdateDescriptionForm);

@@ -88,10 +88,13 @@ export default styled(Button)`
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
   border-radius: ${({ radius }) => radius || "50px"};
+  margin: ${({ margin }) => margin || "0"};
   ${({ centered }) => (centered ? "margin: 0 auto;" : undefined)};
   ${props => {
     if (props.disabled)
       return "border:1px solid #ebebeb;background-color:#ebebeb;color:#bbb;";
+    if (props.tertiary)
+      return "border:1px solid #ebebeb;background-color:transparent;color:#ebebeb;";
     if (props.primary)
       return "border:1px solid #188fff;background-color:#188fff;color:#fff;";
     if (props.danger)
@@ -105,6 +108,7 @@ export default styled(Button)`
     ${props => {
       if (props.disabled)
         return "border-color:#ebebeb;background-color:#ebebeb;";
+      if (props.tertiary) return "border-color:#fff;color:#fff;";
       if (props.primary)
         return "border-color:#0f7ae5;background-color:#0f7ae5;";
       if (props.danger)

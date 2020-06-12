@@ -1,3 +1,9 @@
+const questionQueries = {
+  createNewQuestion:
+    "INSERT INTO questions(userid, body, tags, title, uniquetitle) VALUES ($1, $2, $3, $4, $5) RETURNING key",
+  findQuestion: "SELECT * FROM questions WHERE key=$1",
+};
+
 const userQueries = {
   createNewUser:
     "INSERT INTO users(email, password, firstname, lastname, token) VALUES ($1, $2, $3, $4, $5)",
@@ -208,5 +214,6 @@ const transactQueries = {
 */
 
 module.exports = {
+  ...questionQueries,
   ...userQueries,
 };

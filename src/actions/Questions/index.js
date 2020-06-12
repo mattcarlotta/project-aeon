@@ -3,6 +3,16 @@ import * as constants from "~constants";
 
 /**
  * @function fetchQuestions - fetches newest questions.
+ * @param props - include title, tags and question
+ * @returns {object}
+ */
+export const createQuestion = props => ({
+  type: constants.QUESTIONS_CREATE,
+  props,
+});
+
+/**
+ * @function fetchQuestions - fetches newest questions.
  * @returns {object}
  */
 export const fetchQuestions = () => ({ type: constants.QUESTIONS_FETCH });

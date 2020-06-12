@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
   width: 100%;
+  max-width: ${({ maxWidth }) => maxWidth || "100%"};
   padding: 10px;
   text-align: left;
   border-radius: 4px;
@@ -10,4 +11,6 @@ export default styled.div`
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   padding-bottom: 30px;
   margin-bottom: 20px;
+  ${({ centered }) =>
+    centered ? "margin-left: auto;margin-right:auto;" : undefined}
 `;

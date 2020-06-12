@@ -1,7 +1,9 @@
 /* eslint-disable */
 const chalk = require("chalk");
+const bcrypt = require("bcryptjs");
 require("../../env");
 const db = require("../index.js");
+const { createNewUser } = require("../queries");
 
 const { DB, SEED } = process.env;
 
@@ -24,7 +26,6 @@ const userTable = `(
 )`;
 
 const noteTableOptions = `(
-  id UUID DEFAULT uuid_generate_v1mc(),
   key SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -40,20 +41,19 @@ const avatarTableOptions = `(
 )`;
 
 const questionTableOptions = `(
-  id UUID DEFAULT uuid_generate_v1mc(),
   key SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   answered BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,
   title TEXT NOT NULL DEFAULT '',
+  uniquetitle VARCHAR NOT NULL,
   body TEXT NOT NULL DEFAULT '',
   tags TEXT [],
   comments JSONB
 )`;
 
 const answerTableOptions = `(
-  id UUID DEFAULT uuid_generate_v1mc(),
   key SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -75,6 +75,16 @@ const seedDB = async () => {
         CREATE TABLE questions ${questionTableOptions};
         CREATE TABLE answers ${answerTableOptions};
       `);
+
+    const newPassword = await bcrypt.hash("password", 12);
+
+    await db.none(createNewUser, [
+      "carlotta.matt@gmail.com",
+      newPassword,
+      "Matt",
+      "Carlotta",
+      "1234567890!@#$%^&*()",
+    ]);
 
     console.log(
       `\n${chalk.rgb(7, 54, 66).bgRgb(38, 139, 210)(" SEED ")} ${chalk.blue(

@@ -1,6 +1,23 @@
 import random from "lodash.random";
 import get from "lodash.get";
 
+/**
+ * Helper function to create dashed titles
+ *
+ * @function createDashedTitle
+ * @param {object} req
+ * @param {object} res
+ * @param {number} status
+ * @param {string} err
+ * @returns {response}
+ */
+const createDashedTitle = name =>
+  name
+    .trim()
+    .toLowerCase()
+    .replace(/[^\w\s]/gi, "")
+    .replace(/ /g, "-");
+
 const tokenGenerator = (str, tlen) => {
   const arr = [...str];
   const max = arr.length - 1;
@@ -66,6 +83,7 @@ const uniqueArray = arr => arr.length === new Set(arr).size;
 
 export {
   clearSession,
+  createDashedTitle,
   createRandomToken,
   parseSession,
   sendError,
