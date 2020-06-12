@@ -73,6 +73,7 @@ Button.propTypes = {
 Button.defaultProps = {
   disabled: false,
   type: "button",
+  onClick: () => {},
 };
 
 export default styled(Button)`

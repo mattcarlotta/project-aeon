@@ -11,9 +11,7 @@ const Home = () => (
     <LandingContainer>
       <SubTitle>The best resource for everything.</SubTitle>
       <Link href="/ask-question" style={{ marginRight: 0 }}>
-        <Button width="225px" onClick={null}>
-          Ask A Question
-        </Button>
+        <Button width="225px">Ask A Question</Button>
       </Link>
     </LandingContainer>
   </Center>
