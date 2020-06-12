@@ -87,6 +87,7 @@ export default styled(Button)`
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
   border-radius: ${({ radius }) => radius || "50px"};
+  ${({ centered }) => (centered ? "margin: 0 auto;" : undefined)};
   ${props => {
     if (props.disabled)
       return "border:1px solid #ebebeb;background-color:#ebebeb;color:#bbb;";
