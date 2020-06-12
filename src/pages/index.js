@@ -1,11 +1,15 @@
-import LandingContainer from "~components/Body/LandingContainer";
 import Button from "~components/Body/Button";
+import LandingContainer from "~components/Body/LandingContainer";
 import SubTitle from "~components/Body/SubTitle";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
+import Affix from "~components/Body/Affix";
 
 const Home = () => (
-  <div css="text-align: center;">
+  <div css="text-align: center;height:300vh;">
+    <Affix top={52}>
+      <h2 css="margin-top: 0;">Test</h2>
+    </Affix>
     <Head title="Home" />
     <LandingContainer>
       <SubTitle>The best resource for everything.</SubTitle>
