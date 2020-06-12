@@ -42,7 +42,7 @@ class Affix extends Component {
   render = () => (
     <div data-test-id="affix-container" ref={this.mountRef}>
       <Container {...this.state} {...this.props}>
-        {this.props.children}
+        <div css="overflow: hidden;">{this.props.children}</div>
       </Container>
       {this.state.fixed && (
         <div
@@ -65,7 +65,7 @@ Affix.propTypes = {
 
 Affix.defaultProps = {
   onChange: () => {},
-  top: 0,
+  top: 52,
 };
 
 export default Affix;
