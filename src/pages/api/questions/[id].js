@@ -18,7 +18,11 @@ const fetchUserQuestion = async (req, res) => {
     const { id } = req.query;
     if (!id) throw String(unableToLocateQuestion);
 
-    const existingQuestion = await db.oneOrNone(findQuestion, [id]);
+    const invalidId = id.match("^[A-Za-z]+$");
+    const santizedId = id.replace(/\D+/g, "");
+    if (invalidId || !santizedId) throw String(unableToLocateQuestion);
+
+    const existingQuestion = await db.oneOrNone(findQuestion, [santizedId]);
     if (!existingQuestion) throw String(unableToLocateQuestion);
 
     res.status(201).send(existingQuestion);

@@ -1,4 +1,6 @@
 import { PureComponent } from "react";
+import isEmpty from "lodash.isempty";
+import Router from "next/router";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setError } from "~actions/Messages";
@@ -7,14 +9,22 @@ import toast from "~components/Body/Toast";
 const withServerMessages = WrappedComponent => {
   class CatchServerMessages extends PureComponent {
     componentDidMount() {
-      if (this.props.serverError) this.showServerError();
-    }
+      const { data, query, serverError, redirect } = this.props;
+      if (serverError) this.showServerError();
 
-    componentDidUpdate(prevProps) {
-      const { serverError } = this.props;
+      if (redirect && !isEmpty(data) && !isEmpty(query.slug)) {
+        const { 1: queryTitle } = query.slug;
+        const { uniquetitle: title } = data;
 
-      if (serverError !== prevProps.serverError && serverError !== "")
-        this.showServerError();
+        if (queryTitle !== title)
+          Router.replace(
+            "/questions/[...slug]",
+            `/questions/${data.key}/${title}`,
+            {
+              shallow: true,
+            },
+          );
+      }
     }
 
     showServerError = () => {
@@ -27,6 +37,11 @@ const withServerMessages = WrappedComponent => {
   }
 
   CatchServerMessages.propTypes = {
+    data: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+    query: PropTypes.shape({
+      slug: PropTypes.arrayOf(PropTypes.string),
+    }),
+    redirect: PropTypes.bool,
     setError: PropTypes.func.isRequired,
     serverError: PropTypes.string,
   };

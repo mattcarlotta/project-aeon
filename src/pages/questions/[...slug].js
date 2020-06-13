@@ -47,8 +47,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
     let title = "";
     let serverError = "";
     try {
+      const { 0: key } = query.slug;
       dispatch(resetMessages());
-      const res = await app.get(`questions/${query.slug[0]}`);
+      const res = await app.get(`questions/${key}`);
       data = parseData(res);
       title = data.title;
     } catch (e) {
@@ -60,6 +61,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         data,
         serverError,
         title,
+        query,
+        redirect: true,
       },
     };
   },

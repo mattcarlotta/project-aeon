@@ -60,7 +60,8 @@ class Affix extends Component {
               overflow: hidden;
               color: ${fixed ? "#fff" : "initial"};
               background: ${fixed ? "#555e73" : "transparent"};
-              transition: background 0.2s ease-in-out;
+              transition: color, background 0.2s ease-in-out;
+              border-radius: 0 0 4px 4px;
             `}
           >
             <Row>
@@ -73,7 +74,7 @@ class Affix extends Component {
                     <Button
                       tertiary
                       padding="0px 6px"
-                      margin="18px 0 0 0"
+                      margin="20px 0 0 0"
                       width="30px"
                       onClick={this.removeFixedElement}
                     >
