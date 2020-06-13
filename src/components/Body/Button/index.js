@@ -94,7 +94,7 @@ export default styled(Button)`
     if (props.disabled)
       return "border:1px solid #ebebeb;background-color:#ebebeb;color:#bbb;";
     if (props.tertiary)
-      return "border:1px solid #ebebeb;background-color:transparent;color:#ebebeb;";
+      return "border:1px solid #ccc;background-color:transparent;color:#ccc;";
     if (props.primary)
       return "border:1px solid #188fff;background-color:#188fff;color:#fff;";
     if (props.danger)

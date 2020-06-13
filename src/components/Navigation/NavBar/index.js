@@ -106,7 +106,7 @@ const Header = ({
                     alt="avatar"
                   />
                   <div css="overflow:hidden;margin-right: 15px;">
-                    <AccountButtonText>
+                    <AccountButtonText style={{ marginRight: 10 }}>
                       {displayname || `${firstname} ${lastname}`}
                     </AccountButtonText>
                     <AccountButtonText>

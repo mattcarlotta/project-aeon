@@ -1,16 +1,72 @@
 import { createGlobalStyle } from "styled-components";
-import VarelaRound from "./assets/fonts/VarelaRound-Regular.ttf";
+import UbuntuBold from "./assets/fonts/Ubuntu-Bold.ttf";
+import UbuntuBoldItalic from "./assets/fonts/Ubuntu-BoldItalic.ttf";
+import UbuntuItalic from "./assets/fonts/Ubuntu-Italic.ttf";
+import UbuntuLight from "./assets/fonts/Ubuntu-Light.ttf";
+import UbuntuLightItalic from "./assets/fonts/Ubuntu-LightItalic.ttf";
+import UbuntuMedium from "./assets/fonts/Ubuntu-Medium.ttf";
+import UbuntuMediumItalic from "./assets/fonts/Ubuntu-MediumItalic.ttf";
+import UbuntuRegular from "./assets/fonts/Ubuntu-Regular.ttf";
 
-const fontFamily = `"Valera Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`;
+const fontFamily = `Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important`;
 
 export default createGlobalStyle`
   @font-face {
-    font-family: 'Valera Round';
+    font-family: 'Ubuntu';
     font-style: normal;
-    font-weight: normal;
-    src: url(${VarelaRound}) format('truetype');
+    font-weight: 700;
+    src: url(${UbuntuBold}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Ubuntu';
+    font-style: italic;
+    font-weight: 700;
+    src: url(${UbuntuBoldItalic}) format('truetype');
   }
   
+  @font-face {
+    font-family: 'Ubuntu';
+    font-style: italic;
+    font-weight: normal;
+    src: url(${UbuntuItalic}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 300;
+    src: url(${UbuntuLight}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Ubuntu';
+    font-style: italic;
+    font-weight: 300;
+    src: url(${UbuntuLightItalic}) format('truetype');
+  }
+
+   @font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    src: url(${UbuntuMedium}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Ubuntu';
+    font-style: italic;
+    font-weight: 500;
+    src: url(${UbuntuMediumItalic}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    src: url(${UbuntuRegular}) format('truetype');
+  }
+
   html,body,#__next {
     height: 100%;
     width: 100%;
@@ -95,6 +151,23 @@ export default createGlobalStyle`
   }
 
   .mde-preview {
+    background: transparent;
+    
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .mde-textarea-wrapper-question.mde-textarea-wrapper-question {
+    border: 0;
+
+    p {
+      font-size: 15px;
+    }
+  }
+
+  .mde-question-preview {
+    height: auto !important;
     background: transparent;
     
     p {
@@ -193,60 +266,97 @@ export default createGlobalStyle`
     color: rgba(3, 88, 243, 0.55);
   }
 
-  /* Base16 Atelier Forest Light - Theme */
-  /* by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/forest) */
-  /* Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16) */
-
-  .hljs-comment,
-  .hljs-quote {
-    color: #766e6b;
-  }
-
-  .hljs-variable,
-  .hljs-template-variable,
-  .hljs-attribute,
-  .hljs-tag,
-  .hljs-name,
-  .hljs-regexp,
-  .hljs-link,
-  .hljs-name,
-  .hljs-selector-id,
-  .hljs-selector-class {
-    color: #f22c40;
-  }
-
-  .hljs-number,
-  .hljs-meta,
-  .hljs-built_in,
-  .hljs-builtin-name,
-  .hljs-literal,
-  .hljs-type,
-  .hljs-params {
-    color: #df5320;
-  }
-
-  .hljs-string,
-  .hljs-symbol,
-  .hljs-bullet {
-    color: #7b9726;
-  }
-
-  .hljs-title,
-  .hljs-section {
-    color: #407ee7;
-  }
-
-  .hljs-keyword,
-  .hljs-selector-tag {
-    color: #6666ea;
-  }
+  /* github.com style (c) Vasily Polovnyov <vast@whiteants.net>  */
+  /* https://github.com/highlightjs/highlight.js/blob/master/src/styles/github.css  */
 
   .hljs {
     display: block;
     overflow-x: auto;
-    background: #f1efee;
-    color: #68615e;
     padding: 0.5em;
+    color: #333;
+    background: #f8f8f8;
+  }
+
+  .hljs-attr {
+    color: #0043ff;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #998;
+    font-style: italic;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-subst {
+    color: #333;
+    font-weight: bold;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag .hljs-attr {
+    color: #008080;
+  }
+
+  .hljs-string,
+  .hljs-doctag {
+    color: #d14;
+  }
+
+  .hljs-title,
+  .hljs-section,
+  .hljs-selector-id {
+    color: #900;
+    font-weight: bold;
+  }
+
+  .hljs-subst {
+    font-weight: normal;
+  }
+
+  .hljs-type,
+  .hljs-class .hljs-title {
+    color: #458;
+    font-weight: bold;
+  }
+
+  .hljs-tag,
+  .hljs-name,
+  .hljs-attribute {
+    color: #000080;
+    font-weight: normal;
+  }
+
+  .hljs-regexp,
+  .hljs-link {
+    color: #009926;
+  }
+
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #990073;
+  }
+
+  .hljs-built_in,
+  .hljs-builtin-name {
+    color: #0086b3;
+  }
+
+  .hljs-meta {
+    color: #999;
+    font-weight: bold;
+  }
+
+  .hljs-deletion {
+    background: #fdd;
+  }
+
+  .hljs-addition {
+    background: #dfd;
   }
 
   .hljs-emphasis {
@@ -705,11 +815,9 @@ export default createGlobalStyle`
   }
 
   *,
-  .ant-select-selection *
   ::after,
   ::before,
   ::placeholder {
-    font-family: ${fontFamily};
     box-sizing: border-box;
   }
 

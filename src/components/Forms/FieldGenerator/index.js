@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import MDEditor from "react-smde";
-import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
+import Editor from "~components/Forms/Editor";
 import Label from "~components/Forms/Label";
 import Errors from "~components/Forms/Errors";
 import Input from "~components/Forms/Input";
@@ -32,30 +31,12 @@ const FieldGenerator = ({ fields, onChange }) =>
         return (
           <div key={props.name} css="margin-bottom: 10px;min-height: 406px;">
             {props.label && <Label {...props} />}
-            <MDEditor
+            <Editor
+              errors={props.errors}
+              name={props.name}
+              onChange={onChange}
               value={props.value}
-              classes={{
-                mde: "mde-editor",
-                mdegrip: "mde-grip",
-                mdepreview: `mde-preview ${
-                  !props.value ? "mde-preview-empty" : ""
-                }`,
-                mdetoolbar: "mde-toolbar",
-                mdetooltip: "tooltip-container",
-                mdetooltiparrow: "tooltip-arrow",
-                mdetextarea: "mde-textarea",
-                mdetextareawrapper: `mde-textarea-wrapper ${
-                  props.errors ? "has-error" : ""
-                }`,
-              }}
-              maxEditorWidth="100%"
-              onChange={value =>
-                onChange({ target: { name: props.name, value } })
-              }
-            >
-              <MarkdownPreviewer>{props.value || "(empty)"}</MarkdownPreviewer>
-            </MDEditor>
-            {props.errors && <Errors>{props.errors}</Errors>}
+            />
           </div>
         );
       }

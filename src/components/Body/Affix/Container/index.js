@@ -12,8 +12,19 @@ Container.propTypes = {
 };
 
 export default styled(Container)`
-  ${({ fixed, offset, top }) =>
+  ${({ fullscreen, fixed, offset, top }) =>
     fixed
-      ? `position: fixed;top: ${top}px;left: ${offset.left}px;width: ${offset.width}px;z-index: 10;`
+      ? `position: fixed;top: ${top}px;
+      left: ${fullscreen ? "0" : `${offset.left}px`};
+      width: ${fullscreen ? "100%" : `${offset.width}px`};
+      z-index: 1;
+      
+      h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 400;
+      }
+      `
       : undefined};
 `;

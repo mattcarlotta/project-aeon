@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default styled.div`
   width: 100%;
   max-width: ${({ maxWidth }) => maxWidth || "100%"};
-  padding: 10px;
+  padding: ${({ padding }) => padding || "10px"};
   text-align: left;
   border-radius: 4px;
   background: #fff;
