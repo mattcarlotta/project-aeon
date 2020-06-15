@@ -17,13 +17,9 @@ const withServerMessages = WrappedComponent => {
         const { uniquetitle: title } = data;
 
         if (queryTitle !== title)
-          Router.replace(
-            "/questions/[...slug]",
-            `/questions/${data.key}/${title}`,
-            {
-              shallow: true,
-            },
-          );
+          Router.replace("/q/[...slug]", `/q/${data.key}/${title}`, {
+            shallow: true,
+          });
       }
     }
 

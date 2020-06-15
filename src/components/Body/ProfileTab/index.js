@@ -12,7 +12,7 @@ const subtitleStyle = {
 };
 
 const Profile = ({
-  displayname,
+  username,
   description,
   firstname,
   lastname,
@@ -27,20 +27,14 @@ const Profile = ({
         lastname={lastname}
         website={website}
         description={description}
-        displayname={displayname}
+        username={username}
         showProfileForm={showProfileForm}
         closeForm={toggleProfileForm}
       />
     ) : (
       <>
         <Info>Display Name:</Info>
-        {displayname ? (
-          <SubTitle style={subtitleStyle}>{displayname}</SubTitle>
-        ) : (
-          <MissingDetails>
-            Use a display name if you wish to hide your real name.
-          </MissingDetails>
-        )}
+        <SubTitle style={subtitleStyle}>{username}</SubTitle>
         <Info>Name:</Info>
         <SubTitle style={subtitleStyle}>
           {firstname} {lastname}
@@ -76,7 +70,7 @@ const Profile = ({
 );
 
 Profile.propTypes = {
-  displayname: PropTypes.string,
+  username: PropTypes.string,
   description: PropTypes.string,
   firstname: PropTypes.string,
   lastname: PropTypes.string,

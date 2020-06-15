@@ -10,7 +10,7 @@ const Home = () => (
     <Head title="Home" />
     <LandingContainer>
       <SubTitle>The best resource for everything.</SubTitle>
-      <Link href="/ask-question" style={{ marginRight: 0 }}>
+      <Link nomargin href="/q/ask">
         <Button width="225px">Ask A Question</Button>
       </Link>
     </LandingContainer>

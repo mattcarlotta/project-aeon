@@ -34,7 +34,7 @@ export default styled(LinkComponent)`
   color: ${({ blue }) => (blue ? "#0075e0" : "#000000a6")};
   white-space: nowrap;
   text-decoration: none;
-  margin-right: 20px;
+  margin-right: ${({ nomargin }) => (nomargin ? "0px" : "20px")};
   transition: all 0.2s ease-in-out;
   border-radius: 4px;
 

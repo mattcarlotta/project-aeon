@@ -72,9 +72,7 @@ class Profile extends Component {
                       color: "#0f7ae5",
                     }}
                   >
-                    {settings.displayname
-                      ? settings.displayname
-                      : `${settings.firstname} ${settings.lastname}`}
+                    {settings.username}
                   </Title>
                   <Title style={{ marginTop: 10 }}>Role</Title>
                   <SubTitle>{settings.role}</SubTitle>
@@ -124,7 +122,7 @@ Profile.propTypes = {
     id: PropTypes.string,
     avatar: PropTypes.string,
     description: PropTypes.string,
-    displayname: PropTypes.string,
+    username: PropTypes.string,
     role: PropTypes.string,
     email: PropTypes.string,
     firstname: PropTypes.string,

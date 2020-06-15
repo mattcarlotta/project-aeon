@@ -22,7 +22,7 @@ const withAuthentication = WrappedComponent => {
 
     componentDidMount = () => {
       if (this.props.authError) {
-        Router.replace("/signin");
+        Router.replace("/u/signin");
         toast({ type: "error", message: this.props.authError });
       }
     };

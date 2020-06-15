@@ -1,9 +1,9 @@
-export default ({ displayname, firstname, lastname, website, description }) => [
+export default ({ username, firstname, lastname, website, description }) => [
   {
-    name: "displayname",
+    name: "username",
     type: "text",
     label: "Display Name",
-    value: displayname,
+    value: username,
     tooltip: "Adding a display name will hide your first and last name.",
     placeholder: "Enter a display name to hide your first and last name...",
     errors: "",

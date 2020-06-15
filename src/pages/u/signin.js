@@ -15,9 +15,9 @@ export class LoginForm extends Component {
   state = {
     fields: [
       {
-        name: "email",
-        type: "email",
-        label: "Email",
+        name: "username",
+        type: "text",
+        label: "Username",
         value: "",
         errors: "",
         required: true,
@@ -76,7 +76,7 @@ export class LoginForm extends Component {
         </Button>
         <div css="text-align: center;margin-top: 40px;">
           <p>Don&#39;t have an account?</p>
-          <Link href="/register">
+          <Link href="/u/register">
             <Button type="button">Register</Button>
           </Link>
         </div>

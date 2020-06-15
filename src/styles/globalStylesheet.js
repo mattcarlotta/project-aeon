@@ -160,6 +160,7 @@ export default createGlobalStyle`
 
   .mde-textarea-wrapper-question.mde-textarea-wrapper-question {
     border: 0;
+    padding: 0;
 
     p {
       font-size: 15px;

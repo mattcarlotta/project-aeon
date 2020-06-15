@@ -45,7 +45,7 @@ const unableToLocateQuestion =
   "The question can not be located because the URL does not contain a valid question id.";
 
 const usernameAlreadyTaken =
-  "The first and last name provided is already in use and is associated with an active account. In order to continue, please use a uniquely identifable name such as a first middle name initial or a nickname.";
+  "Uh oh, it appears that username is already taken. Please choose another name.";
 
 export {
   accessDenied,

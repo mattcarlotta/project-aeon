@@ -1,18 +1,19 @@
 const questionQueries = {
   createNewQuestion:
     "INSERT INTO questions(userid, body, tags, title, uniquetitle) VALUES ($1, $2, $3, $4, $5) RETURNING key",
-  findQuestion: "SELECT * FROM questions WHERE key=$1",
+  findQuestion:
+    "SELECT questions.*, users.username, users.reputation as userrep, users.key as userkey FROM questions INNER JOIN users ON questions.userid=users.id WHERE questions.key=$1",
 };
 
 const userQueries = {
   createNewUser:
-    "INSERT INTO users(email, password, firstname, lastname, token) VALUES ($1, $2, $3, $4, $5)",
-  findUserByEmail: "SELECT * FROM users WHERE email=$1",
-  findUserByDisplayName: "SELECT email FROM users WHERE displayname=$1",
+    "INSERT INTO users(email, password, username, firstname, lastname, token) VALUES ($1, $2, $3, $4, $5, $6)",
+  findUserByEmail: "SELECT email FROM users WHERE email=$1",
   findUserById:
-    "SELECT id,avatar,verified,email,displayname,firstname,lastname,registered,role,reputation,description,website FROM users WHERE id=$1",
+    "SELECT id,avatar,verified,email,username,firstname,lastname,registered,role,reputation,description,website FROM users WHERE id=$1",
+  findUserByUsername: "SELECT * FROM users WHERE username=$1",
   updateProfile:
-    "UPDATE users SET displayname=$2,firstname=$3,lastname=$4,website=$5,description=$6 WHERE id=$1",
+    "UPDATE users SET username=$2,firstname=$3,lastname=$4,website=$5,description=$6 WHERE id=$1",
 };
 
 /*

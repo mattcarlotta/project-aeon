@@ -7,7 +7,7 @@ export const initialState = {
   email: "",
   firstname: "",
   description: "",
-  displayname: "",
+  username: "",
   lastname: "",
   role: "",
   registered: "",

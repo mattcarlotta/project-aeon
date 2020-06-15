@@ -2,7 +2,7 @@ import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
 import db from "~database/connection";
-import { findUserByDisplayName, updateProfile } from "~database/queries";
+import { findUserByusername, updateProfile } from "~database/queries";
 
 /**
  * Attempts to update a user's profile.
@@ -14,14 +14,12 @@ import { findUserByDisplayName, updateProfile } from "~database/queries";
 const updateUserProfile = async (req, res) => {
   try {
     const { id, email } = req.session;
-    const { firstname, lastname, website, displayname, description } = req.body;
+    const { firstname, lastname, website, username, description } = req.body;
     if (!firstname || !lastname)
       throw String("You must supply at least a first and last name!");
 
-    if (displayname) {
-      const existingUser = await db.oneOrNone(findUserByDisplayName, [
-        displayname,
-      ]);
+    if (username) {
+      const existingUser = await db.oneOrNone(findUserByUsername, [username]);
 
       if (existingUser && existingUser.email !== email)
         throw String(
@@ -31,7 +29,7 @@ const updateUserProfile = async (req, res) => {
 
     await db.none(updateProfile, [
       id,
-      displayname,
+      username,
       firstname,
       lastname,
       website,

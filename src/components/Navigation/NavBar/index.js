@@ -30,7 +30,7 @@ const iconStyle = {
 
 const Header = ({
   avatar,
-  displayname,
+  username,
   isLoading,
   firstname,
   lastname,
@@ -52,12 +52,12 @@ const Header = ({
               <>
                 <ListItem style={{ fontSize: 16 }}>Welcome, guest!</ListItem>
                 <ListItem>
-                  <Link style={{ marginRight: 0 }} href="/signin">
+                  <Link nomargin href="/u/signin">
                     <Button radius="4px">Sign In</Button>
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link href="/register">
+                  <Link href="/u/register">
                     <Button primary radius="4px">
                       Register
                     </Button>
@@ -70,14 +70,14 @@ const Header = ({
                   menu={
                     <Menu>
                       <MenuItem>
-                        <Link href="/dashboard">
+                        <Link href="/u/dashboard">
                           <FlexMiddle style={menuStyle}>
                             <MdDashboard style={iconStyle} /> Dashboard
                           </FlexMiddle>
                         </Link>
                       </MenuItem>
                       <MenuItem>
-                        <Link href="/profile">
+                        <Link href="/u/profile">
                           <FlexMiddle style={menuStyle}>
                             <FaUserCog style={iconStyle} /> Profile
                           </FlexMiddle>
@@ -107,7 +107,7 @@ const Header = ({
                   />
                   <div css="overflow:hidden;margin-right: 15px;">
                     <AccountButtonText style={{ marginRight: 10 }}>
-                      {displayname || `${firstname} ${lastname}`}
+                      {username || `${firstname} ${lastname}`}
                     </AccountButtonText>
                     <AccountButtonText>
                       <span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
@@ -130,7 +130,7 @@ const Header = ({
 
 Header.propTypes = {
   avatar: PropTypes.string,
-  displayname: PropTypes.string,
+  username: PropTypes.string,
   firstname: PropTypes.string,
   lastname: PropTypes.string,
   role: PropTypes.string,

@@ -20,13 +20,13 @@ import setServerError from "~utils/setServerError";
  */
 export function* createQuestion({ props }) {
   try {
-    const res = yield call(app.post, "questions/create", props);
+    const res = yield call(app.post, "q/create", props);
     const data = yield call(parseData, res);
 
     yield call(toast, { type: "success", message: data.message });
     yield put(setMessage(data.message));
 
-    yield call(Router.push, `/questions/${data.key}/${data.title}`);
+    yield call(Router.push, `/q/${data.key}/${data.title}`);
   } catch (e) {
     yield call(setServerError, e.toString());
   }
@@ -44,7 +44,7 @@ export function* createQuestion({ props }) {
  */
 export function* fetchQuestions() {
   try {
-    const res = yield call(app.get, "questions");
+    const res = yield call(app.get, "q");
     const data = yield call(parseData, res);
 
     yield put(actions.setQuestions(data));

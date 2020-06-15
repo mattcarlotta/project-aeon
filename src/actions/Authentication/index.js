@@ -107,7 +107,7 @@ export const updateUserAvatar = props => ({
  * Updates user's profile.
  *
  * @function updateUserProfile
- * @param {object} props - contains firstname, lastname, displayname, website, description.
+ * @param {object} props - contains firstname, lastname, username, website, description.
  * @returns {object}
  */
 export const updateUserProfile = props => ({

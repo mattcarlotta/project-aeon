@@ -13,6 +13,7 @@ const userTable = `(
   avatar TEXT NOT NULL DEFAULT '',
   verified BOOLEAN DEFAULT FALSE,
   email VARCHAR NOT NULL UNIQUE,
+  username TEXT NOT NULL UNIQUE,
   firstname TEXT NOT NULL,
   lastname TEXT NOT NULL,
   password VARCHAR NOT NULL UNIQUE,
@@ -21,7 +22,6 @@ const userTable = `(
   reputation INTEGER DEFAULT 0,
   website TEXT NOT NULL DEFAULT '', 
   description TEXT NOT NULL DEFAULT '',
-  displayname TEXT NOT NULL DEFAULT '',
   role TEXT DEFAULT 'member'
 )`;
 
@@ -46,6 +46,7 @@ const questionTableOptions = `(
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   answered BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,
+  votes INTEGER DEFAULT 0,
   title TEXT NOT NULL DEFAULT '',
   uniquetitle VARCHAR NOT NULL,
   body TEXT NOT NULL DEFAULT '',
@@ -81,9 +82,10 @@ const seedDB = async () => {
     await db.none(createNewUser, [
       "carlotta.matt@gmail.com",
       newPassword,
+      "MattCarlotta",
       "Matt",
       "Carlotta",
-      "1234567890!@#$%^&*()",
+      "1234567890",
     ]);
 
     console.log(

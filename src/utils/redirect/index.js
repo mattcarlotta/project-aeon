@@ -12,7 +12,7 @@ function redirect(res) {
     res.writeHead(302, { Location: "/signin" });
     res.end();
   } else {
-    Router.push("/signin");
+    Router.push("/u/signin");
   }
 }
 

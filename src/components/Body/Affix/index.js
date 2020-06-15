@@ -65,9 +65,7 @@ class Affix extends Component {
             `}
           >
             <Row>
-              <Col style={{ padding: "0 10px" }} xs={childrenSpan}>
-                {this.props.children}
-              </Col>
+              <Col xs={childrenSpan}>{this.props.children}</Col>
               {fixed && (
                 <Col xs={buttonSpan}>
                   <Center>

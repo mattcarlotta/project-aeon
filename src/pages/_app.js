@@ -23,19 +23,22 @@ export class MyApp extends App {
 
     dispatch(resetMessages());
 
+    let serverError;
     if (!role) {
       try {
-        const res = await app.get("users/signedin", parseCookie(req));
+        const res = await app.get("u/signedin", parseCookie(req));
         const data = parseData(res);
 
         dispatch(signin(data));
       } catch (e) {
-        return { serverError: e.toString() };
+        dispatch(signin({}));
+        serverError = e.toString();
       }
     }
 
     return {
       pageProps: {
+        serverError,
         ...(Component.getInitialProps
           ? await Component.getInitialProps(ctx)
           : {}),

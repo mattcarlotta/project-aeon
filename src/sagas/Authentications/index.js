@@ -22,7 +22,7 @@ import toast from "~components/Body/Toast";
  */
 function* relogin() {
   try {
-    const res = yield call(app.get, "users/signedin");
+    const res = yield call(app.get, "u/signedin");
     const data = yield call(parseData, res);
 
     yield put(actions.signin(data));
@@ -36,7 +36,7 @@ function* relogin() {
  *
  * @generator
  * @function createUserAvatar
- * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @param {object} props - props contains firstname, lastname, username, website, description.
  * @yields {object} - A response from a call to the Image API.
  * @function parseMessage - returns a parsed res.data.message.
  * @yields {action} - A redux action to display a server message by type.
@@ -64,7 +64,7 @@ export function* createUserAvatar({ props }) {
  *
  * @generator
  * @function createUserAvatar
- * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @param {object} props - props contains firstname, lastname, username, website, description.
  * @yields {object} - A response from a call to the Image API.
  * @function parseMessage - returns a parsed res.data.message.
  * @yields {action} - A redux action to display a server message by type.
@@ -98,7 +98,7 @@ export function* deleteUserAvatar() {
  */
 export function* signoutUserSession() {
   try {
-    yield call(app.get, "users/signout");
+    yield call(app.get, "u/signout");
 
     yield put(actions.signout());
 
@@ -113,7 +113,7 @@ export function* signoutUserSession() {
  *
  * @generator
  * @function signinUser
- * @param {object} props - contains user credentials (email and password).
+ * @param {object} props - contains user credentials (username and password).
  * @yields {object} - A response from a call to the API.
  * @function parseData - returns a parsed res.data.
  * @yields {action} -  A redux action to set the current user to redux state.
@@ -123,7 +123,7 @@ export function* signinUser({ props }) {
   try {
     yield put(resetMessages());
 
-    const res = yield call(app.post, "users/signin", { ...props });
+    const res = yield call(app.post, "u/signin", { ...props });
     const data = yield call(parseData, res);
 
     yield put(actions.signin(data));
@@ -149,13 +149,13 @@ export function* signupUser({ props }) {
   try {
     yield put(resetMessages());
 
-    const res = yield call(app.post, "users/signup", { ...props });
+    const res = yield call(app.post, "u/signup", { ...props });
     const message = yield call(parseMessage, res);
 
     yield call(toast, { type: "success", message });
     yield put(setMessage(message));
 
-    yield call(Router.push, "/signin");
+    yield call(Router.push, "/u/signin");
   } catch (e) {
     yield call(setServerError, e.toString());
   }
@@ -166,7 +166,7 @@ export function* signupUser({ props }) {
  *
  * @generator
  * @function updateUserAvatar
- * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @param {object} props - props contains firstname, lastname, username, website, description.
  * @yields {object} - A response from a call to the API.
  * @function parseMessage - returns a parsed res.data.message.
  * @yields {action} - A redux action to display a server message by type.
@@ -194,7 +194,7 @@ export function* updateUserAvatar({ props }) {
  *
  * @generator
  * @function updateUserProfile
- * @param {object} props - props contains firstname, lastname, displayname, website, description.
+ * @param {object} props - props contains firstname, lastname, username, website, description.
  * @yields {object} - A response from a call to the API.
  * @function parseMessage - returns a parsed res.data.message.
  * @yields {action} - A redux action to display a server message by type.
@@ -205,7 +205,7 @@ export function* updateUserProfile({ props }) {
   try {
     yield put(resetMessages());
 
-    const res = yield call(app.put, "users/profile/update", { ...props });
+    const res = yield call(app.put, "u/profile/update", { ...props });
     const message = yield call(parseMessage, res);
 
     yield call(toast, { type: "success", message });
