@@ -1,64 +1,104 @@
-import isEmpty from "lodash.isempty";
+import { Component } from "react";
 import PropTypes from "prop-types";
+import isEmpty from "lodash.isempty";
+import Collapse from "@material-ui/core/Collapse";
+import Fade from "@material-ui/core/Fade";
 import { resetMessages } from "~actions/Messages";
 import Affix from "~components/Body/Affix";
+import Button from "~components/Body/Button";
 import Container from "~components/Body/Container";
+import Center from "~components/Body/Center";
+import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
+import Tooltip from "~components/Body/Tooltip";
 import Editor from "~components/Forms/Editor";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 import withServerMessages from "~containers/App/withServerMessages";
+import CreateComment from "~containers/Forms/CreateComment";
 import { parseData } from "~utils/parseResponse";
 import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 import dayjs from "~utils/dayjs";
 
-const UserQuestion = ({ data, title }) => (
-  <>
-    <Head title={`Questions - ${title || "Not Found"}`} />
-    {isEmpty(data) ? (
-      <div>No Questions</div>
-    ) : (
-      <Container centered maxWidth="750px" padding="20px">
-        <div css="font-size: 12px;color: #787C7E;">
-          <span css="margin-right: 5px;">
-            Posted by{" "}
-            <Link blue nomargin href={`/u/${data.key}/${data.username}`}>
-              {data.username}&nbsp;&#40;{data.userrep}&#41;
-            </Link>
-          </span>
-          <span css="margin-right: 5px;">|</span>
-          <span css="margin-right: 5px;">{dayjs(data.date).fromNow()}</span>
-          <span css="margin-right: 5px;">|</span>
-          <span css="margin-right: 5px;">views: {data.views}</span>
-        </div>
-        <div css="padding: 0 10px;">
-          <Affix>
-            <QuestionTitle>{data.title}</QuestionTitle>
-          </Affix>
-          {!isEmpty(data.tags) && (
-            <div css="margin-bottom: 10px;">
-              {data.tags.map(tag => (
-                <Tag key={tag}>{tag}</Tag>
-              ))}
+class UserQuestion extends Component {
+  state = {
+    addComment: false,
+  };
+
+  toggleCommentForm = () =>
+    this.setState(prevState => ({ addComment: !prevState.addComment }));
+
+  render = () => {
+    const { addComment } = this.state;
+    const { data, title } = this.props;
+
+    return (
+      <>
+        <Head title={`Questions - ${title || "Not Found"}`} />
+        {isEmpty(data) ? (
+          <div>No Questions</div>
+        ) : (
+          <Container centered maxWidth="750px" padding="20px">
+            <div css="font-size: 12px;color: #787C7E;">
+              <QuestionDetails>
+                Posted by&nbsp;
+                <Link blue nomargin href={`/u/${data.key}/${data.username}`}>
+                  {data.username}
+                </Link>
+              </QuestionDetails>
+              <Tooltip
+                title={dayjs(data.date).format("MMMM Do, YYYY @ HH:MMa")}
+              >
+                <QuestionDetails>{dayjs(data.date).fromNow()}</QuestionDetails>
+              </Tooltip>
+              <QuestionDetails>|</QuestionDetails>
+              <QuestionDetails>views: {data.views}</QuestionDetails>
             </div>
-          )}
-          <Editor
-            classes={{
-              mdepreview: "mde-question-preview",
-              mdetextareawrapper: "mde-textarea-wrapper-question",
-            }}
-            disableGrip
-            disableToolbar
-            selectedTab="preview"
-            value={data.body}
-          />
-        </div>
-      </Container>
-    )}
-  </>
-);
+            <div css="padding: 0 10px;">
+              <Affix>
+                <QuestionTitle>{data.title}</QuestionTitle>
+              </Affix>
+              {!isEmpty(data.tags) && (
+                <div css="margin-bottom: 10px;">
+                  {data.tags.map(tag => (
+                    <Tag key={tag}>{tag}</Tag>
+                  ))}
+                </div>
+              )}
+              <Editor
+                classes={{
+                  mdepreview: "mde-question-preview",
+                  mdetextareawrapper: "mde-textarea-wrapper-question",
+                }}
+                disableGrip
+                disableToolbar
+                readOnly
+                selectedTab="preview"
+                value={data.body}
+              />
+              <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
+              <Fade in={!addComment} timeout={{ enter: 1750, leave: 100 }}>
+                <Center>
+                  <Button plain width="140px" onClick={this.toggleCommentForm}>
+                    Add comment
+                  </Button>
+                </Center>
+              </Fade>
+              <Collapse in={addComment}>
+                <CreateComment
+                  questionId={data.key}
+                  cancelComment={this.toggleCommentForm}
+                />
+              </Collapse>
+            </div>
+          </Container>
+        )}
+      </>
+    );
+  };
+}
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store: { dispatch }, query }) => {

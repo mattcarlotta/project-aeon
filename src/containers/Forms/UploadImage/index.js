@@ -136,7 +136,7 @@ export class UpdateImageForm extends Component {
           />
         </div>
         <FlexSpaceAround style={{ width: "200px", paddingTop: 10 }}>
-          <Tooltip placement="top" title="Upload">
+          <Tooltip title="Upload">
             <Button
               primary
               type="submit"
@@ -151,7 +151,7 @@ export class UpdateImageForm extends Component {
               />
             </Button>
           </Tooltip>
-          <Tooltip placement="top" title="Reset">
+          <Tooltip title="Reset">
             <Button
               type="button"
               width="50px"
@@ -164,7 +164,7 @@ export class UpdateImageForm extends Component {
               <FaUndo style={{ position: "relative", top: 3 }} />
             </Button>
           </Tooltip>
-          <Tooltip placement="top" title="Cancel">
+          <Tooltip title="Cancel">
             <Button
               danger
               type="button"

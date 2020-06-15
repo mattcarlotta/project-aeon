@@ -14,8 +14,12 @@ const CustomTooltip = ({ children, placement, title }) => (
 
 CustomTooltip.propTypes = {
   children: PropTypes.node.isRequired,
-  placement: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  placement: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+};
+
+CustomTooltip.defaultProps = {
+  placement: "top",
 };
 
 export default CustomTooltip;

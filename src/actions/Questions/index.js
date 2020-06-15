@@ -2,8 +2,18 @@ import isEmpty from "lodash.isempty";
 import * as constants from "~constants";
 
 /**
- * @function fetchQuestions - fetches newest questions.
+ * @function createComment - creates a comment to a question.
  * @param props - include title, tags and question
+ * @returns {object}
+ */
+export const createComment = props => ({
+  type: constants.QUESTIONS_CREATE_COMMENT,
+  props,
+});
+
+/**
+ * @function createQuestion - creates a question.
+ * @param props - include title, tags and body
  * @returns {object}
  */
 export const createQuestion = props => ({

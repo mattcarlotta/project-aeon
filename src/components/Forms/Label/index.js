@@ -9,7 +9,7 @@ const Label = ({ className, name, label, style, tooltip }) => (
     {label}
     {tooltip && (
       <span className="tooltip">
-        <Tooltip placement="top" title={tooltip}>
+        <Tooltip title={tooltip}>
           <span>
             <GoQuestion />
           </span>

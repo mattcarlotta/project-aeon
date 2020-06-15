@@ -29,14 +29,12 @@ const FieldGenerator = ({ fields, onChange }) =>
       }
       case "editor": {
         return (
-          <div key={props.name} css="margin-bottom: 10px;min-height: 406px;">
+          <div
+            key={props.name}
+            css={props.css || "margin-bottom: 10px;min-height: 406px;"}
+          >
             {props.label && <Label {...props} />}
-            <Editor
-              errors={props.errors}
-              name={props.name}
-              onChange={onChange}
-              value={props.value}
-            />
+            <Editor {...props} onChange={onChange} />
           </div>
         );
       }
@@ -49,6 +47,7 @@ const FieldGenerator = ({ fields, onChange }) =>
 FieldGenerator.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
+      css: PropTypes.string,
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),

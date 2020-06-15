@@ -11,7 +11,7 @@ const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
       alt="avatar.png"
     />
     <div css="width: 100%; margin-left: auto;margin-right: auto; margin-top: 2px;">
-      <Tooltip placement="top" title="Change Avatar">
+      <Tooltip title="Change Avatar">
         <Button
           type="button"
           style={{
@@ -24,7 +24,7 @@ const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
         </Button>
       </Tooltip>
       {settings.avatar && (
-        <Tooltip placement="top" title="Delete Avatar">
+        <Tooltip title="Delete Avatar">
           <Button
             danger
             type="button"

@@ -1,8 +1,9 @@
 const questionQueries = {
   createNewQuestion:
     "INSERT INTO questions(userid, body, tags, title, uniquetitle) VALUES ($1, $2, $3, $4, $5) RETURNING key",
-  findQuestion:
-    "SELECT questions.*, users.username, users.reputation as userrep, users.key as userkey FROM questions INNER JOIN users ON questions.userid=users.id WHERE questions.key=$1",
+  findQuestion: `UPDATE questions SET views=views+1 WHERE key=$1; 
+    SELECT questions.*, users.username, users.reputation as userrep, users.key as userkey FROM questions INNER JOIN users ON questions.userid=users.id WHERE questions.key=$1
+    `,
 };
 
 const userQueries = {

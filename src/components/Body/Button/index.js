@@ -88,8 +88,7 @@ export default styled(Button)`
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
   border-radius: ${({ radius }) => radius || "50px"};
-  margin: ${({ margin }) => margin || "0"};
-  ${({ centered }) => (centered ? "margin: 0 auto;" : undefined)};
+  margin: ${({ margin, centered }) => (centered ? "margin: 0 auto;" : margin)};
   ${props => {
     if (props.disabled)
       return "border:1px solid #ebebeb;background-color:#ebebeb;color:#bbb;";
@@ -99,6 +98,8 @@ export default styled(Button)`
       return "border:1px solid #188fff;background-color:#188fff;color:#fff;";
     if (props.danger)
       return "border:1px solid #f0506e;background-color:transparent;color:#f0506e;";
+    if (props.plain)
+      return "border: 0;background-color:transparent;color:#03a9f3;";
     if (props.link)
       return "border: 0;background-color:transparent;color:#000000a6;";
     return "border:1px solid #03a9f3;background-color:transparent;color:#03a9f3;";
@@ -113,6 +114,7 @@ export default styled(Button)`
         return "border-color:#0f7ae5;background-color:#0f7ae5;";
       if (props.danger)
         return "border-color:#ee395b;background-color:transparent;color:#ee395b;";
+      if (props.plain) return "color:#0f7ae5;";
       if (props.link) return "color:#40a9ff;";
       return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
     }};

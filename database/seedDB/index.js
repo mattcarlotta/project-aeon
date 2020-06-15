@@ -42,7 +42,7 @@ const avatarTableOptions = `(
 
 const questionTableOptions = `(
   key SERIAL PRIMARY KEY,
-  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  userid UUID NOT NULL REFERENCES users(id),
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   answered BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,

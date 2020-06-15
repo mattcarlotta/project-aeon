@@ -106,7 +106,16 @@ export default createGlobalStyle`
     }
   }
 
-  .mde-editor.mde-editor:hover {
+  .mde-comment {
+    background: transparent;
+    margin-bottom: 10px;
+
+    & .mde-textarea-wrapper {
+      border-radius: 0 0 4px 4px;
+    }
+  }
+
+  .mde-editor.mde-editor:hover, .mde-comment.mde-comment:hover {
     & .mde-textarea-wrapper {
       border-color: #40a9ff;
       transition: border-color 0.2s ease-in-out;
@@ -124,6 +133,7 @@ export default createGlobalStyle`
   }
 
   .mde-toolbar.mde-toolbar {
+    background: #efefef;
     border-radius: 4px 4px 0 0;
     border-top: 1px solid #d9d9d9;
     border-left: 1px solid #d9d9d9;
@@ -170,6 +180,7 @@ export default createGlobalStyle`
   .mde-question-preview {
     height: auto !important;
     background: transparent;
+    margin-bottom: 10px;
     
     p {
       font-size: 16px;
