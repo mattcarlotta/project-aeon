@@ -63,7 +63,9 @@ class UserQuestion extends Component {
               {!isEmpty(data.tags) && (
                 <div css="margin-bottom: 10px;">
                   {data.tags.map(tag => (
-                    <Tag key={tag}>{tag}</Tag>
+                    <Link margin="0 5px 0 0" key={tag} href={`/t/${tag}`}>
+                      <Tag>{tag}</Tag>
+                    </Link>
                   ))}
                 </div>
               )}

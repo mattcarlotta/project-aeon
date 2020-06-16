@@ -99,7 +99,7 @@ export default createGlobalStyle`
 
   /* SMDE Editor Overrides */
 
-  .mde-editor.mde-editor {
+  .mde-editor.mde-editor, .mde-comment.mde-comment {
     & .has-error {
       border-color: #d14023;
       transition: border-color 0.2s ease-in-out;
@@ -108,7 +108,6 @@ export default createGlobalStyle`
 
   .mde-comment {
     background: transparent;
-    margin-bottom: 10px;
 
     & .mde-textarea-wrapper {
       border-radius: 0 0 4px 4px;
