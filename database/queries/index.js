@@ -4,6 +4,8 @@ const questionQueries = {
   findQuestion: `UPDATE questions SET views=views+1 WHERE key=$1; 
     SELECT questions.*, users.username, users.reputation as userrep, users.key as userkey FROM questions INNER JOIN users ON questions.userid=users.id WHERE questions.key=$1
     `,
+  findAllQuestionsByTagLimitAndOffset:
+    "SELECT questions.key, questions.userid, questions.date, questions.body, questions.answered, questions.views, questions.votes, questions.title, questions.uniquetitle, questions.tags, users.username, users.reputation as userrep, users.key as userkey FROM questions INNER JOIN users ON questions.userid=users.id WHERE questions.tags @> $1 ORDER BY questions.date DESC LIMIT $2 OFFSET $3",
 };
 
 const userQueries = {

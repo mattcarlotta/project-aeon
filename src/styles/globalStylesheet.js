@@ -474,6 +474,13 @@ export default createGlobalStyle`
     }
   }
 
+  .has-error {
+    & .ant-select-selector.ant-select-selector {
+      border-color: #d14023;
+      transition: border-color 0.2s ease-in-out;
+    }
+  }
+
   .ant-select {
     margin: 0;
     padding: 0;

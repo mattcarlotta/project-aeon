@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const LinkComponent = ({
-  as,
+  asHref,
   className,
   children,
   dataTest,
@@ -11,7 +11,7 @@ const LinkComponent = ({
   style,
   target,
 }) => (
-  <Link href={href} as={as} prefetch={false} passHref>
+  <Link href={href} as={asHref} prefetch={false} passHref>
     <a data-test={dataTest} style={style} className={className} target={target}>
       {children}
     </a>
@@ -19,7 +19,7 @@ const LinkComponent = ({
 );
 
 LinkComponent.propTypes = {
-  as: PropTypes.string,
+  asHref: PropTypes.string,
   className: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   dataTest: PropTypes.string,

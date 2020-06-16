@@ -90,6 +90,7 @@ class TagSelection extends Component {
   render = () => (
     <Select
       mode="multiple"
+      errors={this.props.errors}
       value={this.props.value}
       placeholder={this.props.placeholder}
       notFoundContent={this.renderNotFound()}
@@ -107,6 +108,7 @@ class TagSelection extends Component {
 }
 
 TagSelection.propTypes = {
+  errors: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,

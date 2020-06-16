@@ -20,7 +20,7 @@ const FieldGenerator = ({ fields, onChange }) =>
       }
       case "tag": {
         return (
-          <div key={props.name} css="margin-bottom: 20px;">
+          <div key={props.name} css="margin-bottom: 20px;min-height: 82px;">
             {props.label && <Label {...props} />}
             <TagSelection {...props} onChange={onChange} />
             {props.errors && <Errors>{props.errors}</Errors>}

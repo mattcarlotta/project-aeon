@@ -29,7 +29,7 @@ export class UpdateDescriptionForm extends Component {
         value: [],
         errors: "",
         options: [],
-        required: false,
+        required: true,
       },
       {
         name: "body",

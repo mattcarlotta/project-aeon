@@ -76,6 +76,7 @@ class Select extends Component {
     dropdownMatchSelectWidth,
   }) => {
     const {
+      errors,
       prefixCls: customizePrefixCls,
       notFoundContent,
       className,
@@ -130,6 +131,7 @@ class Select extends Component {
             [`${prefixCls}-sm`]: mergedSize === "small",
             [`${prefixCls}-rtl`]: direction === "rtl",
             [`${prefixCls}-borderless`]: !bordered,
+            "has-error": errors,
           });
 
           return (
@@ -166,9 +168,10 @@ class Select extends Component {
 Select.propTypes = {
   choiceTransitionName: PropTypes.string,
   bordered: PropTypes.bool,
-  direction: PropTypes.string,
   className: PropTypes.string,
+  direction: PropTypes.string,
   dropdownClassName: PropTypes.string,
+  errors: PropTypes.string,
   getPopupContainer: PropTypes.func,
   listHeight: PropTypes.number,
   listItemHeight: PropTypes.number,

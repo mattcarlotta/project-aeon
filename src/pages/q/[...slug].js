@@ -8,11 +8,12 @@ import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
 import Container from "~components/Body/Container";
 import Center from "~components/Body/Center";
+import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
+import Preview from "~components/Body/Preview";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
 import Tooltip from "~components/Body/Tooltip";
-import Editor from "~components/Forms/Editor";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 import withServerMessages from "~containers/App/withServerMessages";
@@ -44,7 +45,12 @@ class UserQuestion extends Component {
             <div css="font-size: 12px;color: #787C7E;">
               <QuestionDetails>
                 Posted by&nbsp;
-                <Link blue nomargin href={`/u/${data.key}/${data.username}`}>
+                <Link
+                  blue
+                  nomargin
+                  href="/u/[...slug]"
+                  asHref={`/u/${data.key}/${data.username}`}
+                >
                   {data.username}
                 </Link>
               </QuestionDetails>
@@ -60,26 +66,23 @@ class UserQuestion extends Component {
               <Affix>
                 <QuestionTitle>{data.title}</QuestionTitle>
               </Affix>
-              {!isEmpty(data.tags) && (
-                <div css="margin-bottom: 10px;">
-                  {data.tags.map(tag => (
-                    <Link margin="0 5px 0 0" key={tag} href={`/t/${tag}`}>
-                      <Tag>{tag}</Tag>
-                    </Link>
-                  ))}
-                </div>
-              )}
-              <Editor
-                classes={{
-                  mdepreview: "mde-question-preview",
-                  mdetextareawrapper: "mde-textarea-wrapper-question",
-                }}
-                disableGrip
-                disableToolbar
-                readOnly
-                selectedTab="preview"
-                value={data.body}
-              />
+              <div css="margin-bottom: 15px;">
+                {data.tags.map(tag => (
+                  <Link
+                    key={tag}
+                    margin="0 5px 0 0"
+                    href="/t/[...slug]"
+                    asHref={`/t/${tag}`}
+                  >
+                    <Tag>{tag}</Tag>
+                  </Link>
+                ))}
+              </div>
+              <Preview>
+                <MarkdownPreviewer value={data.body}>
+                  {data.body}
+                </MarkdownPreviewer>
+              </Preview>
               <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
               <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
                 <Center>

@@ -21,6 +21,7 @@ const createQuestion = async (req, res) => {
     if (!body || !title) throw String(missingQuestionReqs);
 
     const dashedTitle = createDashedTitle(title);
+
     const { key } = await db.one(createNewQuestion, [
       id,
       body,

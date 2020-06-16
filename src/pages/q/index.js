@@ -1,27 +1,73 @@
-import isEmpty from "lodash.isempty";
+import { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import isEmpty from "lodash.isempty";
+// import { connect } from "react-redux";
 // import { fetchQuestions } from "~actions/Questions";
-import Head from "~components/Navigation/Head";
+import { resetMessages } from "~actions/Messages";
 import Spinner from "~components/Body/Spinner";
+import toast from "~components/Body/Toast";
+import Head from "~components/Navigation/Head";
+import app from "~utils/axiosConfig";
+import { parseData } from "~utils/parseResponse";
+import { wrapper } from "~store";
 
-const NewestQuestions = ({ data, isLoading }) => (
-  <>
-    <Head title="Newest Questions" />
-    {isLoading ? (
-      <Spinner />
-    ) : isEmpty(data) ? (
-      <div>No Questions</div>
-    ) : (
-      <div>Questions</div>
-    )}
-  </>
+class NewestQuestions extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: props.data,
+      isLoading: props.isLoading,
+    };
+  }
+
+  componentDidMount() {
+    const { serverError } = this.props;
+    if (serverError) toast({ type: "error", message: serverError });
+  }
+
+  render = () => {
+    const { data, isLoading } = this.state;
+    return (
+      <>
+        <Head title="Newest Questions" />
+        {isLoading ? (
+          <Spinner />
+        ) : isEmpty(data) ? (
+          <div>No Questions</div>
+        ) : (
+          <div>
+            <pre css="width: 600px; overflow: scroll;">
+              <code>{JSON.stringify(data, null, 2)}</code>
+            </pre>
+          </div>
+        )}
+      </>
+    );
+  };
+}
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async ({ store: { dispatch } }) => {
+    let data = [];
+    let serverError = "";
+    try {
+      dispatch(resetMessages());
+      const res = await app.get(`q/all`);
+      data = parseData(res);
+    } catch (e) {
+      serverError = e.toString();
+    }
+
+    return {
+      props: {
+        data,
+        isLoading: false,
+        serverError,
+      },
+    };
+  },
 );
-
-// TODO: CONVERT TO GETSERVERSIDEPROPS
-// NewestQuestions.getInitialProps = ({ store: { dispatch } }) => {
-// 	dispatch(fetchQuestions());
-// };
 
 NewestQuestions.propTypes = {
   data: PropTypes.arrayOf(
@@ -46,9 +92,7 @@ NewestQuestions.propTypes = {
     }),
   ),
   isLoading: PropTypes.bool.isRequired,
+  serverError: PropTypes.string,
 };
 
-/* istanbul ignore next */
-const mapStateToProps = ({ questions }) => ({ ...questions });
-
-export default connect(mapStateToProps)(NewestQuestions);
+export default NewestQuestions;

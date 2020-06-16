@@ -44,6 +44,11 @@ const missingSignupCreds =
 const unableToLocateQuestion =
   "The question can not be located because the URL does not contain a valid question id.";
 
+const unableToLocateQuestions = "Unable to locate any questions.";
+
+const unableToLocateTag =
+  "The questions can not be located because the URL does not contain a valid tag.";
+
 const usernameAlreadyTaken =
   "Uh oh, it appears that username is already taken. Please choose another name.";
 
@@ -63,5 +68,7 @@ export {
   missingSigninCredentials,
   missingSignupCreds,
   unableToLocateQuestion,
+  unableToLocateQuestions,
+  unableToLocateTag,
   usernameAlreadyTaken,
 };
