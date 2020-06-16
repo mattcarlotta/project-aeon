@@ -79,7 +79,7 @@ class UserQuestion extends Component {
                 value={data.body}
               />
               <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
-              <Fade in={!addComment} timeout={{ enter: 1750, leave: 100 }}>
+              <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
                 <Center>
                   <Button plain width="140px" onClick={this.toggleCommentForm}>
                     Add comment

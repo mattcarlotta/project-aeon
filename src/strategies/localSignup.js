@@ -34,7 +34,7 @@ export const localSignup = next => async (req, res) => {
     const newpassword = await bcrypt.hash(password, 12);
     const token = createRandomToken();
 
-    await db.one(createNewUser, [
+    await db.none(createNewUser, [
       email,
       newpassword,
       username,
@@ -43,7 +43,7 @@ export const localSignup = next => async (req, res) => {
       token,
     ]);
 
-    req.user.firstname = firstname;
+    req.user = firstname;
 
     return next(req, res);
   } catch (err) {

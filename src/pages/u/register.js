@@ -23,6 +23,14 @@ export class RegisterForm extends Component {
         required: true,
       },
       {
+        name: "username",
+        type: "text",
+        label: "Username",
+        value: "",
+        errors: "",
+        required: true,
+      },
+      {
         name: "firstname",
         type: "text",
         label: "First Name",
@@ -72,7 +80,7 @@ export class RegisterForm extends Component {
   };
 
   render = () => (
-    <FormContainer>
+    <FormContainer style={{ margin: "2vh auto 0" }}>
       <Head title="Register" />
       <h2 css="text-align: center;margin-bottom: 0px;">Register</h2>
       <p css="text-align: center;margin-top: 0px;">for a new account below.</p>
@@ -92,7 +100,7 @@ export class RegisterForm extends Component {
         </Button>
         <div css="text-align: center;margin-top: 40px;">
           <p>Already have an account?</p>
-          <Link href="/signin">
+          <Link href="/u/signin">
             <Button type="button">Sign In</Button>
           </Link>
         </div>

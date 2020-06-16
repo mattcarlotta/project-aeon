@@ -20,6 +20,12 @@ export default fields => {
         errors = "Required";
       } else {
         if (
+          name === "username" &&
+          /[ ~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(field.value)
+        )
+          errors = "Only Aa-Zz, 0-9, and underscore characters are allowed.";
+
+        if (
           (name === "email" || name === "authorizedEmail") &&
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(field.value)
         )

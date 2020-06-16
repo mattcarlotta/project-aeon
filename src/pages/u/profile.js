@@ -50,7 +50,7 @@ class Profile extends Component {
         {!isEmpty(settings) ? (
           <Row padding="0 10px">
             <Col md={24} lg={7}>
-              <Container style={{ paddingTop: 20 }}>
+              <Container style={{ paddingTop: 20, minHeight: 514 }}>
                 <Center>
                   <div css="height: 250px;">
                     {this.state.showImageForm ? (
