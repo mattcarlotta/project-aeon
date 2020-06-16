@@ -5,11 +5,10 @@ import Router from "next/router";
 import { connect } from "react-redux";
 import { resetMessages, setError } from "~actions/Messages";
 import Container from "~components/Body/Container";
-import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
-import Mask from "~components/Body/Mask";
-import Preview from "~components/Body/Preview";
+import MaskPreview from "~components/Body/MaskPreview";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
+import StopPropagation from "~components/Body/StopPropagation";
 import Tag from "~components/Body/Tag";
 import toast from "~components/Body/Toast";
 import Tooltip from "~components/Body/Tooltip";
@@ -42,6 +41,7 @@ class TagQuestions extends PureComponent {
         ) : (
           data.map(question => (
             <Container
+              hoverable
               key={question.key}
               centered
               maxWidth="750px"
@@ -57,14 +57,16 @@ class TagQuestions extends PureComponent {
               <div css="font-size: 12px;color: #787C7E;">
                 <QuestionDetails>
                   Posted by&nbsp;
-                  <Link
-                    blue
-                    nomargin
-                    href="/u/[...slug]"
-                    asHref={`/u/${question.key}/${question.username}`}
-                  >
-                    {question.username}
-                  </Link>
+                  <StopPropagation>
+                    <Link
+                      blue
+                      nomargin
+                      href="/u/[...slug]"
+                      asHref={`/u/${question.key}/${question.username}`}
+                    >
+                      {question.username}
+                    </Link>
+                  </StopPropagation>
                 </QuestionDetails>
                 <Tooltip
                   title={dayjs(question.date).format("MMMM Do, YYYY @ HH:MMa")}
@@ -80,21 +82,18 @@ class TagQuestions extends PureComponent {
                 <QuestionTitle>{question.title}</QuestionTitle>
                 <div css="margin-bottom: 15px;">
                   {question.tags.map(tag => (
-                    <Link
-                      key={tag}
-                      margin="0 5px 0 0"
-                      href="/t/[...slug]"
-                      asHref={`/t/${tag}`}
-                    >
-                      <Tag>{tag}</Tag>
-                    </Link>
+                    <StopPropagation key={tag}>
+                      <Link
+                        margin="0 5px 0 0"
+                        href="/t/[...slug]"
+                        asHref={`/t/${tag}`}
+                      >
+                        <Tag>{tag}</Tag>
+                      </Link>
+                    </StopPropagation>
                   ))}
                 </div>
-                <Mask>
-                  <Preview>
-                    <MarkdownPreviewer>{question.body}</MarkdownPreviewer>
-                  </Preview>
-                </Mask>
+                <MaskPreview>{question.body}</MaskPreview>
               </div>
             </Container>
           ))

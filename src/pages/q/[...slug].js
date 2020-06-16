@@ -68,14 +68,15 @@ class UserQuestion extends Component {
               </Affix>
               <div css="margin-bottom: 15px;">
                 {data.tags.map(tag => (
-                  <Link
-                    key={tag}
-                    margin="0 5px 0 0"
-                    href="/t/[...slug]"
-                    asHref={`/t/${tag}`}
-                  >
-                    <Tag>{tag}</Tag>
-                  </Link>
+                  <span key={tag} onClick={e => e.stopPropagation()}>
+                    <Link
+                      margin="0 5px 0 0"
+                      href="/t/[...slug]"
+                      asHref={`/t/${tag}`}
+                    >
+                      <Tag>{tag}</Tag>
+                    </Link>
+                  </span>
                 ))}
               </div>
               <Preview>

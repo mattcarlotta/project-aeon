@@ -11,6 +11,18 @@ export default styled.div`
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   padding-bottom: 30px;
   margin-bottom: 15px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+
   ${({ centered }) =>
-    centered ? "margin-left: auto;margin-right:auto;" : undefined}
+    centered ? "margin-left: auto;margin-right:auto;" : undefined};
+  ${({ hoverable }) =>
+    hoverable
+      ? `
+    &:hover {
+      border-color: #0075e0;
+      background: #f9fafd;
+    }
+  `
+      : undefined};
 `;
