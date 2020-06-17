@@ -17,7 +17,7 @@ const Voter = ({ downVote, upVote, tertiary, votes }) => (
     >
       <FaChevronUp style={{ position: "relative", top: 1 }} />
     </Button>
-    <Votes votes={roundVotes(votes)} />
+    <Votes dataVotes={votes} votes={roundVotes(votes)} />
     <Button
       onClick={downVote}
       plain={!tertiary}
