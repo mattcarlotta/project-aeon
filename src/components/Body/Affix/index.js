@@ -113,7 +113,7 @@ Affix.propTypes = {
   onChange: PropTypes.func,
   top: PropTypes.number,
   upVote: PropTypes.func.isRequired,
-  votes: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  votes: PropTypes.number,
 };
 
 Affix.defaultProps = {

@@ -36,7 +36,7 @@ Voter.propTypes = {
   downVote: PropTypes.func.isRequired,
   tertiary: PropTypes.bool,
   upVote: PropTypes.func.isRequired,
-  votes: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  votes: PropTypes.number,
 };
 
 Voter.defaultProps = {
