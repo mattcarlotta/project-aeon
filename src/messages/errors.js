@@ -41,6 +41,9 @@ const missingSigninCredentials =
 const missingSignupCreds =
   "Invalid sign up request. You must supply a valid: email, first name, last name and password.";
 
+const titleIsTooLong =
+  "Unable to save the question. The question title should be 250 characters or less.";
+
 const unableToLocateQuestion =
   "The question can not be located because the URL does not contain a valid question id.";
 
@@ -67,6 +70,7 @@ export {
   missingPasswords,
   missingSigninCredentials,
   missingSignupCreds,
+  titleIsTooLong,
   unableToLocateQuestion,
   unableToLocateQuestions,
   unableToLocateTag,

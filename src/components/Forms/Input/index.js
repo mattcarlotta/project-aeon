@@ -11,6 +11,7 @@ const Input = ({
   disabled,
   inputStyle,
   label,
+  maxLength,
   name,
   onChange,
   placeholder,
@@ -39,6 +40,7 @@ const Input = ({
             tabIndex={0}
             type={type}
             name={name}
+            maxLength={maxLength}
             onBlur={handleBlur}
             onChange={onChange}
             onFocus={handleFocus}
@@ -66,6 +68,7 @@ Input.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ),
   label: PropTypes.string,
+  maxLength: PropTypes.number,
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,

@@ -1,7 +1,7 @@
 import db from "~database/connection";
 import { createNewQuestion } from "~database/queries";
 import withMiddleware from "~middlewares";
-import { missingQuestionReqs } from "~messages/errors";
+import { missingQuestionReqs, titleIsTooLong } from "~messages/errors";
 import requireAuth from "~strategies/requireAuth";
 import { createDashedTitle, sendError } from "~utils/helpers";
 
@@ -19,6 +19,7 @@ const createQuestion = async (req, res) => {
     const { body, title, tags } = req.body;
     const { id } = req.user;
     if (!body || !title) throw String(missingQuestionReqs);
+    if (title.length > 250) throw String(titleIsTooLong);
 
     const dashedTitle = createDashedTitle(title);
 

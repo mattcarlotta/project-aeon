@@ -12,11 +12,11 @@ Container.propTypes = {
 };
 
 export default styled(Container)`
-  ${({ fullscreen, fixed, offset, top }) =>
+  ${({ fixed, top }) =>
     fixed
       ? `position: fixed;top: ${top}px;
-      left: ${fullscreen ? "0" : `${offset.left}px`};
-      width: ${fullscreen ? "100%" : `${offset.width}px`};
+      left: 0px;
+      width: 100%;
       z-index: 1;
       
       h3 {

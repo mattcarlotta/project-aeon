@@ -8,7 +8,7 @@ import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 
 const NotFound = () => (
-  <FlexCenter>
+  <FlexCenter style={{ height: "75vh" }}>
     <Head title="Not Found" />
     <Center style={{ color: "#03a9f3", padding: "100px" }}>
       <Title style={{ color: "#03a9f3", fontSize: "120px" }}>404</Title>

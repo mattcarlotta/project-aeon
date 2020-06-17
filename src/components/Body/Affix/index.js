@@ -37,37 +37,39 @@ class Affix extends Component {
     this.setState({ offset: getOffset(this.mountRef) });
 
   updatePosition = () => {
+    const { dismissed, fixed, offset } = this.state;
+    const { onChange, top } = this.props;
     const scrollY = window.scrollY || window.pageYOffset;
-    const fixed = scrollY - (this.state.offset.top - this.props.top) >= 0;
+    const isFixed = scrollY - (offset.top - top) >= 0;
 
-    if (!this.state.dismissed && fixed !== this.state.fixed) {
-      this.setState({ fixed }, () => this.props.onChange(this.state.fixed));
+    if (!dismissed && isFixed !== fixed) {
+      this.setState({ fixed: isFixed }, () => onChange(isFixed));
     }
   };
 
   render = () => {
     const { fixed } = this.state;
-    const { fullscreen } = this.props;
-    const childrenSpan = fixed ? (fullscreen ? 23 : 22) : 24;
-    const buttonSpan = fixed && fullscreen ? 1 : 2;
+    const { children, top } = this.props;
 
     return (
       <div data-test-id="affix-container" ref={this.setMountRef}>
-        <Container {...this.state} {...this.props}>
+        <Container fixed={fixed} top={top}>
           <div
             css={`
               position: relative;
               overflow: hidden;
               color: ${fixed ? "#fff" : "initial"};
-              background: ${fixed ? "#555e73" : "transparent"};
-              transition: color, background 0.2s ease-in-out;
+              background: ${fixed ? "#0075e0" : "transparent"};
+              transition: ${fixed
+                ? "color, background 0.2s ease-in-out;"
+                : "none"};
               border-radius: 0 0 4px 4px;
             `}
           >
-            <Row>
-              <Col xs={childrenSpan}>{this.props.children}</Col>
+            <Row style={{ margin: "0 auto", maxWidth: 700, width: "100%" }}>
+              <Col xs={fixed ? 22 : 24}>{children}</Col>
               {fixed && (
-                <Col xs={buttonSpan}>
+                <Col xs={2}>
                   <Center>
                     <Button
                       tertiary
@@ -86,29 +88,19 @@ class Affix extends Component {
             </Row>
           </div>
         </Container>
-        {fixed && (
-          <div
-            data-testid="affix-placeholder"
-            style={{
-              width: this.state.offset.width,
-              height: this.state.offset.height,
-            }}
-          />
-        )}
+        {fixed && children}
       </div>
     );
   };
 }
 
 Affix.propTypes = {
-  fullscreen: PropTypes.bool,
   top: PropTypes.number,
   onChange: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 };
 
 Affix.defaultProps = {
-  fullscreen: false,
   onChange: () => {},
   top: 52,
 };

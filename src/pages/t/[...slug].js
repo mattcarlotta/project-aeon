@@ -5,6 +5,7 @@ import Router from "next/router";
 import { connect } from "react-redux";
 import { resetMessages, setError } from "~actions/Messages";
 import Container from "~components/Body/Container";
+import CheckMark from "~components/Body/CheckMark";
 import MaskPreview from "~components/Body/MaskPreview";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
@@ -40,9 +41,10 @@ class TagQuestions extends PureComponent {
         ) : (
           data.map(question => (
             <Container
-              hoverable
               key={question.key}
+              answered={question.answered}
               centered
+              hoverable
               maxWidth="750px"
               padding="20px"
               style={{ cursor: "pointer" }}
@@ -75,6 +77,7 @@ class TagQuestions extends PureComponent {
                 </Tooltip>
                 <QuestionDetails>|</QuestionDetails>
                 <QuestionDetails>views: {question.views}</QuestionDetails>
+                {question.answered && <CheckMark />}
               </div>
               <div css="padding: 0 10px;">
                 <QuestionTitle>{question.title}</QuestionTitle>
@@ -103,7 +106,7 @@ class TagQuestions extends PureComponent {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store: { dispatch }, query }) => {
-    let data = {};
+    let data = [];
     let title = "";
     let serverError = "";
     try {

@@ -19,6 +19,7 @@ export class UpdateDescriptionForm extends Component {
         value: "",
         errors: "",
         required: true,
+        maxLength: 250,
       },
       {
         name: "tags",
