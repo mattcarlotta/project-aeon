@@ -13,7 +13,5 @@ CheckMark.propTypes = {
 };
 
 export default styled(CheckMark)`
-  position: absolute;
-  top: 18px;
-  right: 25px;
+  margin-right: 8px;
 `;

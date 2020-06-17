@@ -6,5 +6,6 @@ export default styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  width: ${({ width }) => width || "auto"};
+  height: ${({ height }) => height || "100%"};
 `;

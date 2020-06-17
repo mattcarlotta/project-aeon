@@ -4,10 +4,13 @@ import { FaTimes } from "react-icons/fa";
 import Button from "~components/Body/Button";
 import Center from "~components/Body/Center";
 import Col from "~components/Body/Col";
+import FlexCenter from "~components/Body/FlexCenter";
 import Row from "~components/Body/Row";
+import Voter from "~components/Body/Voter";
 import Container from "./Container";
 import scrollObserver, { unbind } from "./utils/scrollObserver";
 import getOffset from "./utils/getOffset";
+import FlexSpaceEvenly from "../FlexSpaceEvenly";
 
 class Affix extends Component {
   state = {
@@ -49,7 +52,7 @@ class Affix extends Component {
 
   render = () => {
     const { fixed } = this.state;
-    const { children, top } = this.props;
+    const { children, downVote, top, upVote, votes } = this.props;
 
     return (
       <div data-test-id="affix-container" ref={this.setMountRef}>
@@ -60,30 +63,40 @@ class Affix extends Component {
               overflow: hidden;
               color: ${fixed ? "#fff" : "initial"};
               background: ${fixed ? "#0075e0" : "transparent"};
-              transition: ${fixed
-                ? "color, background 0.2s ease-in-out;"
-                : "none"};
-              border-radius: 0 0 4px 4px;
             `}
           >
-            <Row style={{ margin: "0 auto", maxWidth: 700, width: "100%" }}>
-              <Col xs={fixed ? 22 : 24}>{children}</Col>
-              {fixed && (
-                <Col xs={2}>
-                  <Center>
-                    <Button
-                      tertiary
-                      padding="0px 6px"
-                      margin="20px 0 0 0"
-                      width="30px"
-                      onClick={this.removeFixedElement}
-                    >
-                      <FaTimes
-                        style={{ fontSize: 12, position: "relative", top: 1 }}
+            <Row style={{ margin: "0 auto", maxWidth: 750, width: "100%" }}>
+              {fixed ? (
+                <FlexCenter>
+                  <Col xs={4}>
+                    <FlexSpaceEvenly>
+                      <Voter
+                        tertiary
+                        downVote={downVote}
+                        upVote={upVote}
+                        votes={votes}
                       />
-                    </Button>
-                  </Center>
-                </Col>
+                    </FlexSpaceEvenly>
+                  </Col>
+                  <Col xs={18}>{children}</Col>
+                  <Col xs={2}>
+                    <Center>
+                      <Button
+                        tertiary
+                        padding="0px 6px"
+                        margin="0"
+                        width="30px"
+                        onClick={this.removeFixedElement}
+                      >
+                        <FaTimes
+                          style={{ fontSize: 12, position: "relative", top: 1 }}
+                        />
+                      </Button>
+                    </Center>
+                  </Col>
+                </FlexCenter>
+              ) : (
+                <Col xs={24}>{children}</Col>
               )}
             </Row>
           </div>
@@ -95,9 +108,12 @@ class Affix extends Component {
 }
 
 Affix.propTypes = {
-  top: PropTypes.number,
-  onChange: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  downVote: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  top: PropTypes.number,
+  upVote: PropTypes.func.isRequired,
+  votes: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 Affix.defaultProps = {

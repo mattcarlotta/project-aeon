@@ -85,6 +85,7 @@ export default styled(Button)`
   outline: none;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || undefined};
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
   border-radius: ${({ radius }) => radius || "50px"};
@@ -114,7 +115,7 @@ export default styled(Button)`
         return "border-color:#0f7ae5;background-color:#0f7ae5;";
       if (props.danger)
         return "border-color:#ee395b;background-color:transparent;color:#ee395b;";
-      if (props.plain) return "color:#0f7ae5;";
+      if (props.plain) return "color:#0f7ae5;background-color: #ebebeb;";
       if (props.link) return "color:#40a9ff;";
       return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
     }};
