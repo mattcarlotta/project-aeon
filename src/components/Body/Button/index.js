@@ -94,13 +94,15 @@ export default styled(Button)`
     if (props.disabled)
       return "border:1px solid #ebebeb;background-color:#ebebeb;color:#bbb;";
     if (props.tertiary)
-      return "border:2px solid #ddd;background-color:transparent;color:#ddd;";
+      return "border:1px solid #ddd;background-color:transparent;color:#ddd;";
     if (props.primary)
       return "border:1px solid #188fff;background-color:#188fff;color:#fff;";
     if (props.danger)
       return "border:1px solid #f0506e;background-color:transparent;color:#f0506e;";
     if (props.plain)
       return "border: 0;background-color:transparent;color:#03a9f3;";
+    if (props.alt || props.downvote || props.upvote)
+      return "border: 0;background-color:transparent;color:#ddd;";
     if (props.link)
       return "border: 0;background-color:transparent;color:#000000a6;";
     return "border:1px solid #03a9f3;background-color:transparent;color:#03a9f3;";
@@ -117,6 +119,9 @@ export default styled(Button)`
         return "border-color:#ee395b;background-color:transparent;color:#ee395b;";
       if (props.plain) return "color:#0f7ae5;background-color: #ebebeb;";
       if (props.link) return "color:#40a9ff;";
+      if (props.alt) return "color:#fff;";
+      if (props.downvote) return "color: #ff0000;";
+      if (props.upvote) return "color: #10e610;";
       return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
     }};
   }

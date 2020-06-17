@@ -20,10 +20,12 @@ export default styled(Container)`
       z-index: 1;
       
       h3 {
+        padding-left: 10px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: 400;
+        font-size: 16px;
       }
       `
       : undefined};

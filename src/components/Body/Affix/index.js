@@ -1,16 +1,17 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import { FaTimes } from "react-icons/fa";
+import { FaChevronUp, FaChevronDown, FaTimes } from "react-icons/fa";
 import Button from "~components/Body/Button";
 import Center from "~components/Body/Center";
 import Col from "~components/Body/Col";
+import Flex from "~components/Body/Flex";
 import FlexCenter from "~components/Body/FlexCenter";
 import Row from "~components/Body/Row";
-import Voter from "~components/Body/Voter";
+import Votes from "~components/Body/Votes";
+import roundVotes from "~utils/roundVotes";
 import Container from "./Container";
 import scrollObserver, { unbind } from "./utils/scrollObserver";
 import getOffset from "./utils/getOffset";
-import FlexSpaceEvenly from "../FlexSpaceEvenly";
 
 class Affix extends Component {
   state = {
@@ -62,34 +63,66 @@ class Affix extends Component {
               position: relative;
               overflow: hidden;
               color: ${fixed ? "#fff" : "initial"};
-              background: ${fixed ? "#0075e0" : "transparent"};
+              background: ${fixed ? "#1d1d1d" : "transparent"};
             `}
           >
             <Row style={{ margin: "0 auto", maxWidth: 750, width: "100%" }}>
               {fixed ? (
                 <FlexCenter>
-                  <Col xs={4}>
-                    <FlexSpaceEvenly>
-                      <Voter
-                        tertiary
-                        downVote={downVote}
-                        upVote={upVote}
-                        votes={votes}
+                  <Col
+                    xs={4}
+                    style={{
+                      borderLeft: "1px dashed #6f6f6f",
+                      borderRight: "1px dashed #6f6f6f",
+                    }}
+                  >
+                    <Flex>
+                      <Button
+                        upvote
+                        width="20px"
+                        padding="4px"
+                        radius="4px"
+                        onClick={upVote}
+                      >
+                        <FaChevronUp style={{ fontSize: 11 }} />
+                      </Button>
+                      <Votes
+                        dataVotes={votes}
+                        votes={roundVotes(votes)}
+                        style={{
+                          padding: "0 8px",
+                          fontSize: 15,
+                          minWidth: 40,
+                          fontWeight: "normal",
+                        }}
                       />
-                    </FlexSpaceEvenly>
+                      <Button
+                        downvote
+                        width="20px"
+                        padding="4px"
+                        radius="4px"
+                        onClick={downVote}
+                      >
+                        <FaChevronDown
+                          style={{
+                            fontSize: 11,
+                          }}
+                        />
+                      </Button>
+                    </Flex>
                   </Col>
                   <Col xs={18}>{children}</Col>
                   <Col xs={2}>
                     <Center>
                       <Button
-                        tertiary
+                        downvote
                         padding="0px 6px"
                         margin="0"
                         width="30px"
                         onClick={this.removeFixedElement}
                       >
                         <FaTimes
-                          style={{ fontSize: 12, position: "relative", top: 1 }}
+                          style={{ fontSize: 11, position: "relative", top: 1 }}
                         />
                       </Button>
                     </Center>

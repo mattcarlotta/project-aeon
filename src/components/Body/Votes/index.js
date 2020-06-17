@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Votes = ({ className, dataVotes, votes }) => (
-  <div data-testid="votes" data-votes={dataVotes} className={className}>
+const Votes = ({ className, dataVotes, style, votes }) => (
+  <div
+    data-testid="votes"
+    data-votes={dataVotes}
+    className={className}
+    style={style}
+  >
     {votes}
   </div>
 );
@@ -10,6 +15,9 @@ const Votes = ({ className, dataVotes, votes }) => (
 Votes.propTypes = {
   className: PropTypes.string.isRequired,
   dataVotes: PropTypes.number,
+  style: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ),
   votes: PropTypes.string,
 };
 
