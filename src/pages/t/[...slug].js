@@ -8,7 +8,6 @@ import Container from "~components/Body/Container";
 import MaskPreview from "~components/Body/MaskPreview";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
-import StopPropagation from "~components/Body/StopPropagation";
 import Tag from "~components/Body/Tag";
 import toast from "~components/Body/Toast";
 import Tooltip from "~components/Body/Tooltip";
@@ -57,16 +56,15 @@ class TagQuestions extends PureComponent {
               <div css="font-size: 12px;color: #787C7E;">
                 <QuestionDetails>
                   Posted by&nbsp;
-                  <StopPropagation>
-                    <Link
-                      blue
-                      nomargin
-                      href="/u/[...slug]"
-                      asHref={`/u/${question.key}/${question.username}`}
-                    >
-                      {question.username}
-                    </Link>
-                  </StopPropagation>
+                  <Link
+                    blue
+                    nomargin
+                    stopPropagation
+                    href="/u/[...slug]"
+                    asHref={`/u/${question.key}/${question.username}`}
+                  >
+                    {question.username}
+                  </Link>
                 </QuestionDetails>
                 <Tooltip
                   title={dayjs(question.date).format("MMMM Do, YYYY @ HH:MMa")}
@@ -82,15 +80,15 @@ class TagQuestions extends PureComponent {
                 <QuestionTitle>{question.title}</QuestionTitle>
                 <div css="margin-bottom: 15px;">
                   {question.tags.map(tag => (
-                    <StopPropagation key={tag}>
-                      <Link
-                        margin="0 5px 0 0"
-                        href="/t/[...slug]"
-                        asHref={`/t/${tag}`}
-                      >
-                        <Tag>{tag}</Tag>
-                      </Link>
-                    </StopPropagation>
+                    <Link
+                      key={tag}
+                      stopPropagation
+                      margin="0 5px 0 0"
+                      href="/t/[...slug]"
+                      asHref={`/t/${tag}`}
+                    >
+                      <Tag>{tag}</Tag>
+                    </Link>
                   ))}
                 </div>
                 <MaskPreview>{question.body}</MaskPreview>

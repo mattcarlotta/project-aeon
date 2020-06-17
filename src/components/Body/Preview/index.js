@@ -6,6 +6,7 @@ export default styled.div`
   text-align: left;
   overflow-y: auto;
   margin-right: -4px;
+  margin-bottom: 20px;
 
   p,
   blockquote,

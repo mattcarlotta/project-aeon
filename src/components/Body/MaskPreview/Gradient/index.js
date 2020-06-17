@@ -4,10 +4,16 @@ export default styled.div`
   max-height: 250px;
   overflow: hidden;
   padding: 5px 8px 10px;
+  position: relative;
 
-  ${({ height }) =>
-    height > 200
-      ? ` -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
-  mask-image: linear-gradient(180deg, #000 60%, transparent);`
-      : undefined}
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: ${({ height }) => (height >= 240 ? "block" : "none")};
+    left: 0;
+    top: 0;
+    background: linear-gradient(transparent 60%, white);
+  }
 `;

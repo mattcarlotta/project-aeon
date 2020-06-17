@@ -8,11 +8,19 @@ const LinkComponent = ({
   children,
   dataTest,
   href,
+  onClick,
+  stopPropagation,
   style,
   target,
 }) => (
   <Link href={href} as={asHref} prefetch={false} passHref>
-    <a data-test={dataTest} style={style} className={className} target={target}>
+    <a
+      data-test={dataTest}
+      style={style}
+      className={className}
+      target={target}
+      onClick={stopPropagation ? e => e.stopPropagation() : onClick}
+    >
       {children}
     </a>
   </Link>
@@ -24,10 +32,16 @@ LinkComponent.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   dataTest: PropTypes.string,
   href: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  stopPropagation: PropTypes.bool,
   style: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ),
   target: PropTypes.string,
+};
+
+LinkComponent.defaultProps = {
+  onClick: () => {},
 };
 
 export default styled(LinkComponent)`

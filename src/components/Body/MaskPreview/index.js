@@ -9,12 +9,10 @@ class MaskPreview extends Component {
     height: 0,
   };
 
-  setMaskHeight = node => {
-    this.mask = node;
-    const height = this.mask ? this.mask.getBoundingClientRect().height : 0;
-
-    this.setState({ height });
-  };
+  setMaskHeight = node =>
+    this.setState(prevState => ({
+      height: node ? node.getBoundingClientRect().height : prevState.height,
+    }));
 
   render = () => (
     <Gradient ref={this.setMaskHeight} height={this.state.height}>
