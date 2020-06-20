@@ -1,10 +1,10 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
+import dynamic from "next/dynamic";
 import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import { resetMessages } from "~actions/Messages";
-import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
 import Container from "~components/Body/Container";
 import Center from "~components/Body/Center";
@@ -20,11 +20,13 @@ import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 import withServerMessages from "~containers/App/withServerMessages";
 import CreateComment from "~containers/Forms/CreateComment";
-import { parseData } from "~utils/parseResponse";
+import { parseData, parseCookie } from "~utils/parseResponse";
 import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 import dayjs from "~utils/dayjs";
 import QuestionContainer from "~components/Body/QuestionContainer";
+
+const Affix = dynamic(() => import("~components/Body/Affix"), { ssr: false });
 
 class UserQuestion extends Component {
   state = {
@@ -134,14 +136,14 @@ class UserQuestion extends Component {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  async ({ store: { dispatch }, query }) => {
+  async ({ req, store: { dispatch }, query }) => {
     let data = {};
     let title = "";
     let serverError = "";
     try {
       const { 0: key } = query.slug;
       dispatch(resetMessages());
-      const res = await app.get(`q/${key}`);
+      const res = await app.get(`q/${key}`, parseCookie(req));
       data = parseData(res);
       title = data.title;
     } catch (e) {

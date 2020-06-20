@@ -46,11 +46,12 @@ const questionTableOptions = `(
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   answered BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,
-  votes INTEGER DEFAULT 0,
+  upvoters UUID [] DEFAULT array[]::uuid[],
+  downvoters UUID [] DEFAULT array[]::uuid[],
   title TEXT NOT NULL DEFAULT '',
-  uniquetitle VARCHAR NOT NULL,
+  uniquetitle VARCHAR NOT NULL DEFAULT '',
   body TEXT NOT NULL DEFAULT '',
-  tags TEXT [],
+  tags TEXT [] DEFAULT array[]::text[],
   comments JSONB
 )`;
 

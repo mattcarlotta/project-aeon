@@ -40,7 +40,10 @@ class ClickHandler extends Component {
   };
 
   render = () => (
-    <div ref={node => (this.wrapperRef = node)}>
+    <div
+      data-testid="dropdown-clickhandler"
+      ref={node => (this.wrapperRef = node)}
+    >
       {this.props.children({
         isVisible: this.state.isVisible,
         handleMenuClick: this.handleMenuClick,

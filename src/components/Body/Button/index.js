@@ -24,28 +24,30 @@ const Button = React.forwardRef(
     },
     ref,
   ) => (
-    <button
-      ref={ref}
-      aria-label="button"
-      data-testid={dataTestId}
-      className={className}
-      disabled={disabled}
-      onBlur={onBlur}
-      onClick={onClick}
-      onContextMenu={onContextMenu}
-      onFocus={onFocus}
-      onMouseDown={onMouseDown}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onMouseOver={onMouseOver}
-      onTouchEnd={onTouchEnd}
-      onTouchStart={onTouchStart}
-      style={style}
-      tabIndex={0}
-      type={type || "button"}
-    >
-      {children}
-    </button>
+    <span onClick={e => e.stopPropagation()}>
+      <button
+        ref={ref}
+        aria-label="button"
+        data-testid={dataTestId}
+        className={className}
+        disabled={disabled}
+        onBlur={onBlur}
+        onClick={onClick}
+        onContextMenu={onContextMenu}
+        onFocus={onFocus}
+        onMouseDown={onMouseDown}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onMouseOver={onMouseOver}
+        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+        style={style}
+        tabIndex={0}
+        type={type || "button"}
+      >
+        {children}
+      </button>
+    </span>
   ),
 );
 
@@ -99,6 +101,14 @@ export default styled(Button)`
       return "border:1px solid #188fff;background-color:#188fff;color:#fff;";
     if (props.danger)
       return "border:1px solid #f0506e;background-color:transparent;color:#f0506e;";
+    if (props.upvote)
+      return `border: 0;background-color:transparent;color:${
+        props.upvoted ? "#10e610" : "#000"
+      }`;
+    if (props.downvote)
+      return `border: 0;background-color:transparent;color:${
+        props.downvoted ? "#ff0000" : "#000"
+      };`;
     if (props.plain)
       return "border: 0;background-color:transparent;color:#03a9f3;";
     if (props.alt || props.downvote || props.upvote)

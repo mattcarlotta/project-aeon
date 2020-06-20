@@ -12,21 +12,18 @@ Container.propTypes = {
 };
 
 export default styled(Container)`
-  ${({ fixed, top }) =>
-    fixed
-      ? `position: fixed;top: ${top}px;
-      left: 0px;
-      width: 100%;
-      z-index: 1;
-      
-      h3 {
-        padding-left: 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-weight: 400;
-        font-size: 16px;
-      }
-      `
-      : undefined};
+  position: fixed;
+  top: ${({ top }) => top}px;
+  left: 0px;
+  width: 100%;
+  z-index: 1;
+
+  h3 {
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 16px;
+  }
 `;

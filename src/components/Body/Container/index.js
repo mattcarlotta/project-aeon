@@ -5,6 +5,7 @@ export default styled.div`
     margin: 0 20px;
   }
 
+  cursor: ${({ cursor }) => cursor};
   max-width: ${({ maxWidth }) => maxWidth || "100%"};
   padding: ${({ padding }) => padding || "10px"};
   text-align: left;

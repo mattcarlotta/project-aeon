@@ -34,9 +34,12 @@ class CustomDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
           <meta name="theme-color" content="#000000" />
           <meta
             name="description"
@@ -44,6 +47,7 @@ class CustomDocument extends Document {
           />
           <meta name="build version" content={version} />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="manifest" href="/manifest.json" />
         </Head>
         <body>
           <Main />
@@ -53,5 +57,13 @@ class CustomDocument extends Document {
     );
   }
 }
+
+/*
+  <link
+    rel="apple-touch-icon"
+    sizes="192x192"
+    href="/ITLogo_192x192.png"
+  />
+*/
 
 export default CustomDocument;

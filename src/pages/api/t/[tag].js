@@ -1,3 +1,4 @@
+import get from "lodash.get";
 import isEmpty from "lodash.isempty";
 import db from "~database/connection";
 import { findAllQuestionsByTagLimitAndOffset } from "~database/queries";
@@ -18,11 +19,13 @@ const fetchNewestQuestionsByTag = async (req, res) => {
   try {
     const { tag } = req.query;
     if (!tag) throw String(unableToLocateTag);
+    const userid = get(req.session, ["id"]) || null;
 
     const data = await db.any(findAllQuestionsByTagLimitAndOffset, [
       [tag],
       10,
       0,
+      userid,
     ]);
     if (isEmpty(data)) throw String(unableToLocateQuestions);
 
