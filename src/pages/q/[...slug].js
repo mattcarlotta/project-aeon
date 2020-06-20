@@ -1,15 +1,17 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
-import dynamic from "next/dynamic";
 import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import { resetMessages } from "~actions/Messages";
+import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
 import Container from "~components/Body/Container";
 import Center from "~components/Body/Center";
 import FlexCenter from "~components/Body/FlexCenter";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
+import QuestionContainer from "~components/Body/QuestionContainer";
+import NoSSR from "~components/Body/NoSSR";
 import Preview from "~components/Body/Preview";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
@@ -24,12 +26,10 @@ import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 import dayjs from "~utils/dayjs";
 import { parseData, parseCookie } from "~utils/parseResponse";
-import QuestionContainer from "~components/Body/QuestionContainer";
-
-const Affix = dynamic(() => import("~components/Body/Affix"), { ssr: false });
 
 class UserQuestion extends Component {
   state = {
+    ...this.props,
     addComment: false,
   };
 
@@ -37,8 +37,7 @@ class UserQuestion extends Component {
     this.setState(prevState => ({ addComment: !prevState.addComment }));
 
   render = () => {
-    const { addComment } = this.state;
-    const { data, title } = this.props;
+    const { addComment, data, title } = this.state;
 
     return (
       <>
@@ -65,7 +64,7 @@ class UserQuestion extends Component {
                   votes={data.votes}
                 />
               </FlexCenter>
-              <QuestionContainer css="padding: 10px;">
+              <QuestionContainer>
                 <div css="font-size: 12px;color: #787C7E;">
                   <QuestionDetails>
                     Posted by&nbsp;
@@ -88,9 +87,11 @@ class UserQuestion extends Component {
                   <QuestionDetails>|</QuestionDetails>
                   <QuestionDetails>views: {data.views}</QuestionDetails>
                 </div>
-                <Affix {...data} downVote={() => {}} upVote={() => {}}>
-                  <QuestionTitle>{data.title}</QuestionTitle>
-                </Affix>
+                <NoSSR>
+                  <Affix {...data} downVote={() => {}} upVote={() => {}}>
+                    <QuestionTitle>{data.title}</QuestionTitle>
+                  </Affix>
+                </NoSSR>
                 <div css="margin-bottom: 15px;">
                   {data.tags.map(tag => (
                     <Link
@@ -104,9 +105,7 @@ class UserQuestion extends Component {
                   ))}
                 </div>
                 <Preview>
-                  <MarkdownPreviewer value={data.body}>
-                    {data.body}
-                  </MarkdownPreviewer>
+                  <MarkdownPreviewer>{data.body}</MarkdownPreviewer>
                 </Preview>
                 <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
                 <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
@@ -122,7 +121,7 @@ class UserQuestion extends Component {
                 </Fade>
                 <Collapse in={addComment}>
                   <CreateComment
-                    questionId={data.key}
+                    questionKey={data.key}
                     cancelComment={this.toggleCommentForm}
                   />
                 </Collapse>

@@ -49,9 +49,9 @@ export class CreateCommentForm extends Component {
 
     this.setState({ fields: validatedFields, isSubmitting: !errors }, () => {
       if (!errors) {
-        const { questionId } = this.props;
+        const { questionKey } = this.props;
         this.props.createComment({
-          questionId,
+          questionKey,
           ...parseFields(validatedFields),
         });
       }
@@ -83,7 +83,7 @@ export class CreateCommentForm extends Component {
 CreateCommentForm.propTypes = {
   cancelComment: PropTypes.func.isRequired,
   createComment: PropTypes.func.isRequired,
-  questionId: PropTypes.number.isRequired,
+  questionKey: PropTypes.number.isRequired,
   serverError: PropTypes.string,
 };
 

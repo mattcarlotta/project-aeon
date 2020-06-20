@@ -8,6 +8,7 @@ import FlexCenter from "~components/Body/FlexCenter";
 import FlexEnd from "~components/Body/FlexEnd";
 import FlexStart from "~components/Body/FlexStart";
 import MaskPreview from "~components/Body/MaskPreview";
+import NoSSR from "~components/Body/NoSSR";
 import QuestionContainer from "~components/Body/QuestionContainer";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
@@ -97,9 +98,13 @@ class QuestionOverview extends Component {
                       {username}
                     </Link>
                   </QuestionDetails>
-                  <Tooltip title={dayjs(date).format("MMMM Do, YYYY @ HH:MMa")}>
-                    <QuestionDetails>{dayjs(date).fromNow()}</QuestionDetails>
-                  </Tooltip>
+                  <NoSSR>
+                    <Tooltip
+                      title={dayjs(date).format("MMMM Do, YYYY @ HH:MMa")}
+                    >
+                      <QuestionDetails>{dayjs(date).fromNow()}</QuestionDetails>
+                    </Tooltip>
+                  </NoSSR>
                   <QuestionDetails>|</QuestionDetails>
                   <QuestionDetails>views: {roundViews(views)}</QuestionDetails>
                 </FlexStart>

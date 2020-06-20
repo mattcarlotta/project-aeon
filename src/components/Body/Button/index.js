@@ -104,7 +104,7 @@ export default styled(Button)`
       return "border:1px solid #f0506e;background-color:transparent;color:#f0506e;";
     if (props.upvote)
       return `border: 0;background-color:transparent;color:${
-        props.upvoted ? "#10e610" : props.overlay ? "#ccc" : "#000"
+        props.upvoted ? "#00c300" : props.overlay ? "#ccc" : "#000"
       }`;
     if (props.downvote)
       return `border: 0;background-color:transparent;color:${
