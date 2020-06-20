@@ -20,10 +20,10 @@ import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 import withServerMessages from "~containers/App/withServerMessages";
 import CreateComment from "~containers/Forms/CreateComment";
-import { parseData, parseCookie } from "~utils/parseResponse";
 import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 import dayjs from "~utils/dayjs";
+import { parseData, parseCookie } from "~utils/parseResponse";
 import QuestionContainer from "~components/Body/QuestionContainer";
 
 const Affix = dynamic(() => import("~components/Body/Affix"), { ssr: false });

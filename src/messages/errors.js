@@ -23,6 +23,9 @@ const invalidSignupEmail =
 const invalidPassword =
   "The current password you've supplied does not match our records. Please try again.";
 
+const invalidSession =
+  "Your session has expired. Please sign into your account again.";
+
 const invalidStatus =
   "Access to your account was revoked. The account you're trying to log into has been permanently suspended.";
 
@@ -40,6 +43,9 @@ const missingSigninCredentials =
 
 const missingSignupCreds =
   "Invalid sign up request. You must supply a valid: email, first name, last name and password.";
+
+const notLoggedIn =
+  "You must have an account and be signed in before you can do that.";
 
 const titleIsTooLong =
   "Unable to save the question. The question title should be 250 characters or less.";
@@ -63,6 +69,7 @@ export {
   emptyPassword,
   invalidEmail,
   invalidPassword,
+  invalidSession,
   invalidSignupEmail,
   invalidStatus,
   missingEmailCreds,
@@ -70,6 +77,7 @@ export {
   missingPasswords,
   missingSigninCredentials,
   missingSignupCreds,
+  notLoggedIn,
   titleIsTooLong,
   unableToLocateQuestion,
   unableToLocateQuestions,

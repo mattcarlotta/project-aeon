@@ -1,7 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
-import { connect } from "react-redux";
 import Container from "~components/Body/Container";
 import CheckMark from "~components/Body/CheckMark";
 import Flex from "~components/Body/Flex";
@@ -20,21 +19,11 @@ import Link from "~components/Navigation/Link";
 import app from "~utils/axiosConfig";
 import dayjs from "~utils/dayjs";
 import { parseData } from "~utils/parseResponse";
+import roundViews from "~utils/round";
 
 class QuestionOverview extends Component {
   state = {
     ...this.props,
-  };
-
-  handleRemoveVote = async () => {
-    try {
-      const res = await app.post(`q/remove-vote/${this.props.questionKey}`);
-      const data = parseData(res);
-
-      this.setState({ ...data });
-    } catch (error) {
-      toast({ type: "error", message: error.toString() });
-    }
   };
 
   handleVote = async type => {
@@ -112,7 +101,7 @@ class QuestionOverview extends Component {
                     <QuestionDetails>{dayjs(date).fromNow()}</QuestionDetails>
                   </Tooltip>
                   <QuestionDetails>|</QuestionDetails>
-                  <QuestionDetails>views: {views}</QuestionDetails>
+                  <QuestionDetails>views: {roundViews(views)}</QuestionDetails>
                 </FlexStart>
                 {answered && (
                   <FlexEnd>
@@ -156,13 +145,6 @@ QuestionOverview.propTypes = {
   upvoters: PropTypes.arrayOf(PropTypes.string),
   userkey: PropTypes.number,
   username: PropTypes.string,
-  // resetMessages: PropTypes.func.isRequired,
-  // serverError: PropTypes.string,
-  // setError: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ messages }) => ({
-  serverError: messages.error,
-});
-
-export default connect(mapStateToProps)(QuestionOverview);
+export default QuestionOverview;

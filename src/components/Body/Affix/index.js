@@ -1,7 +1,7 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
-import { FaChevronUp, FaChevronDown, FaTimes } from "react-icons/fa";
+import { FaArrowCircleUp, FaArrowCircleDown, FaTimes } from "react-icons/fa";
 import Button from "~components/Body/Button";
 import Center from "~components/Body/Center";
 import Col from "~components/Body/Col";
@@ -9,7 +9,7 @@ import Flex from "~components/Body/Flex";
 import FlexCenter from "~components/Body/FlexCenter";
 import Row from "~components/Body/Row";
 import Votes from "~components/Body/Votes";
-import roundVotes from "~utils/roundVotes";
+import roundVotes from "~utils/round";
 import Container from "./Container";
 import scrollObserver, { unbind } from "./utils/scrollObserver";
 import getOffset from "./utils/getOffset";
@@ -43,9 +43,8 @@ class Affix extends Component {
     const scrollY = window.scrollY || window.pageYOffset;
     const isFixed = scrollY - (offset.top - top) >= 0;
 
-    if (!dismissed && isFixed !== fixed) {
+    if (!dismissed && isFixed !== fixed)
       this.setState({ fixed: isFixed }, () => onChange(isFixed));
-    }
   };
 
   render = () => {
@@ -81,13 +80,14 @@ class Affix extends Component {
                       >
                         <Flex>
                           <Button
+                            overlay
                             upvote
                             width="20px"
                             padding="4px"
                             radius="4px"
                             onClick={upVote}
                           >
-                            <FaChevronUp style={{ fontSize: 11 }} />
+                            <FaArrowCircleUp style={{ fontSize: 12 }} />
                           </Button>
                           <Votes
                             dataVotes={votes}
@@ -101,14 +101,15 @@ class Affix extends Component {
                           />
                           <Button
                             downvote
+                            overlay
                             width="20px"
                             padding="4px"
                             radius="4px"
                             onClick={downVote}
                           >
-                            <FaChevronDown
+                            <FaArrowCircleDown
                               style={{
-                                fontSize: 11,
+                                fontSize: 12,
                               }}
                             />
                           </Button>

@@ -1,6 +1,6 @@
 import db from "~database/connection";
 import { findUserById } from "~database/queries";
-import { badCredentials } from "~messages/errors";
+import { invalidSession, notLoggedIn } from "~messages/errors";
 import { parseSession, sendError } from "~utils/helpers";
 
 /**
@@ -10,13 +10,17 @@ import { parseSession, sendError } from "~utils/helpers";
  * @returns {function}
  */
 export default next => async (req, res) => {
-  const id = parseSession(req);
-  if (!id) return sendError(badCredentials, res);
+  try {
+    const id = parseSession(req);
+    if (!id) throw String(notLoggedIn);
 
-  const existingUser = await db.oneOrNone(findUserById, [id]);
-  if (!existingUser) return sendError(badCredentials, res);
+    const existingUser = await db.oneOrNone(findUserById, [id]);
+    if (!existingUser) throw String(invalidSession);
 
-  req.user = existingUser;
+    req.user = existingUser;
 
-  return next(req, res);
+    return next(req, res);
+  } catch (err) {
+    return sendError(err, res);
+  }
 };
