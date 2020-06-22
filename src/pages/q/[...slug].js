@@ -1,32 +1,31 @@
-import { PureComponent } from "react";
 import isEmpty from "lodash.isempty";
 import PropTypes from "prop-types";
-import Router from "next/router";
 import QuestionReview from "~containers/Body/QuestionReview";
 import withServerMessages from "~containers/App/withServerMessages";
 import app from "~utils/axiosConfig";
 import { parseData, parseCookie } from "~utils/parse";
 
-class UserQuestion extends PureComponent {
-  componentDidMount() {
-    if (isEmpty(this.props.data)) Router.replace("/question-not-found");
-  }
-
-  render = () =>
-    !isEmpty(this.props.data) ? (
-      <QuestionReview {...this.props.data} questionKey={this.props.data.key} />
-    ) : null;
-}
+const UserQuestion = ({ data }) =>
+  !isEmpty(data) ? <QuestionReview {...data} questionKey={data.key} /> : null;
 
 export const getServerSideProps = async ({ req, query }) => {
   let data = {};
   let title = "";
   let serverError = "";
+  let titleKey = 0;
+  let redirect = false;
+  let uniqueTitle = "";
   try {
     const { 0: key } = query.slug;
     const res = await app.get(`q/${key}`, parseCookie(req));
+
     data = parseData(res);
     title = data.title;
+    titleKey = data.key;
+    uniqueTitle = data.uniquetitle;
+
+    const { 1: queryTitle } = query.slug;
+    redirect = queryTitle !== data.uniquetitle;
   } catch (e) {
     serverError = e.toString();
   }
@@ -34,10 +33,12 @@ export const getServerSideProps = async ({ req, query }) => {
   return {
     props: {
       data,
+      fallbackTo: "/question-not-found",
+      redirect,
+      redirectAs: `/q/${titleKey}/${uniqueTitle}`,
+      redirectTo: "/q/[...slug]",
       serverError,
       title,
-      query,
-      redirect: true,
     },
   };
 };

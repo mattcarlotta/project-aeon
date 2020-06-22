@@ -3,7 +3,6 @@ import styled from "styled-components";
 export default styled.div`
   max-height: 250px;
   overflow: hidden;
-  padding: 5px 8px 10px;
   position: relative;
 
   &::before {

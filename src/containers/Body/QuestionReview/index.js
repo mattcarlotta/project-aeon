@@ -58,13 +58,12 @@ class QuestionReview extends Component {
           <div css="padding-left: 45px;">
             <FlexCenter
               direction="column"
-              height="110px"
+              height="120px"
               width="45px"
               style={{
                 top: 0,
                 left: 0,
                 position: "absolute",
-                paddingLeft: "7px",
               }}
             >
               <Voter
