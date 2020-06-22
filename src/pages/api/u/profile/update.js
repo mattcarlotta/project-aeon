@@ -1,8 +1,9 @@
+import { missingNames, usernameAlreadyTaken } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
 import db from "~database/connection";
-import { findUserByusername, updateProfile } from "~database/queries";
+import { findUserByUsername, updateProfile } from "~database/queries";
 
 /**
  * Attempts to update a user's profile.
@@ -15,16 +16,13 @@ const updateUserProfile = async (req, res) => {
   try {
     const { id, email } = req.session;
     const { firstname, lastname, website, username, description } = req.body;
-    if (!firstname || !lastname)
-      throw String("You must supply at least a first and last name!");
+    if (!firstname || !lastname || !username) throw String(missingNames);
 
     if (username) {
       const existingUser = await db.oneOrNone(findUserByUsername, [username]);
 
       if (existingUser && existingUser.email !== email)
-        throw String(
-          "That display name is already taken. Please choose a different name.",
-        );
+        throw String(usernameAlreadyTaken);
     }
 
     await db.none(updateProfile, [

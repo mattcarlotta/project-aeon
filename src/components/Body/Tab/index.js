@@ -21,14 +21,14 @@ const AntTab = withStyles(theme => ({
       "sans-serif",
     ].join(","),
     fontSize: 14,
-    marginRight: theme.spacing(4),
+    marginRight: theme.spacing(2),
     "&:hover": {
       color: "#40a9ff",
       opacity: 1,
     },
     "&$selected": {
       color: "#1890ff",
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: "normal",
     },
     "&:focus": {
       color: "#40a9ff",

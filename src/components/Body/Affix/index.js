@@ -1,15 +1,12 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
-import { FaArrowCircleUp, FaArrowCircleDown, FaTimes } from "react-icons/fa";
-import Button from "~components/Body/Button";
-import Center from "~components/Body/Center";
 import Col from "~components/Body/Col";
+import CloseButton from "~components/Body/CloseButton";
 import Flex from "~components/Body/Flex";
 import FlexCenter from "~components/Body/FlexCenter";
 import Row from "~components/Body/Row";
-import Votes from "~components/Body/Votes";
-import roundVotes from "~utils/round";
+import Voter from "~components/Body/Voter";
 import Container from "./Container";
 import scrollObserver, { unbind } from "./utils/scrollObserver";
 import getOffset from "./utils/getOffset";
@@ -48,7 +45,8 @@ class Affix extends Component {
   };
 
   render = () => {
-    const { children, downVote, top, upVote, votes } = this.props;
+    const { children, top } = this.props;
+    const { dismissed, fixed } = this.state;
 
     return (
       <div
@@ -57,7 +55,7 @@ class Affix extends Component {
         ref={node => (this.mountRef = node)}
       >
         {children}
-        {!this.state.dismissed &&
+        {!dismissed &&
           createPortal(
             <Container top={top}>
               <div
@@ -69,7 +67,7 @@ class Affix extends Component {
                 `}
               >
                 <Row style={{ margin: "0 auto", maxWidth: 750, width: "100%" }}>
-                  {this.state.fixed && (
+                  {fixed && (
                     <FlexCenter>
                       <Col
                         xs={4}
@@ -79,61 +77,12 @@ class Affix extends Component {
                         }}
                       >
                         <Flex>
-                          <Button
-                            overlay
-                            upvote
-                            width="20px"
-                            padding="4px"
-                            radius="4px"
-                            onClick={upVote}
-                          >
-                            <FaArrowCircleUp style={{ fontSize: 12 }} />
-                          </Button>
-                          <Votes
-                            dataVotes={votes}
-                            votes={roundVotes(votes)}
-                            style={{
-                              padding: "0 8px",
-                              fontSize: 15,
-                              minWidth: 40,
-                              fontWeight: "normal",
-                            }}
-                          />
-                          <Button
-                            downvote
-                            overlay
-                            width="20px"
-                            padding="4px"
-                            radius="4px"
-                            onClick={downVote}
-                          >
-                            <FaArrowCircleDown
-                              style={{
-                                fontSize: 12,
-                              }}
-                            />
-                          </Button>
+                          <Voter align="horizontal" {...this.props} />
                         </Flex>
                       </Col>
-                      <Col xs={18}>{children}</Col>
-                      <Col xs={2}>
-                        <Center>
-                          <Button
-                            downvote
-                            padding="0px 6px"
-                            margin="0"
-                            width="30px"
-                            onClick={this.removeFixedElement}
-                          >
-                            <FaTimes
-                              style={{
-                                fontSize: 11,
-                                position: "relative",
-                                top: 1,
-                              }}
-                            />
-                          </Button>
-                        </Center>
+                      <Col xs={17}>{children}</Col>
+                      <Col xs={3}>
+                        <CloseButton onClick={this.removeFixedElement} />
                       </Col>
                     </FlexCenter>
                   )}
@@ -149,10 +98,8 @@ class Affix extends Component {
 
 Affix.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  downVote: PropTypes.func.isRequired,
   onChange: PropTypes.func,
   top: PropTypes.number,
-  upVote: PropTypes.func.isRequired,
   votes: PropTypes.number,
 };
 

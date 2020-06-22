@@ -7,17 +7,14 @@ import Title from "~components/Body/Title";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 
-const NotFound = () => (
+const QuestionNotFound = () => (
   <FlexCenter style={{ height: "75vh" }}>
-    <Head title="Not Found" />
+    <Head title="Question Not Found" />
     <Center style={{ color: "#03a9f3", padding: "100px" }}>
-      <Title style={{ color: "#03a9f3", fontSize: "120px" }}>404</Title>
       <Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
-        Page Not Found.
+        Question Not Found.
       </Title>
-      <SubTitle>
-        Uh oh, you took a wrong turn! Unable to locate that page.
-      </SubTitle>
+      <SubTitle>Unable to locate the requested question.</SubTitle>
       <Link href="/">
         <Button margin="10px 0" radius="4px">
           <HomeIcon />
@@ -28,4 +25,4 @@ const NotFound = () => (
   </FlexCenter>
 );
 
-export default NotFound;
+export default QuestionNotFound;

@@ -47,7 +47,7 @@ class Modal extends PureComponent {
                       <CloseModalButton
                         id="close-modal"
                         aria-label="close modal"
-                        onClick={this.props.onClick || null}
+                        onClick={this.props.onClick}
                       >
                         <FaTimes />
                       </CloseModalButton>
@@ -69,6 +69,10 @@ Modal.propTypes = {
   maxWidth: PropTypes.string,
   onClick: PropTypes.func,
   title: PropTypes.string,
+};
+
+Modal.defaultProps = {
+  onClick: () => {},
 };
 
 export default Modal;

@@ -1,12 +1,12 @@
 import { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createQuestion } from "~actions/Questions";
+import Router from "next/router";
 import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
+import toast from "~components/Body/Toast";
+import app from "~utils/axiosConfig";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
-import parseFields from "~utils/parseFields";
+import { parseData, parseFields } from "~utils/parse";
 
 export class UpdateDescriptionForm extends Component {
   state = {
@@ -44,10 +44,6 @@ export class UpdateDescriptionForm extends Component {
     isSubmitting: false,
   };
 
-  static getDerivedStateFromProps(props) {
-    return props.serverError ? { isSubmitting: false } : null;
-  }
-
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
@@ -60,9 +56,27 @@ export class UpdateDescriptionForm extends Component {
 
     const { validatedFields, errors } = fieldValidator(this.state.fields);
 
-    this.setState({ fields: validatedFields, isSubmitting: !errors }, () => {
-      if (!errors) this.props.createQuestion(parseFields(validatedFields));
-    });
+    this.setState(
+      { fields: validatedFields, isSubmitting: !errors },
+      async () => {
+        if (!errors) {
+          try {
+            const res = await app.post(
+              "q/create",
+              parseFields(validatedFields),
+            );
+            const data = parseData(res);
+
+            toast({ type: "success", message: data.message });
+
+            Router.push(`/q/${data.key}/${data.title}`);
+          } catch (err) {
+            toast({ type: "error", message: err.toString() });
+            this.setState({ isSubmitting: false });
+          }
+        }
+      },
+    );
   };
 
   render = () => (
@@ -77,20 +91,4 @@ export class UpdateDescriptionForm extends Component {
   );
 }
 
-UpdateDescriptionForm.propTypes = {
-  serverError: PropTypes.string,
-  createQuestion: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ messages }) => ({
-  serverError: messages.error,
-});
-
-const mapDispatchToProps = {
-  createQuestion,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(UpdateDescriptionForm);
+export default UpdateDescriptionForm;

@@ -8,7 +8,7 @@ import Spinner from "~components/Body/Spinner";
 import toast from "~components/Body/Toast";
 import Head from "~components/Navigation/Head";
 import app from "~utils/axiosConfig";
-import { parseData } from "~utils/parseResponse";
+import { parseData } from "~utils/parse";
 import { wrapper } from "~store";
 
 class NewestQuestions extends Component {

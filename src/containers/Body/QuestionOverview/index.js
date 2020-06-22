@@ -13,13 +13,10 @@ import QuestionContainer from "~components/Body/QuestionContainer";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
-import toast from "~components/Body/Toast";
 import Tooltip from "~components/Body/Tooltip";
 import Voter from "~components/Body/Voter";
 import Link from "~components/Navigation/Link";
-import app from "~utils/axiosConfig";
 import dayjs from "~utils/dayjs";
-import { parseData } from "~utils/parseResponse";
 import roundViews from "~utils/round";
 
 class QuestionOverview extends Component {
@@ -27,16 +24,7 @@ class QuestionOverview extends Component {
     ...this.props,
   };
 
-  handleVote = async type => {
-    try {
-      const res = await app.post(`q/${type}/${this.props.questionKey}`);
-      const data = parseData(res);
-
-      this.setState({ ...data });
-    } catch (error) {
-      toast({ type: "error", message: error.toString() });
-    }
-  };
+  handleUpdatedQuestion = data => this.setState({ ...data });
 
   render = () => {
     const {
@@ -78,8 +66,7 @@ class QuestionOverview extends Component {
           >
             <Voter
               {...this.state}
-              handleRemoveVote={this.handleRemoveVote}
-              handleVote={this.handleVote}
+              updateQuestion={this.handleUpdatedQuestion}
             />
           </FlexCenter>
           <QuestionContainer>

@@ -2,42 +2,84 @@ import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { FaArrowCircleDown, FaArrowCircleUp } from "react-icons/fa";
 import Button from "~components/Body/Button";
+import toast from "~components/Body/Toast";
 import Votes from "~components/Body/Votes";
+import app from "~utils/axiosConfig";
+import { parseData } from "~utils/parse";
 import roundVotes from "~utils/round";
 
 class Voter extends PureComponent {
-  handleUpClick = () => this.props.handleVote("upvote");
+  handleVote = async type => {
+    try {
+      const res = await app.post(`q/${type}/${this.props.questionKey}`);
+      const data = parseData(res);
 
-  handleDownClick = () => this.props.handleVote("downvote");
+      this.props.updateQuestion(data);
+    } catch (error) {
+      toast({ type: "error", message: error.toString() });
+    }
+  };
 
-  handleRemoveClick = () => this.props.handleVote("remove-vote");
+  handleUpClick = () => this.handleVote("upvote");
+
+  handleDownClick = () => this.handleVote("downvote");
+
+  handleRemoveClick = () => this.handleVote("remove-vote");
 
   render = () => {
-    const { downvoted, upvoted, votes } = this.props;
+    const { align, downvoted, upvoted, votes } = this.props;
+    const alignHorizontal = align !== "vertical";
     return (
       <>
         <Button
           upvote
-          height="25px"
-          width="25px"
+          overlay={alignHorizontal}
+          height={!alignHorizontal ? "25px" : "100%"}
+          width={!alignHorizontal ? "25px" : "20px"}
           padding="0px"
-          radius="4px"
+          radius={!alignHorizontal ? "4px" : "0"}
           upvoted={upvoted}
           onClick={!upvoted ? this.handleUpClick : this.handleRemoveClick}
         >
-          <FaArrowCircleUp style={{ position: "relative", top: 1 }} />
+          <FaArrowCircleUp
+            style={
+              !alignHorizontal
+                ? { position: "relative", top: 1 }
+                : { fontSize: 12 }
+            }
+          />
         </Button>
-        <Votes dataVotes={votes} votes={roundVotes(votes)} />
+        <Votes
+          dataVotes={votes}
+          votes={roundVotes(votes)}
+          style={
+            !alignHorizontal
+              ? {}
+              : {
+                  padding: "0 8px",
+                  fontSize: 15,
+                  minWidth: 40,
+                  fontWeight: "normal",
+                }
+          }
+        />
         <Button
           downvote
-          height="25px"
-          width="25px"
+          overlay={alignHorizontal}
+          height={!alignHorizontal ? "25px" : "100%"}
+          width={!alignHorizontal ? "25px" : "20px"}
           padding="0px"
-          radius="4px"
+          radius={!alignHorizontal ? "4px" : "0"}
           downvoted={downvoted}
           onClick={!downvoted ? this.handleDownClick : this.handleRemoveClick}
         >
-          <FaArrowCircleDown style={{ position: "relative", top: 3 }} />
+          <FaArrowCircleDown
+            style={
+              !alignHorizontal
+                ? { position: "relative", top: 3 }
+                : { fontSize: 12 }
+            }
+          />
         </Button>
       </>
     );
@@ -45,10 +87,16 @@ class Voter extends PureComponent {
 }
 
 Voter.propTypes = {
+  align: PropTypes.string,
   downvoted: PropTypes.bool,
-  handleVote: PropTypes.func.isRequired,
+  questionKey: PropTypes.number.isRequired,
   upvoted: PropTypes.bool,
   votes: PropTypes.number.isRequired,
+  updateQuestion: PropTypes.func.isRequired,
+};
+
+Voter.defaultProps = {
+  align: "vertical",
 };
 
 export default Voter;

@@ -13,12 +13,12 @@ import ListItem from "~components/Body/ListItem";
 import Button from "~components/Body/Button";
 import Menu from "~components/Body/Menu";
 import MenuItem from "~components/Body/MenuItem";
-
 import NavHeader from "~components/Navigation/NavHeader";
 import LoadingNav from "~components/Navigation/LoadingNav";
 import Link from "~components/Navigation/Link";
 import NavContainer from "~components/Navigation/NavContainer";
 import DefaultAvatar from "~images/defaultAvatar.png";
+import round from "~utils/round";
 
 const menuStyle = {
   padding: "0px 35px 0 15px",
@@ -113,7 +113,7 @@ const Header = ({
                       <span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
                         &#9733;
                       </span>
-                      {reputation.toLocaleString()} rep
+                      {round(reputation)} rep
                     </AccountButtonText>
                   </div>
                 </Dropdown>

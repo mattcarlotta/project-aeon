@@ -1,55 +1,45 @@
 import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
-import { connect } from "react-redux";
-import { resetMessages, setError } from "~actions/Messages";
-import Head from "~components/Navigation/Head";
+import Router from "next/router";
+import { resetMessages } from "~actions/Messages";
 import toast from "~components/Body/Toast";
 import QuestionOverview from "~containers/Body/QuestionOverview";
-import { parseData, parseCookie } from "~utils/parseResponse";
+import Head from "~components/Navigation/Head";
+import { parseData, parseCookie } from "~utils/parse";
 import { wrapper } from "~store";
 import app from "~utils/axiosConfig";
 
 class TagQuestions extends PureComponent {
   componentDidMount() {
-    const { setError, serverError } = this.props;
-    if (serverError) {
-      setError(serverError);
-      toast({ type: "error", message: serverError });
-    }
+    const { data, serverError } = this.props;
+    if (serverError) toast({ type: "error", message: serverError });
+    if (isEmpty(data)) Router.replace("/tag-not-found");
   }
 
   render = () => {
     const { data, title } = this.props;
 
-    return (
+    return !isEmpty(data) ? (
       <>
-        <Head
-          title={`${title ? `Newest '${title}' Questions` : "Not Found"}`}
-        />
-        {isEmpty(data) ? (
-          <div>No Tagged Questions Found</div>
-        ) : (
-          data.map(question => (
-            <QuestionOverview
-              {...question}
-              key={question.key}
-              questionKey={question.key}
-              setError={this.props.setError}
-              resetMessages={this.props.resetMessages}
-            />
-          ))
-        )}
+        <Head title={`Newest '${title}' Questions`} />
+        {data.map(question => (
+          <QuestionOverview
+            {...question}
+            key={question.key}
+            questionKey={question.key}
+          />
+        ))}
       </>
-    );
+    ) : null;
   };
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ req, store: { dispatch }, query }) => {
     let data = [];
-    let title = "";
     let serverError = "";
+    let title = "";
     try {
       const { 0: key } = query.slug;
       dispatch(resetMessages());
@@ -88,12 +78,8 @@ TagQuestions.propTypes = {
       votes: PropTypes.number,
     }),
   ),
-  resetMessages: PropTypes.func.isRequired,
   serverError: PropTypes.string,
-  setError: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = { resetMessages, setError };
-
-export default connect(null, mapDispatchToProps)(TagQuestions);
+export default TagQuestions;

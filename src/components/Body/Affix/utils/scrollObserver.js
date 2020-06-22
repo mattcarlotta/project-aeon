@@ -14,36 +14,36 @@ const resizeListener = e => {
   });
 };
 
-const exports = (element, fn) => {
+const exports = (e, fn) => {
   const window = this;
 
-  if (!element.__resizeListeners__) {
-    element.__resizeListeners__ = [];
+  if (!e.__resizeListeners__) {
+    e.__resizeListeners__ = [];
     if (window.document.attachEvent) {
-      element.__resizeTrigger__ = element;
-      element.attachEvent("onresize", resizeListener);
-    } else if (getComputedStyle(element).position === "static") {
-      element.style.position = "relative";
+      e.__resizeTrigger__ = e;
+      e.attachEvent("onresize", resizeListener);
+    } else if (getComputedStyle(e).position === "static") {
+      e.style.position = "relative";
     }
   }
-  element.__resizeListeners__.push(fn);
+  e.__resizeListeners__.push(fn);
 };
 
-export const unbind = (element, fn) => {
-  let listeners = element.__resizeListeners__ || [];
+export const unbind = (e, fn) => {
+  let listeners = e.__resizeListeners__ || [];
   if (fn) {
     const index = listeners.indexOf(fn);
     if (index !== -1) listeners.splice(index, 1);
   } else {
-    element.__resizeListeners__ = [];
-    listeners = element.__resizeListeners__;
+    e.__resizeListeners__ = [];
+    listeners = e.__resizeListeners__;
   }
 
   if (!listeners.length) {
     if (document.attachEvent) {
-      element.detachEvent("onresize", resizeListener);
-    } else if (element.__resizeTrigger__) {
-      const contentDocument = element.__resizeTrigger__.contentDocument;
+      e.detachEvent("onresize", resizeListener);
+    } else if (e.__resizeTrigger__) {
+      const contentDocument = e.__resizeTrigger__.contentDocument;
       const defaultView = contentDocument && contentDocument.defaultView;
 
       if (defaultView) {
@@ -51,11 +51,9 @@ export const unbind = (element, fn) => {
         delete defaultView.__resizeTrigger__;
       }
 
-      element.__resizeTrigger__ = !element.removeChild(
-        element.__resizeTrigger__,
-      );
+      e.__resizeTrigger__ = !e.removeChild(e.__resizeTrigger__);
     }
-    delete element.__resizeListeners__;
+    delete e.__resizeListeners__;
   }
 };
 

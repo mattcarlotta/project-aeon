@@ -32,6 +32,9 @@ const invalidStatus =
 const missingEmailCreds =
   "That email is not associated with an active account. Please make sure the email address is spelled correctly.";
 
+const missingNames =
+  "You must supply at least a username, a first name and a last name!";
+
 const missingQuestionReqs =
   "Invalid request. You must supply at least a title and a body in order to create a new question.";
 
@@ -51,12 +54,15 @@ const titleIsTooLong =
   "Unable to save the question. The question title should be 250 characters or less.";
 
 const unableToLocateQuestion =
-  "The question can not be located because the URL does not contain a valid question id.";
+  "Unable to locate the question because the URL does not contain a valid question id.";
 
 const unableToLocateQuestions = "Unable to locate any questions.";
 
 const unableToLocateTag =
-  "The questions can not be located because the URL does not contain a valid tag.";
+  "Unable to locate the requested tag because the URL does not contain a valid tag name.";
+
+const unableToLocateTaggedQuestions =
+  "Unable to locate any questions associated with the requested tag. Please make sure the tag is valid.";
 
 const usernameAlreadyTaken =
   "Uh oh, it appears that username is already taken. Please choose another name.";
@@ -73,6 +79,7 @@ export {
   invalidSignupEmail,
   invalidStatus,
   missingEmailCreds,
+  missingNames,
   missingQuestionReqs,
   missingPasswords,
   missingSigninCredentials,
@@ -82,5 +89,6 @@ export {
   unableToLocateQuestion,
   unableToLocateQuestions,
   unableToLocateTag,
+  unableToLocateTaggedQuestions,
   usernameAlreadyTaken,
 };

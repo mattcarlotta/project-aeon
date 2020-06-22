@@ -88,7 +88,13 @@ class Profile extends Component {
             <Col md={24} lg={17}>
               <Container style={{ overflow: "hidden" }}>
                 <Tabs value={showTab} onChange={this.setTab}>
-                  {["Activity", "Profile", "Settings"].map(tab => (
+                  {[
+                    "Activity",
+                    "Comments",
+                    "Profile",
+                    "Questions",
+                    "Settings",
+                  ].map(tab => (
                     <Tab key={tab} label={tab} />
                   ))}
                 </Tabs>
@@ -96,13 +102,19 @@ class Profile extends Component {
                   Activity
                 </TabPanel>
                 <TabPanel value={showTab} index={1}>
+                  Comments
+                </TabPanel>
+                <TabPanel value={showTab} index={2}>
                   <ProfileTab
                     {...settings}
                     showProfileForm={this.state.showProfileForm}
                     toggleProfileForm={this.toggleProfileForm}
                   />
                 </TabPanel>
-                <TabPanel value={showTab} index={2}>
+                <TabPanel value={showTab} index={3}>
+                  Questions
+                </TabPanel>
+                <TabPanel value={showTab} index={4}>
                   Edit Settings
                 </TabPanel>
               </Container>

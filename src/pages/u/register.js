@@ -9,7 +9,7 @@ import Link from "~components/Navigation/Link";
 import Head from "~components/Navigation/Head";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
-import parseFields from "~utils/parseFields";
+import { parseFields } from "~utils/parse";
 
 export class RegisterForm extends Component {
   state = {

@@ -6,7 +6,7 @@ import Button from "~components/Body/Button";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
-import parseFields from "~utils/parseFields";
+import { parseFields } from "~utils/parse";
 import createFields from "./Fields";
 
 export class UpdateDescriptionForm extends Component {

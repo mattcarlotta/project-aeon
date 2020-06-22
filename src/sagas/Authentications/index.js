@@ -1,13 +1,38 @@
 import { all, put, call, takeLatest } from "redux-saga/effects";
+import { END } from "redux-saga";
 import Router from "next/router";
 import app from "~utils/axiosConfig";
 import imageAPI from "~utils/imageAPIConfig";
-import { parseData, parseMessage } from "~utils/parseResponse";
+import { parseData, parseMessage } from "~utils/parse";
 import * as constants from "~constants";
 import * as actions from "~actions/Authentication";
 import { setMessage, resetMessages } from "~actions/Messages";
 import setServerError from "~utils/setServerError";
 import toast from "~components/Body/Toast";
+
+/**
+ * Server/client-side sign in on initial load
+ *
+ * @generator
+ * @function signinOnLoad
+ * @yields {object} - A response from a call to API.
+ * @function parseData - returns a parsed res.data.
+ * @yields {action} - A redux action to update redux authentication state.
+ * @yields {action} - A redux action to get updated profile details.
+ * @throws {action} - A redux action to display a server message by type.
+ */
+function* signinOnLoad({ config }) {
+  try {
+    const res = yield call(app.get, "u/signedin", config);
+    const data = yield call(parseData, res);
+
+    yield put(actions.signin(data));
+    yield put(END);
+  } catch (e) {
+    yield call(setServerError, e.toString());
+    yield put(END);
+  }
+}
 
 /**
  * Updates the user's session.
@@ -229,6 +254,7 @@ export default function* authSagas() {
     takeLatest(constants.AUTH_CREATE_AVATAR, createUserAvatar),
     takeLatest(constants.AUTH_DELETE_AVATAR, deleteUserAvatar),
     takeLatest(constants.AUTH_SIGNIN_ATTEMPT, signinUser),
+    takeLatest(constants.AUTH_SIGNIN_ON_LOAD, signinOnLoad),
     takeLatest(constants.AUTH_SIGNOUT_SESSION, signoutUserSession),
     takeLatest(constants.AUTH_SIGNUP, signupUser),
     takeLatest(constants.AUTH_UPDATE_AVATAR, updateUserAvatar),
