@@ -10,18 +10,18 @@ const CloseButton = ({ onClick }) => (
       overlay
       padding="0px 6px"
       margin="0"
-      width="68px"
+      width="72px"
       onClick={onClick}
     >
       <FaRegTimesCircle
         style={{
-          fontSize: 14,
+          fontSize: 15,
           position: "relative",
           top: 2,
           marginRight: 5,
         }}
       />
-      <span css="font-size: 14px;">Close</span>
+      <span css="font-size: 15px;">Close</span>
     </Button>
   </Center>
 );

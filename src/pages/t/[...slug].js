@@ -1,34 +1,28 @@
 import PropTypes from "prop-types";
-import isEmpty from "lodash.isempty";
 import withServerMessages from "~containers/App/withServerMessages";
 import QuestionOverview from "~containers/Body/QuestionOverview";
 import Head from "~components/Navigation/Head";
-import { parseData, parseCookie } from "~utils/parse";
 import app from "~utils/axiosConfig";
+import { parseData, parseCookie } from "~utils/parse";
 
-const TagQuestions = ({ data, title }) =>
-  !isEmpty(data) ? (
-    <>
-      <Head title={`Newest '${title}' Questions`} />
-      {data.map(question => (
-        <QuestionOverview
-          {...question}
-          key={question.key}
-          questionKey={question.key}
-        />
-      ))}
-    </>
-  ) : null;
+const TagQuestions = ({ data, title }) => (
+  <>
+    <Head title={`Newest '${title}' Questions`} />
+    {data.map(question => (
+      <QuestionOverview {...question} key={question.id} />
+    ))}
+  </>
+);
 
 export const getServerSideProps = async ({ req, query }) => {
   let data = [];
   let serverError = "";
   let title = "";
   try {
-    const { 0: key } = query.slug;
-    const res = await app.get(`t/${key}`, parseCookie(req));
+    const { 0: id } = query.slug;
+    const res = await app.get(`t/${id}`, parseCookie(req));
     data = parseData(res);
-    title = key;
+    title = id;
   } catch (e) {
     serverError = e.toString();
   }
@@ -47,16 +41,15 @@ TagQuestions.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       answered: PropTypes.bool,
-      body: PropTypes.string,
+      body: PropTypes.string.isRequired,
       comments: PropTypes.number,
-      date: PropTypes.string,
+      date: PropTypes.string.isRequired,
       downvoted: PropTypes.bool,
-      id: PropTypes.string,
+      id: PropTypes.number.isRequired,
       tags: PropTypes.arrayOf(PropTypes.string),
-      title: PropTypes.string,
+      title: PropTypes.string.isRequired,
       upvoted: PropTypes.bool,
-      userkey: PropTypes.number,
-      username: PropTypes.string,
+      username: PropTypes.string.isRequired,
       views: PropTypes.number,
       votes: PropTypes.number,
     }),

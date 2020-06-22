@@ -52,9 +52,9 @@ export class CommentForm extends Component {
       async () => {
         if (!errors) {
           try {
-            const { questionKey } = this.props;
+            const { id } = this.props;
             const res = await app.post(
-              `c/create/${questionKey}`,
+              `c/create/${id}`,
               parseFields(validatedFields),
             );
             const data = parseData(res);
@@ -95,7 +95,7 @@ export class CommentForm extends Component {
 
 CommentForm.propTypes = {
   cancelComment: PropTypes.func.isRequired,
-  questionKey: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   value: PropTypes.string,
 };
 

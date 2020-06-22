@@ -69,7 +69,7 @@ export class UpdateDescriptionForm extends Component {
 
             toast({ type: "success", message: data.message });
 
-            Router.push(`/q/${data.key}/${data.title}`);
+            Router.push("/q/[...slug]", `/q/${data.id}/${data.title}`);
           } catch (err) {
             toast({ type: "error", message: err.toString() });
             this.setState({ isSubmitting: false });

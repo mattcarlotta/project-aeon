@@ -1,27 +1,25 @@
-import isEmpty from "lodash.isempty";
 import PropTypes from "prop-types";
 import QuestionReview from "~containers/Body/QuestionReview";
 import withServerMessages from "~containers/App/withServerMessages";
 import app from "~utils/axiosConfig";
 import { parseData, parseCookie } from "~utils/parse";
 
-const UserQuestion = ({ data }) =>
-  !isEmpty(data) ? <QuestionReview {...data} questionKey={data.key} /> : null;
+const UserQuestion = ({ data }) => <QuestionReview {...data} />;
 
 export const getServerSideProps = async ({ req, query }) => {
   let data = {};
   let title = "";
   let serverError = "";
-  let titleKey = 0;
+  let titleId = 0;
   let redirect = false;
   let uniqueTitle = "";
   try {
-    const { 0: key } = query.slug;
-    const res = await app.get(`q/${key}`, parseCookie(req));
+    const { 0: id } = query.slug;
+    const res = await app.get(`q/${id}`, parseCookie(req));
 
     data = parseData(res);
     title = data.title;
-    titleKey = data.key;
+    titleId = data.id;
     uniqueTitle = data.uniquetitle;
 
     const { 1: queryTitle } = query.slug;
@@ -35,7 +33,7 @@ export const getServerSideProps = async ({ req, query }) => {
       data,
       fallbackTo: "/question-not-found",
       redirect,
-      redirectAs: `/q/${titleKey}/${uniqueTitle}`,
+      redirectAs: `/q/${titleId}/${uniqueTitle}`,
       redirectTo: "/q/[...slug]",
       serverError,
       title,
@@ -46,17 +44,16 @@ export const getServerSideProps = async ({ req, query }) => {
 UserQuestion.propTypes = {
   data: PropTypes.shape({
     answered: PropTypes.bool,
-    body: PropTypes.string,
+    body: PropTypes.string.isRequired,
     comments: PropTypes.number,
-    date: PropTypes.string,
+    date: PropTypes.string.isRequired,
     downvoted: PropTypes.bool,
     key: PropTypes.number,
-    id: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.string),
-    title: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    title: PropTypes.string.isRequired,
     upvoted: PropTypes.bool,
-    userkey: PropTypes.number,
-    username: PropTypes.string,
+    username: PropTypes.string.isRequired,
     views: PropTypes.number,
     votes: PropTypes.number,
   }),

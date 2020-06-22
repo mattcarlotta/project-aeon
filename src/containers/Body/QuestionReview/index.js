@@ -43,8 +43,8 @@ class QuestionReview extends Component {
       addComment,
       body,
       date,
+      id,
       isEditing,
-      questionKey,
       tags,
       title,
       username,
@@ -79,7 +79,7 @@ class QuestionReview extends Component {
                     blue
                     nomargin
                     href="/u/[...slug]"
-                    asHref={`/u/${questionKey}/${username}`}
+                    asHref={`/u/${username}`}
                   >
                     {username}
                   </Link>
@@ -129,7 +129,7 @@ class QuestionReview extends Component {
                   </Fade>
                   <Collapse in={addComment}>
                     <CommentForm
-                      questionKey={questionKey}
+                      id={id}
                       cancelComment={this.toggleCommentForm}
                     />
                   </Collapse>
@@ -145,16 +145,15 @@ class QuestionReview extends Component {
 
 QuestionReview.propTypes = {
   answered: PropTypes.bool,
-  body: PropTypes.string,
+  body: PropTypes.string.isRequired,
   comments: PropTypes.number,
-  date: PropTypes.string,
+  date: PropTypes.string.isRequired,
   downvoted: PropTypes.bool,
-  id: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string),
-  title: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
   upvoted: PropTypes.bool,
-  userkey: PropTypes.number,
-  username: PropTypes.string,
+  username: PropTypes.string.isRequired,
   views: PropTypes.number,
   votes: PropTypes.number,
 };

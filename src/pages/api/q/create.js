@@ -17,14 +17,14 @@ import { createDashedTitle, sendError } from "~utils/helpers";
 const createQuestion = async (req, res) => {
   try {
     const { body, title, tags } = req.body;
-    const { id } = req.user;
+    const { id: userid } = req.user;
     if (!body || !title) throw String(missingQuestionReqs);
     if (title.length > 250) throw String(titleIsTooLong);
 
     const dashedTitle = createDashedTitle(title);
 
-    const { key } = await db.one(createNewQuestion, [
-      id,
+    const { id } = await db.one(createNewQuestion, [
+      userid,
       body,
       tags,
       title,
@@ -32,7 +32,7 @@ const createQuestion = async (req, res) => {
     ]);
 
     res.status(201).json({
-      key,
+      id,
       title: dashedTitle,
       message: "Successfully created a question!",
     });

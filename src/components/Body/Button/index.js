@@ -104,7 +104,7 @@ export default styled(Button)`
       return "border:1px solid #f0506e;background-color:transparent;color:#f0506e;";
     if (props.upvote)
       return `border: 0;background-color:transparent;color:${
-        props.upvoted ? "#00c300" : props.overlay ? "#ccc" : "#000"
+        props.upvoted ? "#01b701" : props.overlay ? "#ccc" : "#000"
       }`;
     if (props.downvote)
       return `border: 0;background-color:transparent;color:${
@@ -132,7 +132,7 @@ export default styled(Button)`
       if (props.link) return "color:#40a9ff;";
       if (props.alt) return "color:#fff;";
       if (props.downvote) return "color: #ff0000;";
-      if (props.upvote) return "color: #10e610;";
+      if (props.upvote) return "color: #01b701;";
       return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
     }};
   }

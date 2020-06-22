@@ -31,9 +31,8 @@ class QuestionOverview extends Component {
       answered,
       body,
       date,
-      questionKey,
+      id,
       uniquetitle,
-      userkey,
       username,
       tags,
       title,
@@ -48,9 +47,7 @@ class QuestionOverview extends Component {
         cursor="pointer"
         maxWidth="750px"
         padding="0px"
-        onClick={() =>
-          Router.push("/q/[...slug]", `/q/${questionKey}/${uniquetitle}`)
-        }
+        onClick={() => Router.push("/q/[...slug]", `/q/${id}/${uniquetitle}`)}
       >
         <div css="padding-left: 45px;">
           <FlexCenter
@@ -79,7 +76,7 @@ class QuestionOverview extends Component {
                       nomargin
                       stopPropagation
                       href="/u/[...slug]"
-                      asHref={`/u/${userkey}/${username}`}
+                      asHref={`/u/${username}`}
                     >
                       {username}
                     </Link>
@@ -125,17 +122,16 @@ class QuestionOverview extends Component {
 
 QuestionOverview.propTypes = {
   answered: PropTypes.bool,
-  body: PropTypes.string,
-  date: PropTypes.string,
+  body: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   downvoters: PropTypes.arrayOf(PropTypes.string),
-  questionKey: PropTypes.number.isRequired,
-  title: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
   views: PropTypes.number,
-  uniquetitle: PropTypes.string,
+  uniquetitle: PropTypes.string.isRequired,
   upvoters: PropTypes.arrayOf(PropTypes.string),
-  userkey: PropTypes.number,
-  username: PropTypes.string,
+  username: PropTypes.string.isRequired,
 };
 
 export default QuestionOverview;

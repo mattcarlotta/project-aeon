@@ -2,13 +2,16 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Container = ({ className, children }) => (
-  <div className={className}>{children}</div>
+const Container = ({ className, children, dataTestId }) => (
+  <div data-testid={dataTestId} className={className}>
+    {children}
+  </div>
 );
 
 Container.propTypes = {
   className: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  dataTestId: PropTypes.string,
 };
 
 export default styled(Container)`

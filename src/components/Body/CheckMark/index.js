@@ -13,5 +13,5 @@ CheckMark.propTypes = {
 };
 
 export default styled(CheckMark)`
-  margin-right: 8px;
+  margin-right: 4px;
 `;

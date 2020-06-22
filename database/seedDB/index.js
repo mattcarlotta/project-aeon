@@ -8,8 +8,7 @@ const { createNewUser } = require("../queries");
 const { DB, SEED } = process.env;
 
 const userTable = `(
-  id UUID DEFAULT uuid_generate_v1mc() UNIQUE,
-  key SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v1mc() UNIQUE,
   avatar TEXT NOT NULL DEFAULT '',
   verified BOOLEAN DEFAULT FALSE,
   email VARCHAR NOT NULL UNIQUE,
@@ -26,7 +25,7 @@ const userTable = `(
 )`;
 
 const noteTableOptions = `(
-  key SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   read BOOLEAN DEFAULT false,
@@ -35,13 +34,13 @@ const noteTableOptions = `(
 )`;
 
 const avatarTableOptions = `(
-  key SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   path TEXT DEFAULT NULL
 )`;
 
 const questionTableOptions = `(
-  key SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id),
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   answered BOOLEAN DEFAULT FALSE,
@@ -56,7 +55,7 @@ const questionTableOptions = `(
 )`;
 
 const answerTableOptions = `(
-  key SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   body TEXT NOT NULL DEFAULT '',

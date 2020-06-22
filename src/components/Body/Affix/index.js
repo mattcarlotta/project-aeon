@@ -7,7 +7,7 @@ import Flex from "~components/Body/Flex";
 import FlexCenter from "~components/Body/FlexCenter";
 import Row from "~components/Body/Row";
 import Voter from "~components/Body/Voter";
-import Container from "./Container";
+import AffixTitle from "./AffixTitle";
 import scrollObserver, { unbind } from "./utils/scrollObserver";
 import getOffset from "./utils/getOffset";
 
@@ -57,7 +57,7 @@ class Affix extends Component {
         {children}
         {!dismissed &&
           createPortal(
-            <Container top={top}>
+            <AffixTitle dataTestId="affix-title" top={top}>
               <div
                 css={`
                   position: relative;
@@ -88,7 +88,7 @@ class Affix extends Component {
                   )}
                 </Row>
               </div>
-            </Container>,
+            </AffixTitle>,
             document.body,
           )}
       </div>

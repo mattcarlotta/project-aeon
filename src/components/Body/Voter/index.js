@@ -11,7 +11,7 @@ import roundVotes from "~utils/round";
 class Voter extends PureComponent {
   handleVote = async type => {
     try {
-      const res = await app.post(`q/${type}/${this.props.questionKey}`);
+      const res = await app.post(`q/${type}/${this.props.id}`);
       const data = parseData(res);
 
       this.props.updateQuestion(data);
@@ -45,7 +45,7 @@ class Voter extends PureComponent {
             style={
               !alignHorizontal
                 ? { position: "relative", top: 1 }
-                : { fontSize: 12 }
+                : { fontSize: 13, position: "relative", top: 1 }
             }
           />
         </Button>
@@ -77,7 +77,7 @@ class Voter extends PureComponent {
             style={
               !alignHorizontal
                 ? { position: "relative", top: 3 }
-                : { fontSize: 12 }
+                : { fontSize: 13, position: "relative", top: 1 }
             }
           />
         </Button>
@@ -89,7 +89,7 @@ class Voter extends PureComponent {
 Voter.propTypes = {
   align: PropTypes.string,
   downvoted: PropTypes.bool,
-  questionKey: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   upvoted: PropTypes.bool,
   votes: PropTypes.number.isRequired,
   updateQuestion: PropTypes.func.isRequired,

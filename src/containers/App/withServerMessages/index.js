@@ -2,10 +2,12 @@ import { PureComponent } from "react";
 import isEmpty from "lodash.isempty";
 import Router from "next/router";
 import PropTypes from "prop-types";
+import FadeIn from "~components/Body/FadeIn";
+import Spinner from "~components/Body/Spinner";
 import toast from "~components/Body/Toast";
 
 const withServerMessages = WrappedComponent => {
-  class CatchServerMessages extends PureComponent {
+  class ServerMessages extends PureComponent {
     componentDidMount() {
       const {
         data,
@@ -27,10 +29,17 @@ const withServerMessages = WrappedComponent => {
         });
     }
 
-    render = () => <WrappedComponent {...this.props} />;
+    render = () =>
+      !isEmpty(this.props.data) ? (
+        <WrappedComponent {...this.props} />
+      ) : (
+        <FadeIn style={{ height: "100%" }} timing="1.5s">
+          <Spinner />
+        </FadeIn>
+      );
   }
 
-  CatchServerMessages.propTypes = {
+  ServerMessages.propTypes = {
     data: PropTypes.any, // eslint-disable-line react/forbid-prop-types
     fallbackTo: PropTypes.string,
     redirect: PropTypes.bool,
@@ -39,11 +48,11 @@ const withServerMessages = WrappedComponent => {
     serverError: PropTypes.string,
   };
 
-  CatchServerMessages.defaultProps = {
+  ServerMessages.defaultProps = {
     redirect: false,
   };
 
-  return CatchServerMessages;
+  return ServerMessages;
 };
 
 withServerMessages.propTypes = {
