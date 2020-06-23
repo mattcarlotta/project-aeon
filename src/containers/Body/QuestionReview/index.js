@@ -12,12 +12,12 @@ import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import QuestionContainer from "~components/Body/QuestionContainer";
 import NoSSR from "~components/Body/NoSSR";
 import Preview from "~components/Body/Preview";
-import QuestionMeta from "~components/Body/QuestionMeta";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
 import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
+import QuestionMeta from "~containers/Body/QuestionMeta";
 import CommentForm from "~containers/Forms/CommentForm";
 
 class QuestionReview extends Component {

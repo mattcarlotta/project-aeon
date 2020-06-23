@@ -9,11 +9,11 @@ import FlexEnd from "~components/Body/FlexEnd";
 import FlexStart from "~components/Body/FlexStart";
 import MaskPreview from "~components/Body/MaskPreview";
 import QuestionContainer from "~components/Body/QuestionContainer";
-import QuestionMeta from "~components/Body/QuestionMeta";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
 import Voter from "~components/Body/Voter";
 import Link from "~components/Navigation/Link";
+import QuestionMeta from "~containers/Body/QuestionMeta";
 
 class QuestionOverview extends Component {
   state = {
