@@ -5,6 +5,7 @@ import Info from "~components/Body/Info";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import MissingDetails from "~components/Body/MissingDetails";
 import SubTitle from "~components/Body/SubTitle";
+import Website from "~components/Body/Website";
 import UpdateDescription from "~containers/Forms/UpdateDescription";
 
 const subtitleStyle = {
@@ -42,9 +43,7 @@ const Profile = ({
         <Info>Website:</Info>
         {website ? (
           <SubTitle style={subtitleStyle}>
-            <a href={website} rel="noopener noreferrer" target="_blank">
-              {website.replace(/(^\w+:|^)\/\//, "")}
-            </a>
+            <Website href={website} />
           </SubTitle>
         ) : (
           <MissingDetails>You haven&#39;t provided a website.</MissingDetails>

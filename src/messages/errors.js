@@ -64,6 +64,8 @@ const unableToLocateTag =
 const unableToLocateTaggedQuestions =
   "Unable to locate any questions associated with the requested tag. Please make sure the tag is valid.";
 
+const unableToLocateUser = "Unable to locate the requested user.";
+
 const usernameAlreadyTaken =
   "Uh oh, it appears that username is already taken. Please choose another name.";
 
@@ -90,5 +92,6 @@ export {
   unableToLocateQuestions,
   unableToLocateTag,
   unableToLocateTaggedQuestions,
+  unableToLocateUser,
   usernameAlreadyTaken,
 };

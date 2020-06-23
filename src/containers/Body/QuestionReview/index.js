@@ -12,15 +12,13 @@ import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import QuestionContainer from "~components/Body/QuestionContainer";
 import NoSSR from "~components/Body/NoSSR";
 import Preview from "~components/Body/Preview";
-import QuestionDetails from "~components/Body/QuestionDetails";
+import QuestionMeta from "~components/Body/QuestionMeta";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
-import Tooltip from "~components/Body/Tooltip";
 import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 import CommentForm from "~containers/Forms/CommentForm";
-import dayjs from "~utils/dayjs";
 
 class QuestionReview extends Component {
   constructor(props) {
@@ -39,17 +37,7 @@ class QuestionReview extends Component {
     this.setState(prevState => ({ addComment: !prevState.addComment }));
 
   render = () => {
-    const {
-      addComment,
-      body,
-      date,
-      id,
-      isEditing,
-      tags,
-      title,
-      username,
-      views,
-    } = this.state;
+    const { addComment, body, id, isEditing, tags, title } = this.state;
 
     return (
       <>
@@ -72,24 +60,7 @@ class QuestionReview extends Component {
               />
             </FlexCenter>
             <QuestionContainer>
-              <div css="font-size: 12px;color: #787C7E;">
-                <QuestionDetails>
-                  Posted by&nbsp;
-                  <Link
-                    blue
-                    nomargin
-                    href="/u/[...slug]"
-                    asHref={`/u/${username}`}
-                  >
-                    {username}
-                  </Link>
-                </QuestionDetails>
-                <Tooltip title={dayjs(date).format("MMMM Do, YYYY @ HH:MMa")}>
-                  <QuestionDetails>{dayjs(date).fromNow()}</QuestionDetails>
-                </Tooltip>
-                <QuestionDetails>|</QuestionDetails>
-                <QuestionDetails>views: {views}</QuestionDetails>
-              </div>
+              <QuestionMeta {...this.state} />
               <NoSSR fallback={<LoadingItem />}>
                 <Affix
                   {...this.state}

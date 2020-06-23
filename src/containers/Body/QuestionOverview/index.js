@@ -8,16 +8,12 @@ import FlexCenter from "~components/Body/FlexCenter";
 import FlexEnd from "~components/Body/FlexEnd";
 import FlexStart from "~components/Body/FlexStart";
 import MaskPreview from "~components/Body/MaskPreview";
-import NoSSR from "~components/Body/NoSSR";
 import QuestionContainer from "~components/Body/QuestionContainer";
-import QuestionDetails from "~components/Body/QuestionDetails";
+import QuestionMeta from "~components/Body/QuestionMeta";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
-import Tooltip from "~components/Body/Tooltip";
 import Voter from "~components/Body/Voter";
 import Link from "~components/Navigation/Link";
-import dayjs from "~utils/dayjs";
-import roundViews from "~utils/round";
 
 class QuestionOverview extends Component {
   state = {
@@ -27,17 +23,7 @@ class QuestionOverview extends Component {
   handleUpdatedQuestion = data => this.setState({ ...data });
 
   render = () => {
-    const {
-      answered,
-      body,
-      date,
-      id,
-      uniquetitle,
-      username,
-      tags,
-      title,
-      views,
-    } = this.props;
+    const { answered, body, id, uniquetitle, tags, title } = this.props;
 
     return (
       <Container
@@ -69,27 +55,7 @@ class QuestionOverview extends Component {
             <div css="font-size: 12px;color: #787C7E;">
               <Flex>
                 <FlexStart>
-                  <QuestionDetails>
-                    Posted by&nbsp;
-                    <Link
-                      blue
-                      nomargin
-                      stopPropagation
-                      href="/u/[...slug]"
-                      asHref={`/u/${username}`}
-                    >
-                      {username}
-                    </Link>
-                  </QuestionDetails>
-                  <NoSSR>
-                    <Tooltip
-                      title={dayjs(date).format("MMMM Do, YYYY @ HH:MMa")}
-                    >
-                      <QuestionDetails>{dayjs(date).fromNow()}</QuestionDetails>
-                    </Tooltip>
-                  </NoSSR>
-                  <QuestionDetails>|</QuestionDetails>
-                  <QuestionDetails>views: {roundViews(views)}</QuestionDetails>
+                  <QuestionMeta {...this.state} />
                 </FlexStart>
                 {answered && (
                   <FlexEnd>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default styled.div`
-  max-height: 250px;
+  max-height: ${({ maxHeight }) => `${maxHeight}px`};
   overflow: hidden;
   position: relative;
 
@@ -10,7 +10,8 @@ export default styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    display: ${({ height }) => (height >= 240 ? "block" : "none")};
+    display: ${({ height, maxHeight, maskHeight }) =>
+      height >= maxHeight - maskHeight ? "block" : "none"};
     left: 0;
     top: 0;
     background: linear-gradient(transparent 60%, white);

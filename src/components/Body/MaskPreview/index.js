@@ -11,11 +11,18 @@ class MaskPreview extends Component {
 
   setMaskHeight = node =>
     this.setState(prevState => ({
-      height: node ? node.getBoundingClientRect().height : prevState.height,
+      height: node
+        ? Math.ceil(node.getBoundingClientRect().height)
+        : prevState.height,
     }));
 
   render = () => (
-    <Gradient ref={this.setMaskHeight} height={this.state.height}>
+    <Gradient
+      ref={this.setMaskHeight}
+      height={this.state.height}
+      maxHeight={this.props.maxHeight}
+      maskHeight={this.props.maskHeight}
+    >
       <Preview>
         <MarkdownPreviewer>{this.props.children}</MarkdownPreviewer>
       </Preview>
@@ -25,6 +32,13 @@ class MaskPreview extends Component {
 
 MaskPreview.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+  maxHeight: PropTypes.number,
+  maskHeight: PropTypes.number,
+};
+
+MaskPreview.defaultProps = {
+  maxHeight: 250,
+  maskHeight: 10,
 };
 
 export default MaskPreview;
