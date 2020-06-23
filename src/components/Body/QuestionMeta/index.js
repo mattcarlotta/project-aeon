@@ -2,7 +2,9 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import Grow from "@material-ui/core/Grow";
+import FadeIn from "~components/Body/FadeIn";
 import MaskPreview from "~components/Body/MaskPreview";
+import LoadingItem from "~components/Body/LoadingItem";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import Timestamp from "~components/Body/Timestamp";
 import toast from "~components/Body/Toast";
@@ -14,11 +16,14 @@ import { parseData } from "~utils/parse";
 import round from "~utils/round";
 import UserDropdown from "./UserDropdown";
 
+const initialState = {
+  user: {},
+  error: "",
+  isHovered: false,
+};
+
 class QuestionMeta extends Component {
-  state = {
-    user: {},
-    isHovered: false,
-  };
+  state = initialState;
 
   componentDidMount() {
     this.isActive = true;
@@ -31,8 +36,7 @@ class QuestionMeta extends Component {
 
   clearTimer = () => {
     clearTimeout(this.timer);
-    if (this.isActive && this.state.isHovered)
-      this.setState({ isHovered: false, user: {} });
+    if (this.isActive && this.state.isHovered) this.setState(initialState);
   };
 
   setTimer = () => (this.timer = setTimeout(this.showUserDetails, 750));
@@ -44,15 +48,18 @@ class QuestionMeta extends Component {
           const res = await app.get(`/u/${this.props.username}`);
           const data = parseData(res);
 
-          if (this.isActive) this.setState({ user: data });
+          if (this.isActive && this.state.isHovered)
+            this.setState({ user: data, error: "" });
         } catch (err) {
-          toast({ type: "error", message: err.toString() });
+          this.setState({ error: err.toString() }, () =>
+            toast({ type: "error", message: err.toString() }),
+          );
         }
       }
     });
 
   render = () => {
-    const { isHovered, user } = this.state;
+    const { error, isHovered, user } = this.state;
     const { date, username, views } = this.props;
 
     return (
@@ -68,13 +75,13 @@ class QuestionMeta extends Component {
             <Link blue nomargin href="/u/[...slug]" asHref={`/u/${username}`}>
               {username}
             </Link>
-            <Grow in={isHovered}>
+            <Grow in={isHovered && !error} timeout={{ enter: 500, leave: 100 }}>
               <UserDropdown>
                 {!isEmpty(user) ? (
-                  <div css="padding: 8px;">
+                  <div css="padding: 12px;">
                     <div css="display: flex;align-items: center;">
                       <img
-                        css="max-height: 50px;max-width:50px;display: block;margin-right: 10px;"
+                        css="max-height: 55px;max-width:55px;display: block;margin-right: 10px;"
                         src={user.avatar || DefaultAvatar}
                         alt="avatar.png"
                       />
@@ -105,6 +112,36 @@ class QuestionMeta extends Component {
                       </MaskPreview>
                     )}
                   </div>
+                ) : isHovered ? (
+                  <FadeIn>
+                    <div css="padding: 12px;">
+                      <div css="display: flex;align-items: center;">
+                        <LoadingItem
+                          height="55px"
+                          margin="0 10px 0 0"
+                          width="55px"
+                        />
+                        <div css="display: flex;flex-direction: column;align-items: flex-start;">
+                          <LoadingItem
+                            height="20px"
+                            margin="0 0 5px 0"
+                            width="208px"
+                          />
+                          <LoadingItem
+                            height="15px"
+                            margin="0 0 5px 0"
+                            width="208px"
+                          />
+                          <LoadingItem height="10px" margin="0" width="208px" />
+                        </div>
+                      </div>
+                      <LoadingItem
+                        height="73px"
+                        margin="5px 0 0 0"
+                        width="273px"
+                      />
+                    </div>
+                  </FadeIn>
                 ) : null}
               </UserDropdown>
             </Grow>

@@ -5,7 +5,6 @@ export default styled.div`
   top: 0px;
   left: 57px;
   border-radius: 4px;
-  padding: 5px;
   min-height: 80px;
   width: 300px;
   z-index: 100;

@@ -4,6 +4,7 @@ export default styled.div`
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
   overflow: hidden;
   position: relative;
+  word-break: break-word;
 
   &::before {
     content: "";

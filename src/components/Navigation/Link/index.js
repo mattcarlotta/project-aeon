@@ -50,12 +50,16 @@ export default styled(LinkComponent)`
   text-decoration: none;
   margin: ${({ margin, nomargin }) =>
     nomargin ? "0px" : margin || "0 20px 0 0"};
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    color: ${({ blue }) => (blue ? "#40a9ff" : "#03a9f3")};
+    color: ${({ blue, white }) => {
+      if (blue) return "#40a9ff";
+      if (white) return "#fff";
+      return "#03a9f3";
+    }};
   }
 
   &:focus {

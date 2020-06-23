@@ -7,4 +7,18 @@ export default styled.li`
   white-space: nowrap;
   height: 40px;
   user-select: none;
+
+  a,
+  button {
+    color: #000000a6;
+    transition: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    background-color: #0075e0;
+  }
 `;
