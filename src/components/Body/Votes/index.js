@@ -27,4 +27,13 @@ export default styled(Votes)`
   line-height: 20px;
   min-width: 20px;
   text-align: center;
+  ${({ alignHorizontal }) =>
+    alignHorizontal
+      ? `
+    padding: 0 8px;
+    font-size: 15px;
+    min-width: 40px;
+    font-weight: normal;
+  `
+      : undefined};
 `;

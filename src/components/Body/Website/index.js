@@ -23,6 +23,7 @@ export default styled(Website)`
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   border-radius: 4px;
+  margin: 2px 0;
   cursor: pointer;
 
   &:hover {

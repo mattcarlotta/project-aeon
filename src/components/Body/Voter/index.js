@@ -29,57 +29,42 @@ class Voter extends PureComponent {
   render = () => {
     const { align, downvoted, upvoted, votes } = this.props;
     const alignHorizontal = align !== "vertical";
+    const btnProps = {
+      overlay: alignHorizontal,
+      height: !alignHorizontal ? "30px" : "100%",
+      width: !alignHorizontal ? "30px" : "20px",
+      radius: !alignHorizontal ? "4px" : "0",
+      padding: "0px",
+    };
+    const offsetSize = !alignHorizontal ? 1 : 0;
+    const iconStyle = {
+      fontSize: 13 + offsetSize,
+      position: "relative",
+      top: 1,
+    };
+
     return (
       <>
         <Button
+          {...btnProps}
           upvote
-          overlay={alignHorizontal}
-          height={!alignHorizontal ? "25px" : "100%"}
-          width={!alignHorizontal ? "25px" : "20px"}
-          padding="0px"
-          radius={!alignHorizontal ? "4px" : "0"}
           upvoted={upvoted}
           onClick={!upvoted ? this.handleUpClick : this.handleRemoveClick}
         >
-          <FaArrowCircleUp
-            style={
-              !alignHorizontal
-                ? { position: "relative", top: 1 }
-                : { fontSize: 13, position: "relative", top: 1 }
-            }
-          />
+          <FaArrowCircleUp style={iconStyle} />
         </Button>
         <Votes
+          alignHorizontal={alignHorizontal}
           dataVotes={votes}
           votes={roundVotes(votes)}
-          style={
-            !alignHorizontal
-              ? {}
-              : {
-                  padding: "0 8px",
-                  fontSize: 15,
-                  minWidth: 40,
-                  fontWeight: "normal",
-                }
-          }
         />
         <Button
+          {...btnProps}
           downvote
-          overlay={alignHorizontal}
-          height={!alignHorizontal ? "25px" : "100%"}
-          width={!alignHorizontal ? "25px" : "20px"}
-          padding="0px"
-          radius={!alignHorizontal ? "4px" : "0"}
           downvoted={downvoted}
           onClick={!downvoted ? this.handleDownClick : this.handleRemoveClick}
         >
-          <FaArrowCircleDown
-            style={
-              !alignHorizontal
-                ? { position: "relative", top: 3 }
-                : { fontSize: 13, position: "relative", top: 1 }
-            }
-          />
+          <FaArrowCircleDown style={iconStyle} />
         </Button>
       </>
     );

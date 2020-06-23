@@ -39,6 +39,7 @@ export class ServerMessages extends Component {
       draggable={false}
       pauseOnVisibilityChange
       closeOnClick
+      closeButton={false}
       pauseOnHover
     />
   );

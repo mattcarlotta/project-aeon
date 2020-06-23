@@ -1,6 +1,10 @@
 import db from "~database/connection";
-import { findUpdatedQuestion, removevoteFromQuestion } from "~database/queries";
-import { unableToLocateQuestion } from "~messages/errors";
+import {
+  findUpdatedQuestion,
+  removeVoteFromQuestion,
+  votedOnQuestion,
+} from "~database/queries";
+import { unableToRemoveVote, unableToLocateQuestion } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
@@ -25,7 +29,13 @@ const removeVoteUserQuestion = async (req, res) => {
       "remove vote question",
       async task => {
         try {
-          const upvotedQuestion = await task.oneOrNone(removevoteFromQuestion, [
+          const { upvoted, downvoted } = await task.oneOrNone(votedOnQuestion, [
+            id,
+            userId,
+          ]);
+          if (!upvoted && !downvoted) throw String(unableToRemoveVote);
+
+          const upvotedQuestion = await task.oneOrNone(removeVoteFromQuestion, [
             id,
             userId,
           ]);

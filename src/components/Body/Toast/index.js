@@ -1,48 +1,15 @@
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import {
-  FaInfo,
-  FaCheck,
-  FaExclamationTriangle,
-  FaBug,
-  FaExclamationCircle,
-} from "react-icons/fa";
-
-const style = {
-  marginTop: 9,
-};
-
-export const displayIcon = type => {
-  switch (type) {
-    case "success":
-      return <FaCheck />;
-    case "info":
-      return <FaInfo />;
-    case "error":
-      return <FaExclamationCircle />;
-    case "warning":
-      return <FaExclamationTriangle style={style} />;
-    default:
-      return <FaBug style={style} />;
-  }
-};
+import AlertContainer from "./AlertContainer";
+import AlertIcon from "./AlertIcon";
+import AlertMessage from "./AlertMessage";
 
 const ToastMessage = ({ type, message }) =>
   toast[type](
-    <div data-testid="modal-alert" css="display: flex; color: white;">
-      <div
-        data-testid="modal-alert-type"
-        css="font-size:15px;padding-top: 8px;flex-shrink: 0;text-align: center;width: 30px;"
-      >
-        {displayIcon(type)}
-      </div>
-      <div
-        data-testid="modal-message"
-        css="flex-grow: 1;font-size: 15px;padding: 8px 12px;"
-      >
-        {message}
-      </div>
-    </div>,
+    <AlertContainer type={type} data-testid="modal-alert">
+      <AlertIcon type={type} />
+      <AlertMessage data-testid="modal-message">{message}</AlertMessage>
+    </AlertContainer>,
   );
 
 ToastMessage.propTypes = {

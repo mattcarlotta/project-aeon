@@ -832,6 +832,30 @@ export default createGlobalStyle`
     pointer-events: none;
   }
 
+  /* Toastify Overrides */
+
+  .Toastify__toast {
+    padding: 0;
+  }
+
+  .Toastify__toast--error,
+  .Toastify__toast--info,
+  .Toastify__toast--success,
+  .Toastify__toast--warning {
+    background: white;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .Toastify__progress-bar {
+    height: 3px;
+    background-color: rgba(131, 134, 135, 0.7);
+  }
+
+  .Toastify__toast-body {
+    margin: 0;
+    flex: auto;
+  }
+
   *,
   ::after,
   ::before,

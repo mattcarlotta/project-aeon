@@ -1,6 +1,15 @@
 import db from "~database/connection";
-import { downvoteQuestion, findUpdatedQuestion } from "~database/queries";
-import { unableToLocateQuestion } from "~messages/errors";
+import {
+  downvoteQuestion,
+  findUpdatedQuestion,
+  voteOnOwnQuestion,
+  votedOnQuestion,
+} from "~database/queries";
+import {
+  alreadyVoted,
+  cantVoteOnOwnQuestion,
+  unableToLocateQuestion,
+} from "~messages/errors";
 import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
@@ -25,6 +34,19 @@ const downvoteUserQuestion = async (req, res) => {
       "down vote question",
       async task => {
         try {
+          const questionBelongsToLoggedinUser = await task.oneOrNone(
+            voteOnOwnQuestion,
+            [id, userId],
+          );
+          if (questionBelongsToLoggedinUser)
+            throw String(cantVoteOnOwnQuestion);
+
+          const { upvoted, downvoted } = await task.oneOrNone(votedOnQuestion, [
+            id,
+            userId,
+          ]);
+          if (upvoted || downvoted) throw String(alreadyVoted);
+
           const upvotedQuestion = await task.oneOrNone(downvoteQuestion, [
             id,
             userId,

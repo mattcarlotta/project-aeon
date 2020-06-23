@@ -5,8 +5,14 @@ const accessDenied = "You must be logged in before you can view that page.";
 const alreadyVerified =
   "It looks like you have already been verified. You can log into your account at any time.";
 
+const alreadyVoted =
+  "Unable to count the vote as it looks like you've have already voted on this question before.";
+
 const badCredentials =
   "There was a problem with your login credentials. Please make sure your username and password are correct.";
+
+const cantVoteOnOwnQuestion =
+  "Unable to count the vote as it looks like you tried to vote on your own question!";
 
 const emailAlreadyTaken =
   "That email is already in use and is associated with an active account.";
@@ -66,13 +72,18 @@ const unableToLocateTaggedQuestions =
 
 const unableToLocateUser = "Unable to locate the requested user.";
 
+const unableToRemoveVote =
+  "Unable to locate the vote to be removed as it looks like you haven't voted on this question yet.";
+
 const usernameAlreadyTaken =
   "Uh oh, it appears that username is already taken. Please choose another name.";
 
 export {
   accessDenied,
   alreadyVerified,
+  alreadyVoted,
   badCredentials,
+  cantVoteOnOwnQuestion,
   emailAlreadyTaken,
   emptyPassword,
   invalidEmail,
@@ -93,5 +104,6 @@ export {
   unableToLocateTag,
   unableToLocateTaggedQuestions,
   unableToLocateUser,
+  unableToRemoveVote,
   usernameAlreadyTaken,
 };

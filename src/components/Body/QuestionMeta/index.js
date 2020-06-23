@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import Grow from "@material-ui/core/Grow";
 import FadeIn from "~components/Body/FadeIn";
+import Flex from "~components/Body/Flex";
 import MaskPreview from "~components/Body/MaskPreview";
 import LoadingItem from "~components/Body/LoadingItem";
 import QuestionDetails from "~components/Body/QuestionDetails";
 import Timestamp from "~components/Body/Timestamp";
+import UserRep from "~components/Body/UserRep";
 import toast from "~components/Body/Toast";
 import Website from "~components/Body/Website";
 import Link from "~components/Navigation/Link";
@@ -14,6 +16,7 @@ import DefaultAvatar from "~images/defaultAvatar.png";
 import app from "~utils/axiosConfig";
 import { parseData } from "~utils/parse";
 import round from "~utils/round";
+import UserContainer from "./UserContainer";
 import UserDropdown from "./UserDropdown";
 
 const initialState = {
@@ -75,46 +78,47 @@ class QuestionMeta extends Component {
             <Link blue nomargin href="/u/[...slug]" asHref={`/u/${username}`}>
               {username}
             </Link>
-            <Grow in={isHovered && !error} timeout={{ enter: 500, leave: 100 }}>
+            <Grow
+              in={isHovered && !error}
+              style={{
+                transformOrigin: "0 0 0",
+                zIndex: !isHovered ? "-1" : "100",
+                opacity: !isHovered ? 0 : 1,
+              }}
+              timeout={{ enter: 500, leave: 100 }}
+            >
               <UserDropdown>
                 {!isEmpty(user) ? (
-                  <div css="padding: 12px;">
-                    <div css="display: flex;align-items: center;">
+                  <UserContainer>
+                    <Flex justify="left">
                       <img
                         css="max-height: 55px;max-width:55px;display: block;margin-right: 10px;"
                         src={user.avatar || DefaultAvatar}
                         alt="avatar.png"
                       />
-                      <div css="display: flex;flex-direction: column;align-items: flex-start;">
+                      <div css="display: flex;flex-direction: column;align-items: flex-start;overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;">
                         <Link
                           blue
-                          nomargin
+                          margin="2px 0"
                           stopPropagation
                           href="/u/[...slug]"
                           asHref={`/u/${username}`}
                         >
-                          <div css="font-size: 16px;">
-                            u&#47;{user.username}
-                          </div>
+                          <div css="font-size: 16px;">{user.username}</div>
                         </Link>
-                        <div css="color: #1c1c1c;">
-                          <span css="color: #39c7ff;margin-right: 5px;font-size: 13px;">
-                            &#9733;
-                          </span>
-                          {round(user.reputation)} rep
-                        </div>
                         {user.website && <Website href={user.website} />}
+                        <UserRep reputation={user.reputation} />
                       </div>
-                    </div>
+                    </Flex>
                     {user.description && (
                       <MaskPreview maxHeight={80} maskHeight={35}>
                         {user.description}
                       </MaskPreview>
                     )}
-                  </div>
+                  </UserContainer>
                 ) : isHovered ? (
                   <FadeIn>
-                    <div css="padding: 12px;">
+                    <UserContainer>
                       <div css="display: flex;align-items: center;">
                         <LoadingItem
                           height="55px"
@@ -140,7 +144,7 @@ class QuestionMeta extends Component {
                         margin="5px 0 0 0"
                         width="273px"
                       />
-                    </div>
+                    </UserContainer>
                   </FadeIn>
                 ) : null}
               </UserDropdown>
