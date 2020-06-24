@@ -1,5 +1,12 @@
+const commentQueries = require("./comments");
 const questionQueries = require("./questions");
 const userQueries = require("./users");
+
+module.exports = {
+  ...commentQueries,
+  ...questionQueries,
+  ...userQueries
+};
 
 /*
 const dashboardQueries = {
@@ -198,8 +205,3 @@ const transactQueries = {
   selectTransactionByKey: "SELECT * FROM transactions WHERE key=$1",
 };
 */
-
-module.exports = {
-  ...questionQueries,
-  ...userQueries
-};

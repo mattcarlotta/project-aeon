@@ -8,15 +8,17 @@ import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 
 const Home = ({ id }) => (
-  <Center>
+  <>
     <Head title="Home" url="" />
-    <LandingContainer>
-      <SubTitle>The best resource for everything.</SubTitle>
-      <Link nomargin href={`${id ? "/q/ask" : "/u/signin"}`}>
-        <Button width="225px">Ask A Question</Button>
-      </Link>
-    </LandingContainer>
-  </Center>
+    <Center>
+      <LandingContainer>
+        <SubTitle>The best resource for everything.</SubTitle>
+        <Link nomargin href={`${id ? "/q/ask" : "/u/signin"}`}>
+          <Button width="225px">Ask A Question</Button>
+        </Link>
+      </LandingContainer>
+    </Center>
+  </>
 );
 
 Home.propTypes = {

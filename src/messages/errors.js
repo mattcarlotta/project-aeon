@@ -20,6 +20,9 @@ const emailAlreadyTaken =
 const emptyPassword =
   "You must supply a new password in order to reset the old. Please try again.";
 
+const invalidCommentLength =
+  "Invalid request. You must supply at least a comment body longer than 3 characters in order to create a new question.";
+
 const invalidEmail =
   "That email is not associated with an active account. Please make sure to supply a valid registered email in order to resend a verification!";
 
@@ -37,6 +40,9 @@ const invalidStatus =
 
 const missingEmailCreds =
   "That email is not associated with an active account. Please make sure the email address is spelled correctly.";
+
+const missingCommentReqs =
+  "Invalid request. Unable to create a new comment because the request is missing an associated table id.";
 
 const missingNames =
   "You must supply at least a username, a first name and a last name!";
@@ -86,11 +92,13 @@ export {
   cantVoteOnOwnQuestion,
   emailAlreadyTaken,
   emptyPassword,
+  invalidCommentLength,
   invalidEmail,
   invalidPassword,
   invalidSession,
   invalidSignupEmail,
   invalidStatus,
+  missingCommentReqs,
   missingEmailCreds,
   missingNames,
   missingQuestionReqs,

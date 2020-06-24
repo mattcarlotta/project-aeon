@@ -24,8 +24,11 @@ class QuestionReview extends Component {
   constructor(props) {
     super(props);
 
+    const { answers, question } = props;
+
     this.state = {
-      ...props,
+      answers,
+      question,
       addComment: false,
       isEditing: false
     };
@@ -33,19 +36,15 @@ class QuestionReview extends Component {
 
   handleUpdatedQuestion = data => this.setState({ ...data });
 
+  // handleCommentSubmission = data => this.setState({ ...data })
+
   toggleCommentForm = () =>
     this.setState(prevState => ({ addComment: !prevState.addComment }));
 
   render = () => {
     const {
-      addComment,
-      body,
-      description,
-      id,
-      isEditing,
-      tags,
-      title,
-      uniquetitle
+      question: { addComment, body, description, id, tags, title, uniquetitle },
+      isEditing
     } = this.state;
 
     return (
@@ -70,15 +69,15 @@ class QuestionReview extends Component {
               }}
             >
               <Voter
-                {...this.state}
+                {...this.state.question}
                 updateQuestion={this.handleUpdatedQuestion}
               />
             </FlexCenter>
             <QuestionContainer>
-              <QuestionMeta {...this.state} />
+              <QuestionMeta {...this.state.question} />
               <NoSSR fallback={<LoadingItem />}>
                 <Affix
-                  {...this.state}
+                  {...this.state.question}
                   updateQuestion={this.handleUpdatedQuestion}
                 >
                   <QuestionTitle>{title}</QuestionTitle>
@@ -115,8 +114,10 @@ class QuestionReview extends Component {
                   </Fade>
                   <Collapse in={addComment}>
                     <CommentForm
-                      id={id}
                       cancelComment={this.toggleCommentForm}
+                      qid={id}
+                      updateQuestion={this.handleUpdatedQuestion}
+                      rid={id}
                     />
                   </Collapse>
                 </>
@@ -130,20 +131,44 @@ class QuestionReview extends Component {
 }
 
 QuestionReview.propTypes = {
-  answered: PropTypes.bool,
-  body: PropTypes.string.isRequired,
-  comments: PropTypes.number,
-  description: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  downvoted: PropTypes.bool,
-  id: PropTypes.number.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  title: PropTypes.string.isRequired,
-  upvoted: PropTypes.bool,
-  uniquetitle: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  views: PropTypes.number,
-  votes: PropTypes.number
+  answers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      uid: PropTypes.string,
+      qid: PropTypes.string,
+      date: PropTypes.string,
+      body: PropTypes.string,
+      votes: PropTypes.number
+    })
+  ),
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      uid: PropTypes.string,
+      date: PropTypes.string,
+      rid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      body: PropTypes.string,
+      upvoted: PropTypes.bool,
+      downvoted: PropTypes.bool,
+      votes: PropTypes.number
+    })
+  ),
+  question: PropTypes.shape({
+    answered: PropTypes.bool,
+    body: PropTypes.string.isRequired,
+    commentcount: PropTypes.number,
+    description: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    downvoted: PropTypes.bool,
+    id: PropTypes.number.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    title: PropTypes.string.isRequired,
+    upvoted: PropTypes.bool,
+    uniquetitle: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    views: PropTypes.number,
+    votes: PropTypes.number
+  })
 };
 
 export default QuestionReview;

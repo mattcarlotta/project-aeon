@@ -25,8 +25,8 @@ const userTable = `(
 )`;
 
 const noteTableOptions = `(
-  id SERIAL PRIMARY KEY,
-  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v1mc() UNIQUE,
+  uid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   read BOOLEAN DEFAULT false,
   message TEXT NOT NULL DEFAULT '',
@@ -34,14 +34,14 @@ const noteTableOptions = `(
 )`;
 
 const avatarTableOptions = `(
-  id SERIAL PRIMARY KEY,
-  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v1mc() UNIQUE,
+  uid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   path TEXT DEFAULT NULL
 )`;
 
 const questionTableOptions = `(
   id SERIAL PRIMARY KEY,
-  userid UUID NOT NULL REFERENCES users(id),
+  uid UUID NOT NULL REFERENCES users(id),
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   answered BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,
@@ -51,16 +51,28 @@ const questionTableOptions = `(
   uniquetitle VARCHAR NOT NULL DEFAULT '',
   body TEXT NOT NULL DEFAULT '',
   description TEXT NOT NULL DEFAULT '',
-  tags TEXT [] DEFAULT array[]::text[],
-  comments JSONB
+  tags TEXT [] DEFAULT array[]::text[]
 )`;
 
 const answerTableOptions = `(
-  id SERIAL PRIMARY KEY,
-  userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v1mc() UNIQUE,
+  uid UUID NOT NULL REFERENCES users(id),
+  qid SERIAL REFERENCES questions(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   body TEXT NOT NULL DEFAULT '',
-  comments JSONB
+  upvoters UUID [] DEFAULT array[]::uuid[],
+  downvoters UUID [] DEFAULT array[]::uuid[]
+)`;
+
+const commentTableOptions = `(
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v1mc() UNIQUE,
+  uid UUID NOT NULL REFERENCES users(id),
+  qid SERIAL REFERENCES questions(id) ON DELETE CASCADE,
+  rid TEXT NOT NULL,
+  date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  body TEXT NOT NULL DEFAULT '',
+  upvoters UUID [] DEFAULT array[]::uuid[],
+  downvoters UUID [] DEFAULT array[]::uuid[]
 )`;
 
 const seedDB = async () => {
@@ -69,13 +81,15 @@ const seedDB = async () => {
         DROP TABLE IF EXISTS users CASCADE;
         DROP TABLE IF EXISTS notifications;
         DROP TABLE IF EXISTS avatars;
-        DROP TABLE IF EXISTS questions;
+        DROP TABLE IF EXISTS questions CASCADE;
         DROP TABLE IF EXISTS answers;
+        DROP TABLE IF EXISTS comments;
         CREATE TABLE users ${userTable};
         CREATE TABLE notifications ${noteTableOptions};
         CREATE TABLE avatars ${avatarTableOptions};
         CREATE TABLE questions ${questionTableOptions};
         CREATE TABLE answers ${answerTableOptions};
+        CREATE TABLE comments ${commentTableOptions};
       `);
 
     const newPassword = await bcrypt.hash("password", 12);

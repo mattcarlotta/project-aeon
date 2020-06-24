@@ -22,14 +22,14 @@ import toast from "~components/Body/Toast";
  * @throws {action} - A redux action to display a server message by type.
  */
 function* signinOnLoad({ config }) {
+  let data = {};
   try {
     const res = yield call(app.get, "u/signedin", config);
-    const data = yield call(parseData, res);
-
-    yield put(actions.signin(data));
-    yield put(END);
+    data = yield call(parseData, res);
   } catch (e) {
     yield call(setServerError, e.toString());
+  } finally {
+    yield put(actions.signin(data));
     yield put(END);
   }
 }

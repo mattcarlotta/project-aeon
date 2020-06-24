@@ -56,32 +56,34 @@ export class LoginForm extends Component {
   };
 
   render = () => (
-    <FormContainer>
+    <>
       <Head title="Sign In" url="u/signin" />
-      <h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
-      <p css="text-align: center;margin-top: 0px;">to your account below.</p>
-      <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
-        <FieldGenerator
-          fields={this.state.fields}
-          onChange={this.handleChange}
-        />
-        <Button
-          primary
-          type="submit"
-          width="100%"
-          style={{ marginTop: 10 }}
-          disabled={this.state.isSubmitting}
-        >
-          Submit
-        </Button>
-        <div css="text-align: center;margin-top: 40px;">
-          <p>Don&#39;t have an account?</p>
-          <Link href="/u/register">
-            <Button type="button">Register</Button>
-          </Link>
-        </div>
-      </form>
-    </FormContainer>
+      <FormContainer>
+        <h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
+        <p css="text-align: center;margin-top: 0px;">to your account below.</p>
+        <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
+          <FieldGenerator
+            fields={this.state.fields}
+            onChange={this.handleChange}
+          />
+          <Button
+            primary
+            type="submit"
+            width="100%"
+            style={{ marginTop: 10 }}
+            disabled={this.state.isSubmitting}
+          >
+            Submit
+          </Button>
+          <div css="text-align: center;margin-top: 40px;">
+            <p>Don&#39;t have an account?</p>
+            <Link href="/u/register">
+              <Button type="button">Register</Button>
+            </Link>
+          </div>
+        </form>
+      </FormContainer>
+    </>
   );
 }
 

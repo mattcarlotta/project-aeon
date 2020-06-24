@@ -8,21 +8,23 @@ import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
 
 const TagNotFound = () => (
-  <FlexCenter style={{ height: "75vh" }}>
+  <>
     <Head title="Tag Not Found" url="tag-not-found" />
-    <Center style={{ color: "#03a9f3", padding: "100px" }}>
-      <Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
-        Tag Not Found.
-      </Title>
-      <SubTitle>Unable to locate the requested tag.</SubTitle>
-      <Link href="/">
-        <Button margin="10px 0" radius="4px">
-          <HomeIcon />
-          <span css="margin-left: 5px;">Go Home</span>
-        </Button>
-      </Link>
-    </Center>
-  </FlexCenter>
+    <FlexCenter style={{ height: "75vh" }}>
+      <Center style={{ color: "#03a9f3", padding: "100px" }}>
+        <Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
+          Tag Not Found.
+        </Title>
+        <SubTitle>Unable to locate the requested tag.</SubTitle>
+        <Link href="/">
+          <Button margin="10px 0" radius="4px">
+            <HomeIcon />
+            <span css="margin-left: 5px;">Go Home</span>
+          </Button>
+        </Link>
+      </Center>
+    </FlexCenter>
+  </>
 );
 
 export default TagNotFound;

@@ -80,32 +80,36 @@ export class RegisterForm extends Component {
   };
 
   render = () => (
-    <FormContainer style={{ margin: "2vh auto 0" }}>
+    <>
       <Head title="Register" url="u/register" />
-      <h2 css="text-align: center;margin-bottom: 0px;">Register</h2>
-      <p css="text-align: center;margin-top: 0px;">for a new account below.</p>
-      <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
-        <FieldGenerator
-          fields={this.state.fields}
-          onChange={this.handleChange}
-        />
-        <Button
-          primary
-          type="submit"
-          width="100%"
-          style={{ marginTop: 10 }}
-          disabled={this.state.isSubmitting}
-        >
-          Sign Up
-        </Button>
-        <div css="text-align: center;margin-top: 40px;">
-          <p>Already have an account?</p>
-          <Link href="/u/signin">
-            <Button type="button">Sign In</Button>
-          </Link>
-        </div>
-      </form>
-    </FormContainer>
+      <FormContainer style={{ margin: "2vh auto 0" }}>
+        <h2 css="text-align: center;margin-bottom: 0px;">Register</h2>
+        <p css="text-align: center;margin-top: 0px;">
+          for a new account below.
+        </p>
+        <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
+          <FieldGenerator
+            fields={this.state.fields}
+            onChange={this.handleChange}
+          />
+          <Button
+            primary
+            type="submit"
+            width="100%"
+            style={{ marginTop: 10 }}
+            disabled={this.state.isSubmitting}
+          >
+            Sign Up
+          </Button>
+          <div css="text-align: center;margin-top: 40px;">
+            <p>Already have an account?</p>
+            <Link href="/u/signin">
+              <Button type="button">Sign In</Button>
+            </Link>
+          </div>
+        </form>
+      </FormContainer>
+    </>
   );
 }
 

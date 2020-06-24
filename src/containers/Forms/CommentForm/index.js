@@ -17,7 +17,7 @@ export class CommentForm extends Component {
     this.state = {
       fields: [
         {
-          name: "comment",
+          name: "body",
           type: "editor",
           value: props.value || "",
           errors: "",
@@ -52,16 +52,17 @@ export class CommentForm extends Component {
       async () => {
         if (!errors) {
           try {
-            const { id } = this.props;
-            const res = await app.post(
-              `c/create/${id}`,
-              parseFields(validatedFields)
-            );
+            const { qid, rid } = this.props;
+            const res = await app.post("c/create", {
+              ...parseFields(validatedFields),
+              qid,
+              rid
+            });
             const data = parseData(res);
 
             toast({ type: "success", message: data.message });
 
-            // TODO update question with comment
+            this.props.updateQuestion(data);
           } catch (err) {
             toast({ type: "error", message: err.toString() });
             this.setState({ isSubmitting: false });
@@ -95,8 +96,10 @@ export class CommentForm extends Component {
 
 CommentForm.propTypes = {
   cancelComment: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  value: PropTypes.string
+  qid: PropTypes.number.isRequired,
+  updateQuestion: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  rid: PropTypes.number.isRequired
 };
 
 export default CommentForm;

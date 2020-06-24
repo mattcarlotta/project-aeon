@@ -1,6 +1,6 @@
 import get from "lodash.get";
 import db from "~database/connection";
-import { findQuestion } from "~database/queries";
+import { findComments, findQuestion } from "~database/queries";
 import { unableToLocateQuestion } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import { sendError } from "~utils/helpers";
@@ -30,7 +30,13 @@ const fetchUserQuestion = async (req, res) => {
     ]);
     if (!existingQuestion) throw String(unableToLocateQuestion);
 
-    res.status(201).send(existingQuestion);
+    const existingComments = await db.oneOrNone(findComments, [
+      santizedId,
+      userid
+    ]);
+    const comments = get(existingComments, ["comments"]);
+
+    res.status(201).send({ question: existingQuestion, comments });
   } catch (err) {
     return sendError(err, res);
   }
