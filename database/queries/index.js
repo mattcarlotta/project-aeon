@@ -201,5 +201,5 @@ const transactQueries = {
 
 module.exports = {
   ...questionQueries,
-  ...userQueries,
+  ...userQueries
 };

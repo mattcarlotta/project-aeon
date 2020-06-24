@@ -73,7 +73,7 @@ class Select extends Component {
     renderEmpty,
     direction,
     virtual,
-    dropdownMatchSelectWidth,
+    dropdownMatchSelectWidth
   }) => {
     const {
       errors,
@@ -85,7 +85,7 @@ class Select extends Component {
       listItemHeight = 24,
       getPopupContainer,
       dropdownClassName,
-      bordered,
+      bordered
     } = this.props;
 
     const prefixCls = getPrefixCls("select", customizePrefixCls);
@@ -106,7 +106,7 @@ class Select extends Component {
     // ===================== Icons =====================
     const { suffixIcon, itemIcon, removeIcon, clearIcon } = getIcons({
       ...this.props,
-      multiple: isMultiple,
+      multiple: isMultiple
     });
 
     const selectProps = omit(this.props, [
@@ -116,11 +116,11 @@ class Select extends Component {
       "removeIcon",
       "clearIcon",
       "size",
-      "bordered",
+      "bordered"
     ]);
 
     const rcSelectRtlDropDownClassName = classNames(dropdownClassName, {
-      [`${prefixCls}-dropdown-${direction}`]: direction === "rtl",
+      [`${prefixCls}-dropdown-${direction}`]: direction === "rtl"
     });
     return (
       <SizeContext.Consumer>
@@ -131,7 +131,7 @@ class Select extends Component {
             [`${prefixCls}-sm`]: mergedSize === "small",
             [`${prefixCls}-rtl`]: direction === "rtl",
             [`${prefixCls}-borderless`]: !bordered,
-            "has-error": errors,
+            "has-error": errors
           });
 
           return (
@@ -179,13 +179,13 @@ Select.propTypes = {
   notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   prefixCls: PropTypes.string,
   size: PropTypes.string,
-  transitionName: PropTypes.string,
+  transitionName: PropTypes.string
 };
 
 Select.defaultProps = {
   transitionName: "slide-up",
   choiceTransitionName: "zoom",
-  bordered: true,
+  bordered: true
 };
 
 export default Select;

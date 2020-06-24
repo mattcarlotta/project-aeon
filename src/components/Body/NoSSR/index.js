@@ -23,12 +23,12 @@ const NoSSR = ({ children, defer, fallback }) => {
 NoSSR.propTypes = {
   children: PropTypes.node.isRequired,
   defer: PropTypes.bool,
-  fallback: PropTypes.node,
+  fallback: PropTypes.node
 };
 
 NoSSR.defaultProps = {
   defer: false,
-  fallback: null,
+  fallback: null
 };
 
 export default NoSSR;

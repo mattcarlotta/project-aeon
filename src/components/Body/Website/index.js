@@ -14,7 +14,7 @@ const Website = ({ className, href }) => (
 
 Website.propTypes = {
   className: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired
 };
 
 export default styled(Website)`

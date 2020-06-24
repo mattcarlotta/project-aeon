@@ -15,7 +15,7 @@ const withServerMessages = WrappedComponent => {
         serverError,
         redirect,
         redirectAs,
-        redirectTo,
+        redirectTo
       } = this.props;
       const noData = isEmpty(data);
 
@@ -25,7 +25,7 @@ const withServerMessages = WrappedComponent => {
 
       if (redirect && !noData)
         Router.replace(redirectTo, redirectAs, {
-          shallow: true,
+          shallow: true
         });
     }
 
@@ -45,18 +45,18 @@ const withServerMessages = WrappedComponent => {
     redirect: PropTypes.bool,
     redirectAs: PropTypes.string,
     redirectTo: PropTypes.string,
-    serverError: PropTypes.string,
+    serverError: PropTypes.string
   };
 
   ServerMessages.defaultProps = {
-    redirect: false,
+    redirect: false
   };
 
   return ServerMessages;
 };
 
 withServerMessages.propTypes = {
-  WrappedComponent: PropTypes.node.isRequired,
+  WrappedComponent: PropTypes.node.isRequired
 };
 
 export default withServerMessages;

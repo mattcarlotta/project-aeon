@@ -1,7 +1,7 @@
 import Icon from "../index";
 
 const initProps = {
-  type: "",
+  type: ""
 };
 
 const wrapper = mount(<Icon {...initProps} />);

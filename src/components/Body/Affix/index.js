@@ -15,7 +15,7 @@ class Affix extends Component {
   state = {
     offset: null,
     fixed: false,
-    dismissed: false,
+    dismissed: false
   };
 
   componentDidMount() {
@@ -73,7 +73,7 @@ class Affix extends Component {
                         xs={4}
                         style={{
                           borderLeft: "1px dashed #6f6f6f",
-                          borderRight: "1px dashed #6f6f6f",
+                          borderRight: "1px dashed #6f6f6f"
                         }}
                       >
                         <Flex>
@@ -89,7 +89,7 @@ class Affix extends Component {
                 </Row>
               </div>
             </AffixTitle>,
-            document.body,
+            document.body
           )}
       </div>
     );
@@ -100,12 +100,12 @@ Affix.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   onChange: PropTypes.func,
   top: PropTypes.number,
-  votes: PropTypes.number,
+  votes: PropTypes.number
 };
 
 Affix.defaultProps = {
   onChange: () => {},
-  top: 52,
+  top: 52
 };
 
 export default Affix;

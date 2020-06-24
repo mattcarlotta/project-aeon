@@ -7,7 +7,7 @@ export default ({ username, firstname, lastname, website, description }) => [
     tooltip: "Adding a display name will hide your first and last name.",
     placeholder: "Enter a display name to hide your first and last name...",
     errors: "",
-    required: false,
+    required: false
   },
   {
     name: "firstname",
@@ -16,7 +16,7 @@ export default ({ username, firstname, lastname, website, description }) => [
     placeholder: "Enter your first name...",
     value: firstname,
     errors: "",
-    required: true,
+    required: true
   },
   {
     name: "lastname",
@@ -25,7 +25,7 @@ export default ({ username, firstname, lastname, website, description }) => [
     placeholder: "Enter your last name...",
     value: lastname,
     errors: "",
-    required: true,
+    required: true
   },
   {
     name: "website",
@@ -35,7 +35,7 @@ export default ({ username, firstname, lastname, website, description }) => [
     placeholder: "Add a personal website URL address...",
     value: website,
     errors: "",
-    required: false,
+    required: false
   },
   {
     name: "description",
@@ -44,6 +44,6 @@ export default ({ username, firstname, lastname, website, description }) => [
     placeholder: "Tell us a little bit about yourself...",
     value: description,
     errors: "",
-    required: false,
-  },
+    required: false
+  }
 ];

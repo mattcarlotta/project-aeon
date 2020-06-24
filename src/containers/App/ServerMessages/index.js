@@ -48,16 +48,16 @@ export class ServerMessages extends Component {
 ServerMessages.propTypes = {
   resetMessages: PropTypes.func.isRequired,
   serverError: PropTypes.string,
-  serverMessage: PropTypes.string,
+  serverMessage: PropTypes.string
 };
 
 const mapStateToProps = ({ messages }) => ({
   serverError: messages.error,
-  serverMessage: messages.message,
+  serverMessage: messages.message
 });
 
 const mapDispatchToProps = {
-  resetMessages,
+  resetMessages
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServerMessages);

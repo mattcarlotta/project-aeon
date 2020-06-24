@@ -6,7 +6,7 @@ import Spinner from "~components/Spinner";
 
 class DynamicImport extends Component {
   state = {
-    Component: null,
+    Component: null
   };
 
   componentDidMount = () => this.importFile();
@@ -33,7 +33,7 @@ class DynamicImport extends Component {
 }
 
 DynamicImport.propTypes = {
-  loadFile: PropTypes.func.isRequired,
+  loadFile: PropTypes.func.isRequired
 };
 
 export default DynamicImport;

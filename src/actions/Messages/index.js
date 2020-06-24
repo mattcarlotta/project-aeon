@@ -12,7 +12,7 @@ export const resetMessages = () => ({ type: constants.RESET_MESSAGES });
  */
 export const setMessage = message => ({
   type: constants.SET_MESSAGE,
-  payload: message,
+  payload: message
 });
 
 /**
@@ -21,5 +21,5 @@ export const setMessage = message => ({
  */
 export const setError = err => ({
   type: constants.SET_ERROR,
-  payload: err,
+  payload: err
 });

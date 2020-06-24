@@ -10,7 +10,7 @@ import * as constants from "~constants";
  */
 export const createUserAvatar = props => ({
   type: constants.AUTH_CREATE_AVATAR,
-  props,
+  props
 });
 
 /**
@@ -20,7 +20,7 @@ export const createUserAvatar = props => ({
  * @returns {object}
  */
 export const deleteUserAvatar = () => ({
-  type: constants.AUTH_DELETE_AVATAR,
+  type: constants.AUTH_DELETE_AVATAR
 });
 
 /**
@@ -32,7 +32,7 @@ export const deleteUserAvatar = () => ({
  */
 export const setProfile = data => ({
   type: constants.AUTH_SET_PROFILE,
-  payload: !isEmpty(data) ? data : {},
+  payload: !isEmpty(data) ? data : {}
 });
 
 /**
@@ -44,7 +44,7 @@ export const setProfile = data => ({
  */
 export const signin = data => ({
   type: constants.AUTH_SIGNIN,
-  payload: !isEmpty(data) ? data : { role: "guest" },
+  payload: !isEmpty(data) ? data : { role: "guest" }
 });
 
 /**
@@ -56,7 +56,7 @@ export const signin = data => ({
  */
 export const signinOnLoad = config => ({
   type: constants.AUTH_SIGNIN_ON_LOAD,
-  config,
+  config
 });
 
 /**
@@ -68,7 +68,7 @@ export const signinOnLoad = config => ({
  */
 export const signinUser = props => ({
   type: constants.AUTH_SIGNIN_ATTEMPT,
-  props,
+  props
 });
 
 /**
@@ -78,7 +78,7 @@ export const signinUser = props => ({
  * @returns {object}
  */
 export const signoutUser = () => ({
-  type: constants.AUTH_SIGNOUT_SESSION,
+  type: constants.AUTH_SIGNOUT_SESSION
 });
 
 /**
@@ -88,7 +88,7 @@ export const signoutUser = () => ({
  * @returns {object}
  */
 export const signout = () => ({
-  type: constants.AUTH_SIGNOUT,
+  type: constants.AUTH_SIGNOUT
 });
 
 /**
@@ -100,7 +100,7 @@ export const signout = () => ({
  */
 export const signupUser = props => ({
   type: constants.AUTH_SIGNUP,
-  props,
+  props
 });
 
 /**
@@ -112,7 +112,7 @@ export const signupUser = props => ({
  */
 export const updateUserAvatar = props => ({
   type: constants.AUTH_UPDATE_AVATAR,
-  props,
+  props
 });
 
 /**
@@ -124,5 +124,5 @@ export const updateUserAvatar = props => ({
  */
 export const updateUserProfile = props => ({
   type: constants.AUTH_UPDATE_PROFILE,
-  props,
+  props
 });

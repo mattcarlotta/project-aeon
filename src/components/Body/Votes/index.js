@@ -16,9 +16,9 @@ Votes.propTypes = {
   className: PropTypes.string.isRequired,
   dataVotes: PropTypes.number,
   style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  votes: PropTypes.string,
+  votes: PropTypes.string
 };
 
 export default styled(Votes)`

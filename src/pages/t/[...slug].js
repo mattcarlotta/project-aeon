@@ -32,8 +32,8 @@ export const getServerSideProps = async ({ req, query }) => {
       data,
       fallbackTo: "/tag-not-found",
       serverError,
-      title,
-    },
+      title
+    }
   };
 };
 
@@ -51,11 +51,11 @@ TagQuestions.propTypes = {
       upvoted: PropTypes.bool,
       username: PropTypes.string.isRequired,
       views: PropTypes.number,
-      votes: PropTypes.number,
-    }),
+      votes: PropTypes.number
+    })
   ),
   serverError: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default withServerMessages(TagQuestions);

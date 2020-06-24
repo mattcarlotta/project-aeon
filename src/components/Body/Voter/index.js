@@ -34,13 +34,13 @@ class Voter extends PureComponent {
       height: !alignHorizontal ? "30px" : "100%",
       width: !alignHorizontal ? "30px" : "20px",
       radius: !alignHorizontal ? "4px" : "0",
-      padding: "0px",
+      padding: "0px"
     };
     const offsetSize = !alignHorizontal ? 1 : 0;
     const iconStyle = {
       fontSize: 13 + offsetSize,
       position: "relative",
-      top: 1,
+      top: 1
     };
 
     return (
@@ -77,11 +77,11 @@ Voter.propTypes = {
   id: PropTypes.number.isRequired,
   upvoted: PropTypes.bool,
   votes: PropTypes.number.isRequired,
-  updateQuestion: PropTypes.func.isRequired,
+  updateQuestion: PropTypes.func.isRequired
 };
 
 Voter.defaultProps = {
-  align: "vertical",
+  align: "vertical"
 };
 
 export default Voter;

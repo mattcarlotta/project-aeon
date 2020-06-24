@@ -28,17 +28,17 @@ export class CommentForm extends Component {
           classes: { mde: "mde-comment" },
           css: "margin-bottom: 10px;height: 200px;",
           maxCharacterLength: "500",
-          textAreaProps: { placeholder: "Add a comment..." },
-        },
+          textAreaProps: { placeholder: "Add a comment..." }
+        }
       ],
-      isSubmitting: false,
+      isSubmitting: false
     };
   }
 
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
-      fields: fieldUpdater(prevState.fields, name, value),
+      fields: fieldUpdater(prevState.fields, name, value)
     }));
   };
 
@@ -55,7 +55,7 @@ export class CommentForm extends Component {
             const { id } = this.props;
             const res = await app.post(
               `c/create/${id}`,
-              parseFields(validatedFields),
+              parseFields(validatedFields)
             );
             const data = parseData(res);
 
@@ -67,7 +67,7 @@ export class CommentForm extends Component {
             this.setState({ isSubmitting: false });
           }
         }
-      },
+      }
     );
   };
 
@@ -96,7 +96,7 @@ export class CommentForm extends Component {
 CommentForm.propTypes = {
   cancelComment: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 export default CommentForm;

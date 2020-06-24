@@ -2,7 +2,7 @@ import Button from "../index";
 
 const initProps = {
   children: "Test",
-  type: "button",
+  type: "button"
 };
 
 describe("Styled Button", () => {
@@ -23,10 +23,10 @@ describe("Styled Button", () => {
     expect(StyledButton).toHaveStyleRule("border", "1px solid #828282");
 
     expect(StyledButton).toHaveStyleRule("color", "#6f6f6f", {
-      modifier: ":hover",
+      modifier: ":hover"
     });
     expect(StyledButton).toHaveStyleRule("border-color", "#6f6f6f", {
-      modifier: ":hover",
+      modifier: ":hover"
     });
   });
 
@@ -37,10 +37,10 @@ describe("Styled Button", () => {
     expect(StyledButton).toHaveStyleRule("border", "1px solid #03a9f3");
 
     expect(StyledButton).toHaveStyleRule("color", "#0f7ae5", {
-      modifier: ":hover",
+      modifier: ":hover"
     });
     expect(StyledButton).toHaveStyleRule("border-color", "#0f7ae5", {
-      modifier: ":hover",
+      modifier: ":hover"
     });
   });
 
@@ -51,10 +51,10 @@ describe("Styled Button", () => {
     expect(StyledButton).toHaveStyleRule("border", "1px solid #f0506e");
 
     expect(StyledButton).toHaveStyleRule("color", "#be391c", {
-      modifier: ":hover",
+      modifier: ":hover"
     });
     expect(StyledButton).toHaveStyleRule("border-color", "#be391c", {
-      modifier: ":hover",
+      modifier: ":hover"
     });
   });
 });

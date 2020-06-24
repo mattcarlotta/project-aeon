@@ -10,7 +10,7 @@ const Spin = ({ className }) => (
 );
 
 Spin.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 export default styled(Spin)`

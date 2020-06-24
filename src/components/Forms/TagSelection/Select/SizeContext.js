@@ -39,7 +39,7 @@ export const SizeContextProvider = ({ children, size }) => (
 
 SizeContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  size: PropTypes.string,
+  size: PropTypes.string
 };
 
 export default SizeContext;

@@ -37,7 +37,7 @@ class Modal extends PureComponent {
                   <Flex
                     style={{
                       borderBottom: "1px solid #d3d3d3",
-                      padding: "2px 0",
+                      padding: "2px 0"
                     }}
                   >
                     <FlexStart>
@@ -60,7 +60,7 @@ class Modal extends PureComponent {
           </ModalContainer>
         </WindowContainer>
       </div>,
-      document.body,
+      document.body
     );
 }
 
@@ -68,11 +68,11 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
   maxWidth: PropTypes.string,
   onClick: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 
 Modal.defaultProps = {
-  onClick: () => {},
+  onClick: () => {}
 };
 
 export default Modal;

@@ -12,7 +12,7 @@ const UserRep = ({ className, reputation }) => (
 
 UserRep.propTypes = {
   className: PropTypes.string.isRequired,
-  reputation: PropTypes.number.isRequired,
+  reputation: PropTypes.number.isRequired
 };
 
 export default styled(UserRep)`

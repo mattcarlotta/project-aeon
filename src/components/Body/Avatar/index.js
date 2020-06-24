@@ -16,7 +16,7 @@ const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
           type="button"
           style={{
             maxWidth: 100,
-            marginTop: 5,
+            marginTop: 5
           }}
           onClick={toggleImageForm}
         >
@@ -31,7 +31,7 @@ const Avatar = ({ deleteUserAvatar, settings, toggleImageForm }) => (
             style={{
               maxWidth: 100,
               marginTop: 5,
-              marginLeft: 20,
+              marginLeft: 20
             }}
             onClick={deleteUserAvatar}
           >
@@ -56,9 +56,9 @@ Avatar.propTypes = {
     registered: PropTypes.string,
     reputation: PropTypes.number,
     username: PropTypes.string,
-    website: PropTypes.string,
+    website: PropTypes.string
   }),
-  toggleImageForm: PropTypes.func.isRequired,
+  toggleImageForm: PropTypes.func.isRequired
 };
 
 export default Avatar;

@@ -60,13 +60,13 @@ FieldGenerator.propTypes = {
       disabled: PropTypes.bool,
       readOnly: PropTypes.bool,
       tooltip: PropTypes.string,
-      selectOptions: PropTypes.arrayOf(PropTypes.string),
-    }),
-  ),
+      selectOptions: PropTypes.arrayOf(PropTypes.string)
+    })
+  )
 };
 
 FieldGenerator.defaultProps = {
-  fields: [],
+  fields: []
 };
 
 export default FieldGenerator;

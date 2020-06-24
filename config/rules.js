@@ -11,8 +11,8 @@ module.exports = () => [
     loader: "eslint-loader",
     options: {
       cache: inDev,
-      emitWarning: inDev,
-    },
+      emitWarning: inDev
+    }
   }),
   /* handle static assets */
   mediaRule({
@@ -22,7 +22,7 @@ module.exports = () => [
       limit: 8192,
       fallback: "file-loader",
       publicPath: assetsPublicPath,
-      outputPath: assetsFolder,
-    },
-  }),
+      outputPath: assetsFolder
+    }
+  })
 ];

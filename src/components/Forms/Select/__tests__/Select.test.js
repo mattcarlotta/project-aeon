@@ -7,7 +7,7 @@ const initProps = {
   onChange: jest.fn(),
   placeholder: "Select an option...",
   selectOptions: ["option1", "option2"],
-  value: "",
+  value: ""
 };
 
 const wrapper = mount(<Select {...initProps} />);

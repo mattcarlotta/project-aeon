@@ -21,11 +21,11 @@ import NavContainer from "~components/Navigation/NavContainer";
 import DefaultAvatar from "~images/defaultAvatar.png";
 
 const menuStyle = {
-  padding: "0px 35px 0 15px",
+  padding: "0px 35px 0 15px"
 };
 
 const iconStyle = {
-  marginRight: 15,
+  marginRight: 15
 };
 
 const Header = ({
@@ -36,7 +36,7 @@ const Header = ({
   lastname,
   reputation,
   role,
-  signoutUser,
+  signoutUser
 }) => (
   <NavHeader>
     <NavContainer>
@@ -133,13 +133,13 @@ Header.propTypes = {
   role: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   reputation: PropTypes.number,
-  signoutUser: PropTypes.func.isRequired,
+  signoutUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ authentication }) => ({ ...authentication });
 
 const mapDispatchToProps = {
-  signoutUser,
+  signoutUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

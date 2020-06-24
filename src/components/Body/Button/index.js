@@ -20,9 +20,9 @@ const Button = React.forwardRef(
       onTouchEnd,
       onTouchStart,
       style,
-      type,
+      type
     },
-    ref,
+    ref
   ) => (
     <button
       ref={ref}
@@ -49,7 +49,7 @@ const Button = React.forwardRef(
     >
       {children}
     </button>
-  ),
+  )
 );
 
 Button.propTypes = {
@@ -68,15 +68,15 @@ Button.propTypes = {
   onTouchStart: PropTypes.func,
   onTouchEnd: PropTypes.func,
   style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  type: PropTypes.string,
+  type: PropTypes.string
 };
 
 Button.defaultProps = {
   disabled: false,
   type: "button",
-  onClick: () => {},
+  onClick: () => {}
 };
 
 export default styled(Button)`

@@ -13,7 +13,7 @@ const Timestamp = ({ date }) => (
 );
 
 Timestamp.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
 };
 
 export default Timestamp;

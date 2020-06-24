@@ -17,7 +17,7 @@ import QuestionMeta from "~containers/Body/QuestionMeta";
 
 class QuestionOverview extends Component {
   state = {
-    ...this.props,
+    ...this.props
   };
 
   handleUpdatedQuestion = data => this.setState({ ...data });
@@ -43,7 +43,7 @@ class QuestionOverview extends Component {
             style={{
               top: 0,
               left: 0,
-              position: "absolute",
+              position: "absolute"
             }}
           >
             <Voter
@@ -97,7 +97,7 @@ QuestionOverview.propTypes = {
   views: PropTypes.number,
   uniquetitle: PropTypes.string.isRequired,
   upvoters: PropTypes.arrayOf(PropTypes.string),
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired
 };
 
 export default QuestionOverview;

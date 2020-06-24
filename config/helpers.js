@@ -11,7 +11,7 @@ const name = "[name]-[hash].[ext]";
 const jsRule = ({ loader, options }) => ({
   test: /\.(js|mjs|jsx|ts|tsx)$/,
   exclude: /(node_modules)/,
-  use: [{ loader, options }],
+  use: [{ loader, options }]
 });
 
 /**
@@ -30,13 +30,13 @@ const mediaRule = ({ test, loader, options }) => ({
       loader,
       options: {
         ...options,
-        name,
-      },
-    },
-  ],
+        name
+      }
+    }
+  ]
 });
 
 module.exports = {
   jsRule,
-  mediaRule,
+  mediaRule
 };

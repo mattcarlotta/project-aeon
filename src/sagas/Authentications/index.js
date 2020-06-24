@@ -258,6 +258,6 @@ export default function* authSagas() {
     takeLatest(constants.AUTH_SIGNOUT_SESSION, signoutUserSession),
     takeLatest(constants.AUTH_SIGNUP, signupUser),
     takeLatest(constants.AUTH_UPDATE_AVATAR, updateUserAvatar),
-    takeLatest(constants.AUTH_UPDATE_PROFILE, updateUserProfile),
+    takeLatest(constants.AUTH_UPDATE_PROFILE, updateUserProfile)
   ]);
 }

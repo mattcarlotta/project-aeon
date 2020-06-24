@@ -1,7 +1,7 @@
 import DeleteButton from "../index";
 
 const initProps = {
-  onClick: jest.fn(),
+  onClick: jest.fn()
 };
 
 const wrapper = mount(<DeleteButton {...initProps} />);

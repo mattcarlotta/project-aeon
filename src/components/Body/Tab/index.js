@@ -18,23 +18,23 @@ const AntTab = withStyles(theme => ({
       "Fira Sans",
       "Droid Sans",
       "Helvetica Neue",
-      "sans-serif",
+      "sans-serif"
     ].join(","),
     fontSize: 14,
     marginRight: theme.spacing(2),
     "&:hover": {
       color: "#40a9ff",
-      opacity: 1,
+      opacity: 1
     },
     "&$selected": {
       color: "#1890ff",
-      fontWeight: "normal",
+      fontWeight: "normal"
     },
     "&:focus": {
-      color: "#40a9ff",
-    },
+      color: "#40a9ff"
+    }
   },
-  selected: {},
+  selected: {}
 }))(props => <Tab disableRipple {...props} />);
 
 export default AntTab;

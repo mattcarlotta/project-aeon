@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const createCSSStyleProperty = (
   num,
-  screenSize,
+  screenSize
 ) => `@media (min-width: ${screenSize}) {
 	width: ${(num / 24) * 100}%;
 	float: left;
@@ -22,8 +22,8 @@ const generateColumns = props => {
           md: "768px",
           lg: "992px",
           xl: "1200px",
-          xxl: "1600",
-        }[size],
+          xxl: "1600"
+        }[size]
       );
   });
 

@@ -31,7 +31,7 @@ const updateUserProfile = async (req, res) => {
       firstname,
       lastname,
       website,
-      description,
+      description
     ]);
 
     res.status(201).json({ message: "Successfully update your profile!" });

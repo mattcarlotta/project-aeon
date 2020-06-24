@@ -18,24 +18,25 @@ import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 import withAuthentication from "~containers/App/withAuthentication";
 import UploadImageForm from "~containers/Forms/UploadImage";
+import { wrapper } from "~store";
 import dayjs from "~utils/dayjs";
 
 class Profile extends Component {
   state = {
     showTab: 0,
     showProfileForm: false,
-    showImageForm: false,
+    showImageForm: false
   };
 
   toggleProfileForm = () =>
     this.setState(prevState => ({
-      showProfileForm: !prevState.showProfileForm,
+      showProfileForm: !prevState.showProfileForm
     }));
 
   toggleImageForm = () =>
     this.setState(prevState => ({
       ...prevState,
-      showImageForm: !prevState.showImageForm,
+      showImageForm: !prevState.showImageForm
     }));
 
   setTab = (_, tab) => this.setState({ showTab: tab });
@@ -69,7 +70,7 @@ class Profile extends Component {
                     style={{
                       marginBottom: "15px",
                       fontSize: 28,
-                      color: "#0f7ae5",
+                      color: "#0f7ae5"
                     }}
                   >
                     {settings.username}
@@ -93,7 +94,7 @@ class Profile extends Component {
                     "Comments",
                     "Profile",
                     "Questions",
-                    "Settings",
+                    "Settings"
                   ].map(tab => (
                     <Tab key={tab} label={tab} />
                   ))}
@@ -141,19 +142,25 @@ Profile.propTypes = {
     lastname: PropTypes.string,
     registered: PropTypes.string,
     reputation: PropTypes.number,
-    website: PropTypes.string,
-  }),
+    website: PropTypes.string
+  })
 };
 
+export const getServerSideProps = wrapper.getServerSideProps(async ctx => ({
+  props: {
+    ...(await withAuthentication.getServerSideProps(ctx))
+  }
+}));
+
 const mapStateToProps = ({ authentication }) => ({
-  settings: { ...authentication },
+  settings: { ...authentication }
 });
 
 const mapDispatchToProps = {
-  deleteUserAvatar,
+  deleteUserAvatar
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withAuthentication(Profile));

@@ -4,7 +4,7 @@ import messagesReducer from "./Messages";
 
 const reducers = {
   authentication: authenticationReducer,
-  messages: messagesReducer,
+  messages: messagesReducer
 };
 
 export default combineReducers(reducers);

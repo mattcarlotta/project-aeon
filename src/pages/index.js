@@ -20,11 +20,11 @@ const Home = ({ id }) => (
 );
 
 Home.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string
 };
 
 const mapStateToProps = ({ authentication }) => ({
-  id: authentication.id,
+  id: authentication.id
 });
 
 export default connect(mapStateToProps)(Home);

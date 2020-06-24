@@ -4,7 +4,7 @@ import hljs from "highlight.js/lib/core";
 
 hljs.registerLanguage(
   "javascript",
-  require("highlight.js/lib/languages/javascript"),
+  require("highlight.js/lib/languages/javascript")
 );
 
 class CodeBock extends PureComponent {
@@ -32,7 +32,7 @@ class CodeBock extends PureComponent {
 }
 
 CodeBock.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 export default CodeBock;

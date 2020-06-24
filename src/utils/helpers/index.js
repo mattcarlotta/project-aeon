@@ -54,7 +54,7 @@ const clearSession = (req, res, status, err) => {
 const createRandomToken = () =>
   tokenGenerator(
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$/.",
-    64,
+    64
   );
 
 /**
@@ -87,5 +87,5 @@ export {
   createRandomToken,
   parseSession,
   sendError,
-  uniqueArray,
+  uniqueArray
 };

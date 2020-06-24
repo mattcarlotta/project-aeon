@@ -4,7 +4,7 @@ import db from "~database/connection";
 import { findAllQuestionsByTagLimitAndOffset } from "~database/queries";
 import {
   unableToLocateTaggedQuestions,
-  unableToLocateTag,
+  unableToLocateTag
 } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import { sendError } from "~utils/helpers";
@@ -28,7 +28,7 @@ const fetchNewestQuestionsByTag = async (req, res) => {
       [tag],
       10,
       0,
-      userid,
+      userid
     ]);
     if (isEmpty(data)) throw String(unableToLocateTaggedQuestions);
 

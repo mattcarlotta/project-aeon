@@ -10,7 +10,7 @@ const MarkdownPreviewer = ({ children }) => (
       code: CodeBlock,
       // image: OpenImageInTab,
       link: OpenLinkInTab,
-      linkReference: OpenLinkInTab,
+      linkReference: OpenLinkInTab
     }}
   >
     {children}
@@ -18,7 +18,7 @@ const MarkdownPreviewer = ({ children }) => (
 );
 
 MarkdownPreviewer.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string
 };
 
 export default MarkdownPreviewer;

@@ -16,5 +16,5 @@ module.exports = {
     "UPDATE questions SET upvoters=array_remove(upvoters, $2), downvoters=array_remove(downvoters, $2) WHERE id=$1 RETURNING id",
   voteOnOwnQuestion: "SELECT id FROM questions WHERE id=$1 AND userid=$2",
   votedOnQuestion:
-    "SELECT $2=ANY(q.upvoters) AS upvoted, $2=ANY(q.downvoters) AS downvoted FROM questions q WHERE q.id=$1",
+    "SELECT $2=ANY(q.upvoters) AS upvoted, $2=ANY(q.downvoters) AS downvoted FROM questions q WHERE q.id=$1"
 };

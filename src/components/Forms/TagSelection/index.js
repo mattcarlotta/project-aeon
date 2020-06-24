@@ -12,7 +12,7 @@ const initialState = {
   data: [],
   searchText: "",
   isLoading: false,
-  currentPromise: 0,
+  currentPromise: 0
 };
 
 class TagSelection extends Component {
@@ -32,9 +32,9 @@ class TagSelection extends Component {
           data: [],
           isLoading: true,
           searchText,
-          currentPromise: prevState.currentPromise + 1,
+          currentPromise: prevState.currentPromise + 1
         }),
-        this.fetchTags,
+        this.fetchTags
       );
     } else {
       this.handleResetState();
@@ -45,23 +45,23 @@ class TagSelection extends Component {
     const res = await new Promise(res =>
       setTimeout(() => {
         res({
-          data: [{ tag: "reactjs" }, { tag: "react-native" }],
+          data: [{ tag: "reactjs" }, { tag: "react-native" }]
         });
-      }, 1000),
+      }, 1000)
     );
 
     if (this.state.currentPromise === this.promiseCount) {
       const data = res.data.filter(
-        ({ tag }) => !this.props.value.includes(tag),
+        ({ tag }) => !this.props.value.includes(tag)
       );
 
       this.setState(
         {
           data,
           isLoading: false,
-          currentPromise: 0,
+          currentPromise: 0
         },
-        () => (this.promiseCount = 0),
+        () => (this.promiseCount = 0)
       );
     }
   };
@@ -73,7 +73,7 @@ class TagSelection extends Component {
 
   handleChange = value =>
     this.props.onChange({
-      target: { name: this.props.name, value },
+      target: { name: this.props.name, value }
     });
 
   renderNotFound = () => {
@@ -112,7 +112,7 @@ TagSelection.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  value: PropTypes.arrayOf(PropTypes.string),
+  value: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default TagSelection;

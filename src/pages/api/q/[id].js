@@ -26,7 +26,7 @@ const fetchUserQuestion = async (req, res) => {
 
     const existingQuestion = await db.oneOrNone(findQuestion, [
       santizedId,
-      userid,
+      userid
     ]);
     if (!existingQuestion) throw String(unableToLocateQuestion);
 

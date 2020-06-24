@@ -36,7 +36,7 @@ export default function getIcons({
   menuItemSelectedIcon,
   removeIcon,
   loading,
-  multiple,
+  multiple
 }) {
   // Clear Icon
   let mergedClearIcon = clearIcon;
@@ -80,7 +80,7 @@ export default function getIcons({
     clearIcon: mergedClearIcon,
     suffixIcon: mergedSuffixIcon,
     itemIcon: mergedItemIcon,
-    removeIcon: mergedRemoveIcon,
+    removeIcon: mergedRemoveIcon
   };
 }
 /* eslint-enable react/prop-types */

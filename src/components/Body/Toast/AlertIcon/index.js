@@ -4,12 +4,12 @@ import {
   FaCheck,
   FaExclamationTriangle,
   FaBug,
-  FaExclamationCircle,
+  FaExclamationCircle
 } from "react-icons/fa";
 import styled from "styled-components";
 
 const style = {
-  margin: "13px 8px",
+  margin: "13px 8px"
 };
 
 export const displayIcon = type => {
@@ -35,7 +35,7 @@ const AlertIcon = ({ className, type }) => (
 
 AlertIcon.propTypes = {
   className: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };
 
 export default styled(AlertIcon)`

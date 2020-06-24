@@ -16,7 +16,7 @@ import UserDropdown from "./UserDropdown";
 const initialState = {
   user: {},
   error: "",
-  isMounted: false,
+  isMounted: false
 };
 
 class QuestionMeta extends Component {
@@ -77,7 +77,7 @@ class QuestionMeta extends Component {
               style={{
                 transformOrigin: "0 0 0",
                 zIndex: !isMounted ? "-1" : "100",
-                opacity: !isMounted ? 0 : 1,
+                opacity: !isMounted ? 0 : 1
               }}
               timeout={{ enter: 500, leave: 100 }}
             >
@@ -102,7 +102,7 @@ class QuestionMeta extends Component {
 QuestionMeta.propTypes = {
   date: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  views: PropTypes.number.isRequired,
+  views: PropTypes.number.isRequired
 };
 
 export default QuestionMeta;

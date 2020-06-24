@@ -20,7 +20,7 @@ export class RegisterForm extends Component {
         label: "Email",
         value: "",
         errors: "",
-        required: true,
+        required: true
       },
       {
         name: "username",
@@ -28,7 +28,7 @@ export class RegisterForm extends Component {
         label: "Username",
         value: "",
         errors: "",
-        required: true,
+        required: true
       },
       {
         name: "firstname",
@@ -36,7 +36,7 @@ export class RegisterForm extends Component {
         label: "First Name",
         value: "",
         errors: "",
-        required: true,
+        required: true
       },
       {
         name: "lastname",
@@ -44,7 +44,7 @@ export class RegisterForm extends Component {
         label: "Last Name",
         value: "",
         errors: "",
-        required: true,
+        required: true
       },
       {
         name: "password",
@@ -52,10 +52,10 @@ export class RegisterForm extends Component {
         label: "Password",
         value: "",
         errors: "",
-        required: true,
-      },
+        required: true
+      }
     ],
-    isSubmitting: false,
+    isSubmitting: false
   };
 
   static getDerivedStateFromProps(props) {
@@ -65,7 +65,7 @@ export class RegisterForm extends Component {
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
-      fields: fieldUpdater(prevState.fields, name, value),
+      fields: fieldUpdater(prevState.fields, name, value)
     }));
   };
 
@@ -111,17 +111,17 @@ export class RegisterForm extends Component {
 
 RegisterForm.propTypes = {
   serverError: PropTypes.string,
-  signupUser: PropTypes.func.isRequired,
+  signupUser: PropTypes.func.isRequired
 };
 
 /* istanbul ignore next */
 const mapStateToProps = ({ messages }) => ({
-  serverError: messages.error,
+  serverError: messages.error
 });
 
 /* istanbul ignore next */
 const mapDispatchToProps = {
-  signupUser,
+  signupUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

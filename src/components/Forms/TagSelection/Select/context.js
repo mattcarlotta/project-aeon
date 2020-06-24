@@ -32,7 +32,7 @@ export const ConfigContext = createContext({
     return suffixCls ? `ant-${suffixCls}` : "ant";
   },
 
-  renderEmpty: null,
+  renderEmpty: null
 });
 
 export const ConfigConsumer = ConfigContext.Consumer;

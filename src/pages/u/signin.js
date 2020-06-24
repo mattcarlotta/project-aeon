@@ -20,7 +20,7 @@ export class LoginForm extends Component {
         label: "Username",
         value: "",
         errors: "",
-        required: true,
+        required: true
       },
       {
         name: "password",
@@ -28,10 +28,10 @@ export class LoginForm extends Component {
         label: "Password",
         value: "",
         errors: "",
-        required: true,
-      },
+        required: true
+      }
     ],
-    isSubmitting: false,
+    isSubmitting: false
   };
 
   static getDerivedStateFromProps(props) {
@@ -41,7 +41,7 @@ export class LoginForm extends Component {
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
-      fields: fieldUpdater(prevState.fields, name, value),
+      fields: fieldUpdater(prevState.fields, name, value)
     }));
   };
 
@@ -87,17 +87,17 @@ export class LoginForm extends Component {
 
 LoginForm.propTypes = {
   serverError: PropTypes.string,
-  signinUser: PropTypes.func.isRequired,
+  signinUser: PropTypes.func.isRequired
 };
 
 /* istanbul ignore next */
 const mapStateToProps = ({ messages }) => ({
-  serverError: messages.error,
+  serverError: messages.error
 });
 
 /* istanbul ignore next */
 const mapDispatchToProps = {
-  signinUser,
+  signinUser
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

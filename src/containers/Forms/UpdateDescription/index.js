@@ -15,7 +15,7 @@ export class UpdateDescriptionForm extends Component {
 
     this.state = {
       fields: createFields(props),
-      isSubmitting: false,
+      isSubmitting: false
     };
   }
 
@@ -38,7 +38,7 @@ export class UpdateDescriptionForm extends Component {
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
-      fields: fieldUpdater(prevState.fields, name, value),
+      fields: fieldUpdater(prevState.fields, name, value)
     }));
   };
 
@@ -81,19 +81,19 @@ UpdateDescriptionForm.propTypes = {
   serverMessage: PropTypes.string,
   showProfileForm: PropTypes.bool.isRequired,
   closeForm: PropTypes.func.isRequired,
-  updateUserProfile: PropTypes.func.isRequired,
+  updateUserProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ messages }) => ({
   serverError: messages.error,
-  serverMessage: messages.message,
+  serverMessage: messages.message
 });
 
 const mapDispatchToProps = {
-  updateUserProfile,
+  updateUserProfile
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(UpdateDescriptionForm);

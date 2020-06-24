@@ -1,7 +1,7 @@
 import EditButton from "../index";
 
 const initProps = {
-  onClick: jest.fn(),
+  onClick: jest.fn()
 };
 
 const wrapper = mount(<EditButton {...initProps} />);

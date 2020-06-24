@@ -11,7 +11,7 @@ export const makeStore = () => {
 
   const store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(saga)),
+    composeWithDevTools(applyMiddleware(saga))
   );
 
   // if (module.hot) {

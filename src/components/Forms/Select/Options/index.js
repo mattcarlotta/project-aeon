@@ -24,7 +24,7 @@ class SelectOptionsContainer extends PureComponent {
     if (element)
       element.scrollIntoView({
         behavior: "auto",
-        block: "nearest",
+        block: "nearest"
       });
   };
 
@@ -34,8 +34,8 @@ class SelectOptionsContainer extends PureComponent {
     if (key === "Enter") {
       const {
         target: {
-          dataset: { name, value },
-        },
+          dataset: { name, value }
+        }
       } = evt;
       this.props.handleOptionSelect({ target: { name, value } });
     }
@@ -43,8 +43,8 @@ class SelectOptionsContainer extends PureComponent {
 
   handleOptionSelect = ({
     target: {
-      dataset: { name, value },
-    },
+      dataset: { name, value }
+    }
   }) => {
     this.props.handleOptionSelect({ target: { name, value } });
   };
@@ -55,7 +55,7 @@ class SelectOptionsContainer extends PureComponent {
     const options = !searchText
       ? selectOptions
       : selectOptions.filter(value =>
-          value.toLowerCase().includes(searchText.toLowerCase()),
+          value.toLowerCase().includes(searchText.toLowerCase())
         );
     return this.props.isVisible ? (
       <DropContainer>
@@ -91,7 +91,7 @@ SelectOptionsContainer.propTypes = {
   name: PropTypes.string.isRequired,
   searchText: PropTypes.string,
   selected: PropTypes.string,
-  selectOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
+  selectOptions: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
 
 export default SelectOptionsContainer;

@@ -42,7 +42,7 @@ UserCard.propTypes = {
   description: PropTypes.string,
   reputation: PropTypes.number.isRequired,
   username: PropTypes.string.isRequired,
-  website: PropTypes.string,
+  website: PropTypes.string
 };
 
 export default UserCard;

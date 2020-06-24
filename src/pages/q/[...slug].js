@@ -36,8 +36,8 @@ export const getServerSideProps = async ({ req, query }) => {
       redirectAs: `/q/${titleId}/${uniqueTitle}`,
       redirectTo: "/q/[...slug]",
       serverError,
-      title,
-    },
+      title
+    }
   };
 };
 
@@ -55,8 +55,8 @@ UserQuestion.propTypes = {
     upvoted: PropTypes.bool,
     username: PropTypes.string.isRequired,
     views: PropTypes.number,
-    votes: PropTypes.number,
-  }),
+    votes: PropTypes.number
+  })
 };
 
 export default withServerMessages(UserQuestion);

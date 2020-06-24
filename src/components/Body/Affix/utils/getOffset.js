@@ -42,7 +42,7 @@ export default node => {
     top: 0,
     left: 0,
     height: 0,
-    width: 0,
+    width: 0
   };
 
   if (!contains(docElem, node)) return box;
@@ -61,7 +61,7 @@ export default node => {
         (win.pageXOffset || docElem.scrollLeft) -
         (docElem.clientLeft || 0),
       width: (box.width === null ? node.offsetWidth : box.width) || 0,
-      height: (box.height === null ? node.offsetHeight : box.height) || 0,
+      height: (box.height === null ? node.offsetHeight : box.height) || 0
     };
   }
 

@@ -26,7 +26,7 @@ const Dropdown = ({ children, menu }) => (
                   transform: `${
                     isVisible ? "rotate(-180deg)" : "rotate(0deg)"
                   }`,
-                  transition: "transform 0.2s ease-in-out",
+                  transition: "transform 0.2s ease-in-out"
                 }}
               />
             </FlexEnd>
@@ -42,7 +42,7 @@ const Dropdown = ({ children, menu }) => (
 
 Dropdown.propTypes = {
   menu: PropTypes.node.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Dropdown;

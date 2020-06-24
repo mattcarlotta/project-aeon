@@ -3,7 +3,7 @@ import * as constants from "~constants";
 
 export const initialState = {
   error: "",
-  message: "",
+  message: ""
 };
 
 /**

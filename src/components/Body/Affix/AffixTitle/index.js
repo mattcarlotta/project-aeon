@@ -11,7 +11,7 @@ const Container = ({ className, children, dataTestId }) => (
 Container.propTypes = {
   className: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  dataTestId: PropTypes.string,
+  dataTestId: PropTypes.string
 };
 
 export default styled(Container)`

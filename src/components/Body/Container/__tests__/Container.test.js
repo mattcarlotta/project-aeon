@@ -3,7 +3,7 @@ import Container from "../index";
 const wrapper = mount(
   <Container>
     <p>children</p>
-  </Container>,
+  </Container>
 );
 
 describe("Container", () => {

@@ -8,7 +8,7 @@ const OpenLinkInTab = ({ children, href }) => (
 
 OpenLinkInTab.propTypes = {
   children: PropTypes.node,
-  href: PropTypes.string,
+  href: PropTypes.string
 };
 
 export default OpenLinkInTab;

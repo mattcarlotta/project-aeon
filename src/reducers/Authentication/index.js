@@ -14,7 +14,7 @@ export const initialState = {
   reputation: 0,
   website: "",
   isLoading: true,
-  settings: {},
+  settings: {}
 };
 
 /**

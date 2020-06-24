@@ -15,7 +15,7 @@ export class MyApp extends App {
   static getInitialProps = async ({ Component, ctx }) => {
     const {
       store: { dispatch, getState, sagaTask },
-      req,
+      req
     } = ctx;
     const { role } = getState().authentication;
 
@@ -30,8 +30,8 @@ export class MyApp extends App {
       pageProps: {
         ...(Component.getInitialProps
           ? await Component.getInitialProps(ctx)
-          : {}),
-      },
+          : {})
+      }
     };
   };
 

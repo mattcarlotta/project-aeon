@@ -24,9 +24,9 @@ Label.propTypes = {
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   name: PropTypes.string,
   style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.string
 };
 
 export default styled(Label)`

@@ -17,7 +17,7 @@ const TextArea = ({
   rows,
   style,
   tooltip,
-  value,
+  value
 }) => (
   <div data-testid={name} className={className} style={containerStyle}>
     <ClickHandler value={value}>
@@ -26,7 +26,7 @@ const TextArea = ({
           className={[
             isFocused && "focused",
             errors && "error",
-            disabled && "disabled",
+            disabled && "disabled"
           ]
             .filter(Boolean)
             .join(" ")}
@@ -59,7 +59,7 @@ const TextArea = ({
 TextArea.propTypes = {
   className: PropTypes.string.isRequired,
   containerStyle: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   disabled: PropTypes.bool,
   errors: PropTypes.string,
@@ -70,10 +70,10 @@ TextArea.propTypes = {
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
   style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   tooltip: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 export default styled(TextArea)`

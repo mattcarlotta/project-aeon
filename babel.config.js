@@ -13,14 +13,11 @@ module.exports = api => {
         {
           ssr: true,
           displayName: true,
-          preprocess: false,
-        },
+          preprocess: false
+        }
       ],
       inProd &&
-        !inStage && [
-          "react-remove-properties",
-          { properties: ["data-testid"] },
-        ],
-    ].filter(Boolean),
+        !inStage && ["react-remove-properties", { properties: ["data-testid"] }]
+    ].filter(Boolean)
   };
 };

@@ -34,7 +34,7 @@ class Scroller extends Component {
       showLoader: false,
       pullToRefreshThresholdBreached: false,
       prevKey: props.key,
-      prevDataLength: props.dataLength,
+      prevDataLength: props.dataLength
     };
 
     this.lastScrollTop = 0;
@@ -50,7 +50,7 @@ class Scroller extends Component {
     if (typeof this.props.dataLength === "undefined") {
       throw new Error(
         `mandatory prop "dataLength" is missing. The prop is needed` +
-          ` when loading more content. Check README.md for usage`,
+          ` when loading more content. Check README.md for usage`
       );
     }
 
@@ -94,7 +94,7 @@ class Scroller extends Component {
         throw new Error(
           `Mandatory prop "refreshFunction" missing.
           Pull Down To Refresh functionality will not work
-          as expected. Check README.md for usage'`,
+          as expected. Check README.md for usage'`
         );
       }
     }
@@ -138,7 +138,7 @@ class Scroller extends Component {
           showLoader: false,
           pullToRefreshThresholdBreached: false,
           prevKey: props.key,
-          prevDataLength: props.dataLength,
+          prevDataLength: props.dataLength
         }
       : null;
   }
@@ -193,7 +193,7 @@ class Scroller extends Component {
       Number(this.props.pullDownToRefreshThreshold)
     ) {
       this.setState({
-        pullToRefreshThresholdBreached: true,
+        pullToRefreshThresholdBreached: true
       });
     }
 
@@ -217,7 +217,7 @@ class Scroller extends Component {
     if (this.state.pullToRefreshThresholdBreached) {
       this.props.refreshFunction && this.props.refreshFunction();
       this.setState({
-        pullToRefreshThresholdBreached: false,
+        pullToRefreshThresholdBreached: false
       });
     }
 
@@ -286,7 +286,7 @@ class Scroller extends Component {
       height: this.props.height || "auto",
       overflow: "auto",
       WebkitOverflowScrolling: "touch",
-      ...this.props.style,
+      ...this.props.style
     };
     const hasChildren =
       this.props.hasChildren ||
@@ -322,7 +322,7 @@ class Scroller extends Component {
                   position: "absolute",
                   left: 0,
                   right: 0,
-                  top: -1 * this.maxPullDownDistance,
+                  top: -1 * this.maxPullDownDistance
                 }}
               >
                 {this.state.pullToRefreshThresholdBreached

@@ -19,7 +19,7 @@ export class UpdateDescriptionForm extends Component {
         value: "",
         errors: "",
         required: true,
-        maxLength: 250,
+        maxLength: 250
       },
       {
         name: "tags",
@@ -30,7 +30,7 @@ export class UpdateDescriptionForm extends Component {
         value: [],
         errors: "",
         options: [],
-        required: true,
+        required: true
       },
       {
         name: "body",
@@ -38,16 +38,16 @@ export class UpdateDescriptionForm extends Component {
         label: "Question",
         value: "",
         errors: "",
-        required: true,
-      },
+        required: true
+      }
     ],
-    isSubmitting: false,
+    isSubmitting: false
   };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
-      fields: fieldUpdater(prevState.fields, name, value),
+      fields: fieldUpdater(prevState.fields, name, value)
     }));
   };
 
@@ -63,7 +63,7 @@ export class UpdateDescriptionForm extends Component {
           try {
             const res = await app.post(
               "q/create",
-              parseFields(validatedFields),
+              parseFields(validatedFields)
             );
             const data = parseData(res);
 
@@ -75,7 +75,7 @@ export class UpdateDescriptionForm extends Component {
             this.setState({ isSubmitting: false });
           }
         }
-      },
+      }
     );
   };
 

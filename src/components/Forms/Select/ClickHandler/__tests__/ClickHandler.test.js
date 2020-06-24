@@ -5,15 +5,15 @@ const onChange = jest.fn();
 const event = {
   target: {
     name: "test",
-    value: "test",
-  },
+    value: "test"
+  }
 };
 
 const clearValue = {
   target: {
     name: "test",
-    value: "",
-  },
+    value: ""
+  }
 };
 
 const eventListener = {};
@@ -33,7 +33,7 @@ describe("Click Handler", () => {
             handleSelectClick,
             handleOptionSelect,
             handleSearchClear,
-            searchText,
+            searchText
           }) => (
             <div className="wrapper">
               <input
@@ -65,7 +65,7 @@ describe("Click Handler", () => {
           )}
         </ClickHandler>
         <div tabIndex={0} className="outside" />
-      </div>,
+      </div>
     );
     openMenu = () => wrapper.find("div.menu").simulate("click");
   });
@@ -98,7 +98,7 @@ describe("Click Handler", () => {
       .find("ClickHandler")
       .instance()
       .handleClickOutside({
-        target: wrapper.find("div.outside").getDOMNode(),
+        target: wrapper.find("div.outside").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeFalsy();
@@ -110,7 +110,7 @@ describe("Click Handler", () => {
       .instance()
       .handleTabPress({
         key: "Tab",
-        target: wrapper.find("div.menu").getDOMNode(),
+        target: wrapper.find("div.menu").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeTruthy();
@@ -120,7 +120,7 @@ describe("Click Handler", () => {
       .instance()
       .handleTabPress({
         key: "Tab",
-        target: wrapper.find("div.outside").getDOMNode(),
+        target: wrapper.find("div.outside").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeFalsy();
@@ -133,7 +133,7 @@ describe("Click Handler", () => {
       .find("ClickHandler")
       .instance()
       .handleClickOutside({
-        target: wrapper.find("div.wrapper").getDOMNode(),
+        target: wrapper.find("div.wrapper").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeTruthy();
@@ -142,7 +142,7 @@ describe("Click Handler", () => {
       .find("ClickHandler")
       .instance()
       .handleClickOutside({
-        target: wrapper.find("div.outside").getDOMNode(),
+        target: wrapper.find("div.outside").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeFalsy();
@@ -156,7 +156,7 @@ describe("Click Handler", () => {
       .instance()
       .handleTabPress({
         key: "Enter",
-        target: wrapper.find("div.wrapper").getDOMNode(),
+        target: wrapper.find("div.wrapper").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeTruthy();
@@ -166,7 +166,7 @@ describe("Click Handler", () => {
       .instance()
       .handleTabPress({
         key: "Tab",
-        target: wrapper.find("div.wrapper").getDOMNode(),
+        target: wrapper.find("div.wrapper").getDOMNode()
       });
 
     expect(wrapper.find("ClickHandler").state("isVisible")).toBeTruthy();

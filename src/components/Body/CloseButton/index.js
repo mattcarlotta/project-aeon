@@ -18,7 +18,7 @@ const CloseButton = ({ onClick }) => (
           fontSize: 15,
           position: "relative",
           top: 2,
-          marginRight: 5,
+          marginRight: 5
         }}
       />
       <span css="font-size: 15px;">Close</span>
@@ -27,7 +27,7 @@ const CloseButton = ({ onClick }) => (
 );
 
 CloseButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default CloseButton;

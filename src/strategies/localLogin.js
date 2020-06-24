@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { findUserByUsername } from "~database/queries";
+import { findUser } from "~database/queries";
 import { sendError } from "~utils/helpers";
 import db from "~database/connection";
 import { badCredentials, missingSigninCredentials } from "~messages/errors";
@@ -16,7 +16,7 @@ export const localLogin = next => async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) throw String(missingSigninCredentials);
 
-    const existingUser = await db.oneOrNone(findUserByUsername, [username]);
+    const existingUser = await db.oneOrNone(findUser, [username]);
     if (!existingUser) throw String(badCredentials);
     // if (!existingUser.verified) throw String(emailConfirmationReq);
 
@@ -34,7 +34,7 @@ export const localLogin = next => async (req, res) => {
       registered: existingUser.registered,
       reputation: existingUser.reputation,
       username: existingUser.username,
-      website: existingUser.website,
+      website: existingUser.website
     };
 
     return next(req, res);

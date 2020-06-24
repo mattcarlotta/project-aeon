@@ -19,10 +19,10 @@ TabPanel.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };
 
 export default styled(TabPanel)`
   padding: 10px;
-  min-height: 425px;
+  min-height: 432px;
 `;

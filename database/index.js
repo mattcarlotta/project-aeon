@@ -18,5 +18,5 @@ module.exports = pgp({
   host: DBHOST,
   password: DBPASSWORD,
   port: DBPORT,
-  user: DBUSER,
+  user: DBUSER
 });

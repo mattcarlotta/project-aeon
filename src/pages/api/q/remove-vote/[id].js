@@ -2,7 +2,7 @@ import db from "~database/connection";
 import {
   findUpdatedQuestion,
   removeVoteFromQuestion,
-  votedOnQuestion,
+  votedOnQuestion
 } from "~database/queries";
 import { unableToRemoveVote, unableToLocateQuestion } from "~messages/errors";
 import withMiddleware from "~middlewares";
@@ -31,25 +31,25 @@ const removeVoteUserQuestion = async (req, res) => {
         try {
           const { upvoted, downvoted } = await task.oneOrNone(votedOnQuestion, [
             id,
-            userId,
+            userId
           ]);
           if (!upvoted && !downvoted) throw String(unableToRemoveVote);
 
           const upvotedQuestion = await task.oneOrNone(removeVoteFromQuestion, [
             id,
-            userId,
+            userId
           ]);
           if (!upvotedQuestion) throw String(unableToLocateQuestion);
 
           const updatedQuestion = await task.oneOrNone(findUpdatedQuestion, [
             id,
-            userId,
+            userId
           ]);
           return { updatedQuestion };
         } catch (err) {
           return { err };
         }
-      },
+      }
     );
     if (err) throw String(err);
 

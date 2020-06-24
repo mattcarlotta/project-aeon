@@ -28,13 +28,13 @@ const createQuestion = async (req, res) => {
       body,
       tags,
       title,
-      dashedTitle,
+      dashedTitle
     ]);
 
     res.status(201).json({
       id,
       title: dashedTitle,
-      message: "Successfully created a question!",
+      message: "Successfully created a question!"
     });
   } catch (err) {
     return sendError(err, res);

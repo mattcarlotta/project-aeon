@@ -8,13 +8,15 @@ const ToastMessage = ({ type, message }) =>
   toast[type](
     <AlertContainer type={type} data-testid="modal-alert">
       <AlertIcon type={type} />
-      <AlertMessage data-testid="modal-message">{message}</AlertMessage>
-    </AlertContainer>,
+      <AlertMessage data-testid="modal-message" type={type}>
+        {message}
+      </AlertMessage>
+    </AlertContainer>
   );
 
 ToastMessage.propTypes = {
   message: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };
 
 export default ToastMessage;

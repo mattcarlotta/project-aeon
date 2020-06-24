@@ -6,14 +6,14 @@ import Gradient from "./Gradient";
 
 class MaskPreview extends Component {
   state = {
-    height: 0,
+    height: 0
   };
 
   setMaskHeight = node =>
     this.setState(prevState => ({
       height: node
         ? Math.ceil(node.getBoundingClientRect().height)
-        : prevState.height,
+        : prevState.height
     }));
 
   render = () => (
@@ -33,12 +33,12 @@ class MaskPreview extends Component {
 MaskPreview.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   maxHeight: PropTypes.number,
-  maskHeight: PropTypes.number,
+  maskHeight: PropTypes.number
 };
 
 MaskPreview.defaultProps = {
   maxHeight: 250,
-  maskHeight: 10,
+  maskHeight: 10
 };
 
 export default MaskPreview;

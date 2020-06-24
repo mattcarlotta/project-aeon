@@ -5,7 +5,7 @@ import {
   FaUpload,
   FaTimesCircle,
   FaUndo,
-  FaCloudUploadAlt,
+  FaCloudUploadAlt
 } from "react-icons/fa";
 import { createUserAvatar, updateUserAvatar } from "~actions/Authentication";
 import Tooltip from "~components/Body/Tooltip";
@@ -18,7 +18,7 @@ const initialState = {
   error: "",
   imagePreview: "",
   file: null,
-  isSubmitting: false,
+  isSubmitting: false
 };
 
 export class UpdateImageForm extends Component {
@@ -45,7 +45,7 @@ export class UpdateImageForm extends Component {
       const file = files[0];
 
       const isAccepted = ["image/jpeg", "image/png", "image/gif"].some(
-        type => type === file.type,
+        type => type === file.type
       );
       const isLt10MB = file.size / 10240000 <= 1;
 
@@ -56,12 +56,12 @@ export class UpdateImageForm extends Component {
 
       this.setState({
         file,
-        imagePreview: img.src,
+        imagePreview: img.src
       });
     } catch (e) {
       toast({
         type: "error",
-        message: "Only 10MB (image/jpg,png,gif) files are accepted!",
+        message: "Only 10MB (image/jpg,png,gif) files are accepted!"
       });
     }
   };
@@ -76,8 +76,8 @@ export class UpdateImageForm extends Component {
       this.setState({ error: "Required!" }, () =>
         toast({
           type: "error",
-          message: "You must provide an image to upload!",
-        }),
+          message: "You must provide an image to upload!"
+        })
       );
     } else {
       this.setState({ error: "", isSubmitting: true }, () => {
@@ -193,18 +193,18 @@ UpdateImageForm.propTypes = {
   serverMessage: PropTypes.string,
   showImageForm: PropTypes.bool.isRequired,
   closeForm: PropTypes.func.isRequired,
-  updateUserAvatar: PropTypes.func.isRequired,
+  updateUserAvatar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ authentication, messages }) => ({
   avatar: authentication.avatar,
   serverError: messages.error,
-  serverMessage: messages.message,
+  serverMessage: messages.message
 });
 
 const mapDispatchToProps = {
   createUserAvatar,
-  updateUserAvatar,
+  updateUserAvatar
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateImageForm);

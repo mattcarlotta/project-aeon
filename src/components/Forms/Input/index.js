@@ -18,7 +18,7 @@ const Input = ({
   readOnly,
   type,
   tooltip,
-  value,
+  value
 }) => (
   <div data-testid={name} className={className} style={containerStyle}>
     <ClickHandler value={value}>
@@ -27,7 +27,7 @@ const Input = ({
           className={[
             isFocused && "focused",
             errors && "error",
-            disabled && "disabled",
+            disabled && "disabled"
           ]
             .filter(Boolean)
             .join(" ")}
@@ -60,12 +60,12 @@ const Input = ({
 Input.propTypes = {
   className: PropTypes.string.isRequired,
   containerStyle: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   disabled: PropTypes.bool,
   errors: PropTypes.string,
   inputStyle: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   label: PropTypes.string,
   maxLength: PropTypes.number,
@@ -75,12 +75,12 @@ Input.propTypes = {
   readOnly: PropTypes.bool,
   tooltip: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 Input.defaultProps = {
   disabled: false,
-  readOnly: false,
+  readOnly: false
 };
 
 export default styled(Input)`

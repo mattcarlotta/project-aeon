@@ -3,12 +3,12 @@ import {
   downvoteQuestion,
   findUpdatedQuestion,
   voteOnOwnQuestion,
-  votedOnQuestion,
+  votedOnQuestion
 } from "~database/queries";
 import {
   alreadyVoted,
   cantVoteOnOwnQuestion,
-  unableToLocateQuestion,
+  unableToLocateQuestion
 } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import requireAuth from "~strategies/requireAuth";
@@ -36,32 +36,32 @@ const downvoteUserQuestion = async (req, res) => {
         try {
           const questionBelongsToLoggedinUser = await task.oneOrNone(
             voteOnOwnQuestion,
-            [id, userId],
+            [id, userId]
           );
           if (questionBelongsToLoggedinUser)
             throw String(cantVoteOnOwnQuestion);
 
           const { upvoted, downvoted } = await task.oneOrNone(votedOnQuestion, [
             id,
-            userId,
+            userId
           ]);
           if (upvoted || downvoted) throw String(alreadyVoted);
 
           const upvotedQuestion = await task.oneOrNone(downvoteQuestion, [
             id,
-            userId,
+            userId
           ]);
           if (!upvotedQuestion) throw String(unableToLocateQuestion);
 
           const updatedQuestion = await task.oneOrNone(findUpdatedQuestion, [
             id,
-            userId,
+            userId
           ]);
           return { updatedQuestion };
         } catch (err) {
           return { err };
         }
-      },
+      }
     );
     if (err) throw String(err);
 

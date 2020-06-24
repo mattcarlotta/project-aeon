@@ -16,7 +16,7 @@ const Editor = ({ classes, name, errors, onChange, value, ...rest }) => (
         mdetooltiparrow: "tooltip-arrow",
         mdetextarea: "mde-textarea",
         mdetextareawrapper: `mde-textarea-wrapper ${errors ? "has-error" : ""}`,
-        ...classes,
+        ...classes
       }}
       maxEditorWidth="100%"
       onChange={newValue => onChange({ target: { name, value: newValue } })}
@@ -33,12 +33,12 @@ Editor.propTypes = {
   errors: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 Editor.defaultProps = {
   classes: {},
-  value: "",
+  value: ""
 };
 
 export default Editor;

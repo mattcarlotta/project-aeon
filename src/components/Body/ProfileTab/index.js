@@ -9,7 +9,7 @@ import Website from "~components/Body/Website";
 import UpdateDescription from "~containers/Forms/UpdateDescription";
 
 const subtitleStyle = {
-  padding: "5px 10px",
+  padding: "5px 10px"
 };
 
 const Profile = ({
@@ -19,7 +19,7 @@ const Profile = ({
   lastname,
   showProfileForm,
   toggleProfileForm,
-  website,
+  website
 }) => (
   <>
     {showProfileForm ? (
@@ -75,7 +75,7 @@ Profile.propTypes = {
   lastname: PropTypes.string,
   showProfileForm: PropTypes.bool.isRequired,
   toggleProfileForm: PropTypes.func.isRequired,
-  website: PropTypes.string,
+  website: PropTypes.string
 };
 
 export default Profile;

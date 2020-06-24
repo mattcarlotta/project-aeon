@@ -11,7 +11,7 @@ const LinkComponent = ({
   onClick,
   stopPropagation,
   style,
-  target,
+  target
 }) => (
   <Link href={href} as={asHref} prefetch={false} passHref>
     <a
@@ -35,13 +35,13 @@ LinkComponent.propTypes = {
   onClick: PropTypes.func,
   stopPropagation: PropTypes.bool,
   style: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  target: PropTypes.string,
+  target: PropTypes.string
 };
 
 LinkComponent.defaultProps = {
-  onClick: () => {},
+  onClick: () => {}
 };
 
 export default styled(LinkComponent)`

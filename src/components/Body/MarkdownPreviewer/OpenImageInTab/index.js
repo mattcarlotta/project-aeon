@@ -8,7 +8,7 @@ const OpenImageInTab = ({ alt, src }) => (
 
 OpenImageInTab.propTypes = {
   alt: PropTypes.string,
-  src: PropTypes.string,
+  src: PropTypes.string
 };
 
 export default OpenImageInTab;

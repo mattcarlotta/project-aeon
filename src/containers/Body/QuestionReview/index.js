@@ -27,7 +27,7 @@ class QuestionReview extends Component {
     this.state = {
       ...props,
       addComment: false,
-      isEditing: false,
+      isEditing: false
     };
   }
 
@@ -51,7 +51,7 @@ class QuestionReview extends Component {
               style={{
                 top: 0,
                 left: 0,
-                position: "absolute",
+                position: "absolute"
               }}
             >
               <Voter
@@ -126,7 +126,7 @@ QuestionReview.propTypes = {
   upvoted: PropTypes.bool,
   username: PropTypes.string.isRequired,
   views: PropTypes.number,
-  votes: PropTypes.number,
+  votes: PropTypes.number
 };
 
 export default QuestionReview;

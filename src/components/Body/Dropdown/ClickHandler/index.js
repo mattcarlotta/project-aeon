@@ -4,7 +4,7 @@ import { withRouter } from "next/router";
 
 class ClickHandler extends Component {
   state = {
-    isVisible: false,
+    isVisible: false
   };
 
   componentDidMount() {
@@ -46,7 +46,7 @@ class ClickHandler extends Component {
     >
       {this.props.children({
         isVisible: this.state.isVisible,
-        handleMenuClick: this.handleMenuClick,
+        handleMenuClick: this.handleMenuClick
       })}
     </div>
   );
@@ -55,8 +55,8 @@ class ClickHandler extends Component {
 ClickHandler.propTypes = {
   children: PropTypes.func.isRequired,
   router: PropTypes.shape({
-    pathname: PropTypes.string,
-  }),
+    pathname: PropTypes.string
+  })
 };
 
 export default withRouter(ClickHandler);
