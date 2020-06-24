@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
+  min-height: ${({ minHeight }) => `${minHeight}px`};
   overflow: hidden;
   position: relative;
   word-break: break-word;

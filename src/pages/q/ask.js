@@ -9,7 +9,7 @@ import { wrapper } from "~store";
 
 const AskQuestion = () => (
   <>
-    <Head title="Ask Question" />
+    <Head title="Ask Question" url="q/ask" />
     <PageTitle>Ask Question</PageTitle>
     <Row padding="0 10px">
       <Col md={24} lg={15}>

@@ -4,7 +4,7 @@ import { wrapper } from "~store";
 
 const Dashboard = () => (
   <>
-    <Head title="Dashboard" />
+    <Head title="Dashboard" url="u/dashboard" />
     <h1>Dashboard</h1>
   </>
 );

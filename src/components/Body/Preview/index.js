@@ -7,6 +7,13 @@ export default styled.div`
   overflow-y: auto;
   margin-right: -4px;
   margin-bottom: 20px;
+  ${({ centered }) =>
+    centered
+      ? `
+    text-align: center;
+    margin-top: 25px;
+  `
+      : undefined};
 
   p,
   blockquote,

@@ -4,6 +4,7 @@ import withMiddleware from "~middlewares";
 import { missingQuestionReqs, titleIsTooLong } from "~messages/errors";
 import requireAuth from "~strategies/requireAuth";
 import { createDashedTitle, sendError } from "~utils/helpers";
+import { parseMarkdown } from "~utils/parse";
 
 /**
  * Creates questions.
@@ -22,10 +23,12 @@ const createQuestion = async (req, res) => {
     if (title.length > 250) throw String(titleIsTooLong);
 
     const dashedTitle = createDashedTitle(title);
+    const description = await parseMarkdown(body);
 
     const { id } = await db.one(createNewQuestion, [
       userid,
       body,
+      description,
       tags,
       title,
       dashedTitle

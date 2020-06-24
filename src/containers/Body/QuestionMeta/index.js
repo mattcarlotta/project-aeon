@@ -24,15 +24,20 @@ class QuestionMeta extends Component {
 
   componentDidMount() {
     this.isActive = true;
+    document.addEventListener("scroll", this.clearTimer);
   }
 
   componentWillUnmount() {
+    document.removeEventListener("scroll", this.clearTimer);
     this.clearTimer();
     this.isActive = false;
   }
 
   clearTimer = () => {
-    clearTimeout(this.timer);
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
     if (this.isActive) this.setState(initialState);
   };
 

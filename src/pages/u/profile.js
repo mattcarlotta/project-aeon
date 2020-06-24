@@ -47,7 +47,7 @@ class Profile extends Component {
 
     return (
       <>
-        <Head title="Profile" />
+        <Head title="Profile" url="u/profile" />
         {!isEmpty(settings) ? (
           <Row padding="0 10px">
             <Col md={24} lg={7}>

@@ -7,7 +7,12 @@ import { parseData, parseCookie } from "~utils/parse";
 
 const TagQuestions = ({ data, title }) => (
   <>
-    <Head title={`Newest '${title}' Questions`} />
+    <Head
+      keywords={title}
+      title={`Newest '${title}' Questions`}
+      type="tag"
+      url={`t/${title}`}
+    />
     {data.map(question => (
       <QuestionOverview {...question} key={question.id} />
     ))}

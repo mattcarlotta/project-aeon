@@ -9,7 +9,7 @@ import Link from "~components/Navigation/Link";
 
 const TagNotFound = () => (
   <FlexCenter style={{ height: "75vh" }}>
-    <Head title="Tag Not Found" />
+    <Head title="Tag Not Found" url="tag-not-found" />
     <Center style={{ color: "#03a9f3", padding: "100px" }}>
       <Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
         Tag Not Found.

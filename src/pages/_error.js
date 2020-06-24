@@ -9,7 +9,7 @@ import Link from "~components/Navigation/Link";
 
 const ServerErrorPage = () => (
   <FlexCenter>
-    <Head title="Server Error" />
+    <Head title="Server Error" url="500" />
     <Center style={{ color: "#03a9f3", padding: "100px" }}>
       <Title style={{ color: "#03a9f3", fontSize: "120px" }}>404</Title>
       <Title style={{ color: "#03a9f3", marginTop: "-20px" }}>

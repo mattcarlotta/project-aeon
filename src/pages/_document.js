@@ -40,14 +40,15 @@ class CustomDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:site_name" content="Project Aeon" />
           <meta name="theme-color" content="#000000" />
-          <meta
-            name="description"
-            content="Official website for... something."
-          />
-          <meta name="build version" content={version} />
+          <meta name="msapplication-TileColor" content="#000000" />
+          <meta name="msapplication-navbutton-color" content="#000000" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
+          <meta name="build version" content={version} />
         </Head>
         <body>
           <Main />

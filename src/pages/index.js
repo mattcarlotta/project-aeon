@@ -9,7 +9,7 @@ import Link from "~components/Navigation/Link";
 
 const Home = ({ id }) => (
   <Center>
-    <Head title="Home" />
+    <Head title="Home" url="" />
     <LandingContainer>
       <SubTitle>The best resource for everything.</SubTitle>
       <Link nomargin href={`${id ? "/q/ask" : "/u/signin"}`}>

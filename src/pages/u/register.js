@@ -81,7 +81,7 @@ export class RegisterForm extends Component {
 
   render = () => (
     <FormContainer style={{ margin: "2vh auto 0" }}>
-      <Head title="Register" />
+      <Head title="Register" url="u/register" />
       <h2 css="text-align: center;margin-bottom: 0px;">Register</h2>
       <p css="text-align: center;margin-top: 0px;">for a new account below.</p>
       <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>

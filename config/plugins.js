@@ -8,7 +8,7 @@ const {
   analyzeClientPath,
   analyzeServerPath,
   staticCSSDevPath,
-  staticCSSProdPath,
+  staticCSSProdPath
 } = require("./paths");
 
 const {
@@ -21,7 +21,7 @@ const {
   inStaging,
   inTesting,
   LOCALHOST,
-  PORT,
+  PORT
 } = process.env;
 
 const inDev = inDevelopment === "true";
@@ -44,8 +44,9 @@ module.exports = isServer => {
           inTesting: JSON.stringify(inTesting),
           APIURL: JSON.stringify(APIURL),
           baseURL: JSON.stringify(baseURL),
-        },
-      }),
+          LOCALHOST: JSON.stringify(LOCALHOST)
+        }
+      })
     );
   } else {
     plugins.push(
@@ -53,7 +54,7 @@ module.exports = isServer => {
       new WebpackBar({
         color: "#268bd2",
         minimal: false,
-        compiledIn: false,
+        compiledIn: false
       }),
       /* in console error */
       new FriendlyErrorsWebpackPlugin({
@@ -62,16 +63,16 @@ module.exports = isServer => {
             inDev && `Local development build: \x1b[1m${LOCALHOST}\x1b[0m`,
             inDev &&
               REMOTEADDRESS &&
-              `Remote development build: \x1b[1mhttp://${REMOTEADDRESS}:${PORT}\x1b[0m`,
+              `Remote development build: \x1b[1mhttp://${REMOTEADDRESS}:${PORT}\x1b[0m`
           ].filter(Boolean),
           notes: [
             inDev && "Note that the development build is not optimized.",
             inDev &&
-              "To create a production build, use \x1b[1m\x1b[32myarn build\x1b[0m.\n",
-          ].filter(Boolean),
+              "To create a production build, use \x1b[1m\x1b[32myarn build\x1b[0m.\n"
+          ].filter(Boolean)
         },
-        clearConsole: false,
-      }),
+        clearConsole: false
+      })
     );
   }
 
@@ -80,8 +81,8 @@ module.exports = isServer => {
     plugins.push(
       new BundleAnalyzerPlugin({
         analyzerMode: "static",
-        reportFilename: isServer ? analyzeServerPath : analyzeClientPath,
-      }),
+        reportFilename: isServer ? analyzeServerPath : analyzeClientPath
+      })
     );
   }
 

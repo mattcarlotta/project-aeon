@@ -8,13 +8,13 @@ export default styled.div`
   color: ${({ type }) => {
     switch (type) {
       case "error":
-        return "#ff0000";
+        return "#bf2600";
       case "info":
-        return "#0075e0";
+        return "#0058a9";
       case "warning":
-        return "#f1c40f";
+        return "#886d00";
       case "success":
-        return "#07bc0c";
+        return "#006703";
       default:
         return "#000";
     }

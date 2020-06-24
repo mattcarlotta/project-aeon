@@ -37,11 +37,26 @@ class QuestionReview extends Component {
     this.setState(prevState => ({ addComment: !prevState.addComment }));
 
   render = () => {
-    const { addComment, body, id, isEditing, tags, title } = this.state;
+    const {
+      addComment,
+      body,
+      description,
+      id,
+      isEditing,
+      tags,
+      title,
+      uniquetitle
+    } = this.state;
 
     return (
       <>
-        <Head title={`Question - '${title}'`} />
+        <Head
+          description={description}
+          keywords={tags.join()}
+          title={`Question - '${title}'`}
+          url={`q/${id}/${uniquetitle}`}
+          type="question"
+        />
         <Container centered maxWidth="750px" padding="0px">
           <div css="padding-left: 45px;">
             <FlexCenter
@@ -118,12 +133,14 @@ QuestionReview.propTypes = {
   answered: PropTypes.bool,
   body: PropTypes.string.isRequired,
   comments: PropTypes.number,
+  description: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   downvoted: PropTypes.bool,
   id: PropTypes.number.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   title: PropTypes.string.isRequired,
   upvoted: PropTypes.bool,
+  uniquetitle: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   views: PropTypes.number,
   votes: PropTypes.number

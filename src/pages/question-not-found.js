@@ -9,7 +9,7 @@ import Link from "~components/Navigation/Link";
 
 const QuestionNotFound = () => (
   <FlexCenter style={{ height: "75vh" }}>
-    <Head title="Question Not Found" />
+    <Head title="Question Not Found" url="question-not-found" />
     <Center style={{ color: "#03a9f3", padding: "100px" }}>
       <Title style={{ color: "#03a9f3", marginTop: "-20px" }}>
         Question Not Found.

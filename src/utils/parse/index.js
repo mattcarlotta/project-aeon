@@ -1,5 +1,18 @@
 import get from "lodash.get";
 import isEmpty from "lodash.isempty";
+import remark from "remark";
+import strip from "strip-markdown";
+
+/**
+ * Helper function to parse data from an API response.
+ *
+ * @function
+ * @param {array} res - an API response.
+ * @returns {object} - a parsed data object from res.data.
+ */
+export function parseData(res) {
+  return get(res, ["data"]);
+}
 
 /**
  * Helper function to parse a cookie from an API request.
@@ -16,7 +29,7 @@ export function parseCookie(req) {
 /**
  * Helper function to parse a fields' [name]: value from an array into an object.
  *
- * @function
+ * @function parseFields
  * @param {array} fields - an array containing fields.
  * @returns {object} - parsed fields with [name]: value.
  * @throws {error}
@@ -39,7 +52,7 @@ export function parseFields(fields) {
 /**
  * Helper function to parse a message from an API response.
  *
- * @function
+ * @function parseMessage
  * @param {array} res - an API response.
  * @returns {string} - a parsed message string from res.data.message.
  */
@@ -48,12 +61,35 @@ export function parseMessage(res) {
 }
 
 /**
- * Helper function to parse data from an API response.
+ * Helper function to limit a string to 500 characters.
  *
- * @function
- * @param {array} res - an API response.
- * @returns {object} - a parsed data object from res.data.
+ * @function truncate
+ * @param {array} str - a plain text string
+ * @returns {string} - a truncated plain text string
  */
-export function parseData(res) {
-  return get(res, ["data"]);
+const truncate = str =>
+  str.length > 500 ? str.substr(0, 500 - 1).concat("...") : str;
+
+/**
+ * Helper function to strip markdown to plain text and limit string to 500 characters.
+ *
+ * @function parseMarkdown
+ * @param {string} body - markdown text
+ * @returns {string} - plain text limited to 500 characters.
+ */
+export async function parseMarkdown(body) {
+  let string = "";
+  try {
+    string = await new Promise((res, rej) => {
+      remark()
+        .use(strip)
+        .process(body, (err, { contents }) => (err ? rej(err) : res(contents)));
+    });
+  } catch (e) {
+    string = "Unable to parse.";
+  }
+
+  return truncate(string)
+    .replace(/^(\n{2,})/gm, "")
+    .replace(/\n$/, "");
 }

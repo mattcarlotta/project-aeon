@@ -50,6 +50,7 @@ const questionTableOptions = `(
   title TEXT NOT NULL DEFAULT '',
   uniquetitle VARCHAR NOT NULL DEFAULT '',
   body TEXT NOT NULL DEFAULT '',
+  description TEXT NOT NULL DEFAULT '',
   tags TEXT [] DEFAULT array[]::text[],
   comments JSONB
 )`;

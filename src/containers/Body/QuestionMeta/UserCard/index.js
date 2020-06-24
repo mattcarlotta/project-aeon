@@ -29,11 +29,14 @@ const UserCard = ({ avatar, description, username, reputation, website }) => (
         <UserRep reputation={reputation} />
       </div>
     </Flex>
-    {description && (
-      <MaskPreview maxHeight={80} maskHeight={35}>
-        {description}
-      </MaskPreview>
-    )}
+    <MaskPreview
+      maxHeight={80}
+      maskHeight={35}
+      minHeight={80}
+      fallback="This user hasn't provided a description."
+    >
+      {description}
+    </MaskPreview>
   </UserContainer>
 );
 

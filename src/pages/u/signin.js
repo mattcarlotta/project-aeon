@@ -57,7 +57,7 @@ export class LoginForm extends Component {
 
   render = () => (
     <FormContainer>
-      <Head title="Sign In" />
+      <Head title="Sign In" url="u/signin" />
       <h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
       <p css="text-align: center;margin-top: 0px;">to your account below.</p>
       <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
