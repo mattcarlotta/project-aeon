@@ -12,10 +12,10 @@ export default styled.div`
   background-color: #f9f9f9;
 
   &::before {
-    content: " ";
-    top: 3px;
-    left: 20px;
-    height: 97%;
+    content: "";
+    margin-top: 3px;
+    margin-left: 20px;
+    height: 96.5%;
     position: absolute;
     vertical-align: top;
     width: 2px;
