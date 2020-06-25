@@ -1,5 +1,5 @@
 import db from "~database/connection";
-import { createNewComment } from "~database/queries";
+import { createNewComment, findComment } from "~database/queries";
 import withMiddleware from "~middlewares";
 import { invalidCommentLength, missingCommentReqs } from "~messages/errors";
 import requireAuth from "~strategies/requireAuth";
@@ -17,19 +17,30 @@ import { sendError } from "~utils/helpers";
 const createComments = async (req, res) => {
   try {
     const { body, qid, rid } = req.body;
-    console.log("body", req.body);
     const { id: userid } = req.user;
-    if (!body || body.length < 2) throw String(invalidCommentLength);
+    if (!body || !(body.length >= 5 && body.length <= 500))
+      throw String(invalidCommentLength);
     if (!qid || !rid) throw String(missingCommentReqs);
 
-    const createdComment = await db.one(createNewComment, [
-      userid,
-      body,
-      qid,
-      rid
-    ]);
+    const createdComment = await db.task("create comment", async t => {
+      try {
+        const { id: commentId } = await t.one(createNewComment, [
+          userid,
+          body,
+          qid,
+          rid
+        ]);
 
-    res.status(201).send(createdComment);
+        return t.one(findComment, [commentId, userid]);
+      } catch (err) {
+        return Promise.reject(new Error(err));
+      }
+    });
+
+    res.status(201).send({
+      comment: createdComment,
+      message: "Successfully left a new comment."
+    });
   } catch (err) {
     return sendError(err, res);
   }

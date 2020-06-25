@@ -9,33 +9,31 @@ import app from "~utils/axiosConfig";
 import fieldValidator from "~utils/fieldValidator";
 import fieldUpdater from "~utils/fieldUpdater";
 import { parseData, parseFields } from "~utils/parse";
+import fields from "./Fields";
 
 export class CommentForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      fields: [
-        {
-          name: "body",
-          type: "editor",
-          value: props.value || "",
-          errors: "",
-          required: true,
-          disableGrip: true,
-          maxEditorHeight: 140,
-          showCharacterLength: true,
-          classes: {
-            mde: "mde-comment",
-            mdetextareawrapper: "mde-textarea-wrapper"
-          },
-          css: "margin-bottom: 10px;height: 200px;",
-          maxCharacterLength: "500",
-          textAreaProps: { placeholder: "Add a comment..." }
-        }
-      ],
+      fields: fields(props.value),
       isSubmitting: false
     };
+  }
+
+  componentDidUpdate = prevProps => {
+    const { isCommenting, value } = this.props;
+
+    if (prevProps.isCommenting !== isCommenting) {
+      this.timer = setTimeout(() => {
+        if (this.formRef)
+          this.setState({ fields: fields(value), isSubmitting: false });
+      }, 300);
+    }
+  };
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -63,9 +61,9 @@ export class CommentForm extends Component {
             });
             const data = parseData(res);
 
-            toast({ type: "success", message: data.message });
+            toast({ type: "info", message: data.message });
 
-            this.props.updateQuestion(data);
+            this.props.handleChange(data.comment);
           } catch (err) {
             toast({ type: "error", message: err.toString() });
             this.setState({ isSubmitting: false });
@@ -76,7 +74,11 @@ export class CommentForm extends Component {
   };
 
   render = () => (
-    <form id="comment-form" onSubmit={this.handleSubmit}>
+    <form
+      ref={node => (this.formRef = node)}
+      id="comment-form"
+      onSubmit={this.handleSubmit}
+    >
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
       <Flex>
         <FlexSpaceEvenly>
@@ -99,10 +101,11 @@ export class CommentForm extends Component {
 
 CommentForm.propTypes = {
   cancelComment: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  isCommenting: PropTypes.bool.isRequired,
   qid: PropTypes.number.isRequired,
-  updateQuestion: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  rid: PropTypes.number.isRequired
+  rid: PropTypes.number.isRequired,
+  value: PropTypes.string
 };
 
 export default CommentForm;

@@ -71,7 +71,8 @@ const parseSession = req => get(req, ["session", "id"]);
  * @function sendError
  * @returns {function}
  */
-const sendError = (err, res) => res.status(400).json({ err: err.toString() });
+const sendError = (err, res) =>
+  res.status(400).json({ err: err.toString().replace("Error:", "") });
 
 /**
  * Helper function to check if an array contains duplicate values.

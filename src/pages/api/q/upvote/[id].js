@@ -48,11 +48,7 @@ const upvoteUserQuestion = async (req, res) => {
         ]);
         if (!upvotedQuestion) throw String(unableToLocateQuestion);
 
-        const updatedQuestion = await task.oneOrNone(findUpdatedQuestion, [
-          id,
-          userId
-        ]);
-        return updatedQuestion;
+        return task.one(findUpdatedQuestion, [id, userId]);
       } catch (err) {
         return Promise.reject(new Error(err));
       }

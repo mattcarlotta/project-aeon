@@ -94,17 +94,17 @@ class PostMeta extends Component {
             </Grow>
           </div>
         </QuestionDetails>
-        <QuestionDetails> · </QuestionDetails>
+        <QuestionDetails> • </QuestionDetails>
         <Timestamp date={date} />
         {showPoints && (
           <>
-            <QuestionDetails> · </QuestionDetails>
+            <QuestionDetails> • </QuestionDetails>
             <QuestionDetails>{round(votes)}pts</QuestionDetails>
           </>
         )}
         {showViews && (
           <>
-            <QuestionDetails> · </QuestionDetails>
+            <QuestionDetails> • </QuestionDetails>
             <QuestionDetails>views: {round(views)}</QuestionDetails>
           </>
         )}

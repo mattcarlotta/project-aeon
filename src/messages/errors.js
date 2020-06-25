@@ -6,10 +6,13 @@ const alreadyVerified =
   "It looks like you have already been verified. You can log into your account at any time.";
 
 const alreadyVoted =
-  "Unable to count the vote as it looks like you've have already voted on this question before.";
+  "Unable to count the vote as it looks like you've have already voted on this before.";
 
 const badCredentials =
   "There was a problem with your login credentials. Please make sure your username and password are correct.";
+
+const cantVoteOnOwnComment =
+  "Unable to count the vote as it looks like you tried to vote on your own comment!";
 
 const cantVoteOnOwnQuestion =
   "Unable to count the vote as it looks like you tried to vote on your own question!";
@@ -21,7 +24,7 @@ const emptyPassword =
   "You must supply a new password in order to reset the old. Please try again.";
 
 const invalidCommentLength =
-  "Invalid request. You must supply at least a comment body longer than 3 characters in order to create a new question.";
+  "Invalid request. You must supply at least a comment body longer than 5 and less than 500 characters in order to leave a comment.";
 
 const invalidEmail =
   "That email is not associated with an active account. Please make sure to supply a valid registered email in order to resend a verification!";
@@ -65,13 +68,16 @@ const notLoggedIn =
 const titleIsTooLong =
   "Unable to save the question. The question title should be 250 characters or less.";
 
+const unableToLocateComment =
+  "Unable to locate the comment because the request does not contain a valid comment id.";
+
 const unableToLocateQuestion =
-  "Unable to locate the question because the URL does not contain a valid question id.";
+  "Unable to locate the question because the request does not contain a valid question id.";
 
 const unableToLocateQuestions = "Unable to locate any questions.";
 
 const unableToLocateTag =
-  "Unable to locate the requested tag because the URL does not contain a valid tag name.";
+  "Unable to locate the requested tag because the request does not contain a valid tag name.";
 
 const unableToLocateTaggedQuestions =
   "Unable to locate any questions associated with the requested tag. Please make sure the tag is valid.";
@@ -89,6 +95,7 @@ export {
   alreadyVerified,
   alreadyVoted,
   badCredentials,
+  cantVoteOnOwnComment,
   cantVoteOnOwnQuestion,
   emailAlreadyTaken,
   emptyPassword,
@@ -107,6 +114,7 @@ export {
   missingSignupCreds,
   notLoggedIn,
   titleIsTooLong,
+  unableToLocateComment,
   unableToLocateQuestion,
   unableToLocateQuestions,
   unableToLocateTag,

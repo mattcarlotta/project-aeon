@@ -33,19 +33,14 @@ class QuestionReview extends Component {
       question,
       addComment: false,
       collapseComments: false,
-      isEditing: false
+      isEditing: false,
+      isCommenting: false
     };
   }
 
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
-
-  handleUpdatedQuestion = data => {
-    this.setState(prevState => ({
-      question: { ...prevState.question, ...data }
-    }));
-  };
 
   handleScroll = id => {
     this.timer = setTimeout(() => {
@@ -57,6 +52,23 @@ class QuestionReview extends Component {
       });
     }, 200);
   };
+
+  handleUpdatedQuestion = data => {
+    this.setState(prevState => ({
+      question: { ...prevState.question, ...data }
+    }));
+  };
+
+  handleAddComment = data =>
+    this.setState(prevState => ({
+      addComment: false,
+      collapseComments: false,
+      isCommenting: false,
+      question: {
+        ...prevState.question,
+        comments: [...prevState.question.comments, data]
+      }
+    }));
 
   toggleComments = () =>
     this.setState(
@@ -70,7 +82,11 @@ class QuestionReview extends Component {
 
   toggleCommentForm = () =>
     this.setState(
-      prevState => ({ addComment: !prevState.addComment, isEditing: false }),
+      prevState => ({
+        addComment: !prevState.addComment,
+        isEditing: false,
+        isCommenting: !prevState.isCommenting
+      }),
       () => {
         if (this.state.addComment) this.handleScroll("comment-form");
       }
@@ -81,7 +97,8 @@ class QuestionReview extends Component {
       addComment,
       collapseComments,
       question: { body, comments, description, id, tags, title, uniquetitle },
-      isEditing
+      // isEditing,
+      isCommenting
     } = this.state;
 
     const hasComments = !isEmpty(comments);
@@ -150,30 +167,31 @@ class QuestionReview extends Component {
               </CommentsContainer>
             </Collapse>
           )}
-          {!isEditing && (
-            <div
-              css={`
-                padding: 0px 10px 10px 10px;
-                background: ${collapseComments ? "#fff" : "#f9f9f9"};
-              `}
-            >
-              <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
-                <span>
-                  <Button input onClick={this.toggleCommentForm}>
-                    Reply
-                  </Button>
-                </span>
-              </Fade>
-              <Collapse in={addComment}>
-                <CommentForm
-                  cancelComment={this.toggleCommentForm}
-                  qid={id}
-                  updateQuestion={this.handleUpdatedQuestion}
-                  rid={id}
-                />
-              </Collapse>
-            </div>
-          )}
+          <div
+            css={`
+              padding: 5px 10px 10px 10px;
+              background: ${collapseComments || !hasComments
+                ? "#fff"
+                : "#f9f9f9"};
+            `}
+          >
+            <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
+              <span>
+                <Button input onClick={this.toggleCommentForm}>
+                  Reply
+                </Button>
+              </span>
+            </Fade>
+            <Collapse in={isCommenting}>
+              <CommentForm
+                cancelComment={this.toggleCommentForm}
+                isCommenting={isCommenting}
+                qid={id}
+                handleChange={this.handleAddComment}
+                rid={id}
+              />
+            </Collapse>
+          </div>
         </Container>
       </>
     );

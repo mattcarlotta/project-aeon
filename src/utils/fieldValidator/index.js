@@ -31,8 +31,11 @@ export default fields => {
         )
           errors = "Invalid email";
 
-        if (name === "password" && value.length < 5)
-          errors = "Password too short";
+        if (name === "password" && value.length < 4)
+          errors = "Password is too short";
+
+        if (name === "body" && value.length < 4)
+          errors = "Message body is too short";
       }
 
       if (errors) errorCount += 1;
