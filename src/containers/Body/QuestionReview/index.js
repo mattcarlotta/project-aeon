@@ -222,7 +222,7 @@ class QuestionReview extends Component {
           )}
           <div
             css={`
-              padding: 5px 10px 10px 10px;
+              padding: 10px;
               background: ${collapseComments || !hasComments
                 ? "#fff"
                 : "#f9f9f9"};
@@ -232,7 +232,7 @@ class QuestionReview extends Component {
               <>
                 <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
                   <span>
-                    <Button input onClick={this.toggleCommentForm}>
+                    <Button input radius="4px" onClick={this.toggleCommentForm}>
                       Reply
                     </Button>
                   </span>
