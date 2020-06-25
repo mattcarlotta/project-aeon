@@ -39,11 +39,8 @@ const downvoteUserComment = async (req, res) => {
         );
         if (commentBelongsToLoggedinUser) throw String(cantVoteOnOwnComment);
 
-        const { downvoted } = await task.oneOrNone(votedOnComment, [
-          id,
-          userId
-        ]);
-        if (downvoted) throw String(alreadyVoted);
+        const comment = await task.oneOrNone(votedOnComment, [id, userId]);
+        if (comment && comment.downvoted) throw String(alreadyVoted);
 
         const downvotedComment = await task.oneOrNone(downvoteComment, [
           id,

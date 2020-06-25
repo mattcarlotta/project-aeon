@@ -53,9 +53,10 @@ export class CommentForm extends Component {
       async () => {
         if (!errors) {
           try {
-            const { qid, rid } = this.props;
-            const res = await app.post("c/create", {
+            const { id, qid, rid, URL } = this.props;
+            const res = await app.post(URL, {
               ...parseFields(validatedFields),
+              id,
               qid,
               rid
             });
@@ -100,12 +101,14 @@ export class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
+  id: PropTypes.string,
   cancelComment: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   isCommenting: PropTypes.bool.isRequired,
   qid: PropTypes.number.isRequired,
-  rid: PropTypes.number.isRequired,
-  value: PropTypes.string
+  rid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  value: PropTypes.string,
+  URL: PropTypes.string.isRequired
 };
 
 export default CommentForm;

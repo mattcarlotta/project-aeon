@@ -18,10 +18,10 @@ import { parseMarkdown } from "~utils/parse";
 const createQuestion = async (req, res) => {
   try {
     const { body, title, tags } = req.body;
-    const { id: userid } = req.user;
     if (!body || !title) throw String(missingQuestionReqs);
     if (title.length > 250) throw String(titleIsTooLong);
 
+    const { id: userid } = req.user;
     const dashedTitle = createDashedTitle(title);
     const description = await parseMarkdown(body);
 

@@ -19,6 +19,7 @@ const fetchUserQuestion = async (req, res) => {
     const { id } = req.query;
     if (!id || Number.isNaN(parseInt(id, 10)))
       throw String(unableToLocateQuestion);
+
     const userid = get(req.session, ["id"]);
 
     const { question } = await db.task("fetch user question", async t => {

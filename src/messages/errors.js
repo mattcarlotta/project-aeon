@@ -44,48 +44,55 @@ const invalidStatus =
 const missingEmailCreds =
   "That email is not associated with an active account. Please make sure the email address is spelled correctly.";
 
+const missingCommentId =
+  "Invalid request. Unable to update the comment because the request is missing a valid comment id.";
+
 const missingCommentReqs =
   "Invalid request. Unable to create a new comment because the request is missing an associated table id.";
 
 const missingNames =
-  "You must supply at least a username, a first name and a last name!";
+  "Invalid request. You must supply at least a username, a first name and a last name!";
 
 const missingQuestionReqs =
   "Invalid request. You must supply at least a title and a body in order to create a new question.";
 
 const missingPasswords =
-  "You must supply both your current password and a new password.";
+  "Invalid request. You must supply both your current password and a new password.";
 
 const missingSigninCredentials =
-  "Invalid login request. You must supply a valid email and password!";
+  "Invalid request. You must supply a valid email and password!";
 
 const missingSignupCreds =
-  "Invalid sign up request. You must supply a valid: email, first name, last name and password.";
+  "Invalid request. You must supply a valid: email, first name, last name and password.";
 
 const notLoggedIn =
-  "You must have an account and be signed in before you can do that.";
+  "Invalid request. You must have an account and be signed in before you can do that.";
 
 const titleIsTooLong =
   "Unable to save the question. The question title should be 250 characters or less.";
 
 const unableToLocateComment =
-  "Unable to locate the comment because the request does not contain a valid comment id.";
+  "Invalid request. Unable to locate the comment because the request does not contain a valid comment id.";
 
 const unableToLocateQuestion =
-  "Unable to locate the question because the request does not contain a valid question id.";
+  "Invalid request. Unable to locate the question because the request does not contain a valid question id.";
 
-const unableToLocateQuestions = "Unable to locate any questions.";
+const unableToLocateQuestions =
+  "Invalid request. Unable to locate any questions.";
 
 const unableToLocateTag =
-  "Unable to locate the requested tag because the request does not contain a valid tag name.";
+  "Invalid request. Unable to locate the requested tag because the request does not contain a valid tag name.";
 
 const unableToLocateTaggedQuestions =
-  "Unable to locate any questions associated with the requested tag. Please make sure the tag is valid.";
+  "Invalid request. Unable to locate any questions associated with the requested tag. Please make sure the tag is valid.";
 
 const unableToLocateUser = "Unable to locate the requested user.";
 
+const unableToRemoveComment =
+  "Invalid request. Unable to remove the comment because the request is missing a valid comment id.";
+
 const unableToRemoveVote =
-  "Unable to locate the vote to be removed as it looks like you haven't voted on this question yet.";
+  "Invalid request. Unable to locate the vote to be removed as it looks like you haven't voted on this question yet.";
 
 const usernameAlreadyTaken =
   "Uh oh, it appears that username is already taken. Please choose another name.";
@@ -105,6 +112,7 @@ export {
   invalidSession,
   invalidSignupEmail,
   invalidStatus,
+  missingCommentId,
   missingCommentReqs,
   missingEmailCreds,
   missingNames,
@@ -120,6 +128,7 @@ export {
   unableToLocateTag,
   unableToLocateTaggedQuestions,
   unableToLocateUser,
+  unableToRemoveComment,
   unableToRemoveVote,
   usernameAlreadyTaken
 };

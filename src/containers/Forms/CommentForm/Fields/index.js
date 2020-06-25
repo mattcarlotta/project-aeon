@@ -6,14 +6,15 @@ const fields = value => [
     errors: "",
     required: true,
     disableGrip: true,
+    disableToolbar: !!value,
     maxEditorHeight: 140,
-    showCharacterLength: true,
+    showCharacterLength: !value,
     classes: {
       mde: "mde-comment",
       mdetextareawrapper: "mde-textarea-wrapper"
     },
-    css: "margin-bottom: 10px;height: 200px;",
-    maxCharacterLength: "500",
+    css: `margin-bottom: 10px;height: ${!value ? "200px" : "150px"};`,
+    maxCharacterLength: "1000",
     textAreaProps: { placeholder: "Add a comment..." }
   }
 ];

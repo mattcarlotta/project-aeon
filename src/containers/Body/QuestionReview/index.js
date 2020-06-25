@@ -1,26 +1,30 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
+import { connect } from "react-redux";
 import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
 import CommentsContainer from "~components/Body/CommentsContainer";
 import Container from "~components/Body/Container";
+import Comment from "~containers/Body/Comment";
 import FlexCenter from "~components/Body/FlexCenter";
 import LoadingItem from "~components/Body/LoadingItem";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import QuestionContainer from "~components/Body/QuestionContainer";
 import NoSSR from "~components/Body/NoSSR";
+import PostMeta from "~containers/Body/PostMeta";
 import Preview from "~components/Body/Preview";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
+import toast from "~components/Body/Toast";
 import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
 import Link from "~components/Navigation/Link";
-import Comment from "~containers/Body/Comment";
-import PostMeta from "~containers/Body/PostMeta";
 import CommentForm from "~containers/Forms/CommentForm";
+import app from "~utils/axiosConfig";
+import { parseMessage } from "~utils/parse";
 
 class QuestionReview extends Component {
   constructor(props) {
@@ -33,7 +37,7 @@ class QuestionReview extends Component {
       question,
       addComment: false,
       collapseComments: false,
-      isEditing: false,
+      isEditingComment: false,
       isCommenting: false
     };
   }
@@ -48,10 +52,22 @@ class QuestionReview extends Component {
 
       window.scrollTo({
         behavior: element ? "smooth" : "auto",
-        top: element ? element.offsetTop : 0
+        top: element ? element.offsetTop + 80 : 0
       });
     }, 200);
   };
+
+  handleCommentEditing = () =>
+    this.setState(
+      prevState => ({
+        addComment: false,
+        isCommenting: false,
+        isEditingComment: !prevState.isEditingComment
+      }),
+      () => {
+        if (this.state.isEditingComment) this.handleScroll("comment-form");
+      }
+    );
 
   handleUpdatedQuestion = data => {
     this.setState(prevState => ({
@@ -64,16 +80,39 @@ class QuestionReview extends Component {
       addComment: false,
       collapseComments: false,
       isCommenting: false,
+      isEditingComment: false,
       question: {
         ...prevState.question,
         comments: [...prevState.question.comments, data]
       }
     }));
 
+  handleRemoveComment = id =>
+    this.setState(prevState => ({
+      question: {
+        ...prevState.question,
+        comments: prevState.question.comments.filter(c => c.id !== id)
+      }
+    }));
+
+  handleDeleteComment = async id => {
+    try {
+      const res = await app.delete(`c/delete/${id}`);
+      const message = parseMessage(res);
+
+      toast({ type: "info", message });
+
+      if (this.containerRef) this.handleRemoveComment(id);
+    } catch (err) {
+      toast({ type: "error", message: err.toString() });
+    }
+  };
+
   toggleComments = () =>
     this.setState(
       prevState => ({
-        collapseComments: !prevState.collapseComments
+        collapseComments: !prevState.collapseComments,
+        isEditingComment: false
       }),
       () => {
         if (!this.state.collapseComments) this.handleScroll("comments");
@@ -84,7 +123,7 @@ class QuestionReview extends Component {
     this.setState(
       prevState => ({
         addComment: !prevState.addComment,
-        isEditing: false,
+        isEditingComment: false,
         isCommenting: !prevState.isCommenting
       }),
       () => {
@@ -97,9 +136,11 @@ class QuestionReview extends Component {
       addComment,
       collapseComments,
       question: { body, comments, description, id, tags, title, uniquetitle },
-      // isEditing,
+      isEditingComment,
       isCommenting
     } = this.state;
+
+    const { loggedInUserId } = this.props;
 
     const hasComments = !isEmpty(comments);
 
@@ -112,7 +153,12 @@ class QuestionReview extends Component {
           url={`q/${id}/${uniquetitle}`}
           type="question"
         />
-        <Container centered maxWidth="750px" padding="0px">
+        <Container
+          ref={node => (this.containerRef = node)}
+          centered
+          maxWidth="750px"
+          padding="0px"
+        >
           <div css="padding-left: 45px;">
             <FlexCenter floating direction="column" height="120px" width="45px">
               <Voter
@@ -146,7 +192,7 @@ class QuestionReview extends Component {
                 <MarkdownPreviewer>{body}</MarkdownPreviewer>
               </Preview>
               <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
-              {hasComments && (
+              {hasComments && !isEditingComment && (
                 <Button
                   plain
                   centered
@@ -162,7 +208,14 @@ class QuestionReview extends Component {
             <Collapse in={!collapseComments}>
               <CommentsContainer id="comments">
                 {comments.map(comment => (
-                  <Comment key={comment.id} {...comment} />
+                  <Comment
+                    {...comment}
+                    key={comment.id}
+                    deleteComment={this.handleDeleteComment}
+                    isEditingComment={isEditingComment}
+                    loggedInUserId={loggedInUserId}
+                    toggleCommentEditing={this.handleCommentEditing}
+                  />
                 ))}
               </CommentsContainer>
             </Collapse>
@@ -175,22 +228,27 @@ class QuestionReview extends Component {
                 : "#f9f9f9"};
             `}
           >
-            <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
-              <span>
-                <Button input onClick={this.toggleCommentForm}>
-                  Reply
-                </Button>
-              </span>
-            </Fade>
-            <Collapse in={isCommenting}>
-              <CommentForm
-                cancelComment={this.toggleCommentForm}
-                isCommenting={isCommenting}
-                qid={id}
-                handleChange={this.handleAddComment}
-                rid={id}
-              />
-            </Collapse>
+            {!isEditingComment && (
+              <>
+                <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
+                  <span>
+                    <Button input onClick={this.toggleCommentForm}>
+                      Reply
+                    </Button>
+                  </span>
+                </Fade>
+                <Collapse in={isCommenting}>
+                  <CommentForm
+                    cancelComment={this.toggleCommentForm}
+                    isCommenting={isCommenting}
+                    qid={id}
+                    handleChange={this.handleAddComment}
+                    rid={id}
+                    URL="c/create"
+                  />
+                </Collapse>
+              </>
+            )}
           </div>
         </Container>
       </>
@@ -209,6 +267,7 @@ QuestionReview.propTypes = {
   //     votes: PropTypes.number
   //   })
   // ),
+  loggedInUserId: PropTypes.string,
   question: PropTypes.shape({
     answered: PropTypes.bool,
     body: PropTypes.string.isRequired,
@@ -241,4 +300,8 @@ QuestionReview.propTypes = {
   })
 };
 
-export default QuestionReview;
+const mapStateToProps = ({ authentication }) => ({
+  loggedInUserId: authentication.id
+});
+
+export default connect(mapStateToProps)(QuestionReview);

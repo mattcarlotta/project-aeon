@@ -1,31 +1,32 @@
 import db from "~database/connection";
-import { createNewComment, findComment } from "~database/queries";
+import { updateComment, findComment } from "~database/queries";
 import withMiddleware from "~middlewares";
-import { invalidCommentLength, missingCommentReqs } from "~messages/errors";
+import { invalidCommentLength, missingCommentId } from "~messages/errors";
 import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
 
 /**
- * Creates comments to questions and answers.
+ * Updates a comment body.
  *
- * @function createComments
+ * @function updateUserComment
  * @param {object} req
  * @param {object} res
  * @returns {string} message
  * @throws {string} err
  */
-const createComments = async (req, res) => {
+const updateUserComment = async (req, res) => {
   try {
-    const { body, qid, rid } = req.body;
+    const { id, body } = req.body;
     if (!body || !(body.length >= 5 && body.length <= 1000))
       throw String(invalidCommentLength);
 
     const { id: userid } = req.user;
-    if (!qid || !rid) throw String(missingCommentReqs);
+    if (!id) throw String(missingCommentId);
 
-    const createdComment = await db.task("create comment", async t => {
+    const updatedComment = await db.task("update comment", async t => {
       try {
-        const comment = await t.one(createNewComment, [userid, body, qid, rid]);
+        const comment = await t.oneOrNone(updateComment, [id, userid, body]);
+        if (!comment) throw String(missingCommentId);
 
         return t.one(findComment, [comment.id, userid]);
       } catch (err) {
@@ -34,12 +35,12 @@ const createComments = async (req, res) => {
     });
 
     res.status(201).send({
-      comment: createdComment,
-      message: "Successfully left a new comment."
+      comment: updatedComment,
+      message: "Successfully updated the comment."
     });
   } catch (err) {
     return sendError(err, res);
   }
 };
 
-export default withMiddleware(requireAuth(createComments));
+export default withMiddleware(requireAuth(updateUserComment));

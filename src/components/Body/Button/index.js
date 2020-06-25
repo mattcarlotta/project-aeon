@@ -91,6 +91,7 @@ export default styled(Button)`
   height: ${({ height }) => height || undefined};
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
+  font-size: ${({ fontSize }) => fontSize || "15px"};
   border-radius: ${({ radius }) => radius || "50px"};
   ${({ margin, centered }) =>
     centered
@@ -116,7 +117,7 @@ export default styled(Button)`
         props.downvoted ? "#ff0000" : props.overlay ? "#ccc" : "#000"
       };`;
     if (props.plain)
-      return "border: 0;background-color:transparent;color:#03a9f3;";
+      return "border: 0;background-color:transparent;color:#000;";
     if (props.alt || props.downvote || props.upvote)
       return "border: 0;background-color:transparent;color:#ddd;";
     if (props.input)
@@ -135,7 +136,7 @@ export default styled(Button)`
         return "border-color:#0f7ae5;background-color:#0f7ae5;";
       if (props.danger)
         return "border-color:#ee395b;background-color:transparent;color:#ee395b;";
-      if (props.plain) return "color:#0f7ae5;background-color: #ebebeb;";
+      if (props.plain) return "color:#000;background-color: #ebebeb;";
       if (props.link) return "color:#40a9ff;";
       if (props.alt) return "color:#fff;";
       if (props.downvote) return "color: #ff0000;";

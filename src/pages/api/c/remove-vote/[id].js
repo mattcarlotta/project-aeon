@@ -28,11 +28,9 @@ const removeVoteUserComment = async (req, res) => {
 
     const updatedComment = await db.task("remove vote comment", async task => {
       try {
-        const { upvoted, downvoted } = await task.oneOrNone(votedOnComment, [
-          id,
-          userId
-        ]);
-        if (!upvoted && !downvoted) throw String(unableToRemoveVote);
+        const comment = await task.oneOrNone(votedOnComment, [id, userId]);
+        if (!comment || !comment.upvoted || !comment.downvoted)
+          throw String(unableToRemoveVote);
 
         const upvotedComment = await task.oneOrNone(removeVoteFromComment, [
           id,
