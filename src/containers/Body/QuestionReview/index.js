@@ -26,11 +26,10 @@ class QuestionReview extends Component {
   constructor(props) {
     super(props);
 
-    const { comments, question } = props; // answers
+    const { question } = props; // answers
 
     this.state = {
       // answers,
-      comments,
       question,
       addComment: false,
       collapseComments: false,
@@ -47,8 +46,6 @@ class QuestionReview extends Component {
       question: { ...prevState.question, ...data }
     }));
   };
-
-  // handleCommentSubmission = data => this.setState({ ...data })
 
   handleScroll = id => {
     this.timer = setTimeout(() => {
@@ -83,13 +80,11 @@ class QuestionReview extends Component {
     const {
       addComment,
       collapseComments,
-      comments,
-      question: { body, description, id, tags, title, uniquetitle },
+      question: { body, comments, description, id, tags, title, uniquetitle },
       isEditing
     } = this.state;
 
-    const questionComments = comments.filter(c => c.rid !== id);
-    const hasComments = !isEmpty(questionComments);
+    const hasComments = !isEmpty(comments);
 
     return (
       <>
@@ -109,7 +104,7 @@ class QuestionReview extends Component {
               />
             </FlexCenter>
             <QuestionContainer>
-              <PostMeta {...this.state.question} />
+              <PostMeta {...this.state.question} showViews />
               <NoSSR fallback={<LoadingItem />}>
                 <Affix
                   {...this.state.question}
@@ -149,7 +144,7 @@ class QuestionReview extends Component {
           {hasComments && (
             <Collapse in={!collapseComments}>
               <CommentsContainer id="comments">
-                {questionComments.map(comment => (
+                {comments.map(comment => (
                   <Comment key={comment.id} {...comment} />
                 ))}
               </CommentsContainer>
@@ -196,24 +191,24 @@ QuestionReview.propTypes = {
   //     votes: PropTypes.number
   //   })
   // ),
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      uid: PropTypes.string,
-      qid: PropTypes.number,
-      rid: PropTypes.string,
-      date: PropTypes.string,
-      body: PropTypes.string,
-      upvoted: PropTypes.bool,
-      downvoted: PropTypes.bool,
-      username: PropTypes.string,
-      votes: PropTypes.number
-    })
-  ),
   question: PropTypes.shape({
     answered: PropTypes.bool,
     body: PropTypes.string.isRequired,
     commentcount: PropTypes.number,
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        uid: PropTypes.string,
+        qid: PropTypes.number,
+        rid: PropTypes.string,
+        date: PropTypes.string,
+        body: PropTypes.string,
+        upvoted: PropTypes.bool,
+        downvoted: PropTypes.bool,
+        username: PropTypes.string,
+        votes: PropTypes.number
+      })
+    ),
     description: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     downvoted: PropTypes.bool,

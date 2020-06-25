@@ -53,6 +53,19 @@ UserQuestion.propTypes = {
     answers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
+        comments: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string,
+            qid: PropTypes.number,
+            uid: PropTypes.string,
+            date: PropTypes.string,
+            rid: PropTypes.string,
+            body: PropTypes.string,
+            upvoted: PropTypes.bool,
+            downvoted: PropTypes.bool,
+            votes: PropTypes.number
+          })
+        ),
         uid: PropTypes.string,
         qid: PropTypes.string,
         date: PropTypes.string,
@@ -60,22 +73,22 @@ UserQuestion.propTypes = {
         votes: PropTypes.number
       })
     ),
-    comments: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        qid: PropTypes.number,
-        uid: PropTypes.string,
-        date: PropTypes.string,
-        rid: PropTypes.string,
-        body: PropTypes.string,
-        upvoted: PropTypes.bool,
-        downvoted: PropTypes.bool,
-        votes: PropTypes.number
-      })
-    ),
     question: PropTypes.shape({
       answered: PropTypes.bool,
       body: PropTypes.string.isRequired,
+      comments: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          qid: PropTypes.number,
+          uid: PropTypes.string,
+          date: PropTypes.string,
+          rid: PropTypes.string,
+          body: PropTypes.string,
+          upvoted: PropTypes.bool,
+          downvoted: PropTypes.bool,
+          votes: PropTypes.number
+        })
+      ),
       commentcount: PropTypes.number,
       description: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired,

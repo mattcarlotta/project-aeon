@@ -26,44 +26,37 @@ import { sendError } from "~utils/helpers";
 const upvoteUserQuestion = async (req, res) => {
   try {
     const { id } = req.query;
-    if (!id) throw String(unableToLocateQuestion);
+    if (!id || Number.isNaN(parseInt(id, 10)))
+      throw String(unableToLocateQuestion);
 
     const { id: userId } = req.session;
 
-    const { updatedQuestion, err } = await db.task(
-      "up vote question",
-      async task => {
-        try {
-          const questionBelongsToLoggedinUser = await task.oneOrNone(
-            voteOnOwnQuestion,
-            [id, userId]
-          );
-          if (questionBelongsToLoggedinUser)
-            throw String(cantVoteOnOwnQuestion);
+    const updatedQuestion = await db.task("up vote question", async task => {
+      try {
+        const questionBelongsToLoggedinUser = await task.oneOrNone(
+          voteOnOwnQuestion,
+          [id, userId]
+        );
+        if (questionBelongsToLoggedinUser) throw String(cantVoteOnOwnQuestion);
 
-          const { upvoted } = await task.oneOrNone(votedOnQuestion, [
-            id,
-            userId
-          ]);
-          if (upvoted) throw String(alreadyVoted);
+        const { upvoted } = await task.oneOrNone(votedOnQuestion, [id, userId]);
+        if (upvoted) throw String(alreadyVoted);
 
-          const upvotedQuestion = await task.oneOrNone(upvoteQuestion, [
-            id,
-            userId
-          ]);
-          if (!upvotedQuestion) throw String(unableToLocateQuestion);
+        const upvotedQuestion = await task.oneOrNone(upvoteQuestion, [
+          id,
+          userId
+        ]);
+        if (!upvotedQuestion) throw String(unableToLocateQuestion);
 
-          const updatedQuestion = await task.oneOrNone(findUpdatedQuestion, [
-            id,
-            userId
-          ]);
-          return { updatedQuestion };
-        } catch (err) {
-          return { err };
-        }
+        const updatedQuestion = await task.oneOrNone(findUpdatedQuestion, [
+          id,
+          userId
+        ]);
+        return updatedQuestion;
+      } catch (err) {
+        return Promise.reject(new Error(err));
       }
-    );
-    if (err) throw String(err);
+    });
 
     res.status(201).send(updatedQuestion);
   } catch (err) {

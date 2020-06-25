@@ -1,10 +1,6 @@
 import get from "lodash.get";
 import db from "~database/connection";
-import {
-  findComments,
-  findQuestion,
-  updateQuestionViewCount
-} from "~database/queries";
+import { findQuestion, updateQuestionViewCount } from "~database/queries";
 import { unableToLocateQuestion } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import { sendError } from "~utils/helpers";
@@ -21,34 +17,26 @@ import { sendError } from "~utils/helpers";
 const fetchUserQuestion = async (req, res) => {
   try {
     const { id } = req.query;
-    if (!id) throw String(unableToLocateQuestion);
+    if (!id || Number.isNaN(parseInt(id, 10)))
+      throw String(unableToLocateQuestion);
     const userid = get(req.session, ["id"]);
 
-    const invalidId = id.match("^[A-Za-z]+$");
-    const santizedId = id.replace(/\D+/g, "");
-    if (invalidId || !santizedId) throw String(unableToLocateQuestion);
-
-    const { question, comments } = await db.task(
-      "fetch user question",
-      async t => {
-        const question = await t.oneOrNone(findQuestion, [santizedId, userid]);
+    const { question } = await db.task("fetch user question", async t => {
+      try {
+        const question = await t.oneOrNone(findQuestion, [id, userid]);
         if (!question) throw String(unableToLocateQuestion);
 
-        await t.none(updateQuestionViewCount, [santizedId]);
+        await t.none(updateQuestionViewCount, [id]);
 
-        const existingComments = await t.oneOrNone(findComments, [
-          santizedId,
-          userid
-        ]);
-        const comments = get(existingComments, ["comments"]);
-
-        return { question, comments };
+        return { question };
+      } catch (error) {
+        return Promise.reject(new Error(error));
       }
-    );
+    });
 
     // answers
 
-    res.status(201).send({ question, comments });
+    res.status(201).send({ question });
   } catch (err) {
     return sendError(err, res);
   }

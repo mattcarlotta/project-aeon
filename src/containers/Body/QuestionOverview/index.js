@@ -28,11 +28,11 @@ class QuestionOverview extends Component {
     return (
       <Container
         answered={answered}
-        centered
         hoverable
         cursor="pointer"
         maxWidth="750px"
         padding="0px"
+        margin="0 auto 15px"
         onClick={() => Router.push("/q/[...slug]", `/q/${id}/${uniquetitle}`)}
       >
         <div css="padding-left: 45px;">
@@ -43,7 +43,7 @@ class QuestionOverview extends Component {
             <div css="font-size: 12px;color: #787C7E;">
               <Flex>
                 <FlexStart>
-                  <PostMeta {...this.state} />
+                  <PostMeta {...this.state} showViews />
                 </FlexStart>
                 {answered && (
                   <FlexEnd>

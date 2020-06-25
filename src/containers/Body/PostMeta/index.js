@@ -16,29 +16,24 @@ import UserDropdown from "./UserDropdown";
 const initialState = {
   user: {},
   error: "",
-  isMounted: false
+  isHoverOver: false
 };
 
 class PostMeta extends Component {
   state = initialState;
 
   componentDidMount() {
-    this.isActive = true;
     document.addEventListener("scroll", this.clearTimer);
   }
 
   componentWillUnmount() {
     document.removeEventListener("scroll", this.clearTimer);
     this.clearTimer();
-    this.isActive = false;
   }
 
   clearTimer = () => {
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.timer = null;
-    }
-    if (this.isActive) this.setState(initialState);
+    if (this.timer) clearTimeout(this.timer);
+    if (this.postRef) this.setState(initialState);
   };
 
   setTimer = () => (this.timer = setTimeout(this.showUserDetails, 750));
@@ -53,21 +48,24 @@ class PostMeta extends Component {
       error = err;
       toast({ type: "error", message: err.toString() });
     } finally {
-      if (this.isActive) this.setState({ user: data, error });
+      if (this.postRef) this.setState({ user: data, error });
     }
   };
 
   showUserDetails = () =>
-    this.setState({ isMounted: true }, this.fetchUserDetails);
+    this.setState({ isHoverOver: true }, this.fetchUserDetails);
 
   render = () => {
-    const { error, isMounted, user } = this.state;
-    const { date, showPoints, username, views, votes } = this.props;
+    const { error, isHoverOver, user } = this.state;
+    const { date, showPoints, showViews, username, views, votes } = this.props;
 
     return (
-      <div css="font-size: 12px;color: #787C7E;position:relative;">
+      <div
+        ref={node => (this.postRef = node)}
+        css="font-size: 12px;color: #787C7E;position:relative;"
+      >
         <QuestionDetails>
-          {views && <>Posted by&nbsp;</>}
+          {!!views && <>Posted by&nbsp;</>}
           <div
             css="display: inline;cursor: default;"
             onClick={e => e.stopPropagation()}
@@ -78,18 +76,18 @@ class PostMeta extends Component {
               {username}
             </Link>
             <Grow
-              in={isMounted && !error}
+              in={isHoverOver && !error}
               style={{
                 transformOrigin: "0 0 0",
-                zIndex: !isMounted ? "-1" : "100",
-                opacity: !isMounted ? 0 : 1
+                zIndex: !isHoverOver ? "-1" : "100",
+                opacity: !isHoverOver ? 0 : 1
               }}
               timeout={{ enter: 500, leave: 100 }}
             >
               <UserDropdown views={views}>
                 {!isEmpty(user) ? (
                   <UserCard {...user} />
-                ) : isMounted ? (
+                ) : isHoverOver ? (
                   <LoadingUserCard />
                 ) : null}
               </UserDropdown>
@@ -104,7 +102,7 @@ class PostMeta extends Component {
             <QuestionDetails>{round(votes)}pts</QuestionDetails>
           </>
         )}
-        {views && (
+        {showViews && (
           <>
             <QuestionDetails> · </QuestionDetails>
             <QuestionDetails>views: {round(views)}</QuestionDetails>
@@ -119,6 +117,7 @@ PostMeta.propTypes = {
   date: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   showPoints: PropTypes.bool,
+  showViews: PropTypes.bool,
   views: PropTypes.number,
   votes: PropTypes.number
 };

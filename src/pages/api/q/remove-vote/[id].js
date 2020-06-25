@@ -21,11 +21,12 @@ import { sendError } from "~utils/helpers";
 const removeVoteUserQuestion = async (req, res) => {
   try {
     const { id } = req.query;
-    if (!id) throw String(unableToLocateQuestion);
+    if (!id || Number.isNaN(parseInt(id, 10)))
+      throw String(unableToLocateQuestion);
 
     const { id: userId } = req.session;
 
-    const { updatedQuestion, err } = await db.task(
+    const updatedQuestion = await db.task(
       "remove vote question",
       async task => {
         try {
@@ -45,13 +46,12 @@ const removeVoteUserQuestion = async (req, res) => {
             id,
             userId
           ]);
-          return { updatedQuestion };
+          return updatedQuestion;
         } catch (err) {
-          return { err };
+          return Promise.reject(new Error(err));
         }
       }
     );
-    if (err) throw String(err);
 
     res.status(201).send(updatedQuestion);
   } catch (err) {

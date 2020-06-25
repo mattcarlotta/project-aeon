@@ -3,12 +3,12 @@ import db from "~database/connection";
 import {
   createNewUser,
   findUserByEmail,
-  findUserByUsername,
+  findUserByUsername
 } from "~database/queries";
 import {
   emailAlreadyTaken,
   missingSignupCreds,
-  usernameAlreadyTaken,
+  usernameAlreadyTaken
 } from "~messages/errors";
 import { createRandomToken, sendError } from "~utils/helpers";
 
@@ -26,22 +26,28 @@ export const localSignup = next => async (req, res) => {
     if (!email || !username || !firstname || !lastname || !password)
       throw String(missingSignupCreds);
 
-    const existingEmail = await db.oneOrNone(findUserByEmail, [email]);
-    if (existingEmail) throw String(emailAlreadyTaken);
-    const existingName = await db.oneOrNone(findUserByUsername, [username]);
-    if (existingName) throw String(usernameAlreadyTaken);
+    await db.task("user signup", async t => {
+      try {
+        const existingEmail = await t.oneOrNone(findUserByEmail, [email]);
+        if (existingEmail) throw String(emailAlreadyTaken);
+        const existingName = await t.oneOrNone(findUserByUsername, [username]);
+        if (existingName) throw String(usernameAlreadyTaken);
 
-    const newpassword = await bcrypt.hash(password, 12);
-    const token = createRandomToken();
+        const newpassword = await bcrypt.hash(password, 12);
+        const token = createRandomToken();
 
-    await db.none(createNewUser, [
-      email,
-      newpassword,
-      username,
-      firstname,
-      lastname,
-      token,
-    ]);
+        await t.none(createNewUser, [
+          email,
+          newpassword,
+          username,
+          firstname,
+          lastname,
+          token
+        ]);
+      } catch (err) {
+        return Promise.reject(new Error(err));
+      }
+    });
 
     req.user = firstname;
 
