@@ -54,13 +54,11 @@ class QuestionReview extends Component {
     this.timer = setTimeout(() => {
       const element = document.getElementById(id);
 
-      setTimeout(() => {
-        window.scrollTo({
-          behavior: element ? "smooth" : "auto",
-          top: element ? element.offsetTop : 0
-        });
-      }, 200);
-    });
+      window.scrollTo({
+        behavior: element ? "smooth" : "auto",
+        top: element ? element.offsetTop : 0
+      });
+    }, 200);
   };
 
   toggleComments = () =>
