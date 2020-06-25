@@ -10,7 +10,8 @@ class Timestamp extends Component {
     super(props);
 
     this.state = {
-      date: props.date
+      date: dayjs(props.date).fromNow(),
+      title: dayjs(props.date).format("MMMM Do, YYYY @ hh:mma")
     };
   }
 
@@ -18,21 +19,24 @@ class Timestamp extends Component {
     this.setUpdateInterval();
   }
 
+  shouldComponentUpdate = (_, nextState) => nextState.date !== this.state.date;
+
   componentWillUnmount() {
     clearInterval(this.timestampInterval);
   }
 
   setUpdateInterval = () => {
     this.timestampInterval = setInterval(() => {
-      if (this.timeRef) this.forceUpdate();
-    }, 1000);
+      if (this.timeRef)
+        this.setState({ date: dayjs(this.props.date).fromNow() });
+    }, 60000);
   };
 
   render = () => (
     <NoSSR>
-      <Tooltip title={dayjs(this.state.date).format("MMMM Do, YYYY @ hh:mma")}>
+      <Tooltip title={this.state.title}>
         <QuestionDetails ref={node => (this.timeRef = node)}>
-          {dayjs(this.state.date).fromNow()}
+          {this.state.date}
         </QuestionDetails>
       </Tooltip>
     </NoSSR>

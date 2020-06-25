@@ -82,7 +82,7 @@ class PostMeta extends Component {
                 zIndex: !isHoverOver ? "-1" : "100",
                 opacity: !isHoverOver ? 0 : 1
               }}
-              timeout={{ enter: 500, leave: 100 }}
+              timeout={{ enter: 300, leave: 100 }}
             >
               <UserDropdown views={views}>
                 {!isEmpty(user) ? (
