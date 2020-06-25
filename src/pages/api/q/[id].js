@@ -1,6 +1,10 @@
 import get from "lodash.get";
 import db from "~database/connection";
-import { findComments, findQuestion } from "~database/queries";
+import {
+  findComments,
+  findQuestion,
+  updateQuestionViewCount
+} from "~database/queries";
 import { unableToLocateQuestion } from "~messages/errors";
 import withMiddleware from "~middlewares";
 import { sendError } from "~utils/helpers";
@@ -24,19 +28,25 @@ const fetchUserQuestion = async (req, res) => {
     const santizedId = id.replace(/\D+/g, "");
     if (invalidId || !santizedId) throw String(unableToLocateQuestion);
 
-    const existingQuestion = await db.oneOrNone(findQuestion, [
-      santizedId,
-      userid
-    ]);
-    if (!existingQuestion) throw String(unableToLocateQuestion);
+    const { question, comments, answers } = await db.task(
+      "fetch user question",
+      async t => {
+        const question = await t.oneOrNone(findQuestion, [santizedId, userid]);
+        if (!question) throw String(unableToLocateQuestion);
 
-    const existingComments = await db.oneOrNone(findComments, [
-      santizedId,
-      userid
-    ]);
-    const comments = get(existingComments, ["comments"]);
+        await t.none(updateQuestionViewCount, [santizedId]);
 
-    res.status(201).send({ question: existingQuestion, comments });
+        const existingComments = await t.oneOrNone(findComments, [
+          santizedId,
+          userid
+        ]);
+        const comments = get(existingComments, ["comments"]);
+
+        return { question, comments };
+      }
+    );
+
+    res.status(201).send({ question, comments });
   } catch (err) {
     return sendError(err, res);
   }

@@ -41,11 +41,11 @@ const downvoteUserQuestion = async (req, res) => {
           if (questionBelongsToLoggedinUser)
             throw String(cantVoteOnOwnQuestion);
 
-          const { upvoted, downvoted } = await task.oneOrNone(votedOnQuestion, [
+          const { downvoted } = await task.oneOrNone(votedOnQuestion, [
             id,
             userId
           ]);
-          if (upvoted || downvoted) throw String(alreadyVoted);
+          if (downvoted) throw String(alreadyVoted);
 
           const upvotedQuestion = await task.oneOrNone(downvoteQuestion, [
             id,

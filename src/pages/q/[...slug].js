@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
-// import QuestionReview from "~containers/Body/QuestionReview";
+import QuestionReview from "~containers/Body/QuestionReview";
 import withServerMessages from "~containers/App/withServerMessages";
 import app from "~utils/axiosConfig";
 import { parseData, parseCookie } from "~utils/parse";
 
-// const UserQuestion = ({ data }) => <QuestionReview {...data} />;
+const UserQuestion = ({ data }) => <QuestionReview {...data} />;
 
-const UserQuestion = ({ data }) => (
-  <pre>
-    <code>{JSON.stringify(data, null, 4)}</code>
-  </pre>
-);
+// const UserQuestion = ({ data }) => (
+//   <pre>
+//     <code>{JSON.stringify(data, null, 4)}</code>
+//   </pre>
+// );
 
 export const getServerSideProps = async ({ req, query }) => {
   let data = {};
@@ -63,9 +63,10 @@ UserQuestion.propTypes = {
     comments: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
+        qid: PropTypes.number,
         uid: PropTypes.string,
         date: PropTypes.string,
-        rid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        rid: PropTypes.string,
         body: PropTypes.string,
         upvoted: PropTypes.bool,
         downvoted: PropTypes.bool,

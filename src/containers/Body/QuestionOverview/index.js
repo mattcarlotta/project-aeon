@@ -13,7 +13,7 @@ import QuestionTitle from "~components/Body/QuestionTitle";
 import Tag from "~components/Body/Tag";
 import Voter from "~components/Body/Voter";
 import Link from "~components/Navigation/Link";
-import QuestionMeta from "~containers/Body/QuestionMeta";
+import PostMeta from "~containers/Body/PostMeta";
 
 class QuestionOverview extends Component {
   state = {
@@ -46,16 +46,13 @@ class QuestionOverview extends Component {
               position: "absolute"
             }}
           >
-            <Voter
-              {...this.state}
-              updateQuestion={this.handleUpdatedQuestion}
-            />
+            <Voter {...this.state} handleChange={this.handleUpdatedQuestion} />
           </FlexCenter>
           <QuestionContainer>
             <div css="font-size: 12px;color: #787C7E;">
               <Flex>
                 <FlexStart>
-                  <QuestionMeta {...this.state} />
+                  <PostMeta {...this.state} />
                 </FlexStart>
                 {answered && (
                   <FlexEnd>

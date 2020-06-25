@@ -11,10 +11,10 @@ import roundVotes from "~utils/round";
 class Voter extends PureComponent {
   handleVote = async type => {
     try {
-      const res = await app.post(`q/${type}/${this.props.id}`);
+      const res = await app.post(`${this.props.URL}/${type}/${this.props.id}`);
       const data = parseData(res);
 
-      this.props.updateQuestion(data);
+      this.props.handleChange(data);
     } catch (error) {
       toast({ type: "error", message: error.toString() });
     }
@@ -27,12 +27,12 @@ class Voter extends PureComponent {
   handleRemoveClick = () => this.handleVote("remove-vote");
 
   render = () => {
-    const { align, downvoted, upvoted, votes } = this.props;
+    const { align, downvoted, hideVote, upvoted, votes } = this.props;
     const alignHorizontal = align !== "vertical";
     const btnProps = {
       overlay: alignHorizontal,
-      height: !alignHorizontal ? "30px" : "100%",
-      width: !alignHorizontal ? "30px" : "20px",
+      height: hideVote ? "20px" : !alignHorizontal ? "30px" : "100%",
+      width: hideVote ? "20px" : !alignHorizontal ? "30px" : "20px",
       radius: !alignHorizontal ? "4px" : "0",
       padding: "0px"
     };
@@ -53,11 +53,13 @@ class Voter extends PureComponent {
         >
           <FaArrowCircleUp style={iconStyle} />
         </Button>
-        <Votes
-          alignHorizontal={alignHorizontal}
-          dataVotes={votes}
-          votes={roundVotes(votes)}
-        />
+        {!hideVote && (
+          <Votes
+            alignHorizontal={alignHorizontal}
+            dataVotes={votes}
+            votes={roundVotes(votes)}
+          />
+        )}
         <Button
           {...btnProps}
           downvote
@@ -74,14 +76,18 @@ class Voter extends PureComponent {
 Voter.propTypes = {
   align: PropTypes.string,
   downvoted: PropTypes.bool,
-  id: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  hideVote: PropTypes.bool,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   upvoted: PropTypes.bool,
   votes: PropTypes.number.isRequired,
-  updateQuestion: PropTypes.func.isRequired
+  URL: PropTypes.string
 };
 
 Voter.defaultProps = {
-  align: "vertical"
+  align: "vertical",
+  hideVote: false,
+  URL: "q"
 };
 
 export default Voter;

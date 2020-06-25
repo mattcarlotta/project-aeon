@@ -19,7 +19,7 @@ const initialState = {
   isMounted: false
 };
 
-class QuestionMeta extends Component {
+class PostMeta extends Component {
   state = initialState;
 
   componentDidMount() {
@@ -62,12 +62,12 @@ class QuestionMeta extends Component {
 
   render = () => {
     const { error, isMounted, user } = this.state;
-    const { date, username, views } = this.props;
+    const { date, showPoints, username, views, votes } = this.props;
 
     return (
       <div css="font-size: 12px;color: #787C7E;position:relative;">
         <QuestionDetails>
-          Posted by&nbsp;
+          {views && <>Posted by&nbsp;</>}
           <div
             css="display: inline;cursor: default;"
             onClick={e => e.stopPropagation()}
@@ -96,18 +96,31 @@ class QuestionMeta extends Component {
             </Grow>
           </div>
         </QuestionDetails>
+        <QuestionDetails> · </QuestionDetails>
         <Timestamp date={date} />
-        <QuestionDetails>|</QuestionDetails>
-        <QuestionDetails>views: {round(views)}</QuestionDetails>
+        {showPoints && (
+          <>
+            <QuestionDetails> · </QuestionDetails>
+            <QuestionDetails>{round(votes)}pts</QuestionDetails>
+          </>
+        )}
+        {views && (
+          <>
+            <QuestionDetails> · </QuestionDetails>
+            <QuestionDetails>views: {round(views)}</QuestionDetails>
+          </>
+        )}
       </div>
     );
   };
 }
 
-QuestionMeta.propTypes = {
+PostMeta.propTypes = {
   date: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  views: PropTypes.number.isRequired
+  showPoints: PropTypes.bool,
+  views: PropTypes.number,
+  votes: PropTypes.number
 };
 
-export default QuestionMeta;
+export default PostMeta;
