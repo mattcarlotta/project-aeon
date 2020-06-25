@@ -5,7 +5,6 @@ import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
-import Center from "~components/Body/Center";
 import CommentsContainer from "~components/Body/CommentsContainer";
 import Container from "~components/Body/Container";
 import FlexCenter from "~components/Body/FlexCenter";
@@ -27,15 +26,19 @@ class QuestionReview extends Component {
   constructor(props) {
     super(props);
 
-    const { answers, comments, question } = props;
+    const { comments, question } = props; // answers
 
     this.state = {
-      answers,
+      // answers,
       comments,
       question,
       addComment: false,
       isEditing: false
     };
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   handleUpdatedQuestion = data => {
@@ -46,8 +49,23 @@ class QuestionReview extends Component {
 
   // handleCommentSubmission = data => this.setState({ ...data })
 
-  toggleCommentForm = () =>
-    this.setState(prevState => ({ addComment: !prevState.addComment }));
+  setFormRef = node => (this.formRef = node);
+
+  toggleCommentForm = () => {
+    this.setState(
+      prevState => ({ addComment: !prevState.addComment }),
+      () => {
+        if (this.state.addComment) {
+          this.timer = setTimeout(() => {
+            window.scrollTo({
+              behavior: this.formRef ? "smooth" : "auto",
+              top: this.formRef ? this.formRef.offsetTop : 0
+            });
+          }, 200);
+        }
+      }
+    );
+  };
 
   render = () => {
     const {
@@ -114,29 +132,6 @@ class QuestionReview extends Component {
                 <MarkdownPreviewer>{body}</MarkdownPreviewer>
               </Preview>
               <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
-              {!isEditing && (
-                <>
-                  <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
-                    <Center>
-                      <Button
-                        plain
-                        width="140px"
-                        onClick={this.toggleCommentForm}
-                      >
-                        Add comment
-                      </Button>
-                    </Center>
-                  </Fade>
-                  <Collapse in={addComment}>
-                    <CommentForm
-                      cancelComment={this.toggleCommentForm}
-                      qid={id}
-                      updateQuestion={this.handleUpdatedQuestion}
-                      rid={id}
-                    />
-                  </Collapse>
-                </>
-              )}
             </QuestionContainer>
           </div>
           {questionHasComments && !isEmpty(questionComments) && (
@@ -146,6 +141,24 @@ class QuestionReview extends Component {
               ))}
             </CommentsContainer>
           )}
+          {!isEditing && (
+            <div css="padding: 0px 10px 10px 10px;background: #f9f9f9;">
+              <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
+                <Button input onClick={this.toggleCommentForm}>
+                  Reply
+                </Button>
+              </Fade>
+              <Collapse in={addComment}>
+                <CommentForm
+                  cancelComment={this.toggleCommentForm}
+                  qid={id}
+                  updateQuestion={this.handleUpdatedQuestion}
+                  rid={id}
+                  setFormRef={this.setFormRef}
+                />
+              </Collapse>
+            </div>
+          )}
         </Container>
       </>
     );
@@ -153,16 +166,16 @@ class QuestionReview extends Component {
 }
 
 QuestionReview.propTypes = {
-  answers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      uid: PropTypes.string,
-      qid: PropTypes.string,
-      date: PropTypes.string,
-      body: PropTypes.string,
-      votes: PropTypes.number
-    })
-  ),
+  // answers: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     id: PropTypes.string,
+  //     uid: PropTypes.string,
+  //     qid: PropTypes.string,
+  //     date: PropTypes.string,
+  //     body: PropTypes.string,
+  //     votes: PropTypes.number
+  //   })
+  // ),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

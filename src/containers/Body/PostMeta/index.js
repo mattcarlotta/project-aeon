@@ -86,7 +86,7 @@ class PostMeta extends Component {
               }}
               timeout={{ enter: 500, leave: 100 }}
             >
-              <UserDropdown>
+              <UserDropdown views={views}>
                 {!isEmpty(user) ? (
                   <UserCard {...user} />
                 ) : isMounted ? (

@@ -25,7 +25,10 @@ export class CommentForm extends Component {
           disableGrip: true,
           maxEditorHeight: 140,
           showCharacterLength: true,
-          classes: { mde: "mde-comment" },
+          classes: {
+            mde: "mde-comment",
+            mdetextareawrapper: "mde-textarea-wrapper"
+          },
           css: "margin-bottom: 10px;height: 200px;",
           maxCharacterLength: "500",
           textAreaProps: { placeholder: "Add a comment..." }
@@ -73,7 +76,7 @@ export class CommentForm extends Component {
   };
 
   render = () => (
-    <form onSubmit={this.handleSubmit}>
+    <form ref={this.props.setFormRef} onSubmit={this.handleSubmit}>
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
       <Flex>
         <FlexSpaceEvenly>
@@ -99,7 +102,8 @@ CommentForm.propTypes = {
   qid: PropTypes.number.isRequired,
   updateQuestion: PropTypes.func.isRequired,
   value: PropTypes.string,
-  rid: PropTypes.number.isRequired
+  rid: PropTypes.number.isRequired,
+  setFormRef: PropTypes.func
 };
 
 export default CommentForm;

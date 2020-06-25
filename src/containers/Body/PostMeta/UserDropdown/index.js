@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default styled.div`
   position: absolute;
   top: 0px;
-  left: 57px;
+  left: ${({ views }) => (views ? "57px" : "0px")};
   border-radius: 4px;
   min-height: 80px;
   width: 300px;

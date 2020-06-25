@@ -28,7 +28,7 @@ const fetchUserQuestion = async (req, res) => {
     const santizedId = id.replace(/\D+/g, "");
     if (invalidId || !santizedId) throw String(unableToLocateQuestion);
 
-    const { question, comments, answers } = await db.task(
+    const { question, comments } = await db.task(
       "fetch user question",
       async t => {
         const question = await t.oneOrNone(findQuestion, [santizedId, userid]);
@@ -45,6 +45,8 @@ const fetchUserQuestion = async (req, res) => {
         return { question, comments };
       }
     );
+
+    // answers
 
     res.status(201).send({ question, comments });
   } catch (err) {

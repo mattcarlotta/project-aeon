@@ -19,24 +19,34 @@ class Comment extends Component {
     this.setState(prevState => ({ ...prevState, ...data }));
 
   render = () => {
+    const { body } = this.state;
+
     return (
-      <div css="display: flex; flex-direction: row;height: 100%;">
-        <FlexCenter direction="column" height="100%" width="45px">
-          <div css="display: flex;z-index: 1;background-color: #F9F9F9; flex-direction: column;padding: 7px 0;">
-            <Voter
-              {...this.state}
-              hideVote
-              handleChange={this.handleUpdatedComment}
-              URL="c"
-            />
-          </div>
-          <div css="bottom: 0;top: 0px;height:95%;position: absolute;display: inline-block;vertical-align: top;width: 2px;background: #d7e0e8;z-index: 0;" />
+      <div css="padding-left: 45px;position: relative;">
+        <FlexCenter
+          direction="column"
+          height="65px"
+          width="45px"
+          style={{
+            top: 0,
+            left: 0,
+            position: "absolute",
+            background: "#f7f7f7"
+          }}
+        >
+          <Voter
+            {...this.state}
+            hideVote
+            handleChange={this.handleUpdatedComment}
+            URL="c"
+          />
         </FlexCenter>
-        <div css="display: flex; flex-direction:column;padding: 8px 12px 12px 3px;width:710px;">
+        <div css="padding: 15px 20px 10px 5px;">
           <PostMeta showPoints {...this.state} />
           <Preview>
-            <MarkdownPreviewer>{this.state.body}</MarkdownPreviewer>
+            <MarkdownPreviewer>{body}</MarkdownPreviewer>
           </Preview>
+          <div css="height: 25px;width: 100%;background: #bbb;" />
         </div>
       </div>
     );

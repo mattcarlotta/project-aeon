@@ -16,7 +16,7 @@ export default styled.div`
   transition: all 150ms ease-in-out;
   position: relative;
   border: 1px solid ${({ answered }) => (answered ? "#00da00" : "transparent")};
-  margin: ${({ centered }) => (centered ? "0 auto 15px" : undefined)};
+  margin: ${({ centered }) => (centered ? "0 auto 45px" : undefined)};
 
   ${({ answered, hoverable }) =>
     hoverable

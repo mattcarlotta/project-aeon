@@ -157,6 +157,7 @@ export default createGlobalStyle`
 
   .mde-textarea-wrapper.mde-textarea-wrapper {
     border: 1px solid #d9d9d9;
+    background-color: #fff;
   }
 
   .mde-preview {
