@@ -24,15 +24,11 @@ class Comment extends Component {
     return (
       <div css="padding-left: 45px;position: relative;">
         <FlexCenter
+          floating
           direction="column"
           height="65px"
-          width="45px"
-          style={{
-            top: 0,
-            left: 0,
-            position: "absolute",
-            background: "#f7f7f7"
-          }}
+          width="42px"
+          style={{ background: "#f7f7f7" }}
         >
           <Voter
             {...this.state}

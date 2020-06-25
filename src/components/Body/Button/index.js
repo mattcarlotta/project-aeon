@@ -92,7 +92,12 @@ export default styled(Button)`
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
   border-radius: ${({ radius }) => radius || "50px"};
-  margin: ${({ margin, centered }) => (centered ? "margin: 0 auto;" : margin)};
+  ${({ margin, centered }) =>
+    centered
+      ? "margin: 0 auto; display: block;"
+      : margin
+      ? `margin: ${margin};`
+      : undefined};
   ${props => {
     if (props.disabled)
       return "border:1px solid #ebebeb;background-color:#ebebeb;color:#bbb;";
@@ -115,7 +120,7 @@ export default styled(Button)`
     if (props.alt || props.downvote || props.upvote)
       return "border: 0;background-color:transparent;color:#ddd;";
     if (props.input)
-      return "cursor: text;border: 1px solid #d9d9d9;color: #586069;text-align: left;";
+      return "cursor: text;border: 1px solid #d9d9d9;color: #586069;background: #efefef;text-align: left;";
     if (props.link)
       return "border: 0;background-color:transparent;color:#000000a6;";
     return "border:1px solid #03a9f3;background-color:transparent;color:#03a9f3;";
@@ -135,7 +140,7 @@ export default styled(Button)`
       if (props.alt) return "color:#fff;";
       if (props.downvote) return "color: #ff0000;";
       if (props.upvote) return "color: #01b701;";
-      if (props.input) return "color:#2f2f2f;border-color: #0075e0;";
+      if (props.input) return "color:#2f2f2f;border-color: #949494;";
       return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
     }};
   }

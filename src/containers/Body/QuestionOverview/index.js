@@ -36,16 +36,7 @@ class QuestionOverview extends Component {
         onClick={() => Router.push("/q/[...slug]", `/q/${id}/${uniquetitle}`)}
       >
         <div css="padding-left: 45px;">
-          <FlexCenter
-            direction="column"
-            height="120px"
-            width="45px"
-            style={{
-              top: 0,
-              left: 0,
-              position: "absolute"
-            }}
-          >
+          <FlexCenter floating direction="column" height="120px" width="45px">
             <Voter {...this.state} handleChange={this.handleUpdatedQuestion} />
           </FlexCenter>
           <QuestionContainer>

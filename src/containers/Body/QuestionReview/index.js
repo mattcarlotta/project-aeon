@@ -33,6 +33,7 @@ class QuestionReview extends Component {
       comments,
       question,
       addComment: false,
+      collapseComments: false,
       isEditing: false
     };
   }
@@ -49,36 +50,48 @@ class QuestionReview extends Component {
 
   // handleCommentSubmission = data => this.setState({ ...data })
 
-  setFormRef = node => (this.formRef = node);
+  handleScroll = id => {
+    this.timer = setTimeout(() => {
+      const element = document.getElementById(id);
 
-  toggleCommentForm = () => {
+      setTimeout(() => {
+        window.scrollTo({
+          behavior: element ? "smooth" : "auto",
+          top: element ? element.offsetTop : 0
+        });
+      }, 200);
+    });
+  };
+
+  toggleComments = () =>
     this.setState(
-      prevState => ({ addComment: !prevState.addComment }),
+      prevState => ({
+        collapseComments: !prevState.collapseComments
+      }),
       () => {
-        if (this.state.addComment) {
-          this.timer = setTimeout(() => {
-            window.scrollTo({
-              behavior: this.formRef ? "smooth" : "auto",
-              top: this.formRef ? this.formRef.offsetTop : 0
-            });
-          }, 200);
-        }
+        if (!this.state.collapseComments) this.handleScroll("comments");
       }
     );
-  };
+
+  toggleCommentForm = () =>
+    this.setState(
+      prevState => ({ addComment: !prevState.addComment, isEditing: false }),
+      () => {
+        if (this.state.addComment) this.handleScroll("comment-form");
+      }
+    );
 
   render = () => {
     const {
       addComment,
+      collapseComments,
       comments,
       question: { body, description, id, tags, title, uniquetitle },
       isEditing
     } = this.state;
 
-    const questionHasComments = !isEmpty(comments);
-    const questionComments = questionHasComments
-      ? comments.filter(c => c.rid !== id)
-      : [];
+    const questionComments = comments.filter(c => c.rid !== id);
+    const hasComments = !isEmpty(questionComments);
 
     return (
       <>
@@ -91,16 +104,7 @@ class QuestionReview extends Component {
         />
         <Container centered maxWidth="750px" padding="0px">
           <div css="padding-left: 45px;">
-            <FlexCenter
-              direction="column"
-              height="120px"
-              width="45px"
-              style={{
-                top: 0,
-                left: 0,
-                position: "absolute"
-              }}
-            >
+            <FlexCenter floating direction="column" height="120px" width="45px">
               <Voter
                 {...this.state.question}
                 handleChange={this.handleUpdatedQuestion}
@@ -132,21 +136,40 @@ class QuestionReview extends Component {
                 <MarkdownPreviewer>{body}</MarkdownPreviewer>
               </Preview>
               <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
+              {hasComments && (
+                <Button
+                  plain
+                  centered
+                  width="160px"
+                  onClick={this.toggleComments}
+                >
+                  {collapseComments ? "Show Comments" : "Hide Comments"}
+                </Button>
+              )}
             </QuestionContainer>
           </div>
-          {questionHasComments && !isEmpty(questionComments) && (
-            <CommentsContainer>
-              {questionComments.map(comment => (
-                <Comment key={comment.id} {...comment} />
-              ))}
-            </CommentsContainer>
+          {hasComments && (
+            <Collapse in={!collapseComments}>
+              <CommentsContainer id="comments">
+                {questionComments.map(comment => (
+                  <Comment key={comment.id} {...comment} />
+                ))}
+              </CommentsContainer>
+            </Collapse>
           )}
           {!isEditing && (
-            <div css="padding: 0px 10px 10px 10px;background: #f9f9f9;">
+            <div
+              css={`
+                padding: 0px 10px 10px 10px;
+                background: ${collapseComments ? "#fff" : "#f9f9f9"};
+              `}
+            >
               <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
-                <Button input onClick={this.toggleCommentForm}>
-                  Reply
-                </Button>
+                <span>
+                  <Button input onClick={this.toggleCommentForm}>
+                    Reply
+                  </Button>
+                </span>
               </Fade>
               <Collapse in={addComment}>
                 <CommentForm
@@ -154,7 +177,6 @@ class QuestionReview extends Component {
                   qid={id}
                   updateQuestion={this.handleUpdatedQuestion}
                   rid={id}
-                  setFormRef={this.setFormRef}
                 />
               </Collapse>
             </div>

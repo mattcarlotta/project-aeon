@@ -76,7 +76,7 @@ export class CommentForm extends Component {
   };
 
   render = () => (
-    <form ref={this.props.setFormRef} onSubmit={this.handleSubmit}>
+    <form id="comment-form" onSubmit={this.handleSubmit}>
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
       <Flex>
         <FlexSpaceEvenly>
@@ -102,8 +102,7 @@ CommentForm.propTypes = {
   qid: PropTypes.number.isRequired,
   updateQuestion: PropTypes.func.isRequired,
   value: PropTypes.string,
-  rid: PropTypes.number.isRequired,
-  setFormRef: PropTypes.func
+  rid: PropTypes.number.isRequired
 };
 
 export default CommentForm;
