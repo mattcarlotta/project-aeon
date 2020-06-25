@@ -41,7 +41,7 @@ class Comment extends Component {
             URL="c"
           />
         </FlexCenter>
-        <div css="padding: 15px 20px 10px 5px;">
+        <div css="padding: 14px 20px 5px 5px;">
           <PostMeta showPoints {...this.state} />
           <Preview>
             <MarkdownPreviewer>{body}</MarkdownPreviewer>
