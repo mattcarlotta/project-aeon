@@ -117,7 +117,7 @@ export default styled(Button)`
         props.downvoted ? "#ff0000" : props.overlay ? "#ccc" : "#000"
       };`;
     if (props.plain)
-      return "border: 0;background-color:transparent;color:#000;";
+      return "border: 0;background-color:transparent;color:#000000a6;";
     if (props.alt || props.downvote || props.upvote)
       return "border: 0;background-color:transparent;color:#ddd;";
     if (props.input)

@@ -177,19 +177,20 @@ class QuestionReview extends Component {
               <Preview>
                 <MarkdownPreviewer>{body}</MarkdownPreviewer>
               </Preview>
-              <QCButtons
-                comments={comments.length}
-                collapseComments={collapseComments}
-                hasComments={hasComments}
-                handleEdit={() => {}}
-                handleDelete={() => {}}
-                handleShare={() => {}}
-                handleReport={() => {}}
-                isEditingComment={this.state.isEditingComment}
-                loggedInUserId={this.props.loggedInUserId}
-                toggleComments={this.toggleComments}
-                uid={this.state.question.uid}
-              />
+              <div css="margin-bottom: 10px;">
+                <QCButtons
+                  comments={comments.length}
+                  collapseComments={collapseComments}
+                  hasComments={hasComments}
+                  handleEdit={() => {}}
+                  handleDelete={() => {}}
+                  handleShare={() => {}}
+                  handleReport={() => {}}
+                  isAuthor={loggedInUserId === this.state.question.uid}
+                  isEditingComment={this.state.isEditingComment}
+                  toggleComments={this.toggleComments}
+                />
+              </div>
             </QuestionContainer>
           </div>
           {hasComments && (
@@ -208,36 +209,34 @@ class QuestionReview extends Component {
               </CommentsContainer>
             </Collapse>
           )}
-          <div
-            css={`
-              padding: 10px;
-              background: ${collapseComments || !hasComments
-                ? "#fff"
-                : "#f9f9f9"};
-            `}
-          >
-            {!isEditingComment && (
-              <>
-                <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
-                  <span>
-                    <Button input radius="4px" onClick={this.toggleCommentForm}>
-                      Reply
-                    </Button>
-                  </span>
-                </Fade>
-                <Collapse in={isCommenting}>
-                  <CommentForm
-                    cancelComment={this.toggleCommentForm}
-                    isCommenting={isCommenting}
-                    qid={id}
-                    handleChange={this.handleAddComment}
-                    rid={id}
-                    URL="c/create"
-                  />
-                </Collapse>
-              </>
-            )}
-          </div>
+          {!isEditingComment && loggedInUserId && (
+            <div
+              css={`
+                padding: 10px;
+                background: ${collapseComments || !hasComments
+                  ? "#fff"
+                  : "#f9f9f9"};
+              `}
+            >
+              <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
+                <span>
+                  <Button input radius="4px" onClick={this.toggleCommentForm}>
+                    Reply
+                  </Button>
+                </span>
+              </Fade>
+              <Collapse in={isCommenting}>
+                <CommentForm
+                  cancelComment={this.toggleCommentForm}
+                  isCommenting={isCommenting}
+                  qid={id}
+                  handleChange={this.handleAddComment}
+                  rid={id}
+                  URL="c/create"
+                />
+              </Collapse>
+            </div>
+          )}
         </Container>
       </>
     );

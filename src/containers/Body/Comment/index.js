@@ -45,7 +45,8 @@ class Comment extends Component {
     );
 
   render = () => {
-    const { id, body, isEditing, qid, rid } = this.state;
+    const { id, body, isEditing, qid, rid, uid } = this.state;
+    const { isEditingComment } = this.props;
 
     return (
       <div css="padding-left: 45px;position: relative;">
@@ -63,7 +64,7 @@ class Comment extends Component {
             URL="c"
           />
         </FlexCenter>
-        <div css="padding: 14px 20px 5px 5px;">
+        <div css="padding: 15px 20px 5px 5px;">
           <PostMeta showPoints {...this.state} />
           {isEditing ? (
             <CommentForm
@@ -83,10 +84,12 @@ class Comment extends Component {
               </Preview>
               <QCButtons
                 {...this.state}
+                isAuthor={this.props.loggedInUserId === uid}
                 handleEdit={this.toggleEditingComment}
                 handleDelete={this.handleDeleteComment}
                 handleReport={() => {}}
                 handleShare={() => {}}
+                isEditingComment={isEditingComment}
               />
             </>
           )}

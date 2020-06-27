@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import {
   FaComment,
   FaCommentSlash,
-  FaEraser,
   FaFlag,
   FaPencilAlt,
   FaShareAlt
 } from "react-icons/fa";
+import { BsFillTrash2Fill } from "react-icons/bs";
 import Button from "~components/Body/Button";
 import round from "~utils/round";
 
@@ -14,8 +14,9 @@ const btnProps = {
   plain: true,
   fontSize: "12px",
   padding: "4px",
-  margin: "0 2px 0",
+  margin: "0 2px 0 0",
   radius: "4px",
+  weight: "bold",
   width: "auto"
 };
 
@@ -23,7 +24,7 @@ const iconStyle = {
   position: "relative",
   top: 1,
   marginRight: 5,
-  fontSize: 12
+  fontSize: 13
 };
 
 const QCButtons = ({
@@ -34,10 +35,9 @@ const QCButtons = ({
   handleDelete,
   handleShare,
   handleReport,
+  isAuthor,
   isEditingComment,
-  loggedInUserId,
-  toggleComments,
-  uid
+  toggleComments
 }) => (
   <>
     {hasComments && (
@@ -46,22 +46,25 @@ const QCButtons = ({
         onClick={!isEditingComment ? toggleComments : undefined}
       >
         {!collapseComments ? (
-          <FaCommentSlash style={iconStyle} />
-        ) : (
           <FaComment style={iconStyle} />
+        ) : (
+          <FaCommentSlash style={iconStyle} />
         )}
-        {collapseComments ? "Show" : "Hide"} {round(comments)} comment(s)
+        {round(comments)} Comment{comments > 1 && "s"}
       </Button>
     )}
-    {loggedInUserId === uid && !isEditingComment && (
-      <Button {...btnProps} onClick={handleEdit}>
+    {isAuthor && (
+      <Button
+        {...btnProps}
+        onClick={!isEditingComment ? handleEdit : undefined}
+      >
         <FaPencilAlt style={iconStyle} />
         Edit
       </Button>
     )}
-    {loggedInUserId === uid && !isEditingComment && (
+    {isAuthor && (
       <Button {...btnProps} onClick={handleDelete}>
-        <FaEraser style={iconStyle} />
+        <BsFillTrash2Fill style={iconStyle} />
         Delete
       </Button>
     )}
@@ -84,6 +87,7 @@ QCButtons.propTypes = {
   handleDelete: PropTypes.func.isRequired,
   handleReport: PropTypes.func.isRequired,
   handleShare: PropTypes.func.isRequired,
+  isAuthor: PropTypes.bool,
   isEditingComment: PropTypes.bool,
   loggedInUserId: PropTypes.string,
   toggleComments: PropTypes.func,
