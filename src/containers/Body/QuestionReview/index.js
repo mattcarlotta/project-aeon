@@ -12,16 +12,16 @@ import Comment from "~containers/Body/Comment";
 import FlexCenter from "~components/Body/FlexCenter";
 import LoadingItem from "~components/Body/LoadingItem";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
+import QCButtons from "~components/Body/QCButtons";
 import QuestionContainer from "~components/Body/QuestionContainer";
 import NoSSR from "~components/Body/NoSSR";
 import PostMeta from "~containers/Body/PostMeta";
 import Preview from "~components/Body/Preview";
 import QuestionTitle from "~components/Body/QuestionTitle";
-import Tag from "~components/Body/Tag";
+import Tags from "~components/Body/Tags";
 import toast from "~components/Body/Toast";
 import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
-import Link from "~components/Navigation/Link";
 import CommentForm from "~containers/Forms/CommentForm";
 import app from "~utils/axiosConfig";
 import { parseMessage } from "~utils/parse";
@@ -58,18 +58,13 @@ class QuestionReview extends Component {
   };
 
   handleCommentEditing = () =>
-    this.setState(
-      prevState => ({
-        addComment: false,
-        isCommenting: false,
-        isEditingComment: !prevState.isEditingComment
-      }),
-      () => {
-        if (this.state.isEditingComment) this.handleScroll("comment-form");
-      }
-    );
+    this.setState(prevState => ({
+      addComment: false,
+      isCommenting: false,
+      isEditingComment: !prevState.isEditingComment
+    }));
 
-  handleUpdatedQuestion = data => {
+  handleVoteChange = data => {
     this.setState(prevState => ({
       question: { ...prevState.question, ...data }
     }));
@@ -135,13 +130,21 @@ class QuestionReview extends Component {
     const {
       addComment,
       collapseComments,
-      question: { body, comments, description, id, tags, title, uniquetitle },
+      question,
       isEditingComment,
       isCommenting
     } = this.state;
+    const {
+      body,
+      comments,
+      description,
+      id,
+      tags,
+      title,
+      uniquetitle
+    } = question;
 
     const { loggedInUserId } = this.props;
-
     const hasComments = !isEmpty(comments);
 
     return (
@@ -161,47 +164,32 @@ class QuestionReview extends Component {
         >
           <div css="padding-left: 45px;">
             <FlexCenter floating direction="column" height="120px" width="45px">
-              <Voter
-                {...this.state.question}
-                handleChange={this.handleUpdatedQuestion}
-              />
+              <Voter {...question} handleChange={this.handleVoteChange} />
             </FlexCenter>
             <QuestionContainer>
-              <PostMeta {...this.state.question} showViews />
+              <PostMeta {...question} showViews />
               <NoSSR fallback={<LoadingItem />}>
-                <Affix
-                  {...this.state.question}
-                  handleChange={this.handleUpdatedQuestion}
-                >
+                <Affix {...question} handleChange={this.handleVoteChange}>
                   <QuestionTitle>{title}</QuestionTitle>
                 </Affix>
               </NoSSR>
-              <div css="margin-bottom: 15px;">
-                {tags.map(tag => (
-                  <Link
-                    key={tag}
-                    margin="0 5px 0 0"
-                    href="/t/[...slug]"
-                    asHref={`/t/${tag}`}
-                  >
-                    <Tag>{tag}</Tag>
-                  </Link>
-                ))}
-              </div>
+              <Tags tags={tags} />
               <Preview>
                 <MarkdownPreviewer>{body}</MarkdownPreviewer>
               </Preview>
-              <div css="height: 25px;width: 100%;background: #bbb;margin-bottom: 25px;" />
-              {hasComments && !isEditingComment && (
-                <Button
-                  plain
-                  centered
-                  width="160px"
-                  onClick={this.toggleComments}
-                >
-                  {collapseComments ? "Show Comments" : "Hide Comments"}
-                </Button>
-              )}
+              <QCButtons
+                comments={comments.length}
+                collapseComments={collapseComments}
+                hasComments={hasComments}
+                handleEdit={() => {}}
+                handleDelete={() => {}}
+                handleShare={() => {}}
+                handleReport={() => {}}
+                isEditingComment={this.state.isEditingComment}
+                loggedInUserId={this.props.loggedInUserId}
+                toggleComments={this.toggleComments}
+                uid={this.state.question.uid}
+              />
             </QuestionContainer>
           </div>
           {hasComments && (

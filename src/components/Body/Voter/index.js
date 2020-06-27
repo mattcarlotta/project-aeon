@@ -6,7 +6,7 @@ import toast from "~components/Body/Toast";
 import Votes from "~components/Body/Votes";
 import app from "~utils/axiosConfig";
 import { parseData } from "~utils/parse";
-import roundVotes from "~utils/round";
+import round from "~utils/round";
 
 class Voter extends PureComponent {
   handleVote = async type => {
@@ -57,7 +57,7 @@ class Voter extends PureComponent {
           <Votes
             alignHorizontal={alignHorizontal}
             dataVotes={votes}
-            votes={roundVotes(votes)}
+            votes={round(votes)}
           />
         )}
         <Button

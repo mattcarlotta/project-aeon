@@ -111,7 +111,16 @@ export default createGlobalStyle`
 
     & .mde-textarea-wrapper {
       border-radius: 0 0 4px 4px;
+      padding: 0px 0px 0px 10px;
     }
+
+    & .preview {
+      padding: 0px 4px 0px 10px;
+    }
+  }
+
+  .mde-textarea.mde-textarea {
+    font-family: ${fontFamily};
   }
 
   .mde-editor.mde-editor:hover, .mde-comment.mde-comment:hover {

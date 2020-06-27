@@ -1,23 +1,12 @@
 import { Component } from "react";
-import { FaEraser, FaFlag, FaPencilAlt, FaShareAlt } from "react-icons/fa";
 import PropTypes from "prop-types";
-import Button from "~components/Body/Button";
-import Flex from "~components/Body/Flex";
 import FlexCenter from "~components/Body/FlexCenter";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import Preview from "~components/Body/Preview";
 import PostMeta from "~containers/Body/PostMeta";
 import Voter from "~components/Body/Voter";
 import CommentForm from "~containers/Forms/CommentForm";
-
-const btnProps = {
-  plain: true,
-  fontSize: "12px",
-  padding: "4px",
-  margin: "0 2px 0",
-  radius: "4px",
-  width: "auto"
-};
+import QCButtons from "~components/Body/QCButtons";
 
 class Comment extends Component {
   constructor(props) {
@@ -28,6 +17,14 @@ class Comment extends Component {
       isEditing: false
     };
   }
+
+  shouldComponentUpdate = (prevProps, prevState) =>
+    prevProps.isEditingComment !== this.props.isEditingComment ||
+    prevState.downvoted !== this.state.downvoted ||
+    prevState.upvoted !== this.state.upvoted ||
+    prevState.votes !== this.state.votes ||
+    prevState.body !== this.state.body ||
+    prevState.isEditing !== this.state.isEditing;
 
   handleToggleCommentEditing = () => this.props.toggleCommentEditing();
 
@@ -48,8 +45,7 @@ class Comment extends Component {
     );
 
   render = () => {
-    const { id, body, isEditing, qid, rid, uid } = this.state;
-    const { loggedInUserId, isEditingComment } = this.props;
+    const { id, body, isEditing, qid, rid } = this.state;
 
     return (
       <div css="padding-left: 45px;position: relative;">
@@ -68,6 +64,7 @@ class Comment extends Component {
           />
         </FlexCenter>
         <div css="padding: 14px 20px 5px 5px;">
+          <PostMeta showPoints {...this.state} />
           {isEditing ? (
             <CommentForm
               isCommenting
@@ -81,60 +78,16 @@ class Comment extends Component {
             />
           ) : (
             <>
-              <PostMeta showPoints {...this.state} />
               <Preview style={{ marginBottom: 0, padding: "10px 5px" }}>
                 <MarkdownPreviewer>{body}</MarkdownPreviewer>
               </Preview>
-              <Flex justify="left">
-                {loggedInUserId === uid && !isEditingComment && (
-                  <Button {...btnProps} onClick={this.toggleEditingComment}>
-                    <FaPencilAlt
-                      style={{
-                        position: "relative",
-                        top: 1,
-                        marginRight: 5,
-                        fontSize: 12
-                      }}
-                    />
-                    Edit
-                  </Button>
-                )}
-                {loggedInUserId === uid && !isEditingComment && (
-                  <Button {...btnProps} onClick={this.handleDeleteComment}>
-                    <FaEraser
-                      style={{
-                        position: "relative",
-                        top: 1,
-                        marginRight: 5,
-                        fontSize: 12
-                      }}
-                    />
-                    Delete
-                  </Button>
-                )}
-                <Button {...btnProps}>
-                  <FaShareAlt
-                    style={{
-                      position: "relative",
-                      top: 1,
-                      marginRight: 5,
-                      fontSize: 12
-                    }}
-                  />
-                  Share
-                </Button>
-                <Button {...btnProps}>
-                  <FaFlag
-                    style={{
-                      position: "relative",
-                      top: 1,
-                      marginRight: 5,
-                      fontSize: 12
-                    }}
-                  />
-                  Report
-                </Button>
-              </Flex>
+              <QCButtons
+                {...this.state}
+                handleEdit={this.toggleEditingComment}
+                handleDelete={this.handleDeleteComment}
+                handleReport={() => {}}
+                handleShare={() => {}}
+              />
             </>
           )}
         </div>

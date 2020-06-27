@@ -10,9 +10,8 @@ import FlexStart from "~components/Body/FlexStart";
 import MaskPreview from "~components/Body/MaskPreview";
 import QuestionContainer from "~components/Body/QuestionContainer";
 import QuestionTitle from "~components/Body/QuestionTitle";
-import Tag from "~components/Body/Tag";
+import Tags from "~components/Body/Tags";
 import Voter from "~components/Body/Voter";
-import Link from "~components/Navigation/Link";
 import PostMeta from "~containers/Body/PostMeta";
 
 class QuestionOverview extends Component {
@@ -53,19 +52,7 @@ class QuestionOverview extends Component {
               </Flex>
             </div>
             <QuestionTitle>{title}</QuestionTitle>
-            <div css="margin-bottom: 15px;">
-              {tags.map(tag => (
-                <Link
-                  key={tag}
-                  stopPropagation
-                  margin="0 5px 0 0"
-                  href="/t/[...slug]"
-                  asHref={`/t/${tag}`}
-                >
-                  <Tag>{tag}</Tag>
-                </Link>
-              ))}
-            </div>
+            <Tags tags={tags} />
             <MaskPreview>{body}</MaskPreview>
           </QuestionContainer>
         </div>

@@ -92,7 +92,7 @@ export class CommentForm extends Component {
             type="submit"
             disabled={this.state.isSubmitting}
           >
-            Comment
+            {!this.props.value ? "Comment" : "Save"}
           </Button>
         </FlexSpaceEvenly>
       </Flex>

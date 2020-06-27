@@ -6,7 +6,6 @@ export default styled.div`
   background: #fff;
   position: relative;
   border-top: 1px solid #d1d5da;
-  margin-top: 10px;
   padding-bottom: 5px;
   padding-top: 3px;
   background-color: #f9f9f9;

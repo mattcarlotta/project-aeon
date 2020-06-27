@@ -1,16 +1,30 @@
-const { abs, floor, log, min, round } = Math;
-const abbreviations = "kMBTGE";
+const a = ["k", "M", "B", "T"];
+const p = 10;
 
-function rounded(v) {
-  const precision = 10 ** 2;
-  return round(v * precision) / precision;
-}
+export default function round(n) {
+  // loop through the array backwards, so we do the largest first
+  for (let i = a.length - 1; i >= 0; i -= 1) {
+    // convert array index to "1000", "1000000", etc
+    const s = p ** ((i + 1) * 3);
 
-export default function format(v) {
-  const base = floor(log(abs(v)) / log(1000));
-  const suffix = abbreviations[min(5, base - 1)];
-  const baseAbbrev = abbreviations.indexOf(suffix) + 1;
+    // if n is larger or equal to s, abbreviate
+    if (s <= n) {
+      // multiply by d, round, and then divide by d to round to a specific decimal place.
+      n = Math.round((n * p) / s) / p;
 
-  const votes = suffix ? rounded(v / 1000 ** baseAbbrev) + suffix : "" + v;
-  return votes.indexOf("1000") > -1 ? `1${abbreviations[min(3, base)]}` : votes;
+      // handle special cases where we round up to the next abbreviation
+      if (n === 1000 && i < a.length - 1) {
+        n = 1;
+        i += 1;
+      }
+
+      // Add the letter for the abbreviation
+      n += a[i];
+
+      // We are done... stop
+      break;
+    }
+  }
+
+  return n.toString();
 }
