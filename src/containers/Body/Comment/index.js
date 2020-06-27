@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import FlexCenter from "~components/Body/FlexCenter";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import Preview from "~components/Body/Preview";
-import PostMeta from "~containers/Body/PostMeta";
-import Voter from "~components/Body/Voter";
-import CommentForm from "~containers/Forms/CommentForm";
 import QCButtons from "~components/Body/QCButtons";
+import toast from "~components/Body/Toast";
+import Voter from "~components/Body/Voter";
+import PostMeta from "~containers/Body/PostMeta";
+import CommentForm from "~containers/Forms/CommentForm";
+import app from "~utils/axiosConfig";
+import { parseMessage } from "~utils/parse";
 
 class Comment extends Component {
   constructor(props) {
@@ -28,7 +31,19 @@ class Comment extends Component {
 
   handleToggleCommentEditing = () => this.props.toggleCommentEditing();
 
-  handleDeleteComment = () => this.props.deleteComment(this.props.id);
+  handleDeleteComment = async () => {
+    try {
+      const { deleteComment, id } = this.props;
+      const res = await app.delete(`c/delete/${id}`);
+      const message = parseMessage(res);
+
+      toast({ type: "info", message });
+
+      deleteComment(id);
+    } catch (err) {
+      toast({ type: "error", message: err.toString() });
+    }
+  };
 
   handleUpdatedComment = data =>
     this.setState(

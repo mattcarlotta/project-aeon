@@ -19,12 +19,9 @@ import PostMeta from "~containers/Body/PostMeta";
 import Preview from "~components/Body/Preview";
 import QuestionTitle from "~components/Body/QuestionTitle";
 import Tags from "~components/Body/Tags";
-import toast from "~components/Body/Toast";
 import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
 import CommentForm from "~containers/Forms/CommentForm";
-import app from "~utils/axiosConfig";
-import { parseMessage } from "~utils/parse";
 
 class QuestionReview extends Component {
   constructor(props) {
@@ -82,26 +79,13 @@ class QuestionReview extends Component {
       }
     }));
 
-  handleRemoveComment = id =>
+  handleDeleteComment = id =>
     this.setState(prevState => ({
       question: {
         ...prevState.question,
         comments: prevState.question.comments.filter(c => c.id !== id)
       }
     }));
-
-  handleDeleteComment = async id => {
-    try {
-      const res = await app.delete(`c/delete/${id}`);
-      const message = parseMessage(res);
-
-      toast({ type: "info", message });
-
-      if (this.containerRef) this.handleRemoveComment(id);
-    } catch (err) {
-      toast({ type: "error", message: err.toString() });
-    }
-  };
 
   toggleComments = () =>
     this.setState(
@@ -141,6 +125,7 @@ class QuestionReview extends Component {
       id,
       tags,
       title,
+      uid,
       uniquetitle
     } = question;
 
@@ -156,12 +141,7 @@ class QuestionReview extends Component {
           url={`q/${id}/${uniquetitle}`}
           type="question"
         />
-        <Container
-          ref={node => (this.containerRef = node)}
-          centered
-          maxWidth="750px"
-          padding="0px"
-        >
+        <Container centered maxWidth="750px" padding="0px">
           <div css="padding-left: 45px;">
             <FlexCenter floating direction="column" height="120px" width="45px">
               <Voter {...question} handleChange={this.handleVoteChange} />
@@ -186,8 +166,8 @@ class QuestionReview extends Component {
                   handleDelete={() => {}}
                   handleShare={() => {}}
                   handleReport={() => {}}
-                  isAuthor={loggedInUserId === this.state.question.uid}
-                  isEditingComment={this.state.isEditingComment}
+                  isAuthor={loggedInUserId === uid}
+                  isEditingComment={isEditingComment}
                   toggleComments={this.toggleComments}
                 />
               </div>

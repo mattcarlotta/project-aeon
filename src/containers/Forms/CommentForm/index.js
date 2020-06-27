@@ -83,12 +83,12 @@ export class CommentForm extends Component {
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
       <Flex>
         <FlexSpaceEvenly>
-          <Button danger width="150px" onClick={this.props.cancelComment}>
+          <Button danger width="135px" onClick={this.props.cancelComment}>
             Cancel
           </Button>
           <Button
             primary
-            width="150px"
+            width="135px"
             type="submit"
             disabled={this.state.isSubmitting}
           >
