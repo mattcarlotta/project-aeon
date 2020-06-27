@@ -218,7 +218,11 @@ class QuestionReview extends Component {
                   : "#f9f9f9"};
               `}
             >
-              <Fade in={!addComment} timeout={{ enter: 1500, leave: 100 }}>
+              <Fade
+                style={{ display: isCommenting ? "none" : "block" }}
+                in={!addComment}
+                timeout={{ enter: 1500, leave: 100 }}
+              >
                 <span>
                   <Button input radius="4px" onClick={this.toggleCommentForm}>
                     Reply

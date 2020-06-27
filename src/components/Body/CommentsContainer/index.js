@@ -14,7 +14,7 @@ export default styled.div`
     content: "";
     margin-top: 3px;
     margin-left: 20px;
-    height: 96.5%;
+    height: 95%;
     position: absolute;
     vertical-align: top;
     width: 2px;
