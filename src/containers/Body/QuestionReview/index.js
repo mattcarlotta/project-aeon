@@ -25,6 +25,7 @@ import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
 import CommentForm from "~containers/Forms/CommentForm";
 import QuestionForm from "~containers/Forms/QuestionForm";
+import AnswerForm from "~containers/Forms/AnswerForm";
 
 class QuestionReview extends Component {
   constructor(props) {
@@ -229,6 +230,17 @@ class QuestionReview extends Component {
                       type="q"
                     />
                   </div>
+                  {!deleted && !isEditingComment && (
+                    <Collapse in={!addComment}>
+                      <AnswerForm
+                        alertType="success"
+                        formId={`${id}-new-answer`}
+                        handleSubmit={() => {}}
+                        id={id}
+                        URL="a"
+                      />
+                    </Collapse>
+                  )}
                   {deleted && (
                     <Center>
                       <p css="color: #000;font-weight: 300;">

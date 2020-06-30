@@ -26,6 +26,10 @@ export default props => [
     label: "Question",
     value: props.body || "",
     errors: "",
-    required: true
+    required: true,
+    classes: {
+      mde: "mde-question",
+      mdetoolbarseparator: "mde-toolbarseparator"
+    }
   }
 ];

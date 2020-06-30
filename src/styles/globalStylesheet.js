@@ -106,7 +106,7 @@ export default createGlobalStyle`
     }
   }
 
-  .mde-comment {
+  .mde-answer.mde-answer, .mde-comment.mde-comment, .mde-question.mde-question {
     background: transparent;
 
     & .mde-textarea-wrapper {
@@ -116,6 +116,13 @@ export default createGlobalStyle`
 
     & .preview {
       padding: 0px 4px 0px 10px;
+    }
+  }
+
+  .mde-answer.mde-answer {
+    & .mde-textarea-wrapper {
+      border-radius: 0;
+      padding: 0px 0px 0px 10px;
     }
   }
 
