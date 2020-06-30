@@ -57,17 +57,20 @@ class QuestionReview extends Component {
   };
 
   handleAddComment = data =>
-    this.setState(prevState => ({
-      addComment: false,
-      collapseComments: false,
-      isCommenting: false,
-      isEditingComment: "",
-      isEditingQuestion: false,
-      question: {
-        ...prevState.question,
-        comments: [...prevState.question.comments, data]
-      }
-    }));
+    this.setState(
+      prevState => ({
+        addComment: false,
+        collapseComments: false,
+        isCommenting: false,
+        isEditingComment: "",
+        isEditingQuestion: false,
+        question: {
+          ...prevState.question,
+          comments: [...prevState.question.comments, data]
+        }
+      }),
+      () => this.handleScroll(`comment-${data.id}`)
+    );
 
   handleCommentEditing = id =>
     this.setState(
@@ -78,7 +81,8 @@ class QuestionReview extends Component {
         isEditingQuestion: false
       }),
       () => {
-        if (this.state.isEditingComment) this.handleScroll(`comment-${id}`);
+        if (this.state.isEditingComment)
+          this.handleScroll(`edit-comment-${id}`);
       }
     );
 
@@ -114,11 +118,16 @@ class QuestionReview extends Component {
   };
 
   toggleComments = () =>
-    this.setState(prevState => ({
-      collapseComments: !prevState.collapseComments,
-      isEditingComment: "",
-      isEditingQuestion: false
-    }));
+    this.setState(
+      prevState => ({
+        collapseComments: !prevState.collapseComments,
+        isEditingComment: "",
+        isEditingQuestion: false
+      }),
+      () => {
+        if (!this.state.collapseComments) this.handleScroll("comments");
+      }
+    );
 
   toggleCommentForm = () =>
     this.setState(

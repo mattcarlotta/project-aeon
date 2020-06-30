@@ -44,7 +44,7 @@ class Comment extends Component {
     const isEditing = isEditingComment === id;
 
     return (
-      <div css="padding-left: 45px;position: relative;">
+      <div id={`comment-${id}`} css="padding-left: 45px;position: relative;">
         <FlexCenter
           floating
           direction="column"
@@ -63,7 +63,7 @@ class Comment extends Component {
           <PostMeta showPoints {...this.state} />
           {isEditing ? (
             <CommentForm
-              formId={`comment-${id}`}
+              formId={`edit-comment-${id}`}
               isCommenting
               cancelComment={this.toggleEditingComment}
               handleSubmit={this.handleUpdatedComment}
