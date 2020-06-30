@@ -47,7 +47,7 @@ class TagSelection extends Component {
         res({
           data: [{ tag: "reactjs" }, { tag: "react-native" }]
         });
-      }, 1000)
+      }, 350)
     );
 
     if (this.state.currentPromise === this.promiseCount) {

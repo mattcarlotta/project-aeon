@@ -6,7 +6,7 @@ import requireAuth from "~strategies/requireAuth";
 import { sendError } from "~utils/helpers";
 
 /**
- * Updates a comment body.
+ * Deletes a comment.
  *
  * @function deleteUserComment
  * @param {object} req
@@ -21,10 +21,11 @@ const deleteUserComment = async (req, res) => {
 
     const { id: userid } = req.user;
 
-    const removedComment = await db.oneOrNone(deleteComment, [id, userid]);
-    if (!removedComment) throw String(unableToRemoveComment);
+    const comment = await db.oneOrNone(deleteComment, [id, userid]);
+    if (!comment) throw String(unableToRemoveComment);
 
     res.status(201).send({
+      comment,
       message: "Successfully removed the comment."
     });
   } catch (err) {

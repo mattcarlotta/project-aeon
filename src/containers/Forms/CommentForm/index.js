@@ -64,7 +64,7 @@ export class CommentForm extends Component {
 
             toast({ type: "info", message: data.message });
 
-            this.props.handleChange(data.comment);
+            this.props.handleSubmit(data.comment);
           } catch (err) {
             toast({ type: "error", message: err.toString() });
             this.setState({ isSubmitting: false });
@@ -77,7 +77,7 @@ export class CommentForm extends Component {
   render = () => (
     <form
       ref={node => (this.formRef = node)}
-      id="comment-form"
+      id={this.props.formId}
       onSubmit={this.handleSubmit}
     >
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
@@ -103,7 +103,8 @@ export class CommentForm extends Component {
 CommentForm.propTypes = {
   id: PropTypes.string,
   cancelComment: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  formId: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   isCommenting: PropTypes.bool.isRequired,
   qid: PropTypes.number.isRequired,
   rid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,

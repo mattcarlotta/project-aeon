@@ -43,6 +43,7 @@ const questionTableOptions = `(
   id SERIAL PRIMARY KEY,
   uid UUID NOT NULL REFERENCES users(id),
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP WITHOUT TIME ZONE,
   answered BOOLEAN DEFAULT FALSE,
   views INTEGER DEFAULT 0,
   upvoters UUID [] DEFAULT array[]::uuid[],
@@ -51,7 +52,9 @@ const questionTableOptions = `(
   uniquetitle VARCHAR NOT NULL DEFAULT '',
   body TEXT NOT NULL DEFAULT '',
   description TEXT NOT NULL DEFAULT '',
-  tags TEXT [] DEFAULT array[]::text[]
+  tags TEXT [] DEFAULT array[]::text[],
+  deleted BOOLEAN DEFAULT false,
+  votes INTEGER DEFAULT 0
 )`;
 
 const answerTableOptions = `(
@@ -59,9 +62,12 @@ const answerTableOptions = `(
   uid UUID NOT NULL REFERENCES users(id),
   qid SERIAL REFERENCES questions(id) ON DELETE CASCADE,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP WITHOUT TIME ZONE,
   body TEXT NOT NULL DEFAULT '',
   upvoters UUID [] DEFAULT array[]::uuid[],
-  downvoters UUID [] DEFAULT array[]::uuid[]
+  downvoters UUID [] DEFAULT array[]::uuid[],
+  deleted BOOLEAN DEFAULT false,
+  votes INTEGER DEFAULT 0
 )`;
 
 const commentTableOptions = `(
@@ -70,9 +76,11 @@ const commentTableOptions = `(
   qid SERIAL REFERENCES questions(id) ON DELETE CASCADE,
   rid TEXT NOT NULL,
   date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP WITHOUT TIME ZONE,
   body TEXT NOT NULL DEFAULT '',
   upvoters UUID [] DEFAULT array[]::uuid[],
-  downvoters UUID [] DEFAULT array[]::uuid[]
+  downvoters UUID [] DEFAULT array[]::uuid[],
+  votes INTEGER DEFAULT 0
 )`;
 
 const seedDB = async () => {

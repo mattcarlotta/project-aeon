@@ -90,8 +90,9 @@ UserQuestion.propTypes = {
         })
       ),
       commentcount: PropTypes.number,
-      description: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired,
+      deleted: PropTypes.bool.isRequired,
+      description: PropTypes.string.isRequired,
       downvoted: PropTypes.bool,
       id: PropTypes.number.isRequired,
       tags: PropTypes.arrayOf(PropTypes.string).isRequired,

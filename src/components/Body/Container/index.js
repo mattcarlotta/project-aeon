@@ -10,7 +10,11 @@ export default styled.div`
   padding: ${({ padding }) => padding || "10px"};
   text-align: left;
   border-radius: 4px;
-  background: ${({ answered }) => (answered ? "#f6fff9" : "#fff")};
+  background: ${({ answered, deleted }) => {
+    if (answered) return "#f6fff9";
+    if (deleted) return "#e8dbd6";
+    return "#fff";
+  }};
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   transition: all 150ms ease-in-out;

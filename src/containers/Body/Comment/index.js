@@ -4,20 +4,16 @@ import FlexCenter from "~components/Body/FlexCenter";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import Preview from "~components/Body/Preview";
 import QCButtons from "~components/Body/QCButtons";
-import toast from "~components/Body/Toast";
 import Voter from "~components/Body/Voter";
 import PostMeta from "~containers/Body/PostMeta";
 import CommentForm from "~containers/Forms/CommentForm";
-import app from "~utils/axiosConfig";
-import { parseMessage } from "~utils/parse";
 
 class Comment extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ...props,
-      isEditing: false
+      ...props
     };
   }
 
@@ -29,39 +25,23 @@ class Comment extends Component {
     prevState.body !== this.state.body ||
     prevState.isEditing !== this.state.isEditing;
 
-  handleToggleCommentEditing = () => this.props.toggleCommentEditing();
-
-  handleDeleteComment = async () => {
-    try {
-      const { deleteComment, id } = this.props;
-      const res = await app.delete(`c/delete/${id}`);
-      const message = parseMessage(res);
-
-      toast({ type: "info", message });
-
-      deleteComment(id);
-    } catch (err) {
-      toast({ type: "error", message: err.toString() });
-    }
-  };
+  handleToggleCommentEditing = id => this.props.toggleCommentEditing(id);
 
   handleUpdatedComment = data =>
     this.setState(
-      prevState => ({ ...prevState, ...data, isEditing: false }),
+      prevState => ({ ...prevState, ...data }),
       () => {
-        if (this.props.isEditingComment) this.handleToggleCommentEditing();
+        if (this.props.isEditingComment) this.handleToggleCommentEditing("");
       }
     );
 
-  toggleEditingComment = () =>
-    this.setState(
-      prevState => ({ isEditing: !prevState.isEditing }),
-      () => this.handleToggleCommentEditing()
-    );
+  toggleEditingComment = () => this.handleToggleCommentEditing(this.props.id);
 
   render = () => {
-    const { id, body, isEditing, qid, rid, uid } = this.state;
-    const { isEditingComment } = this.props;
+    const { id, body, qid, rid, uid } = this.state;
+    const { deleteComment, isEditingComment } = this.props;
+
+    const isEditing = isEditingComment === id;
 
     return (
       <div css="padding-left: 45px;position: relative;">
@@ -83,9 +63,10 @@ class Comment extends Component {
           <PostMeta showPoints {...this.state} />
           {isEditing ? (
             <CommentForm
+              formId={`comment-${id}`}
               isCommenting
               cancelComment={this.toggleEditingComment}
-              handleChange={this.handleUpdatedComment}
+              handleSubmit={this.handleUpdatedComment}
               id={id}
               qid={qid}
               rid={rid}
@@ -101,10 +82,11 @@ class Comment extends Component {
                 {...this.state}
                 isAuthor={this.props.loggedInUserId === uid}
                 handleEdit={this.toggleEditingComment}
-                handleDelete={this.handleDeleteComment}
                 handleReport={() => {}}
                 handleShare={() => {}}
-                isEditingComment={isEditingComment}
+                handleStatusUpdate={deleteComment}
+                isEditing={isEditing}
+                type="c"
               />
             </>
           )}
@@ -124,7 +106,7 @@ Comment.propTypes = {
   upvoted: PropTypes.bool,
   downvoted: PropTypes.bool,
   username: PropTypes.string,
-  isEditingComment: PropTypes.bool,
+  isEditingComment: PropTypes.string,
   loggedInUserId: PropTypes.string,
   toggleCommentEditing: PropTypes.func.isRequired,
   votes: PropTypes.number

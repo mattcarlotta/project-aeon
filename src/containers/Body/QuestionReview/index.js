@@ -2,10 +2,12 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import { connect } from "react-redux";
+import Router from "next/router";
 import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
+import Center from "~components/Body/Center";
 import CommentsContainer from "~components/Body/CommentsContainer";
 import Container from "~components/Body/Container";
 import Comment from "~containers/Body/Comment";
@@ -22,6 +24,7 @@ import Tags from "~components/Body/Tags";
 import Voter from "~components/Body/Voter";
 import Head from "~components/Navigation/Head";
 import CommentForm from "~containers/Forms/CommentForm";
+import QuestionForm from "~containers/Forms/QuestionForm";
 
 class QuestionReview extends Component {
   constructor(props) {
@@ -34,7 +37,8 @@ class QuestionReview extends Component {
       question,
       addComment: false,
       collapseComments: false,
-      isEditingComment: false,
+      isEditingComment: "",
+      isEditingQuestion: false,
       isCommenting: false
     };
   }
@@ -45,26 +49,10 @@ class QuestionReview extends Component {
 
   handleScroll = id => {
     this.timer = setTimeout(() => {
-      const element = document.getElementById(id);
+      const el = document.getElementById(id);
 
-      window.scrollTo({
-        behavior: element ? "smooth" : "auto",
-        top: element ? element.offsetTop + 80 : 0
-      });
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 200);
-  };
-
-  handleCommentEditing = () =>
-    this.setState(prevState => ({
-      addComment: false,
-      isCommenting: false,
-      isEditingComment: !prevState.isEditingComment
-    }));
-
-  handleVoteChange = data => {
-    this.setState(prevState => ({
-      question: { ...prevState.question, ...data }
-    }));
   };
 
   handleAddComment = data =>
@@ -72,14 +60,28 @@ class QuestionReview extends Component {
       addComment: false,
       collapseComments: false,
       isCommenting: false,
-      isEditingComment: false,
+      isEditingComment: "",
+      isEditingQuestion: false,
       question: {
         ...prevState.question,
         comments: [...prevState.question.comments, data]
       }
     }));
 
-  handleDeleteComment = id =>
+  handleCommentEditing = id =>
+    this.setState(
+      prevState => ({
+        addComment: false,
+        isCommenting: false,
+        isEditingComment: prevState.isEditingComment === id ? "" : id,
+        isEditingQuestion: false
+      }),
+      () => {
+        if (this.state.isEditingComment) this.handleScroll(`comment-${id}`);
+      }
+    );
+
+  handleDeleteComment = ({ comment: { id } }) =>
     this.setState(prevState => ({
       question: {
         ...prevState.question,
@@ -87,26 +89,61 @@ class QuestionReview extends Component {
       }
     }));
 
+  handleUpdate = data => {
+    this.setState(prevState => ({
+      isEditingQuestion: false,
+      question: { ...prevState.question, ...data }
+    }));
+  };
+
+  handleQuestionStatus = ({ question }) => this.handleUpdate(question);
+
+  handleUpdatedQuestion = data => {
+    const {
+      question: { id }
+    } = this.props;
+    const { uniquetitle } = this.state;
+
+    if (data.uniquetitle !== uniquetitle)
+      Router.replace("/q/[...slug]", `/q/${id}/${data.uniquetitle}`, {
+        shallow: true
+      });
+
+    this.handleUpdate(data);
+  };
+
   toggleComments = () =>
-    this.setState(
-      prevState => ({
-        collapseComments: !prevState.collapseComments,
-        isEditingComment: false
-      }),
-      () => {
-        if (!this.state.collapseComments) this.handleScroll("comments");
-      }
-    );
+    this.setState(prevState => ({
+      collapseComments: !prevState.collapseComments,
+      isEditingComment: "",
+      isEditingQuestion: false
+    }));
 
   toggleCommentForm = () =>
     this.setState(
       prevState => ({
         addComment: !prevState.addComment,
-        isEditingComment: false,
-        isCommenting: !prevState.isCommenting
+        isCommenting: !prevState.isCommenting,
+        isEditingComment: "",
+        isEditingQuestion: false
       }),
       () => {
-        if (this.state.addComment) this.handleScroll("comment-form");
+        if (this.state.addComment)
+          this.handleScroll(`${this.state.question.id}-new-comment`);
+      }
+    );
+
+  toggleQuestionForm = () =>
+    this.setState(
+      prevState => ({
+        addComment: false,
+        isCommenting: false,
+        isEditingComment: "",
+        isEditingQuestion: !prevState.isEditingQuestion
+      }),
+      () => {
+        if (this.state.isEditingQuestion)
+          this.handleScroll(`${this.state.question.id}-edit-question`);
       }
     );
 
@@ -116,11 +153,13 @@ class QuestionReview extends Component {
       collapseComments,
       question,
       isEditingComment,
+      isEditingQuestion,
       isCommenting
     } = this.state;
     const {
       body,
       comments,
+      deleted,
       description,
       id,
       tags,
@@ -141,39 +180,68 @@ class QuestionReview extends Component {
           url={`q/${id}/${uniquetitle}`}
           type="question"
         />
-        <Container centered maxWidth="750px" padding="0px">
+        <Container centered deleted={deleted} maxWidth="750px" padding="0px">
           <div css="padding-left: 45px;">
             <FlexCenter floating direction="column" height="120px" width="45px">
-              <Voter {...question} handleChange={this.handleVoteChange} />
+              <Voter {...question} handleChange={this.handleUpdate} />
             </FlexCenter>
             <QuestionContainer>
               <PostMeta {...question} showViews />
-              <NoSSR fallback={<LoadingItem />}>
-                <Affix {...question} handleChange={this.handleVoteChange}>
-                  <QuestionTitle>{title}</QuestionTitle>
-                </Affix>
-              </NoSSR>
-              <Tags tags={tags} />
-              <Preview>
-                <MarkdownPreviewer>{body}</MarkdownPreviewer>
-              </Preview>
-              <div css="margin-bottom: 10px;">
-                <QCButtons
-                  comments={comments.length}
-                  collapseComments={collapseComments}
-                  hasComments={hasComments}
-                  handleEdit={() => {}}
-                  handleDelete={() => {}}
-                  handleShare={() => {}}
-                  handleReport={() => {}}
-                  isAuthor={loggedInUserId === uid}
-                  isEditingComment={isEditingComment}
-                  toggleComments={this.toggleComments}
-                />
-              </div>
+              {isEditingQuestion ? (
+                <div css="margin: 10px 0;padding: 10px 0;">
+                  <QuestionForm
+                    id={id}
+                    formId={`${id}-edit-question`}
+                    alertType="info"
+                    body={body}
+                    tags={tags}
+                    title={title}
+                    cancelQuestion={this.toggleQuestionForm}
+                    handleSubmit={this.handleUpdatedQuestion}
+                    URL="q/update"
+                  />
+                </div>
+              ) : (
+                <>
+                  <NoSSR fallback={<LoadingItem />}>
+                    <Affix {...question} handleChange={this.handleUpdate}>
+                      <QuestionTitle>{title}</QuestionTitle>
+                    </Affix>
+                  </NoSSR>
+                  <Tags tags={tags} />
+                  <Preview>
+                    <MarkdownPreviewer>{body}</MarkdownPreviewer>
+                  </Preview>
+                  <div css="margin-bottom: 10px;">
+                    <QCButtons
+                      comments={comments.length}
+                      deleted={deleted}
+                      collapseComments={collapseComments}
+                      hasComments={hasComments}
+                      handleEdit={this.toggleQuestionForm}
+                      handleStatusUpdate={this.handleQuestionStatus}
+                      handleShare={() => {}}
+                      handleReport={() => {}}
+                      id={id}
+                      isAuthor={loggedInUserId === uid}
+                      isEditing={isEditingComment}
+                      toggleComments={this.toggleComments}
+                      type="q"
+                    />
+                  </div>
+                  {deleted && (
+                    <Center>
+                      <p css="color: #000;font-weight: 300;">
+                        This question is currently hidden from the public. Click
+                        restore to undelete the question.
+                      </p>
+                    </Center>
+                  )}
+                </>
+              )}
             </QuestionContainer>
           </div>
-          {hasComments && (
+          {hasComments && !deleted && (
             <Collapse in={!collapseComments}>
               <CommentsContainer id="comments">
                 {comments.map(comment => (
@@ -189,7 +257,7 @@ class QuestionReview extends Component {
               </CommentsContainer>
             </Collapse>
           )}
-          {!isEditingComment && loggedInUserId && (
+          {!deleted && !isEditingComment && loggedInUserId && (
             <div
               css={`
                 padding: 10px;
@@ -211,10 +279,11 @@ class QuestionReview extends Component {
               </Fade>
               <Collapse in={isCommenting}>
                 <CommentForm
+                  formId={`${id}-new-comment`}
                   cancelComment={this.toggleCommentForm}
                   isCommenting={isCommenting}
                   qid={id}
-                  handleChange={this.handleAddComment}
+                  handleSubmit={this.handleAddComment}
                   rid={id}
                   URL="c/create"
                 />
@@ -257,8 +326,9 @@ QuestionReview.propTypes = {
         votes: PropTypes.number
       })
     ),
-    description: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
+    deleted: PropTypes.bool.isRequired,
+    description: PropTypes.string.isRequired,
     downvoted: PropTypes.bool,
     id: PropTypes.number.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,

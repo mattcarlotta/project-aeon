@@ -1,3 +1,4 @@
+import Router from "next/router";
 import Head from "~components/Navigation/Head";
 import Col from "~components/Body/Col";
 import Container from "~components/Body/Container";
@@ -14,7 +15,11 @@ const AskQuestion = () => (
     <Row padding="0 10px">
       <Col md={24} lg={15}>
         <Container style={{ padding: 20 }}>
-          <QuestionForm />
+          <QuestionForm
+            alertType="success"
+            cancelQuestion={() => Router.push("/")}
+            URL="q/create"
+          />
         </Container>
       </Col>
       <Col md={24} lg={9}>

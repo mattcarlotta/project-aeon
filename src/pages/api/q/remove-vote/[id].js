@@ -30,15 +30,16 @@ const removeVoteUserQuestion = async (req, res) => {
       "remove vote question",
       async task => {
         try {
-          const { upvoted, downvoted } = await task.oneOrNone(votedOnQuestion, [
-            id,
-            userId
-          ]);
-          if (!upvoted && !downvoted) throw String(unableToRemoveVote);
+          const question = await task.oneOrNone(votedOnQuestion, [id, userId]);
+          if (!question || (!question.upvoted && !question.downvoted))
+            throw String(unableToRemoveVote);
+
+          const removeVote = question.upvoted ? -1 : 1;
 
           const upvotedQuestion = await task.oneOrNone(removeVoteFromQuestion, [
             id,
-            userId
+            userId,
+            removeVote
           ]);
           if (!upvotedQuestion) throw String(unableToLocateQuestion);
 

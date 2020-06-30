@@ -54,7 +54,10 @@ const missingNames =
   "Invalid request. You must supply at least a username, a first name and a last name!";
 
 const missingQuestionReqs =
-  "Invalid request. You must supply at least a title and a body in order to create a new question.";
+  "Invalid request. You must supply at least a title, tags, and a body in order to create a question.";
+
+const missingQuestionUpdateReqs =
+  "Invalid request. You must supply at least a title, tags and a body in order to update a question.";
 
 const missingPasswords =
   "Invalid request. You must supply both your current password and a new password.";
@@ -91,6 +94,12 @@ const unableToLocateUser = "Unable to locate the requested user.";
 const unableToRemoveComment =
   "Invalid request. Unable to remove the comment because the request is missing a valid comment id.";
 
+const unableToRemoveQuestion =
+  "Invalid request. Unable to remove the question because the request is missing a valid question id.";
+
+const unableToRestoreQuestion =
+  "Invalid request. Unable to restore the question because the request is missing a valid question id.";
+
 const unableToRemoveVote =
   "Invalid request. Unable to locate the vote to be removed as it looks like you haven't voted on this question yet.";
 
@@ -117,6 +126,7 @@ export {
   missingEmailCreds,
   missingNames,
   missingQuestionReqs,
+  missingQuestionUpdateReqs,
   missingPasswords,
   missingSigninCredentials,
   missingSignupCreds,
@@ -129,6 +139,8 @@ export {
   unableToLocateTaggedQuestions,
   unableToLocateUser,
   unableToRemoveComment,
+  unableToRemoveQuestion,
+  unableToRestoreQuestion,
   unableToRemoveVote,
   usernameAlreadyTaken
 };
