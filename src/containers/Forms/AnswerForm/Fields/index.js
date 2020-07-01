@@ -9,9 +9,12 @@ const Fields = ({ body }) => [
     errors: "",
     required: true,
     classes: { mde: "mde-answer" },
-    autoGrow: false,
+    autoGrow: true,
     minEditorHeight: !body ? 200 : 80,
-    css: `height: ${!body ? "300px" : "90px"};margin-top: 25px;`,
+    maxEditorHeight: 1000,
+    css: `min-height: ${
+      !body ? "300px" : "90px"
+    };margin-top: 25px; margin-bottom: 20px;`,
     grip: (
       <GripButtons
         cancelForm={body ? () => {} : undefined}
@@ -20,7 +23,7 @@ const Fields = ({ body }) => [
     ),
     disableGrip: true,
     textAreaProps: {
-      placeholder: "Type here to add an answer to this question..."
+      placeholder: "Type here to add an answer..."
     }
   }
 ];

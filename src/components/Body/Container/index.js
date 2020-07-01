@@ -12,7 +12,7 @@ export default styled.div`
   border-radius: 4px;
   background: ${({ answered, deleted }) => {
     if (answered) return "#f6fff9";
-    if (deleted) return "#e8dbd6";
+    if (deleted) return "#e8d6d6";
     return "#fff";
   }};
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),

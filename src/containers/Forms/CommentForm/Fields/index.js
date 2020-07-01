@@ -9,6 +9,7 @@ const Fields = ({ cancelComment, value }) => [
     errors: "",
     required: true,
     disableGrip: true,
+    disableHotKeys: false,
     disableToolbar: !!value,
     maxEditorHeight: !value ? 140 : 80,
     showCharacterLength: !value,

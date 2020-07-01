@@ -7,10 +7,10 @@ import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import Affix from "~components/Body/Affix";
 import Button from "~components/Body/Button";
-import Center from "~components/Body/Center";
 import CommentsContainer from "~components/Body/CommentsContainer";
 import Container from "~components/Body/Container";
 import Comment from "~containers/Body/Comment";
+import DeletedMessage from "~components/Body/DeletedMessage";
 import FlexCenter from "~components/Body/FlexCenter";
 import LoadingItem from "~components/Body/LoadingItem";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
@@ -247,14 +247,7 @@ class QuestionReview extends Component {
                       URL="a"
                     />
                   )}
-                  {deleted && (
-                    <Center>
-                      <p css="color: #000;font-weight: 300;">
-                        This question is currently hidden from the public. Click
-                        restore to undelete the question.
-                      </p>
-                    </Center>
-                  )}
+                  {deleted && <DeletedMessage />}
                 </>
               )}
             </QuestionContainer>

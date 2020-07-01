@@ -30,6 +30,7 @@ export default props => [
     classes: {
       mde: "mde-question",
       mdetoolbarseparator: "mde-toolbarseparator"
-    }
+    },
+    css: "margin-bottom: 30px;"
   }
 ];
