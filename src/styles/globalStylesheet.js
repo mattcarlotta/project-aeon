@@ -99,18 +99,17 @@ export default createGlobalStyle`
 
   /* SMDE Editor Overrides */
 
-  .mde-editor.mde-editor, .mde-comment.mde-comment {
-    & .has-error {
-      border-color: #d14023;
-      transition: border-color 0.2s ease-in-out;
-    }
+  .has-error {
+    border-color: #d14023 !important;
+    transition: border-color 0.2s ease-in-out;
   }
 
-  .mde-answer.mde-answer, .mde-comment.mde-comment, .mde-question.mde-question {
-    background: transparent;
+  .mde-comment.mde-comment {
+    background: #fff;
+    margin-bottom: 10px;
 
     & .mde-textarea-wrapper {
-      border-radius: 0 0 4px 4px;
+      border-radius: 4px 4px 0px 0px;
       padding: 0px 0px 0px 10px;
     }
 
@@ -124,6 +123,14 @@ export default createGlobalStyle`
       border-radius: 0;
       padding: 0px 0px 0px 10px;
     }
+
+    & .preview {
+      padding: 0px 4px 0px 10px;
+    }
+  }
+
+  .mde-grip-container {
+    overflow: hidden;
   }
 
   .mde-textarea.mde-textarea {
@@ -140,11 +147,6 @@ export default createGlobalStyle`
       border-color: #d9d9d9;
       transition: border-color 0.2s ease-in-out;
     }
-  }
-
-  .mde-toolbar.mde-toolbar,
-  .mde-grip.mde-grip {
-    background: #fff;
   }
 
   .mde-toolbar.mde-toolbar {
@@ -209,6 +211,7 @@ export default createGlobalStyle`
 
   .mde-preview-empty.mde-preview-empty {
     color: #bfbfbf;
+    padding-top: 9px;
   }
 
   .svg-icon {

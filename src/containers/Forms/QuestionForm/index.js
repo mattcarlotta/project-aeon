@@ -88,7 +88,7 @@ QuestionForm.propTypes = {
   alertType: PropTypes.string.isRequired,
   body: PropTypes.string,
   cancelQuestion: PropTypes.func.isRequired,
-  formId: PropTypes.string.isRequired,
+  formId: PropTypes.string,
   id: PropTypes.number,
   handleSubmit: PropTypes.func,
   URL: PropTypes.string.isRequired

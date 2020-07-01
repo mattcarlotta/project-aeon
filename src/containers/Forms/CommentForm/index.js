@@ -1,8 +1,5 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import Button from "~components/Body/Button";
-import Flex from "~components/Body/Flex";
-import FlexSpaceEvenly from "~components/Body/FlexSpaceEvenly";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import toast from "~components/Body/Toast";
 import app from "~utils/axiosConfig";
@@ -16,18 +13,18 @@ export class CommentForm extends Component {
     super(props);
 
     this.state = {
-      fields: fields(props.value),
+      fields: fields(props),
       isSubmitting: false
     };
   }
 
   componentDidUpdate = prevProps => {
-    const { isCommenting, value } = this.props;
+    const { isCommenting } = this.props;
 
     if (prevProps.isCommenting !== isCommenting) {
       this.timer = setTimeout(() => {
         if (this.formRef)
-          this.setState({ fields: fields(value), isSubmitting: false });
+          this.setState({ fields: fields(this.props), isSubmitting: false });
       }, 300);
     }
   };
@@ -81,34 +78,17 @@ export class CommentForm extends Component {
       onSubmit={this.handleSubmit}
     >
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
-      <Flex>
-        <FlexSpaceEvenly>
-          <Button danger width="135px" onClick={this.props.cancelComment}>
-            Cancel
-          </Button>
-          <Button
-            primary
-            width="135px"
-            type="submit"
-            disabled={this.state.isSubmitting}
-          >
-            {!this.props.value ? "Comment" : "Save"}
-          </Button>
-        </FlexSpaceEvenly>
-      </Flex>
     </form>
   );
 }
 
 CommentForm.propTypes = {
   id: PropTypes.string,
-  cancelComment: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isCommenting: PropTypes.bool.isRequired,
   qid: PropTypes.number.isRequired,
   rid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  value: PropTypes.string,
   URL: PropTypes.string.isRequired
 };
 

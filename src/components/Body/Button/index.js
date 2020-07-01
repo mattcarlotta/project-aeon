@@ -120,6 +120,10 @@ export default styled(Button)`
       return "border: 0;background-color:transparent;color:#000000a6;";
     if (props.alt || props.downvote || props.upvote)
       return "border: 0;background-color:transparent;color:#ddd;";
+    if (props.cancel)
+      return "border: 0;background-color: #f7f7f7;color:#5e6c84;";
+    if (props.submit)
+      return "border: 0;background-color:transparent;color:#5e6c84;";
     if (props.input)
       return "cursor: text;border: 1px solid #d9d9d9;color: #586069;background: #efefef;text-align: left;";
     if (props.link)
@@ -141,6 +145,8 @@ export default styled(Button)`
       if (props.alt) return "color:#fff;";
       if (props.downvote) return "color: #ff0000;";
       if (props.upvote) return "color: #01b701;";
+      if (props.cancel) return "background-color:#ddd;color:#f0506e;";
+      if (props.submit) return "background-color:#ddd;color:#0f7ae5;";
       if (props.input) return "color:#2f2f2f;border-color: #949494;";
       return "border-color:#0f7ae5;background-color:transparent;color:#0f7ae5;";
     }};

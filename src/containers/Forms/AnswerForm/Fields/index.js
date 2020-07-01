@@ -1,14 +1,32 @@
-export default props => [
+import PropTypes from "prop-types";
+import GripButtons from "~components/Body/GripButtons";
+
+const Fields = ({ body }) => [
   {
     name: "body",
     type: "editor",
-    value: props.body || "",
+    value: body || "",
     errors: "",
     required: true,
     classes: { mde: "mde-answer" },
-    autoGrow: true,
-    minEditorHeight: !props.body ? 200 : 80,
-    css: `height: ${!props.body ? "300px" : "90px"};margin-top: 25px;`,
-    textAreaProps: { placeholder: "Type here to answer this question..." }
+    autoGrow: false,
+    minEditorHeight: !body ? 200 : 80,
+    css: `height: ${!body ? "300px" : "90px"};margin-top: 25px;`,
+    grip: (
+      <GripButtons
+        cancelForm={body ? () => {} : undefined}
+        submitText={body ? "Save Answer" : "Add Answer"}
+      />
+    ),
+    disableGrip: true,
+    textAreaProps: {
+      placeholder: "Type here to add an answer to this question..."
+    }
   }
 ];
+
+Fields.propTypes = {
+  body: PropTypes.string
+};
+
+export default Fields;

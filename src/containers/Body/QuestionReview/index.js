@@ -81,8 +81,7 @@ class QuestionReview extends Component {
         isEditingQuestion: false
       }),
       () => {
-        if (this.state.isEditingComment)
-          this.handleScroll(`edit-comment-${id}`);
+        if (id) this.handleScroll(`comment-${id}`);
       }
     );
 
@@ -239,16 +238,14 @@ class QuestionReview extends Component {
                       type="q"
                     />
                   </div>
-                  {!deleted && !isEditingComment && (
-                    <Collapse in={!addComment}>
-                      <AnswerForm
-                        alertType="success"
-                        formId={`${id}-new-answer`}
-                        handleSubmit={() => {}}
-                        id={id}
-                        URL="a"
-                      />
-                    </Collapse>
+                  {!deleted && (
+                    <AnswerForm
+                      alertType="success"
+                      formId={`${id}-new-answer`}
+                      handleSubmit={() => {}}
+                      id={id}
+                      URL="a"
+                    />
                   )}
                   {deleted && (
                     <Center>

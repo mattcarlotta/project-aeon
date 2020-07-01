@@ -1,8 +1,5 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import Button from "~components/Body/Button";
-import Flex from "~components/Body/Flex";
-import FlexSpaceEvenly from "~components/Body/FlexSpaceEvenly";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import toast from "~components/Body/Toast";
 import app from "~utils/axiosConfig";
@@ -60,31 +57,12 @@ export class AnswerForm extends Component {
   render = () => (
     <form id={this.props.formId} onSubmit={this.handleSubmit}>
       <FieldGenerator fields={this.state.fields} onChange={this.handleChange} />
-      <Flex>
-        <FlexSpaceEvenly>
-          {this.props.cancelAnswer && (
-            <Button danger width="135px" onClick={this.props.cancelAnswer}>
-              Cancel
-            </Button>
-          )}
-          <Button
-            primary
-            width="135px"
-            type="submit"
-            disabled={this.state.isSubmitting}
-          >
-            {!this.props.body ? "Add Answer" : "Save"}
-          </Button>
-        </FlexSpaceEvenly>
-      </Flex>
     </form>
   );
 }
 
 AnswerForm.propTypes = {
   alertType: PropTypes.string.isRequired,
-  body: PropTypes.string,
-  cancelAnswer: PropTypes.func,
   formId: PropTypes.string.isRequired,
   id: PropTypes.number,
   handleSubmit: PropTypes.func,

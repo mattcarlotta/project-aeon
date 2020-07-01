@@ -10014,10 +10014,10 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-smde@^1.0.31:
-  version "1.0.31"
-  resolved "https://registry.yarnpkg.com/react-smde/-/react-smde-1.0.31.tgz#5be25e4e5935035b0dd8d9a66f6704f3d7b87f26"
-  integrity sha512-rfM/QgbjD6vBXLKV6tNWUKVLP/ajcyhbwyUVbfKsSil9y+tlbfYGVl9Y+oCZhmfC7QPCM6S6gdfk4KHhYZ8AmQ==
+react-smde@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-smde/-/react-smde-1.1.0.tgz#b2806cae3d8935756d78950c2072f1e6423db3fd"
+  integrity sha512-h+mdHcoo+bHF3yVVl+UUPqdB9lop0gH1YlEcmAwGzq4menJR+Wzcqy6xE+WnlqvltN1LZUjGYqT648hC3XEFzg==
   dependencies:
     "@material-ui/core" "^4.10.1"
     styled-components "^5.1.1"

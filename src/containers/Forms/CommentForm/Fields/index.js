@@ -1,4 +1,7 @@
-const fields = value => [
+import PropTypes from "prop-types";
+import GripButtons from "~components/Body/GripButtons";
+
+const Fields = ({ cancelComment, value }) => [
   {
     name: "body",
     type: "editor",
@@ -11,14 +14,25 @@ const fields = value => [
     showCharacterLength: !value,
     classes: {
       mde: "mde-comment",
-      mdetextareawrapper: "mde-textarea-wrapper"
+      mdetextareawrapper: value ? "mde-textarea-wrapper" : undefined
     },
-    css: `margin-bottom: 10px;height: ${!value ? "200px" : "90px"};margin-top:${
-      !value ? "0px" : "5px"
-    };`,
+    css: `margin-bottom: 10px;height: ${
+      !value ? "200px" : "100px"
+    };margin-top:${!value ? "0px" : "5px"};`,
     maxCharacterLength: "1000",
-    textAreaProps: { placeholder: "Add a comment..." }
+    grip: (
+      <GripButtons
+        cancelForm={cancelComment}
+        submitText={value ? "Save Comment" : "Add Comment"}
+      />
+    ),
+    textAreaProps: { placeholder: "Type here to add a comment..." }
   }
 ];
 
-export default fields;
+Fields.propTypes = {
+  cancelComment: PropTypes.func,
+  value: PropTypes.string
+};
+
+export default Fields;

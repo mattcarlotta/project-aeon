@@ -9,13 +9,12 @@ const Editor = ({ classes, name, errors, onChange, value, ...rest }) => (
       value={value}
       classes={{
         mde: "mde-editor",
-        mdegrip: "mde-grip",
-        mdepreview: `mde-preview ${!value ? "mde-preview-empty" : ""}`,
+        mdegripcontainer: "mde-grip-container",
+        mdepreview: `${!value ? "mde-preview-empty" : ""}`,
         mdetoolbar: "mde-toolbar",
         mdetooltip: "tooltip-container",
         mdetooltiparrow: "tooltip-arrow",
-        mdetextarea: "mde-textarea",
-        mdetextareawrapper: `mde-textarea-wrapper ${errors ? "has-error" : ""}`,
+        mdetextareawrapper: `mde-textarea-wrapper${errors ? "has-error" : ""}`,
         ...classes
       }}
       maxEditorWidth="100%"
