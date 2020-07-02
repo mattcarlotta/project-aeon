@@ -2,7 +2,8 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import Grow from "@material-ui/core/Grow";
-import QuestionDetails from "~components/Body/QuestionDetails";
+import Details from "~components/Body/Details";
+import Dot from "~components/Body/Dot";
 import Timestamp from "~components/Body/Timestamp";
 import toast from "~components/Body/Toast";
 import Link from "~components/Navigation/Link";
@@ -57,14 +58,22 @@ class PostMeta extends Component {
 
   render = () => {
     const { error, isHoverOver, user } = this.state;
-    const { date, showPoints, showViews, username, views, votes } = this.props;
+    const {
+      date,
+      showPoints,
+      showViews,
+      updated,
+      username,
+      views,
+      votes
+    } = this.props;
 
     return (
       <div
         ref={node => (this.postRef = node)}
         css="font-size: 12px;color: #787C7E;position:relative;"
       >
-        <QuestionDetails>
+        <Details>
           {!!views && <>Posted by&nbsp;</>}
           <div
             css="display: inline;cursor: default;"
@@ -93,19 +102,25 @@ class PostMeta extends Component {
               </UserDropdown>
             </Grow>
           </div>
-        </QuestionDetails>
-        <QuestionDetails> • </QuestionDetails>
+        </Details>
+        <Dot />
         <Timestamp date={date} />
         {showPoints && (
           <>
-            <QuestionDetails> • </QuestionDetails>
-            <QuestionDetails>{round(votes)}pts</QuestionDetails>
+            <Dot />
+            <Details>{round(votes)}pts</Details>
           </>
         )}
         {showViews && (
           <>
-            <QuestionDetails> • </QuestionDetails>
-            <QuestionDetails>views: {round(views)}</QuestionDetails>
+            <Dot />
+            <Details>views: {round(views)}</Details>
+          </>
+        )}
+        {updated && (
+          <>
+            <Dot />
+            <Timestamp date={updated} updated />
           </>
         )}
       </div>
@@ -118,6 +133,7 @@ PostMeta.propTypes = {
   username: PropTypes.string.isRequired,
   showPoints: PropTypes.bool,
   showViews: PropTypes.bool,
+  updated: PropTypes.string,
   views: PropTypes.number,
   votes: PropTypes.number
 };

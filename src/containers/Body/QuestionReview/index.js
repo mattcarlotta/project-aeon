@@ -314,9 +314,24 @@ QuestionReview.propTypes = {
   // answers: PropTypes.arrayOf(
   //   PropTypes.shape({
   //     id: PropTypes.string,
+  //     comments: PropTypes.arrayOf(
+  //       PropTypes.shape({
+  //         id: PropTypes.string,
+  //         qid: PropTypes.number,
+  //         uid: PropTypes.string,
+  //         date: PropTypes.string,
+  //         updated: PropTypes.string,
+  //         rid: PropTypes.string,
+  //         body: PropTypes.string,
+  //         upvoted: PropTypes.bool,
+  //         downvoted: PropTypes.bool,
+  //         votes: PropTypes.number
+  //       })
+  //     ),
   //     uid: PropTypes.string,
   //     qid: PropTypes.string,
   //     date: PropTypes.string,
+  //     updated: PropTypes.string,
   //     body: PropTypes.string,
   //     votes: PropTypes.number
   //   })
@@ -333,6 +348,7 @@ QuestionReview.propTypes = {
         qid: PropTypes.number,
         rid: PropTypes.string,
         date: PropTypes.string,
+        updated: PropTypes.string,
         body: PropTypes.string,
         upvoted: PropTypes.bool,
         downvoted: PropTypes.bool,
@@ -347,6 +363,7 @@ QuestionReview.propTypes = {
     id: PropTypes.number.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     title: PropTypes.string.isRequired,
+    updated: PropTypes.string,
     upvoted: PropTypes.bool,
     uniquetitle: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,

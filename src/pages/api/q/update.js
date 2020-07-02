@@ -29,7 +29,7 @@ const updateUserQuestion = async (req, res) => {
     const { id: userid } = req.user;
     const dashedTitle = createDashedTitle(title);
     const description = await parseMarkdown(body);
-    const newDate = new Date();
+    const updated = new Date();
 
     const question = await db.one(updateQuestion, [
       id,
@@ -39,7 +39,7 @@ const updateUserQuestion = async (req, res) => {
       tags,
       title,
       dashedTitle,
-      newDate
+      updated
     ]);
 
     res.status(201).json({

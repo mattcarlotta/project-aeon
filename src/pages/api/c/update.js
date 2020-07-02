@@ -25,7 +25,13 @@ const updateUserComment = async (req, res) => {
 
     const updatedComment = await db.task("update comment", async t => {
       try {
-        const comment = await t.oneOrNone(updateComment, [id, userid, body]);
+        const updated = new Date();
+        const comment = await t.oneOrNone(updateComment, [
+          id,
+          userid,
+          body,
+          updated
+        ]);
         if (!comment) throw String(missingCommentId);
 
         return t.one(findComment, [comment.id, userid]);

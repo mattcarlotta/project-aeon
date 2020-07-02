@@ -1,7 +1,7 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
+import Details from "~components/Body/Details";
 import NoSSR from "~components/Body/NoSSR";
-import QuestionDetails from "~components/Body/QuestionDetails";
 import Tooltip from "~components/Body/Tooltip";
 import dayjs from "~utils/dayjs";
 
@@ -19,11 +19,25 @@ class Timestamp extends Component {
     this.setUpdateInterval();
   }
 
-  shouldComponentUpdate = (_, nextState) => nextState.date !== this.state.date;
+  shouldComponentUpdate = (nextProps, nextState) =>
+    nextProps.date !== this.props.date || nextState.date !== this.state.date;
+
+  componentDidUpdate(prevProps) {
+    const { date } = this.props;
+    if (prevProps.date !== date && this.timeRef) {
+      this.removeUpdates();
+      this.setState(
+        { date: dayjs(this.props.date).fromNow() },
+        this.setUpdateInterval
+      );
+    }
+  }
 
   componentWillUnmount() {
-    clearInterval(this.timestampInterval);
+    this.removeUpdates();
   }
+
+  removeUpdates = () => clearInterval(this.timestampInterval);
 
   setUpdateInterval = () => {
     this.timestampInterval = setInterval(() => {
@@ -35,16 +49,18 @@ class Timestamp extends Component {
   render = () => (
     <NoSSR>
       <Tooltip title={this.state.title}>
-        <QuestionDetails ref={node => (this.timeRef = node)}>
+        <Details ref={node => (this.timeRef = node)}>
+          {this.props.updated && <>Updated </>}
           {this.state.date}
-        </QuestionDetails>
+        </Details>
       </Tooltip>
     </NoSSR>
   );
 }
 
 Timestamp.propTypes = {
-  date: PropTypes.string.isRequired
+  date: PropTypes.string.isRequired,
+  updated: PropTypes.bool
 };
 
 export default Timestamp;

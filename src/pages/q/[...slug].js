@@ -6,12 +6,6 @@ import { parseData, parseCookie } from "~utils/parse";
 
 const UserQuestion = ({ data }) => <QuestionReview {...data} />;
 
-// const UserQuestion = ({ data }) => (
-//   <pre>
-//     <code>{JSON.stringify(data, null, 4)}</code>
-//   </pre>
-// );
-
 export const getServerSideProps = async ({ req, query }) => {
   let data = {};
   let title = "";
@@ -59,6 +53,7 @@ UserQuestion.propTypes = {
             qid: PropTypes.number,
             uid: PropTypes.string,
             date: PropTypes.string,
+            updated: PropTypes.string,
             rid: PropTypes.string,
             body: PropTypes.string,
             upvoted: PropTypes.bool,
@@ -69,6 +64,7 @@ UserQuestion.propTypes = {
         uid: PropTypes.string,
         qid: PropTypes.string,
         date: PropTypes.string,
+        updated: PropTypes.string,
         body: PropTypes.string,
         votes: PropTypes.number
       })
@@ -82,6 +78,7 @@ UserQuestion.propTypes = {
           qid: PropTypes.number,
           uid: PropTypes.string,
           date: PropTypes.string,
+          updated: PropTypes.string,
           rid: PropTypes.string,
           body: PropTypes.string,
           upvoted: PropTypes.bool,
@@ -97,6 +94,7 @@ UserQuestion.propTypes = {
       id: PropTypes.number.isRequired,
       tags: PropTypes.arrayOf(PropTypes.string).isRequired,
       title: PropTypes.string.isRequired,
+      updated: PropTypes.string,
       upvoted: PropTypes.bool,
       uniquetitle: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
