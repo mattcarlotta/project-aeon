@@ -106,7 +106,6 @@ export default createGlobalStyle`
 
   .mde-comment.mde-comment {
     background: #fff;
-    margin-bottom: 10px;
 
     & .mde-textarea-wrapper {
       border-radius: 4px 4px 0px 0px;
@@ -137,13 +136,22 @@ export default createGlobalStyle`
     font-family: ${fontFamily};
   }
 
-  .mde-editor.mde-editor:hover, .mde-comment.mde-comment:hover {
+  .mde-question.mde-question:hover {
     & .mde-textarea-wrapper {
       border-color: #40a9ff;
       transition: border-color 0.2s ease-in-out;
     }
+  }
 
-    & .mde-textarea-wrapper.preview {
+  .mde-add-comment.mde-add-comment:hover, 
+  .mde-answer.mde-answer:hover, 
+  .mde-comment.mde-comment:hover {
+    & .mde-textarea-wrapper, & .mde-add-comment-textarea-wrapper {
+      border-color: #40a9ff;
+      transition: border-color 0.2s ease-in-out;
+    }
+
+    & .mde-textarea-wrapper.preview, & .mde-add-comment-textarea-wrapper.preview {
       border-color: #d9d9d9;
       transition: border-color 0.2s ease-in-out;
     }

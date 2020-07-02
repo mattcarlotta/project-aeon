@@ -124,7 +124,7 @@ class QuestionReview extends Component {
         isEditingQuestion: false
       }),
       () => {
-        if (!this.state.collapseComments) this.handleScroll("comments");
+        if (!this.state.collapseComments) this.handleScroll("comments-anchor");
       }
     );
 
@@ -253,20 +253,23 @@ class QuestionReview extends Component {
             </QuestionContainer>
           </div>
           {hasComments && !deleted && (
-            <Collapse in={!collapseComments}>
-              <CommentsContainer id="comments">
-                {comments.map(comment => (
-                  <Comment
-                    {...comment}
-                    key={comment.id}
-                    deleteComment={this.handleDeleteComment}
-                    isEditingComment={isEditingComment}
-                    loggedInUserId={loggedInUserId}
-                    toggleCommentEditing={this.handleCommentEditing}
-                  />
-                ))}
-              </CommentsContainer>
-            </Collapse>
+            <>
+              <span id="comments-anchor" />
+              <Collapse in={!collapseComments}>
+                <CommentsContainer>
+                  {comments.map(comment => (
+                    <Comment
+                      {...comment}
+                      key={comment.id}
+                      deleteComment={this.handleDeleteComment}
+                      isEditingComment={isEditingComment}
+                      loggedInUserId={loggedInUserId}
+                      toggleCommentEditing={this.handleCommentEditing}
+                    />
+                  ))}
+                </CommentsContainer>
+              </Collapse>
+            </>
           )}
           {!deleted && !isEditingComment && loggedInUserId && (
             <div
@@ -284,7 +287,7 @@ class QuestionReview extends Component {
               >
                 <span>
                   <Button input radius="4px" onClick={this.toggleCommentForm}>
-                    Reply
+                    Add comment
                   </Button>
                 </span>
               </Fade>

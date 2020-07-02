@@ -14,12 +14,11 @@ const Fields = ({ cancelComment, value }) => [
     maxEditorHeight: !value ? 140 : 80,
     showCharacterLength: !value,
     classes: {
-      mde: "mde-comment",
-      mdetextareawrapper: value ? "mde-textarea-wrapper" : undefined
+      mde: !value ? "mde-add-comment" : "mde-comment"
     },
-    css: `margin-bottom: 10px;height: ${
-      !value ? "200px" : "100px"
-    };margin-top:${!value ? "0px" : "5px"};`,
+    css: `margin-bottom: 10px;height: ${!value ? "220px" : "125px"};margin:${
+      !value ? "0px" : "5px 0 0 0"
+    };`,
     maxCharacterLength: "1000",
     grip: (
       <GripButtons

@@ -14,7 +14,7 @@ const Editor = ({ classes, name, errors, onChange, value, ...rest }) => (
         mdetoolbar: "mde-toolbar",
         mdetooltip: "tooltip-container",
         mdetooltiparrow: "tooltip-arrow",
-        mdetextareawrapper: `mde-textarea-wrapper${errors ? "has-error" : ""}`,
+        mdetextareawrapper: `mde-textarea-wrapper ${errors ? "has-error" : ""}`,
         ...classes
       }}
       maxEditorWidth="100%"
