@@ -136,18 +136,20 @@ export default createGlobalStyle`
     font-family: ${fontFamily};
   }
 
-  .mde-question.mde-question:hover {
-    & .mde-textarea-wrapper {
-      border-color: #40a9ff;
-      transition: border-color 0.2s ease-in-out;
+  .mde-question.mde-question {
+    &:hover {
+      & .mde-textarea-wrapper {
+        border-color: #40a9ff;
+        transition: border-color 0.2s ease-in-out;
+      }
     }
   }
 
-  .mde-add-comment.mde-add-comment:hover, 
-  .mde-answer.mde-answer:hover, 
-  .mde-edit-comment.mde-edit-comment:hover {
+  .mde-add-comment.mde-add-comment:hover:not(:focus-within), 
+  .mde-answer.mde-answer:hover:not(:focus-within), 
+  .mde-edit-comment.mde-edit-comment:hover:not(:focus-within) {
     & .mde-textarea-wrapper, & .mde-add-comment-textarea-wrapper {
-      border-color: #40a9ff;
+      border-color: #b5b3b3;
       transition: border-color 0.2s ease-in-out;
     }
 
@@ -184,6 +186,11 @@ export default createGlobalStyle`
   .mde-textarea-wrapper.mde-textarea-wrapper {
     border: 1px solid #d9d9d9;
     background-color: #fff;
+
+    &:focus-within {
+      border-color: #40a9ff;
+      outline: none;
+    }
   }
 
   .mde-preview {
