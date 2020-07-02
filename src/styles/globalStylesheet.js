@@ -104,7 +104,7 @@ export default createGlobalStyle`
     transition: border-color 0.2s ease-in-out;
   }
 
-  .mde-comment.mde-comment {
+  .mde-edit-comment.mde-edit-comment {
     background: #fff;
 
     & .mde-textarea-wrapper {
@@ -145,7 +145,7 @@ export default createGlobalStyle`
 
   .mde-add-comment.mde-add-comment:hover, 
   .mde-answer.mde-answer:hover, 
-  .mde-comment.mde-comment:hover {
+  .mde-edit-comment.mde-edit-comment:hover {
     & .mde-textarea-wrapper, & .mde-add-comment-textarea-wrapper {
       border-color: #40a9ff;
       transition: border-color 0.2s ease-in-out;

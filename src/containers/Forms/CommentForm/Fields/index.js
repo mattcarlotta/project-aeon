@@ -14,7 +14,7 @@ const Fields = ({ cancelComment, value }) => [
     maxEditorHeight: !value ? 140 : 80,
     showCharacterLength: !value,
     classes: {
-      mde: !value ? "mde-add-comment" : "mde-comment"
+      mde: !value ? "mde-add-comment" : "mde-edit-comment"
     },
     css: `margin-bottom: 10px;height: ${!value ? "220px" : "125px"};margin:${
       !value ? "0px" : "5px 0 0 0"
