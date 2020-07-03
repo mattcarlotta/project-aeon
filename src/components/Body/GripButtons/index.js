@@ -3,13 +3,18 @@ import Button from "~components/Body/Button";
 import Flex from "~components/Body/Flex";
 import FlexSpaceEvenly from "~components/Body/FlexSpaceEvenly";
 
+const style = { height: "100%" };
+
 const GripButtons = ({ cancelForm, submitText }) => (
-  <Flex>
-    <FlexSpaceEvenly>
+  <Flex style={style}>
+    <FlexSpaceEvenly style={style}>
       {cancelForm && (
-        <Button cancel margin="0" radius="0px" onClick={cancelForm}>
-          Cancel
-        </Button>
+        <>
+          <Button cancel margin="0" radius="0px" onClick={cancelForm}>
+            Cancel
+          </Button>
+          <div css="height: 25px;width: 4px; background: #ddd;" />
+        </>
       )}
       <Button submit margin="0" radius="0px" type="submit">
         {submitText}

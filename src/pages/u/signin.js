@@ -1,8 +1,10 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
+import Router from "next/router";
 import { connect } from "react-redux";
 import { signinUser } from "~actions/Authentication";
 import Button from "~components/Body/Button";
+import Spinner from "~components/Body/Spinner";
 import FieldGenerator from "~components/Forms/FieldGenerator";
 import FormContainer from "~components/Forms/FormContainer";
 import Link from "~components/Navigation/Link";
@@ -38,6 +40,16 @@ export class LoginForm extends Component {
     return props.serverError ? { isSubmitting: false } : null;
   }
 
+  componentDidMount() {
+    if (this.props.email) this.redirectToHome();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.email !== this.props.email) this.redirectToHome();
+  }
+
+  redirectToHome = () => Router.replace("/");
+
   handleChange = ({ target: { name, value } }) => {
     this.setState(prevState => ({
       ...prevState,
@@ -55,45 +67,54 @@ export class LoginForm extends Component {
     });
   };
 
-  render = () => (
-    <>
-      <Head title="Sign In" url="u/signin" />
-      <FormContainer>
-        <h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
-        <p css="text-align: center;margin-top: 0px;">to your account below.</p>
-        <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
-          <FieldGenerator
-            fields={this.state.fields}
-            onChange={this.handleChange}
-          />
-          <Button
-            primary
-            type="submit"
-            width="100%"
-            style={{ marginTop: 10 }}
-            disabled={this.state.isSubmitting}
-          >
-            Submit
-          </Button>
-          <div css="text-align: center;margin-top: 40px;">
-            <p>Don&#39;t have an account?</p>
-            <Link href="/u/register">
-              <Button type="button">Register</Button>
-            </Link>
-          </div>
-        </form>
-      </FormContainer>
-    </>
-  );
+  render = () =>
+    this.props.role === "guest" ? (
+      <>
+        <Head title="Sign In" url="u/signin" />
+        <FormContainer>
+          <h2 css="text-align: center;margin-bottom: 0px;">Sign In</h2>
+          <p css="text-align: center;margin-top: 0px;">
+            to your account below.
+          </p>
+          <form css="padding: 30px 12px;" onSubmit={this.handleSubmit}>
+            <FieldGenerator
+              fields={this.state.fields}
+              onChange={this.handleChange}
+            />
+            <Button
+              primary
+              type="submit"
+              width="100%"
+              style={{ marginTop: 10 }}
+              disabled={this.state.isSubmitting}
+            >
+              Submit
+            </Button>
+            <div css="text-align: center;margin-top: 40px;">
+              <p>Don&#39;t have an account?</p>
+              <Link href="/u/register">
+                <Button type="button">Register</Button>
+              </Link>
+            </div>
+          </form>
+        </FormContainer>
+      </>
+    ) : (
+      <Spinner />
+    );
 }
 
 LoginForm.propTypes = {
+  email: PropTypes.string,
+  role: PropTypes.string,
   serverError: PropTypes.string,
   signinUser: PropTypes.func.isRequired
 };
 
 /* istanbul ignore next */
-const mapStateToProps = ({ messages }) => ({
+const mapStateToProps = ({ authentication, messages }) => ({
+  email: authentication.email,
+  role: authentication.role,
   serverError: messages.error
 });
 

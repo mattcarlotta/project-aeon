@@ -1,5 +1,4 @@
 import { all, put, call, takeLatest } from "redux-saga/effects";
-import { END } from "redux-saga";
 import Router from "next/router";
 import app from "~utils/axiosConfig";
 import imageAPI from "~utils/imageAPIConfig";
@@ -30,7 +29,6 @@ function* signinOnLoad({ config }) {
     yield call(setServerError, e.toString());
   } finally {
     yield put(actions.signin(data));
-    yield put(END);
   }
 }
 
@@ -125,9 +123,9 @@ export function* signoutUserSession() {
   try {
     yield call(app.get, "u/signout");
 
-    yield put(actions.signout());
-
     yield call(Router.replace, "/");
+
+    yield put(actions.signout());
   } catch (e) {
     yield call(setServerError, e.toString());
   }

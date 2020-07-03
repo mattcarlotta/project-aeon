@@ -6,7 +6,6 @@ import PageTitle from "~components/Body/PageTitle";
 import Row from "~components/Body/Row";
 import QuestionForm from "~containers/Forms/QuestionForm";
 import withAuthentication from "~containers/App/withAuthentication";
-import { wrapper } from "~store";
 
 const AskQuestion = () => (
   <>
@@ -28,11 +27,5 @@ const AskQuestion = () => (
     </Row>
   </>
 );
-
-export const getServerSideProps = wrapper.getServerSideProps(async ctx => ({
-  props: {
-    ...(await withAuthentication.getServerSideProps(ctx))
-  }
-}));
 
 export default withAuthentication(AskQuestion);

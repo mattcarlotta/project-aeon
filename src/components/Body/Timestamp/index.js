@@ -50,7 +50,7 @@ class Timestamp extends Component {
     <NoSSR>
       <Tooltip title={this.state.title}>
         <Details ref={node => (this.timeRef = node)}>
-          {this.props.updated && <>Updated </>}
+          {this.props.updated && <>updated </>}
           {this.state.date}
         </Details>
       </Tooltip>

@@ -31,10 +31,7 @@ const Button = React.forwardRef(
       className={className}
       disabled={disabled}
       onBlur={onBlur}
-      onClick={e => {
-        e.stopPropagation();
-        onClick();
-      }}
+      onClick={onClick}
       onContextMenu={onContextMenu}
       onFocus={onFocus}
       onMouseDown={onMouseDown}

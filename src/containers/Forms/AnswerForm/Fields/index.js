@@ -14,9 +14,7 @@ const Fields = ({ body }) => [
     autoGrow: true,
     minEditorHeight: !body ? 200 : 80,
     maxEditorHeight: 1000,
-    css: `min-height: ${
-      !body ? "290px" : "90px"
-    };margin-top: 25px; margin-bottom: 20px;`,
+    css: `min-height: ${!body ? "290px" : "90px"};margin-top: 25px;`,
     grip: (
       <GripButtons
         cancelForm={body ? () => {} : undefined}

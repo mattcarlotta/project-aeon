@@ -18,7 +18,6 @@ import Head from "~components/Navigation/Head";
 import Spinner from "~components/Body/Spinner";
 import withAuthentication from "~containers/App/withAuthentication";
 import UploadImageForm from "~containers/Forms/UploadImage";
-import { wrapper } from "~store";
 import dayjs from "~utils/dayjs";
 
 class Profile extends Component {
@@ -145,12 +144,6 @@ Profile.propTypes = {
     website: PropTypes.string
   })
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(async ctx => ({
-  props: {
-    ...(await withAuthentication.getServerSideProps(ctx))
-  }
-}));
 
 const mapStateToProps = ({ authentication }) => ({
   settings: { ...authentication }

@@ -23,7 +23,7 @@ const Fields = ({ cancelComment, value }) => [
     grip: (
       <GripButtons
         cancelForm={cancelComment}
-        submitText={value ? "Save Comment" : "Add Comment"}
+        submitText={value ? "Save" : "Add Comment"}
       />
     ),
     textAreaProps: { placeholder: "Type here to add a comment..." }

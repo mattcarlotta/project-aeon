@@ -51,12 +51,10 @@ export const signin = data => ({
  * Attemtps to sign user into a previous session on initial load
  *
  * @function signinOnLoad
- * @param {object} config - cookie.
  * @returns {object}
  */
-export const signinOnLoad = config => ({
-  type: constants.AUTH_SIGNIN_ON_LOAD,
-  config
+export const signinOnLoad = () => ({
+  type: constants.AUTH_SIGNIN_ON_LOAD
 });
 
 /**

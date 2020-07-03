@@ -1,40 +1,18 @@
-import App from "next/app";
+/* eslint-disable react/forbid-prop-types */
+import { Component } from "react";
+import PropTypes from "prop-types";
 import Router from "next/router";
 import NProgress from "nprogress";
+import { connect } from "react-redux";
 import { signinOnLoad } from "~actions/Authentication";
-import { resetMessages } from "~actions/Messages";
 import PageContainer from "~components/Body/PageContainer";
 import NavBar from "~components/Navigation/NavBar";
 import ServerMessages from "~containers/App/ServerMessages";
 import { wrapper } from "~store";
 import GlobalStylesheet from "~styles/globalStylesheet";
-import { parseCookie } from "~utils/parse";
 import "react-toastify/dist/ReactToastify.css";
 
-export class MyApp extends App {
-  static getInitialProps = async ({ Component, ctx }) => {
-    const {
-      store: { dispatch, getState, sagaTask },
-      req
-    } = ctx;
-    const { role } = getState().authentication;
-
-    dispatch(resetMessages());
-
-    if (!role) {
-      dispatch(signinOnLoad(parseCookie(req)));
-      await sagaTask.toPromise();
-    }
-
-    return {
-      pageProps: {
-        ...(Component.getInitialProps
-          ? await Component.getInitialProps(ctx)
-          : {})
-      }
-    };
-  };
-
+export class MyApp extends Component {
   componentDidMount = () => {
     NProgress.configure({ showSpinner: false });
 
@@ -46,6 +24,8 @@ export class MyApp extends App {
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles && jssStyles.parentNode)
       jssStyles.parentNode.removeChild(jssStyles);
+
+    if (!this.props.role) this.props.signinOnLoad();
   };
 
   componentWillUnmount = () => {
@@ -63,6 +43,7 @@ export class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
+
     return (
       <>
         <GlobalStylesheet />
@@ -76,4 +57,22 @@ export class MyApp extends App {
   }
 }
 
-export default wrapper.withRedux(MyApp);
+MyApp.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.any,
+  role: PropTypes.string,
+  signinOnLoad: PropTypes.func.isRequired
+};
+
+const mapStateToProps = ({ authentication }) => ({
+  role: authentication.role
+});
+
+const mapDispatchToProps = {
+  signinOnLoad
+};
+
+export default wrapper.withRedux(
+  connect(mapStateToProps, mapDispatchToProps)(MyApp)
+);
+/* eslint-enable react/forbid-prop-types */
