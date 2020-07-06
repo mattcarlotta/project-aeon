@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import isEmpty from "lodash.isempty";
 import { connect } from "react-redux";
 import Router from "next/router";
+import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import Collapse from "@material-ui/core/Collapse";
 import Fade from "@material-ui/core/Fade";
 import Affix from "~components/Body/Affix";
@@ -292,7 +293,15 @@ class QuestionReview extends Component {
                   timeout={{ enter: 1500, leave: 100 }}
                 >
                   <span>
-                    <Button input radius="4px" onClick={this.toggleCommentForm}>
+                    <Button
+                      input
+                      padding="4px 12px"
+                      radius="4px"
+                      onClick={this.toggleCommentForm}
+                    >
+                      <BsFillChatSquareDotsFill
+                        style={{ position: "relative", top: 2, marginRight: 8 }}
+                      />
                       Add comment
                     </Button>
                   </span>
