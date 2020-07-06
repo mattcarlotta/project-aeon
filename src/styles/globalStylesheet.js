@@ -828,7 +828,7 @@ export default createGlobalStyle`
     background-color: rgba(208, 42, 0, 0.7);
   }
   .Toastify__progress-bar--info {
-    background-color: rgba(2, 134, 255, 0.7);
+    background-color: rgba(0, 133, 254, 0.7);
   }
   .Toastify__progress-bar--success {
     background-color: rgba(0, 156, 5, 0.7);

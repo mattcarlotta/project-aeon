@@ -276,37 +276,40 @@ class QuestionReview extends Component {
             </>
           )}
           {!deleted && !isEditingComment && loggedInUserId && (
-            <div
-              css={`
-                padding: 10px;
-                background: ${collapseComments || !hasComments
-                  ? "#fff"
-                  : "#f9f9f9"};
-              `}
-            >
-              <Fade
-                style={{ display: isCommenting ? "none" : "block" }}
-                in={!addComment}
-                timeout={{ enter: 1500, leave: 100 }}
+            <>
+              <div css="margin: 0;height: 1px;background: linear-gradient(to right,white 1%,#d7e0e8 8%,#d7e0e8 90%,white 100%);" />
+              <div
+                css={`
+                  padding: 10px;
+                  background: ${collapseComments || !hasComments
+                    ? "#fff"
+                    : "#f9f9f9"};
+                `}
               >
-                <span>
-                  <Button input radius="4px" onClick={this.toggleCommentForm}>
-                    Add comment
-                  </Button>
-                </span>
-              </Fade>
-              <Collapse in={isCommenting}>
-                <CommentForm
-                  formId={`${id}-new-comment`}
-                  cancelComment={this.toggleCommentForm}
-                  isCommenting={isCommenting}
-                  qid={id}
-                  handleSubmit={this.handleAddComment}
-                  rid={id}
-                  URL="c/create"
-                />
-              </Collapse>
-            </div>
+                <Fade
+                  style={{ display: isCommenting ? "none" : "block" }}
+                  in={!addComment}
+                  timeout={{ enter: 1500, leave: 100 }}
+                >
+                  <span>
+                    <Button input radius="4px" onClick={this.toggleCommentForm}>
+                      Add comment
+                    </Button>
+                  </span>
+                </Fade>
+                <Collapse in={isCommenting}>
+                  <CommentForm
+                    formId={`${id}-new-comment`}
+                    cancelComment={this.toggleCommentForm}
+                    isCommenting={isCommenting}
+                    qid={id}
+                    handleSubmit={this.handleAddComment}
+                    rid={id}
+                    URL="c/create"
+                  />
+                </Collapse>
+              </div>
+            </>
           )}
         </Container>
       </>
