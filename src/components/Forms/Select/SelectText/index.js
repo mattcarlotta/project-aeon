@@ -11,7 +11,7 @@ const SelectText = ({ className, children, handleSelectClick }) => (
 SelectText.propTypes = {
   className: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  handleSelectClick: PropTypes.func,
+  handleSelectClick: PropTypes.func
 };
 
 export default styled(SelectText)`

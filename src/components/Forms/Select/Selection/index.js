@@ -11,7 +11,7 @@ const searchStyle = {
   right: 0,
   display: "flex",
   boxSizing: "border-box",
-  padding: "10px",
+  padding: "10px"
 };
 
 const Selection = ({
@@ -27,7 +27,7 @@ const Selection = ({
   name,
   searchText,
   value,
-  width,
+  width
 }) => (
   <SelectionContainer
     tabIndex={0}
@@ -81,7 +81,7 @@ Selection.propTypes = {
   searchText: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  width: PropTypes.string,
+  width: PropTypes.string
 };
 
 export default Selection;

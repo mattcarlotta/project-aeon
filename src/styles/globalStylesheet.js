@@ -1,73 +1,9 @@
 import { createGlobalStyle } from "styled-components";
-import UbuntuBold from "./assets/fonts/Ubuntu-Bold.ttf";
-import UbuntuBoldItalic from "./assets/fonts/Ubuntu-BoldItalic.ttf";
-import UbuntuItalic from "./assets/fonts/Ubuntu-Italic.ttf";
-import UbuntuLight from "./assets/fonts/Ubuntu-Light.ttf";
-import UbuntuLightItalic from "./assets/fonts/Ubuntu-LightItalic.ttf";
-import UbuntuMedium from "./assets/fonts/Ubuntu-Medium.ttf";
-import UbuntuMediumItalic from "./assets/fonts/Ubuntu-MediumItalic.ttf";
-import UbuntuRegular from "./assets/fonts/Ubuntu-Regular.ttf";
 
-const fontFamily = `Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important`;
+const fontFamily = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important`;
 
 export default createGlobalStyle`
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 700;
-    src: url(${UbuntuBold}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: italic;
-    font-weight: 700;
-    src: url(${UbuntuBoldItalic}) format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: italic;
-    font-weight: normal;
-    src: url(${UbuntuItalic}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 300;
-    src: url(${UbuntuLight}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: italic;
-    font-weight: 300;
-    src: url(${UbuntuLightItalic}) format('truetype');
-  }
-
-   @font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 500;
-    src: url(${UbuntuMedium}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: italic;
-    font-weight: 500;
-    src: url(${UbuntuMediumItalic}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: url(${UbuntuRegular}) format('truetype');
-  }
-
-  html,body,#__next {
+   html,body,#__next {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -880,10 +816,25 @@ export default createGlobalStyle`
     background: white;
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.25);
   }
-
-  .Toastify__progress-bar {
+  
+  .Toastify__progress-bar--error,
+  .Toastify__progress-bar--info,
+  .Toastify__progress-bar--success,
+  .Toastify__progress-bar--warning {
     height: 3px;
-    background-color: rgba(131, 134, 135, 0.7);
+  }
+
+  .Toastify__progress-bar--error {
+    background-color: rgba(208, 42, 0, 0.7);
+  }
+  .Toastify__progress-bar--info {
+    background-color: rgba(2, 134, 255, 0.7);
+  }
+  .Toastify__progress-bar--success {
+    background-color: rgba(0, 156, 5, 0.7);
+  }
+  .Toastify__progress-bar--warning {
+    background-color: rgba(208, 166, 0, 0.7);
   }
 
   .Toastify__toast-body {

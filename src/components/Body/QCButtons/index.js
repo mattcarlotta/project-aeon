@@ -8,6 +8,8 @@ import {
 } from "react-icons/bs";
 import { IoIosRedo } from "react-icons/io";
 import Button from "~components/Body/Button";
+import LoadingItem from "~components/Body/LoadingItem";
+import NoSSR from "~components/Body/NoSSR";
 import toast from "~components/Body/Toast";
 import app from "~utils/axiosConfig";
 import { parseData } from "~utils/parse";
@@ -74,7 +76,7 @@ class QCButtons extends PureComponent {
     } = this.props;
 
     return (
-      <>
+      <NoSSR fallback={<LoadingItem height="20px" width="350px" />}>
         {hasComments && !deleted && (
           <Button
             {...btnProps}
@@ -117,7 +119,7 @@ class QCButtons extends PureComponent {
             Restore
           </Button>
         )}
-      </>
+      </NoSSR>
     );
   };
 }

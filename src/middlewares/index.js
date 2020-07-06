@@ -14,9 +14,9 @@ export default next => async (req, res) => {
         name: "app",
         maxAge: 2592000000, // 30 * 24 * 60 * 60 * 1000 expire after 30 days
         keys: [cookieSecret],
-        httpOnly: true,
-        secure: inProduction && !inStaging,
-        sameSite: inProduction && !inStaging
+        httpOnly: true
+        // secure: inProduction && !inStaging,
+        // sameSite: inProduction && !inStaging
       }),
       !inProduction && morgan("tiny")
     ].filter(Boolean);

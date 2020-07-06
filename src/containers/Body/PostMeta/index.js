@@ -4,6 +4,7 @@ import isEmpty from "lodash.isempty";
 import Grow from "@material-ui/core/Grow";
 import Details from "~components/Body/Details";
 import Dot from "~components/Body/Dot";
+import Flex from "~components/Body/Flex";
 import Timestamp from "~components/Body/Timestamp";
 import toast from "~components/Body/Toast";
 import Link from "~components/Navigation/Link";
@@ -69,9 +70,10 @@ class PostMeta extends Component {
     } = this.props;
 
     return (
-      <div
+      <Flex
+        justify="left"
         ref={node => (this.postRef = node)}
-        css="font-size: 12px;color: #787C7E;position:relative;"
+        style={{ fontSize: 12, color: "#787C7E", position: "relative" }}
       >
         <Details>
           {!!views && <>Posted by&nbsp;</>}
@@ -104,7 +106,7 @@ class PostMeta extends Component {
           </div>
         </Details>
         <Dot />
-        <Timestamp date={date} />
+        <Timestamp date={date} width="80px" />
         {showPoints && (
           <>
             <Dot />
@@ -120,10 +122,10 @@ class PostMeta extends Component {
         {updated && (
           <>
             <Dot />
-            <Timestamp date={updated} updated />
+            <Timestamp date={updated} updated width="100px" />
           </>
         )}
-      </div>
+      </Flex>
     );
   };
 }

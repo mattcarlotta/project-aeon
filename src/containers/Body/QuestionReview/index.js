@@ -212,7 +212,11 @@ class QuestionReview extends Component {
                 </div>
               ) : (
                 <>
-                  <NoSSR fallback={<LoadingItem />}>
+                  <NoSSR
+                    fallback={
+                      <LoadingItem height="35px" margin="10px 0 14px" />
+                    }
+                  >
                     <Affix {...question} handleChange={this.handleUpdate}>
                       <QuestionTitle>{title}</QuestionTitle>
                     </Affix>

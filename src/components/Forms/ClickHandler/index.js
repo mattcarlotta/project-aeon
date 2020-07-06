@@ -1,52 +1,50 @@
-/* eslint-disable no-lonely-if */
-import { Component } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-class ClickHandler extends Component {
-  state = {
-    isFocused: false
-  };
+const ClickHandler = ({ children }) => {
+  const wrapperRef = useRef();
+  const [isFocused, setFocus] = useState(false);
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
+  const handleBlur = useCallback(() => {
+    setFocus(false);
+  }, []);
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
+  const handleFocus = useCallback(() => {
+    setFocus(true);
+  }, []);
 
-  handleClickOutside = ({ target }) => {
-    if (
-      this.state.isFocused &&
-      this.wrapperRef &&
-      !this.wrapperRef.contains(target)
-    ) {
-      this.handleBlur();
-    }
-  };
+  const handleClickOutside = useCallback(
+    ({ target }) => {
+      if (
+        isFocused &&
+        wrapperRef.current &&
+        wrapperRef.current.contains(target)
+      )
+        handleBlur();
+    },
+    [handleBlur, isFocused, wrapperRef]
+  );
 
-  handleBlur = () => {
-    this.setState({ isFocused: false });
-  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-  handleFocus = () => {
-    this.setState({ isFocused: true });
-  };
-
-  render = () => (
-    <span ref={node => (this.wrapperRef = node)}>
-      {this.props.children({
-        isFocused: this.state.isFocused,
-        handleBlur: this.handleBlur,
-        handleFocus: this.handleFocus
+  return (
+    <span ref={wrapperRef}>
+      {children({
+        isFocused,
+        handleBlur,
+        handleFocus
       })}
     </span>
   );
-}
+};
 
 ClickHandler.propTypes = {
   children: PropTypes.func.isRequired
 };
 
 export default ClickHandler;
-/* eslint-enable no-lonely-if */

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const ThresholdUnits = {
   Pixel: "Pixel",
   Percent: "Percent"
@@ -42,3 +43,4 @@ export function parseThreshold(scrollThreshold) {
 
   return defaultThreshold;
 }
+/* eslint-enable */

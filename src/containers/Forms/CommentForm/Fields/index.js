@@ -11,12 +11,12 @@ const Fields = ({ cancelComment, value }) => [
     disableGrip: true,
     disableHotKeys: false,
     disableToolbar: !!value,
-    maxEditorHeight: !value ? 140 : 80,
+    maxEditorHeight: 140,
     showCharacterLength: !value,
     classes: {
       mde: !value ? "mde-add-comment" : "mde-edit-comment"
     },
-    css: `margin-bottom: 10px;height: ${!value ? "220px" : "125px"};margin:${
+    css: `margin-bottom: 10px;height: ${!value ? "220px" : "175px"};margin:${
       !value ? "0px" : "5px 0 0 0"
     };`,
     maxCharacterLength: "1000",

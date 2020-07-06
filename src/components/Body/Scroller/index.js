@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component } from "react";
 import throttle from "lodash.throttle";
 import { ThresholdUnits, parseThreshold } from "./utils/threshold";
@@ -100,6 +101,32 @@ class Scroller extends Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const keyChanged = props.key !== state.prevKey;
+    const dataLengthChanged = props.dataLength !== state.prevDataLength;
+
+    // reset when data changes
+    return keyChanged || dataLengthChanged
+      ? {
+          showLoader: false,
+          pullToRefreshThresholdBreached: false,
+          prevKey: props.key,
+          prevDataLength: props.dataLength
+        }
+      : null;
+  }
+
+  componentDidUpdate(prevProps) {
+    // do nothing when dataLength and key are unchanged
+    if (
+      this.props.key === prevProps.key &&
+      this.props.dataLength === prevProps.dataLength
+    )
+      return;
+
+    this.actionTriggered = false;
+  }
+
   componentWillUnmount() {
     if (this.el) {
       // this.el.removeEventListener("touchmove", this.throttledOnScrollListener);
@@ -115,32 +142,6 @@ class Scroller extends Component {
         this.el.removeEventListener("mouseup", this.onEnd);
       }
     }
-  }
-
-  componentDidUpdate(prevProps) {
-    // do nothing when dataLength and key are unchanged
-    if (
-      this.props.key === prevProps.key &&
-      this.props.dataLength === prevProps.dataLength
-    )
-      return;
-
-    this.actionTriggered = false;
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    const keyChanged = props.key !== state.prevKey;
-    const dataLengthChanged = props.dataLength !== state.prevDataLength;
-
-    // reset when data changes
-    return keyChanged || dataLengthChanged
-      ? {
-          showLoader: false,
-          pullToRefreshThresholdBreached: false,
-          prevKey: props.key,
-          prevDataLength: props.dataLength
-        }
-      : null;
   }
 
   getScrollableTarget = () => {
@@ -345,3 +346,4 @@ class Scroller extends Component {
 }
 
 export default Scroller;
+/* eslint-enable */

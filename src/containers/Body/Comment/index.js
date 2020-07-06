@@ -19,6 +19,7 @@ class Comment extends Component {
 
   shouldComponentUpdate = (prevProps, prevState) =>
     prevProps.isEditingComment !== this.props.isEditingComment ||
+    prevProps.loggedInUserId !== this.props.loggedInUserId ||
     prevState.downvoted !== this.state.downvoted ||
     prevState.upvoted !== this.state.upvoted ||
     prevState.votes !== this.state.votes ||

@@ -89,7 +89,7 @@ export default styled(Button)`
   padding: ${({ padding }) => padding || "4px 16px"};
   font-weight: ${({ weight }) => weight || "normal"};
   font-size: ${({ fontSize }) => fontSize || "15px"};
-  border-radius: ${({ radius }) => radius || "50px"};
+  border-radius: ${({ radius }) => radius || "4px"};
   ${({ margin, centered }) =>
     centered
       ? "margin: 0 auto; display: block;"

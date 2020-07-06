@@ -1,37 +1,40 @@
-import { Component } from "react";
+import { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import Preview from "~components/Body/Preview";
 import Gradient from "./Gradient";
 
-class MaskPreview extends Component {
-  state = {
-    height: 0
-  };
+const MaskPreview = ({
+  fallback,
+  children,
+  maxHeight,
+  maskHeight,
+  minHeight
+}) => {
+  const [height, setHeight] = useState(0);
 
-  setMaskHeight = node =>
-    this.setState(prevState => ({
-      height: node
-        ? Math.ceil(node.getBoundingClientRect().height)
-        : prevState.height
-    }));
+  const setMaskHeight = useCallback(
+    node =>
+      setHeight(prevState =>
+        node ? Math.ceil(node.getBoundingClientRect().height) : prevState
+      ),
+    [setHeight]
+  );
 
-  render = () => (
+  return (
     <Gradient
-      ref={this.setMaskHeight}
-      height={this.state.height}
-      maxHeight={this.props.maxHeight}
-      maskHeight={this.props.maskHeight}
-      minHeight={this.props.minHeight}
+      ref={setMaskHeight}
+      height={height}
+      maxHeight={maxHeight}
+      maskHeight={maskHeight}
+      minHeight={minHeight}
     >
-      <Preview centered={!this.props.children}>
-        <MarkdownPreviewer>
-          {this.props.children || this.props.fallback}
-        </MarkdownPreviewer>
+      <Preview centered={!children}>
+        <MarkdownPreviewer>{children || fallback}</MarkdownPreviewer>
       </Preview>
     </Gradient>
   );
-}
+};
 
 MaskPreview.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,

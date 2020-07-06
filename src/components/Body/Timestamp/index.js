@@ -1,7 +1,8 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import Details from "~components/Body/Details";
 import NoSSR from "~components/Body/NoSSR";
+import Details from "~components/Body/Details";
+import LoadingItem from "~components/Body/LoadingItem";
 import Tooltip from "~components/Body/Tooltip";
 import dayjs from "~utils/dayjs";
 
@@ -47,10 +48,14 @@ class Timestamp extends Component {
   };
 
   render = () => (
-    <NoSSR>
+    <NoSSR
+      fallback={
+        <LoadingItem height="15px" width={this.props.width} margin="0 3px 0" />
+      }
+    >
       <Tooltip title={this.state.title}>
         <Details ref={node => (this.timeRef = node)}>
-          {this.props.updated && <>updated </>}
+          {this.props.updated && <>Updated </>}
           {this.state.date}
         </Details>
       </Tooltip>
@@ -60,7 +65,8 @@ class Timestamp extends Component {
 
 Timestamp.propTypes = {
   date: PropTypes.string.isRequired,
-  updated: PropTypes.bool
+  updated: PropTypes.bool,
+  width: PropTypes.string
 };
 
 export default Timestamp;

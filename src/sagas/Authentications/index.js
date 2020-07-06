@@ -20,10 +20,10 @@ import toast from "~components/Body/Toast";
  * @yields {action} - A redux action to get updated profile details.
  * @throws {action} - A redux action to display a server message by type.
  */
-function* signinOnLoad({ config }) {
+function* signinOnLoad() {
   let data = {};
   try {
-    const res = yield call(app.get, "u/signedin", config);
+    const res = yield call(app.get, "u/signedin");
     data = yield call(parseData, res);
   } catch (e) {
     yield call(setServerError, e.toString());

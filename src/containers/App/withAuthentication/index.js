@@ -1,54 +1,31 @@
-import { PureComponent } from "react";
 import PropTypes from "prop-types";
-import Router from "next/router";
-import { connect } from "react-redux";
-import { accessDenied } from "~messages/errors";
+import { useSelector } from "react-redux";
 import FadeIn from "~components/Body/FadeIn";
 import Spinner from "~components/Body/Spinner";
-import toast from "~components/Body/Toast";
+import Redirect from "~components/Navigation/Redirect";
 
 const withAuthentication = WrappedComponent => {
-  class RequiresAuthentication extends PureComponent {
-    componentDidMount = () => {
-      if (this.props.serverError) this.redirectToLogin();
-    };
+  const RequiresAuthentication = props => {
+    const { email, role, serverError } = useSelector(
+      ({ authentication, messages }) => ({
+        email: authentication.email,
+        role: authentication.role,
+        serverError: messages.error
+      })
+    );
 
-    componentDidUpdate(prevProps) {
-      const { email, role } = this.props;
-
-      if (prevProps.role !== role && role === "guest" && !email)
-        this.redirectToLogin();
-    }
-
-    redirectToLogin = () => {
-      const { serverError } = this.props;
-      Router.replace("/u/signin");
-      toast({ type: "error", message: serverError || accessDenied });
-    };
-
-    render = () =>
-      this.props.email ? (
-        <WrappedComponent {...this.props} />
-      ) : (
-        <FadeIn style={{ height: "100%" }} timing="1.5s">
-          <Spinner />
-        </FadeIn>
-      );
-  }
-
-  RequiresAuthentication.propTypes = {
-    serverError: PropTypes.string,
-    email: PropTypes.string,
-    role: PropTypes.string
+    return role === "guest" ? (
+      <Redirect href="/u/signin" serverError={serverError} />
+    ) : email ? (
+      <WrappedComponent {...props} />
+    ) : (
+      <FadeIn style={{ height: "100%" }} timing="1.5s">
+        <Spinner />
+      </FadeIn>
+    );
   };
 
-  const mapStateToProps = ({ authentication, messages }) => ({
-    email: authentication.email,
-    role: authentication.role,
-    serverError: messages.error
-  });
-
-  return connect(mapStateToProps)(RequiresAuthentication);
+  return RequiresAuthentication;
 };
 
 withAuthentication.propTypes = {

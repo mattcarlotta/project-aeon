@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 const useEnhancedEffect =
@@ -8,6 +9,7 @@ const useEnhancedEffect =
 
 const NoSSR = ({ children, defer, fallback }) => {
   const [isMounted, setMountedState] = useState(false);
+  const role = useSelector(({ authentication }) => authentication.role);
 
   useEnhancedEffect(() => {
     if (!defer) setMountedState(true);
@@ -17,7 +19,7 @@ const NoSSR = ({ children, defer, fallback }) => {
     if (defer) setMountedState(true);
   }, [defer]);
 
-  return isMounted ? children : fallback;
+  return isMounted && role ? children : fallback;
 };
 
 NoSSR.propTypes = {
