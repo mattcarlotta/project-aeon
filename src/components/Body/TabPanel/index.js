@@ -18,11 +18,11 @@ const TabPanel = ({ children, className, index, value }) => (
 TabPanel.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired
+  index: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default styled(TabPanel)`
   padding: 10px;
-  min-height: 318px;
+  min-height: 300px;
 `;

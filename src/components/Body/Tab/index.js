@@ -3,7 +3,7 @@ import Tab from "@material-ui/core/Tab";
 
 const AntTab = withStyles(theme => ({
   root: {
-    textTransform: "none",
+    textTransform: "capitalize",
     minWidth: 72,
     fontWeight: theme.typography.fontWeightRegular,
     fontFamily: [

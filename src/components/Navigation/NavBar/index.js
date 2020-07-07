@@ -70,7 +70,7 @@ const Header = ({
                   menu={
                     <Menu>
                       <MenuItem>
-                        <Link href="/profile">
+                        <Link href="/profile?tab=profile">
                           <FlexMiddle style={menuStyle}>
                             <FaUserCog style={iconStyle} /> Profile
                           </FlexMiddle>

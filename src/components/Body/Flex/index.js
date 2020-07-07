@@ -12,4 +12,5 @@ export default styled.div`
   align-items: ${({ align }) => align || "center"};
   margin: ${({ margin }) => margin || "0px"};
   width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || "auto"};
 `;
