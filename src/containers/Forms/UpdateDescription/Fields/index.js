@@ -28,16 +28,6 @@ export default ({ username, firstname, lastname, website, description }) => [
     required: true
   },
   {
-    name: "website",
-    type: "text",
-    label: "Website",
-    tooltip: "You'll need to specify a full URL address: https://example.com.",
-    placeholder: "Add a personal website URL address...",
-    value: website,
-    errors: "",
-    required: false
-  },
-  {
     name: "description",
     type: "editor",
     label: "Description",

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { FaUserCog, FaSignOutAlt, FaQuestionCircle } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
 import { signoutUser } from "~actions/Authentication";
 import AccountButtonText from "~components/Body/AccountButtonText";
 import Dropdown from "~components/Body/Dropdown";
@@ -41,7 +41,7 @@ const Header = ({
   <NavHeader>
     <NavContainer>
       <FlexStart>
-        <Link blue href="/">
+        <Link blue nomargin href="/">
           <div css="font-size: 20px;font-weight: bold;">Project Aeon</div>
         </Link>
       </FlexStart>
@@ -70,14 +70,7 @@ const Header = ({
                   menu={
                     <Menu>
                       <MenuItem>
-                        <Link href="/u/dashboard">
-                          <FlexMiddle style={menuStyle}>
-                            <MdDashboard style={iconStyle} /> Dashboard
-                          </FlexMiddle>
-                        </Link>
-                      </MenuItem>
-                      <MenuItem>
-                        <Link href="/u/profile">
+                        <Link href="/profile">
                           <FlexMiddle style={menuStyle}>
                             <FaUserCog style={iconStyle} /> Profile
                           </FlexMiddle>
@@ -87,6 +80,13 @@ const Header = ({
                         <Link href="/help">
                           <FlexMiddle style={menuStyle}>
                             <FaQuestionCircle style={iconStyle} /> Help
+                          </FlexMiddle>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link href="/settings">
+                          <FlexMiddle style={menuStyle}>
+                            <MdSettings style={iconStyle} /> Settings
                           </FlexMiddle>
                         </Link>
                       </MenuItem>

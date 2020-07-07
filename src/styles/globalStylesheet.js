@@ -807,6 +807,7 @@ export default createGlobalStyle`
 
   .Toastify__toast {
     padding: 0;
+    border-radius: 8px;
   }
 
   .Toastify__toast--error,
@@ -825,10 +826,10 @@ export default createGlobalStyle`
   }
 
   .Toastify__progress-bar--error {
-    background-color: rgba(208, 42, 0, 0.7);
+    background-color: rgba(146, 30, 0, 0.7);
   }
   .Toastify__progress-bar--info {
-    background-color: rgba(0, 133, 254, 0.7);
+    background-color: rgba(112, 187, 255, 0.7);
   }
   .Toastify__progress-bar--success {
     background-color: rgba(0, 156, 5, 0.7);

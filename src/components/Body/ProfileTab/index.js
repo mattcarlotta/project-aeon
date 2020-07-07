@@ -1,16 +1,11 @@
 /* eslint-disable react/no-danger */
 import PropTypes from "prop-types";
 import Button from "~components/Body/Button";
-import Info from "~components/Body/Info";
 import MarkdownPreviewer from "~components/Body/MarkdownPreviewer";
 import MissingDetails from "~components/Body/MissingDetails";
+import Preview from "~components/Body/Preview";
 import SubTitle from "~components/Body/SubTitle";
-import Website from "~components/Body/Website";
 import UpdateDescription from "~containers/Forms/UpdateDescription";
-
-const subtitleStyle = {
-  padding: "5px 10px"
-};
 
 const Profile = ({
   username,
@@ -34,25 +29,12 @@ const Profile = ({
       />
     ) : (
       <>
-        <Info>Display Name:</Info>
-        <SubTitle style={subtitleStyle}>{username}</SubTitle>
-        <Info>Name:</Info>
-        <SubTitle style={subtitleStyle}>
-          {firstname} {lastname}
-        </SubTitle>
-        <Info>Website:</Info>
-        {website ? (
-          <SubTitle style={subtitleStyle}>
-            <Website href={website} />
-          </SubTitle>
-        ) : (
-          <MissingDetails>You haven&#39;t provided a website.</MissingDetails>
-        )}
-        <Info>Description:</Info>
         <div css="margin-bottom: 20px;">
           {description ? (
-            <SubTitle style={subtitleStyle}>
-              <MarkdownPreviewer>{description}</MarkdownPreviewer>
+            <SubTitle style={{ padding: "5px 10px" }}>
+              <Preview style={{ marginBottom: 0 }}>
+                <MarkdownPreviewer>{description}</MarkdownPreviewer>
+              </Preview>
             </SubTitle>
           ) : (
             <MissingDetails>
@@ -60,7 +42,12 @@ const Profile = ({
             </MissingDetails>
           )}
         </div>
-        <Button radius="4px" width="200px" onClick={toggleProfileForm}>
+        <Button
+          height="auto"
+          radius="4px"
+          width="200px"
+          onClick={toggleProfileForm}
+        >
           Update Profile
         </Button>
       </>

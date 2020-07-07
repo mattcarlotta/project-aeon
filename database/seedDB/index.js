@@ -105,7 +105,7 @@ const seedDB = async () => {
     await db.none(createNewUser, [
       "carlotta.matt@gmail.com",
       newPassword,
-      "MattCarlotta",
+      "mc88",
       "Matt",
       "Carlotta",
       "1234567890"

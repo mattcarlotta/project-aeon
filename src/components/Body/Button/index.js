@@ -78,7 +78,7 @@ Button.defaultProps = {
 
 export default styled(Button)`
   font-size: 16px;
-  height: 100%;
+  height: ${({ height }) => height || "100%"};
   text-align: ${({ align }) => align || "center"};
   transition: all 0.2s ease-in-out;
   text-decoration: none;

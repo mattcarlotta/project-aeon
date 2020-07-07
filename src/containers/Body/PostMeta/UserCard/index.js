@@ -20,7 +20,7 @@ const UserCard = ({ avatar, description, username, reputation, website }) => (
           blue
           margin="2px 0"
           stopPropagation
-          href="/u/[...slug]"
+          href="/u/[id]"
           asHref={`/u/${username}`}
         >
           <div css="font-size: 16px;">{username}</div>
