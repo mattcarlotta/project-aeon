@@ -45,10 +45,11 @@ const Profile = () => {
   );
 
   useEffect(() => {
-    Router.push(`/profile?tab=${showTab}`, undefined, {
-      shallow: true
-    });
-  }, [showTab]);
+    if (showTab !== tab)
+      Router.push(`/profile?tab=${showTab}`, undefined, {
+        shallow: true
+      });
+  }, [showTab, tab]);
 
   return (
     <>
